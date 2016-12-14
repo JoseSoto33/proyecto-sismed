@@ -72,7 +72,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 	<div id="body">
 		<p>La página que estas viendo es generada dinámicamente por CodeIgniter.</p>
-		<p>La página que estas viendo es generada dinámicamente por CodeIgniter.</p>
+		<p>Si ves esto, estás en una rama diferente a la master.</p>
 
 		<p>Si quisieras editar esta página la hallarás localizada en:</p>
 		<code>application/views/welcome_message.php</code>
