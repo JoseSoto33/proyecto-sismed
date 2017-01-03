@@ -15,18 +15,18 @@
 					<div class="cintillo">					
 						<div class="container">
 							<figure class="pull-left">
-								<!--<img src="<?php echo base_url(); ?>assets/img/Logo-Min-Salud-2009.jpg">-->
+								<img src="<?php echo base_url(); ?>assets/img/ministerio-logo.png">
 							</figure>
 							<figure class="pull-right">
-								<!--<img src="<?php echo base_url(); ?>assets/img/logo-juventud_0.png">-->
+								<!--<img src="<?php echo base_url(); ?>assets/img/victorioso-logo.png">-->
 							</figure>
 						</div>
 					</div>
 					<div class="container">
-						<a class="navbar-brand" href="#">Programa Ampliado de Inmunizaciones</a>
+						<a class="navbar-brand" href="#">Unidad de Servicio Médico Integral</a>
 						<form id="form-login" class="navbar-form navbar-right" method="post" action="<?php echo base_url(); ?>login/userLogin" >
 							<div class="form-group">
-								<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">
+								<!--<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">-->
 							</div>
 					        <div class="form-group">
 					          	<input type="text" class="form-control" name="cedula" placeholder="Cédula" requered>
