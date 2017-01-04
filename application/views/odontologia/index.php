@@ -15,13 +15,13 @@
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
 					    <div class="item active">
-				        	<label class="item-text" id="text1">La medicina, es la ciencia de la humanidad</label>				      	
+				        	<label class="item-text" id="text1">Los exámenes dentales son el eje principal de la odontología preventiva</label>				      	
 					    </div>
 					    <div class="item">
-				        	<label class="item-text" id="text2">La buena medicina es aquella que mejora el cuerpo y no asalta el bolsillo</label>				      	
+				        	<label class="item-text" id="text2">Ante el mantenimiento de la salud dental, la prevención es el mejor y el más eficaz de los métodos</label>				      	
 					    </div>
 					    <div class="item">
-				        	<label class="item-text" id="text3">El médico es simplemente una persona que recibe una nueva vida que Dios manda</label>				      	
+				        	<label class="item-text" id="text3">La odontología se lleva a cabo desde la ciencia y se ejecuta desde el arte</label>				      	
 					    </div>
 					</div>
 					

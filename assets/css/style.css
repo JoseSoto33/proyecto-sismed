@@ -236,7 +236,7 @@ img.countdown{
 #seccion3{
 	min-height: 400px;
 	padding: 60px 0 !important;
-	/*background: linear-gradient(to bottom, #EEF7F2 17%, #FFFFFF 83%);	*/
+	background: linear-gradient(to bottom, #e7e7e7 17%, #FFFFFF 83%);	*/
 }
 
 #seccion3 label.titulo{

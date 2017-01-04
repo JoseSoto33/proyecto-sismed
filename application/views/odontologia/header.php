@@ -34,7 +34,7 @@
 				<div class="row">
 					
 					<div class="col-xs-12 col-sm-4 hidden-xs">
-						<label class="nav-titulo"><span class="glyphicon glyphicon-asterisk"></span> Unidad de Medicina</label>
+						<label class="nav-titulo"><span class="glyphicon glyphicon-asterisk"></span> Unidad de Odontología</label>
 					</div>
 					<div class="col-xs-12 col-sm-8">
 						<nav class="navbar navbar-default" id="nav-menu-principal">
@@ -43,7 +43,7 @@
 							    <div class="navbar-header">
 							    	<div class="col-xs-8">
 							    		<label class="nav-titulo visible-xs-block">
-							    			<span class="glyphicon glyphicon-asterisk"></span> Unidad de Medicina
+							    			<span class="glyphicon glyphicon-asterisk"></span> Unidad de Odontología
 							    		</label>
 							    	</div>
 								    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#principal-menu" aria-expanded="false">
@@ -64,23 +64,10 @@
 								        	<a href="#">Historias clínicas</a>
 								        </li>
 								        <li>
-								        	<a href="#">Patologías</a>
+								        	<a href="#">Tratamientos</a>
 								        </li>
-								        <li class="dropdown" id="consultas">
-								          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Inventario <span class="caret"></span></a>
-									        <ul class="dropdown-menu">									            
-									            <li>
-									            	<a href="#">
-									            		<span class="glyphicon glyphicon-arrow-right"></span> Inventario de Medicamentos
-									            	</a>
-									            </li>
-									            <li role="separator" class="divider"></li>									            
-									            <li>
-									            	<a href="#">
-									            		<span class="glyphicon glyphicon-arrow-right"></span> Inventario de Materiales
-									            	</a>
-									            </li>				            
-									        </ul>
+								        <li>
+								        	<a href="#">Tratamientos</a>
 								        </li>
 								        <li class="dropdown" id="reportes">
 								          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>

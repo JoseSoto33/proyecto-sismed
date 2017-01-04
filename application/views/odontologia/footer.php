@@ -1,5 +1,4 @@
-
-		<div id="footer">
+<div id="footer">
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
@@ -51,9 +50,9 @@
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						<label class="footer-title">Navegación</label>
-						<a href="<?php echo base_url(); ?>odontologia" class="footer-nav-link">Odontología</a>
+						<a href="<?php echo base_url(); ?>odontologia" class="footer-nav-link">Inicio</a>
 						<a href="#" class="footer-nav-link">Historias clínicas</a>
-						<a href="#" class="footer-nav-link">Patologías</a>
+						<a href="#" class="footer-nav-link">Tratamientos</a>
 						<a href="#" class="footer-nav-link">Inventario</a>
 						<a href="#" class="footer-nav-link">Reportes</a>
 					</div>
