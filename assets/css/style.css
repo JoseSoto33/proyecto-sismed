@@ -190,7 +190,7 @@ img.countdown{
 	color: #ffffff;
 	text-shadow: 3px 3px 6px #333333;
 }	
-
+/*
 #img-carousel .carousel-inner .item #text1{
 	width: 100%;
 	float: right;
@@ -214,10 +214,12 @@ img.countdown{
 	text-align: left;
 	top: 80px;
 	left: 10%;
-}
-
+}*/
 #img-carousel > .carousel-inner > .item{
-	height: 450px;
+	height: 450px;		
+}
+/*
+#img-carousel > .carousel-inner > .item{
 	background: url("../img/medicina/healthcaresub.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;	
 }
@@ -228,4 +230,225 @@ img.countdown{
 #img-carousel > .carousel-inner > .item:last-child{
 	background: url("../img/medicina/fondo3.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;
+}*/
+
+/*----------SECCION 3----------*/
+#seccion3{
+	min-height: 400px;
+	padding: 60px 0 !important;
+	/*background: linear-gradient(to bottom, #EEF7F2 17%, #FFFFFF 83%);	*/
+}
+
+#seccion3 label.titulo{
+	width: 100%;
+	float: left;
+	position: relative;
+	font-size: 35px;
+	font-family: oswaldlight;
+	font-weight: lighter;
+	color: #333333;
+}
+
+#seccion3 p.parrafo{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 10px 0px;
+	text-align: justify;
+	font-size: 15px;
+	font-family: oswaldlight;
+	font-weight: lighter;
+	color: #333333;
+}
+
+.sub-cabecera{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 20px 10px;
+	background: #333333;
+}
+
+.sub-cabecera label{
+	width: 100%;
+	float: left;
+	position: relative;
+	text-align: center;
+	font-size: 25px;
+	font-family: oswaldlight;
+	font-weight: lighter;
+	color: #ffffff;
+}
+
+#seccion3 #contenido{
+	border-left: 1px solid #333333;
+	border-right: 1px solid #333333;
+}
+
+#contenido .info-contenido{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+#contenido .info-contenido .circle{
+	width: 40px;
+	height: 40px;
+	float: left;
+	position: relative;
+	padding: 10px;
+	background: #333333;
+	color: #ffffff;
+	font-size: 18px;
+	font-weight: bold;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+}
+
+#contenido .info-contenido .info-titulo{
+	float: left;
+	position: relative;
+	padding: 0px 10px;
+	font-size: 25px;
+	font-family: oswaldlight;
+	font-weight: lighter;
+	color: #333333;
+}
+
+#contenido .info-contenido .info-parrafo{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 15px 0px;
+	text-align: justify;
+	font-size: 15px;
+	font-family: oswaldlight;
+	font-weight: lighter;
+}
+
+
+.op-list{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.op-list .list-group{
+	box-shadow: none !important;
+}
+
+.op-list .list-group .list-group-item{
+	border: 1px solid #333333;
+	background: #EEF7F2;
+	color: #00A951;
+	font-size: 18px;
+	font-family: oswaldregular;
+	font-weight: lighter;
+}
+.op-list .list-group .list-group-item span{
+	float: right;
+	font-weight: bold;
+}
+.op-list .list-group .list-group-item:focus,
+.op-list .list-group .list-group-item:hover{
+	background: #DCEFE5;
+}
+/*----------FOOTER----------*/
+#footer{
+	min-height: 250px;
+	padding: 20px;
+	background: #e7e7e7;
+}
+
+#footer #contenido{
+	border-left: 1px solid #333333;
+	border-right: 1px solid #333333;
+}
+
+#footer .div-evento{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 10px 0px;
+}
+
+#footer .div-evento .glyphicon{
+	color: #333333;
+	font-size: 15px;
+}
+
+#footer .div-evento .fecha-evento{
+	float: left;
+	position: relative;
+	text-decoration: none;
+	color: #777777;
+	font-size: 15px;
+	font-family: oswaldregular;
+	font-weight: lighter;
+}
+
+#footer .div-evento .fecha-evento:hover,
+#footer .div-evento .fecha-evento:focus{
+	color: #333333;
+}
+
+#footer .div-evento .desc-evento{
+	float: left;
+	position: relative;
+	text-decoration: none;
+	color: #333333;
+	font-size: 15px;
+	font-family: oswaldregular;
+	font-weight: lighter;
+}
+
+#footer .div-evento .desc-evento:hover,
+#footer .div-evento .desc-evento:focus{
+	color: #777777;
+}
+
+#footer .div-evento .desc-evento p{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 10px 0px;
+	text-align: justify;
+}
+
+#footer .footer-title{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 10px 5px;
+	color: #333333;
+	font-size: 22px;
+	font-family: oswaldregular;
+	font-weight: lighter;
+}
+
+#footer .footer-nav-link{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 10px 5px;
+	text-decoration: none;
+	color: #333333;
+}
+#footer .footer-nav-link:hover,
+#footer .footer-nav-link:focus{	
+	color: #333333;
+}
+/*----------FOOTER 2----------*/
+#footer2{
+	background: #333333;
+}
+
+#footer2 label{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 10px;
+	color: #ffffff;
+	text-align: center;
+	font-size: 18px;
+	font-family: oswaldregular;
 }
