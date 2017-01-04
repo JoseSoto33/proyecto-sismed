@@ -13,12 +13,12 @@
 						<h2>¡Bienvenido!</h2>		
 						<p>La Medicina debe aspirar a ser honorable y dirigir su propia vida profesional; ser moderada y prudente; ser asequible y económicamente sostenible; ser justa y equitativa; y a respetar las opciones y la dignidad de las personas. Los valores elementales de la Medicina contribuyen a preservar su integridad frente a las presiones políticas y sociales que defienden unos fines ajenos o anacrónicos.</p>
 					</div>
-					<!--<div class="col-md-4">
-						<?php if($cont === 0){ ?>							
+					<div class="col-md-4">
+						<?php //if($cont === 0){ ?>							
 						<input type="hidden" name="url" id="base_url" value="<?php echo base_url(); ?>">
 						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Regístrate</button>
-						<?php } ?>
-					</div>-->
+						<?php //} ?>
+					</div>
 				</div>
 			</div>
 		</div>
