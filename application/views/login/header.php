@@ -15,10 +15,17 @@
 					<div class="cintillo">					
 						<div class="container">
 							<figure class="pull-left">
-								<img src="<?php echo base_url(); ?>assets/img/ministerio-logo.png">
+								<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/ministerio-logo.png">
 							</figure>
 							<figure class="pull-right">
-								<!--<img src="<?php echo base_url(); ?>assets/img/victorioso-logo.png">-->
+								<div class="row">
+									<div class="col-xs-6">
+										<img src="<?php echo base_url(); ?>assets/img/victorioso-logo.png">
+									</div>
+									<div class="col-xs-6">
+										<img src="<?php echo base_url(); ?>assets/img/iut-logo3.png">
+									</div>
+								</div>									
 							</figure>
 						</div>
 					</div>
@@ -26,7 +33,7 @@
 						<a class="navbar-brand" href="#">Unidad de Servicio Médico Integral</a>
 						<form id="form-login" class="navbar-form navbar-right" method="post" action="<?php echo base_url(); ?>login/userLogin" >
 							<div class="form-group">
-								<!--<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">-->
+								<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">
 							</div>
 					        <div class="form-group">
 					          	<input type="text" class="form-control" name="cedula" placeholder="Cédula" requered>
