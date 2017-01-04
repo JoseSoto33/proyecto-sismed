@@ -32,8 +32,11 @@ header{
 	max-width: 1200px !important;
 }
 
-.navbar-default {
+#navbar-login{	
 	background-color: #4682B4;
+}
+
+.navbar-default {
 	/*background: transparent;*/
     border: none;
 }
@@ -113,4 +116,116 @@ img.countdown{
 .fondo-opaco button{
 	display: table;
 	margin: 30px auto;
+}
+
+/*=============================PANTALLA PRINCIPAL=============================*/
+
+#head,
+#seccion1,
+#seccion2,
+#seccion3,
+#footer,
+#footer2{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 0px 20px;
+}
+
+/*Cabecera*/
+
+#seccion1{
+	min-height: 40px;
+}
+
+#seccion1 label.nav-titulo{
+	text-align: right;
+	padding: 5px;
+	font-size: 25px;
+	font-family: oswaldregular;
+}
+
+#nav-menu-principal{
+	margin: 0px;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+.divider{
+	margin: 2px 0px !important;
+	border: 1px solid !important;
+}
+
+
+/*----------SECCION 2----------*/
+
+#seccion2{
+	padding: 0 !important;
+	min-height: 450px;
+	background: transparent;
+}
+
+#img-carousel{
+	width: 100%;
+	min-height: 450px;
+}
+
+#img-carousel .carousel-control{
+	background: transparent !important;
+}
+
+.carousel-caption{
+	font-family: oswaldregular;
+	font-size: 40px;
+	color: #F8FCFA;
+}
+
+#img-carousel .carousel-inner .item .item-text{	
+	position: absolute;
+	padding: 20px;
+	font-size: 40px;
+	font-family: oswaldlight;
+	font-weight: lighter;
+	color: #ffffff;
+	text-shadow: 3px 3px 6px #333333;
+}	
+
+#img-carousel .carousel-inner .item #text1{
+	width: 100%;
+	float: right;
+	text-align: right;	
+	bottom: 60px;
+}
+
+#img-carousel .carousel-inner .item #text2{
+	width: 100%;
+	max-width: 700px;
+	float: right;
+	text-align: right;
+	top: 80px;
+	left: 30%;
+	right: 30%;
+}
+
+#img-carousel .carousel-inner .item #text3{
+	width: 100%;
+	max-width: 700px;
+	text-align: left;
+	top: 80px;
+	left: 10%;
+}
+
+#img-carousel > .carousel-inner > .item{
+	height: 400px;
+	background: url("../img/medicina/healthcaresub.jpg")  no-repeat scroll center center;
+	background-size: 100% auto;	
+}
+#img-carousel > .carousel-inner > .item:first-child{
+	background: url("../img/medicina/fondo2.jpg")  no-repeat scroll center center;
+	background-size: 100% auto;
+}
+#img-carousel > .carousel-inner > .item:last-child{
+	background: url("../img/medicina/fondo3.jpg")  no-repeat scroll center center;
+	background-size: 100% auto;
 }

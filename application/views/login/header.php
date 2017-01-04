@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Sanidad Login</title>
+		<title>Login</title>
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
 		<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.3.min.js"></script>
@@ -11,7 +11,7 @@
 	<body>
 		<div id="contenedor">
 			<header>
-				<nav class="navbar navbar-default navbar-fixed-top">
+				<nav id="navbar-login" class="navbar navbar-default navbar-fixed-top">
 					<div class="cintillo">					
 						<div class="container">
 							<figure class="pull-left">
