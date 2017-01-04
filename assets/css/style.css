@@ -217,7 +217,7 @@ img.countdown{
 }
 
 #img-carousel > .carousel-inner > .item{
-	height: 400px;
+	height: 450px;
 	background: url("../img/medicina/healthcaresub.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;	
 }
