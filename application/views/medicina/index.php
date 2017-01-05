@@ -1,9 +1,9 @@
 <?php include('header.php') ?>
 
 <div id="seccion2">
-	<div class="container">	
+	<!--<div class="container">	-->
 		<div class="row">
-			<div class="col-xs-12">
+			<!--<div class="col-xs-12">-->
 				<div id="img-carousel" class="carousel slide" data-ride="carousel">
 	  				
 	  				<!-- Indicators -->
@@ -26,9 +26,9 @@
 					</div>
 					
 				</div>
-			</div>
+			<!--</div>-->
 		</div>
-	</div>
+	<!--</div>-->
 </div>
 <div id="seccion3">
 	<div class="container">	

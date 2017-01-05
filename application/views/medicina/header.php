@@ -7,6 +7,7 @@
 
     	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style-med.css">
 		<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.3.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 	</head>
@@ -14,7 +15,7 @@
 		<div class="cintillo">					
 			<div class="container">
 				<figure class="pull-left">
-					<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/ministerio-logo.png">
+					<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/gbv-logo.png">
 				</figure>
 				<figure class="pull-right">
 					<div class="row">
@@ -37,7 +38,7 @@
 						<label class="nav-titulo"><span class="glyphicon glyphicon-asterisk"></span> Unidad de Medicina</label>
 					</div>
 					<div class="col-xs-12 col-sm-8">
-						<nav class="navbar navbar-default" id="nav-menu-principal">
+						<nav class="navbar navbar-default navbar-right" id="nav-menu-principal">
 						  	<div class="container-fluid">
 							    <!-- Brand and toggle get grouped for better mobile display -->
 							    <div class="navbar-header">

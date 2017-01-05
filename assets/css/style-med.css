@@ -1,0 +1,140 @@
+/*=============================General=============================*/
+
+hr.divisor-line{
+	border-color: #009045 !important;	
+}
+
+hr.form-divisor-line{
+	border-color: #CCCCCC !important;
+}
+/*=============================PANTALLA PRINCIPAL=============================*/
+/*Cabecera*/
+
+#seccion1{
+	background: #009045;
+}
+
+#seccion1 label.nav-titulo{
+	color: #ffffff;
+}
+
+.divider{
+	border: 1px solid #00A04D !important;
+}
+
+#nav-menu-principal #principal-menu ul li a{
+	color: #ffffff;
+}
+#principal-menu > ul > li.dropdown > .dropdown-menu{
+	background: #F8FCFA;	
+	border: 1px solid #00A04D;
+}
+#principal-menu > ul > li.dropdown > .dropdown-menu > li > a{
+	font-size: 16px;
+	font-family: oswaldlight;
+	color: #00A04D !important;
+}
+
+#principal-menu > ul > li:hover > a,
+#principal-menu > ul > li:active > a,
+#principal-menu > ul > li.active > a,
+#principal-menu > ul > li.open > a,
+#principal-menu > ul > li.dropdown > .dropdown-menu > li:hover > a,
+#principal-menu > ul > li.dropdown > .dropdown-menu > li:active > a,
+#principal-menu > ul > li.dropdown > .dropdown-menu > li.active > a{
+	background: #00A04D;
+	color: #ffffff !important;
+}
+
+/*----------SECCION 2----------*/
+
+#img-carousel .carousel-inner .item #text1{
+	width: 100%;
+	float: right;
+	text-align: right;	
+	bottom: 60px;
+}
+
+#img-carousel .carousel-inner .item #text2{
+	width: 100%;
+	max-width: 700px;
+	float: right;
+	text-align: right;
+	top: 80px;
+	left: 30%;
+	right: 30%;
+}
+
+#img-carousel .carousel-inner .item #text3{
+	width: 100%;
+	max-width: 700px;
+	text-align: left;
+	top: 80px;
+	left: 10%;
+}
+
+#img-carousel > .carousel-inner > .item{
+	background: url("../img/medicina/healthcaresub.jpg")  no-repeat scroll center center;
+	background-size: 100% auto;	
+}
+#img-carousel > .carousel-inner > .item:first-child{
+	background: url("../img/medicina/fondo2.jpg")  no-repeat scroll center center;
+	background-size: 100% auto;
+}
+#img-carousel > .carousel-inner > .item:last-child{
+	background: url("../img/medicina/fondo3.jpg")  no-repeat scroll center center;
+	background-size: 100% auto;
+}
+
+/*----------SECCION 3----------*/
+
+#seccion3{
+	background: linear-gradient(to bottom, #EEF7F2 17%, #FFFFFF 83%) !important;	
+}
+
+#seccion3 p.parrafo{
+	color: #009045 !important;
+}
+
+.sub-cabecera{
+	margin-top: 20px;
+	background: #009045 !important;
+}
+
+#seccion3 #contenido{
+	border-left: 1px solid #009045 !important;
+	border-right: 1px solid #009045 !important;
+}
+
+#contenido .info-contenido .circle{
+	background: #009045 !important;
+	color: #ffffff !important;
+}
+
+#contenido .info-contenido .info-titulo{
+	color: #009045 !important;
+}
+
+/*----------FOOTER----------*/
+
+#footer{
+	background: #EEF7F2 !important;
+}
+
+#footer #contenido{
+	border-left: 1px solid #009045 !important;
+	border-right: 1px solid #009045 !important;
+}
+
+#footer .div-evento .glyphicon,
+#footer .div-evento .fecha-evento:hover,
+#footer .div-evento .fecha-evento:focus,
+#footer .div-evento .desc-evento,
+#footer .footer-nav-link{
+	color: #009045 !important;
+}
+
+/*----------FOOTER 2----------*/
+#footer2{
+	background: #009045;
+}

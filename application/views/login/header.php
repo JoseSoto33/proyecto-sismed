@@ -15,7 +15,7 @@
 					<div class="cintillo">					
 						<div class="container">
 							<figure class="pull-left">
-								<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/ministerio-logo.png">
+								<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/gbv-logo.png">
 							</figure>
 							<figure class="pull-right">
 								<div class="row">

@@ -1,10 +1,32 @@
+/*=============================General=============================*/
+
+.container{
+	max-width: 1200px !important;
+}
+
+hr.divisor-line{
+	width: 98%;
+	float: left;
+	position: relative;
+	border: 0.5px solid;	
+}
+
+hr.form-divisor-line{
+	width: 98%;
+	float: left;
+	position: relative;
+	margin-left: 1%;
+	margin-right: 1%;
+	border: 1px solid;
+}
 /*=============================LOGIN=============================*/
 /*=====Estilos del Index=====*/
 /*Cabecera*/
 header,
 footer
 .fondo-opaco,
-#inicio-content{
+#inicio-content,
+.cintillo{
 	width: 100%;
 	float: left;
 	position: relative;
@@ -15,21 +37,20 @@ header{
 }
 
 .cintillo{
-	width: 100%;
+	/*width: 100%;*/
+	min-height: 40px;
 	background: #ffffff;
 }
 
 .cintillo .container{
 	border-bottom: 2px #B21624 solid;
+	padding-top: 5px; 
+	padding-bottom: 5px;
 }
 
-.cintillo figure img{
+.cintillo figure.pull-right img{
 	width: auto;
 	height: 46px;
-}
-
-.container{
-	max-width: 1200px !important;
 }
 
 #navbar-login{	
@@ -154,7 +175,7 @@ img.countdown{
 
 .divider{
 	margin: 2px 0px !important;
-	border: 1px solid !important;
+	border: 1px solid;
 }
 
 
@@ -168,7 +189,7 @@ img.countdown{
 
 #img-carousel{
 	width: 100%;
-	min-height: 450px;
+	min-height: 550px;
 }
 
 #img-carousel .carousel-control{
@@ -190,47 +211,10 @@ img.countdown{
 	color: #ffffff;
 	text-shadow: 3px 3px 6px #333333;
 }	
-/*
-#img-carousel .carousel-inner .item #text1{
-	width: 100%;
-	float: right;
-	text-align: right;	
-	bottom: 60px;
-}
 
-#img-carousel .carousel-inner .item #text2{
-	width: 100%;
-	max-width: 700px;
-	float: right;
-	text-align: right;
-	top: 80px;
-	left: 30%;
-	right: 30%;
-}
-
-#img-carousel .carousel-inner .item #text3{
-	width: 100%;
-	max-width: 700px;
-	text-align: left;
-	top: 80px;
-	left: 10%;
-}*/
 #img-carousel > .carousel-inner > .item{
-	height: 450px;		
+	height: 550px;		
 }
-/*
-#img-carousel > .carousel-inner > .item{
-	background: url("../img/medicina/healthcaresub.jpg")  no-repeat scroll center center;
-	background-size: 100% auto;	
-}
-#img-carousel > .carousel-inner > .item:first-child{
-	background: url("../img/medicina/fondo2.jpg")  no-repeat scroll center center;
-	background-size: 100% auto;
-}
-#img-carousel > .carousel-inner > .item:last-child{
-	background: url("../img/medicina/fondo3.jpg")  no-repeat scroll center center;
-	background-size: 100% auto;
-}*/
 
 /*----------SECCION 3----------*/
 #seccion3{
@@ -403,7 +387,7 @@ img.countdown{
 
 #footer .div-evento .desc-evento:hover,
 #footer .div-evento .desc-evento:focus{
-	color: #777777;
+	color: #777777 !important;
 }
 
 #footer .div-evento .desc-evento p{
@@ -435,7 +419,7 @@ img.countdown{
 }
 #footer .footer-nav-link:hover,
 #footer .footer-nav-link:focus{	
-	color: #333333;
+	color: #333333 !important;
 }
 /*----------FOOTER 2----------*/
 #footer2{
