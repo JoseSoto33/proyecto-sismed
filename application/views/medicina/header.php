@@ -121,7 +121,7 @@
 									            </li>
 									            <li role="separator" class="divider"></li>
 									            <li>
-									            	<a href="../../">
+									            	<a href="<?php echo base_url(); ?>">
 									            		<span class="glyphicon glyphicon-off"></span> Salir
 									            	</a>
 									            </li>				            

@@ -7,6 +7,7 @@
 
     	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style-odo.css">
 		<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.3.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 	</head>
@@ -37,7 +38,7 @@
 						<label class="nav-titulo"><span class="glyphicon glyphicon-asterisk"></span> Unidad de Odontología</label>
 					</div>
 					<div class="col-xs-12 col-sm-8">
-						<nav class="navbar navbar-default" id="nav-menu-principal">
+						<nav class="navbar navbar-default navbar-right" id="nav-menu-principal">
 						  	<div class="container-fluid">
 							    <!-- Brand and toggle get grouped for better mobile display -->
 							    <div class="navbar-header">
@@ -67,7 +68,7 @@
 								        	<a href="#">Tratamientos</a>
 								        </li>
 								        <li>
-								        	<a href="#">Tratamientos</a>
+								        	<a href="#">Inventario</a>
 								        </li>
 								        <li class="dropdown" id="reportes">
 								          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
@@ -107,7 +108,7 @@
 									            </li>
 									            <li role="separator" class="divider"></li>
 									            <li>
-									            	<a href="../../">
+									            	<a href="<?php echo base_url(); ?>">
 									            		<span class="glyphicon glyphicon-off"></span> Salir
 									            	</a>
 									            </li>				            
