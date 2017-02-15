@@ -59,7 +59,7 @@
 							    <div class="collapse navbar-collapse" id="principal-menu">
 								    <ul class="nav navbar-nav">
 								        <li>
-								        	<a href="#">Inicio</a>
+								        	<a href="<?php echo base_url(); ?>Admin">Inicio</a>
 								        </li>								        
 								        <li class="dropdown" id="usuarios">
 								          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Usuarios <span class="caret"></span></a>

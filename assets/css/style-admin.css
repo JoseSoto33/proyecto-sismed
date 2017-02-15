@@ -74,15 +74,15 @@ hr.form-divisor-line{
 }
 
 #img-carousel > .carousel-inner > .item{
-	background: url("../img/medicina/healthcaresub.jpg")  no-repeat scroll center center;
+	background: url("../img/administrador/iut1.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;	
 }
 #img-carousel > .carousel-inner > .item:first-child{
-	background: url("../img/medicina/fondo2.jpg")  no-repeat scroll center center;
+	background: url("../img/administrador/iut2.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;
 }
 #img-carousel > .carousel-inner > .item:last-child{
-	background: url("../img/medicina/fondo3.jpg")  no-repeat scroll center center;
+	background: url("../img/administrador/iut3.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;
 }
 
