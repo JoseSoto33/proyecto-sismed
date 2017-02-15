@@ -101,6 +101,19 @@ img.loading{
  #registro-usuario{
  	padding-top: 20px;
  }
+
+.form-horizontal{
+	float: left;
+	position: relative;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	margin-top: 15px;
+	margin-bottom: 25px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
 .form-horizontal .mensaje{
 	width: 100%;	 
 	margin-top: -15px;
