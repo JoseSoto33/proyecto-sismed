@@ -71,7 +71,7 @@
 									            </li>
 									            <li role="separator" class="divider"></li>									            
 									            <li>
-									            	<a href="#">
+									            	<a href="<?php echo base_url(); ?>Usuario/ListarUsuarios">
 									            		<span class="glyphicon glyphicon-arrow-right"></span> Listado de usuarios
 									            	</a>
 									            </li>				            
@@ -84,13 +84,13 @@
 								          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Noticias <span class="caret"></span></a>
 									        <ul class="dropdown-menu">									            
 									            <li>
-									            	<a href="#">
+									            	<a href="<?php echo base_url(); ?>Noticia/AgregarNoticia">
 									            		<span class="glyphicon glyphicon-arrow-right"></span> Agregar noticia
 									            	</a>
 									            </li>
 									            <li role="separator" class="divider"></li>									            
 									            <li>
-									            	<a href="#">
+									            	<a href="<?php echo base_url(); ?>Noticia/ListarNoticias">
 									            		<span class="glyphicon glyphicon-arrow-right"></span> Listado de noticias
 									            	</a>
 									            </li>				            
@@ -100,13 +100,13 @@
 								          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Eventos <span class="caret"></span></a>
 									        <ul class="dropdown-menu">									            
 									            <li>
-									            	<a href="#">
+									            	<a href="<?php echo base_url(); ?>Evento/AgregarEvento">
 									            		<span class="glyphicon glyphicon-arrow-right"></span> Agregar evento
 									            	</a>
 									            </li>
 									            <li role="separator" class="divider"></li>									            
 									            <li>
-									            	<a href="#">
+									            	<a href="<?php echo base_url(); ?>Evento/ListarEventos">
 									            		<span class="glyphicon glyphicon-arrow-right"></span> Listado de eventos
 									            	</a>
 									            </li>				            

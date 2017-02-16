@@ -192,7 +192,8 @@ img.loading{
  	padding-top: 20px;
  }
 
-.form-horizontal{
+.form-horizontal,
+.form-basic{
 	float: left;
 	position: relative;
 	padding-top: 15px;
@@ -204,7 +205,8 @@ img.loading{
 	border-radius: 10px;
 }
 
-.form-horizontal .mensaje{
+.form-horizontal .mensaje,
+.form-basic .mensaje{
 	width: 100%;	 
 	margin-top: -15px;
 	position: absolute;
@@ -223,7 +225,8 @@ img.countdown{
 	border: 1px #56A756 solid;
 }
 
-.form-horizontal .mensaje .alert{
+.form-horizontal .mensaje .alert,
+.form-basic .mensaje .alert{
 	display: table;
 	margin: 0 auto;
 }

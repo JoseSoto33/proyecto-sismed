@@ -9,7 +9,7 @@ hr.divisor-line-2{
 }
 
 hr.form-divisor-line{
-	border-color: #CCCCCC !important;
+	border-color: #0097A7 !important;
 }
 
 .btn-principal{
@@ -86,6 +86,20 @@ hr.form-divisor-line{
 .btn-cancel-2:focus,
 .btn-cancel-2.focus{
 	background: #B2EBF2;
+}
+
+.btn-form{
+	background: #00BCD4;
+	border-color: #00BCD4; 
+	color: #ffffff;
+}
+
+.btn-form:hover,
+.btn-form:focus,
+.btn-form.focus{
+	background: #0097A7;
+	border-color: #0097A7;
+	color: #ffffff;
 }
 
 /*=============================PANTALLA PRINCIPAL=============================*/
@@ -175,8 +189,10 @@ hr.form-divisor-line{
 	background: #0097A7;
 }
 
-.form-horizontal{
-	border: 1px #BDBDBD solid !important;
+.form-horizontal,
+.form-basic{
+	border: 2px #0097A7 solid !important;
+	background: #B2EBF2 !important;
 }
 /*----------SECCION 3----------*/
 

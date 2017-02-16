@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Usuario extends CI_Controller {
+class Noticia extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -18,28 +18,28 @@ class Usuario extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function AgregarUsuario()
+	public function AgregarNoticia()
 	{
-		$this->load->view('admin/FormularioRegistroUsuario');
+		$this->load->view('admin/FormularioRegistroNoticia');
 	}
 
-	public function ModificarUsuario(){
-
-	}
-
-	public function EliminarUsuario(){
+	public function ModificarNoticia(){
 
 	}
 
-	public function PerfilUsuario(){
+	public function EliminarNoticia(){
 
 	}
 
-	public function ListarUsuarios(){
+	public function PerfilNoticia(){
 
 	}
 
-	public function ValidarUsuario(){
+	public function ListarNoticias(){
+
+	}
+
+	public function ValidarNoticia(){
 
 	}
 }
