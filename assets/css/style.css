@@ -1,4 +1,89 @@
+/*============================Tipografías==========================*/
+@font-face {
+    font-family: 'fira_sansbold';
+    src: url('../fonts/firasans-bold-webfont.woff2') format('woff2'),
+         url('../fonts/firasans-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fira_sansbold_italic';
+    src: url('../fonts/firasans-bolditalic-webfont.woff2') format('woff2'),
+         url('../fonts/firasans-bolditalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fira_sansitalic';
+    src: url('../fonts/firasans-italic-webfont.woff2') format('woff2'),
+         url('../fonts/firasans-italic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fira_sanslight';
+    src: url('../fonts/firasans-light-webfont.woff2') format('woff2'),
+         url('../fonts/firasans-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fira_sanslight_italic';
+    src: url('../fonts/firasans-lightitalic-webfont.woff2') format('woff2'),
+         url('../fonts/firasans-lightitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fira_sansmedium';
+    src: url('../fonts/firasans-medium-webfont.woff2') format('woff2'),
+         url('../fonts/firasans-medium-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fira_sansmedium_italic';
+    src: url('../fonts/firasans-mediumitalic-webfont.woff2') format('woff2'),
+         url('../fonts/firasans-mediumitalic-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'fira_sansregular';
+    src: url('../fonts/firasans-regular-webfont.woff2') format('woff2'),
+         url('../fonts/firasans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 /*=============================General=============================*/
+body,
+a,
+p,
+label,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+	font-family: "fira_sansregular" !important;
+}
 
 .container{
 	max-width: 1200px !important;
@@ -9,6 +94,11 @@ hr.divisor-line{
 	float: left;
 	position: relative;
 	border: 0.5px solid;	
+}
+
+hr.divisor-line-2{
+	width: 200px;
+	border: 1px #ffffff solid;	
 }
 
 hr.form-divisor-line{
@@ -158,6 +248,8 @@ img.countdown{
 #seccion1,
 #seccion2,
 #seccion3,
+#div-noticias,
+#div-eventos,
 #footer,
 #footer2{
 	width: 100%;
@@ -233,7 +325,7 @@ img.countdown{
 #seccion3{
 	min-height: 400px;
 	padding: 60px 0 !important;
-	background: linear-gradient(to bottom, #e7e7e7 17%, #FFFFFF 83%);	*/
+	/*background: linear-gradient(to bottom, #e7e7e7 17%, #FFFFFF 83%);	*/
 }
 
 #seccion3 label.titulo{
@@ -279,7 +371,7 @@ img.countdown{
 
 #seccion3 #contenido{
 	border-left: 1px solid #333333;
-	border-right: 1px solid #333333;
+	/*border-right: 1px solid #333333;*/
 }
 
 #contenido .info-contenido{
@@ -288,7 +380,7 @@ img.countdown{
 	position: relative;
 }
 
-#contenido .info-contenido .circle{
+#contenido .circle{
 	width: 40px;
 	height: 40px;
 	float: left;
@@ -303,7 +395,7 @@ img.countdown{
 	border-radius: 30px;
 }
 
-#contenido .info-contenido .info-titulo{
+#contenido .info-titulo{
 	float: left;
 	position: relative;
 	padding: 0px 10px;
@@ -313,7 +405,7 @@ img.countdown{
 	color: #333333;
 }
 
-#contenido .info-contenido .info-parrafo{
+#contenido .info-parrafo{
 	width: 100%;
 	float: left;
 	position: relative;
@@ -349,6 +441,96 @@ img.countdown{
 .op-list .list-group .list-group-item:hover{
 	background: #DCEFE5;
 }
+
+
+/*----------Noticias----------*/
+#div-noticias{
+	/*min-height: 450px;*/
+	padding-top: 30px;
+	padding-bottom: 60px;
+	background: #BDBDBD;
+}
+ 
+#div-noticias .sub-title{
+	margin-bottom: 20px;
+}
+
+#div-noticias .sub-title .glyphicon{
+	color: #ffffff;
+	font-size: 40px;
+}
+
+.item-noticia{
+	width: 100%;
+	min-height: 300px;
+	float: left;
+	position: relative;
+	padding: 15px;
+	background: #ffffff;
+	-webkit-box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
+	box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
+}
+
+.item-noticia figure,
+.item-noticia figure img{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+.item-noticia figure{
+	min-height: 50px;
+}
+
+.item-noticia figure img{
+	height: 150px;
+}
+
+/*----------Eventos----------*/
+#div-eventos{
+	/*min-height: 450px;*/
+	padding-top: 30px;
+	padding-bottom: 60px;
+	background: #ffffff;
+}
+
+#div-eventos .sub-title{
+	margin-bottom: 20px;
+}
+
+#div-eventos .sub-title .glyphicon{
+	color: #212121;
+	font-size: 40px;
+}
+
+.item-evento{
+	width: 100%;
+	min-height: 300px;
+	float: left;
+	position: relative;
+	padding: 15px;
+	background: #ffffff;
+	-webkit-box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
+	-moz-box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
+	box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
+}
+
+.item-evento figure,
+.item-evento figure img{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+.item-evento figure{
+	min-height: 50px;
+}
+
+.item-evento figure img{
+	height: 150px;
+}
+
 /*----------FOOTER----------*/
 #footer{
 	min-height: 250px;
@@ -400,7 +582,7 @@ img.countdown{
 
 #footer .div-evento .desc-evento:hover,
 #footer .div-evento .desc-evento:focus{
-	color: #777777 !important;
+	color: #777777;
 }
 
 #footer .div-evento .desc-evento p{
@@ -432,7 +614,7 @@ img.countdown{
 }
 #footer .footer-nav-link:hover,
 #footer .footer-nav-link:focus{	
-	color: #333333 !important;
+	color: #333333;
 }
 /*----------FOOTER 2----------*/
 #footer2{

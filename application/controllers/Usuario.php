@@ -20,6 +20,6 @@ class Usuario extends CI_Controller {
 	 */
 	public function AgregarUsuario()
 	{
-		$this->load->view('usuario/FormularioRegistroUsuario');
+		$this->load->view('admin/FormularioRegistroUsuario');
 	}
 }
