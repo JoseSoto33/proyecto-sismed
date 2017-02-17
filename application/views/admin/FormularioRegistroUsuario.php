@@ -7,7 +7,7 @@
 				<h1>Agregar nuevo usuario</h1>
 			</div>
 			<div class="col-sm-12">
-				<form id="registro-usuario" class="form-horizontal" action="<?php echo base_url(); ?>Usuario/AgregarUsuario">
+				<form id="registro-usuario" class="form-horizontal form-basic" action="<?php echo base_url(); ?>Usuario/AgregarUsuario">
 					<div class="col-sm-12">
 						<h2>Datos personales</h2>
 					</div>
@@ -70,7 +70,7 @@
 								<div class="form-group">
 									<label for="fecha_nacimiento" class="col-sm-4 control-label">Fecha de nacimiento</label>
 								    <div class="col-sm-8">
-								      <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="">
+								      <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d');?>">
 								    </div>
 								</div>						
 							</div>
@@ -147,7 +147,8 @@
 								<div class="form-group">
 									<label for="especialidad" class="col-sm-4 control-label">Especialidad</label>
 									<div class="col-sm-8">								
-										<select class="form-control" id="especialidad" name="especialidad">
+										<select class="form-control" id="especialidad" name="especialidad" data-placeholder="Seleccione una especialidad...">
+											<option></option>
 											<option value="Administrador">Administrador</option>
 											<option value="Medicina">Medicina</option>
 											<option value="Odontología">Odontología</option>
@@ -185,7 +186,8 @@
 								<div class="form-group">
 									<label for="tipo-usuario" class="col-sm-4 control-label">Tipo de usuario</label>
 									<div class="col-sm-8">								
-										<select class="form-control" id="tipo_usuario" name="tipo_usuario">
+										<select class="form-control" id="tipo_usuario" name="tipo_usuario" data-placeholder="Seleccione una opción...">
+											<option></option>
 											<option value="Administrador">Administrador</option>
 											<option value="Doctor">Doctor</option>
 											<option value="Enfermero">Enfermero</option>
@@ -201,7 +203,8 @@
 								<div class="form-group">
 									<label for="grado" class="col-sm-4 control-label">Grado de instrucción</label>
 									<div class="col-sm-8">								
-										<select class="form-control" id="grado_instruccion" name="grado_instruccion">
+										<select class="form-control" id="grado_instruccion" name="grado_instruccion" data-placeholder="Seleccione un título...">
+											<option></option>
 											<option value="Administrador">Bachillerato</option>
 											<option value="Medicina">TSU</option>
 											<option value="Odontología">Ingeniería</option>
@@ -225,5 +228,38 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		var nav = navigator.userAgent.toLowerCase(); //La variable nav almacenará la información del navegador del usuario
+
+	    if(nav.indexOf("firefox") != -1){   //En caso de que el usuario este usando el navegador MozillaFirefox
+	        
+	        $("#fecha_nacimiento").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
+	    }
+
+	    $("#telef_personal").mask("(9999) 999-99-99");
+	    $("#telef_emergencia").mask("(9999) 999-99-99");
+
+	    $("#especialidad").chosen({
+	    		no_results_text: "Sin resultados por:",
+	    		allow_single_deselect: true
+	    	});
+
+	    $("#tipo_usuario").chosen({
+	    		no_results_text: "Sin resultados por:",
+	    		allow_single_deselect: true
+	    	});
+
+
+	    $("#grado_instruccion").chosen({
+	    		no_results_text: "Sin resultados por:",
+	    		allow_single_deselect: true
+	    	});
+
+	});
+</script>
 
 <?php include('footer.php') ?>
