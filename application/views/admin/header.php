@@ -6,6 +6,8 @@
     	<title>SISMED</title>
 
     	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/chosen.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style-admin.css">
 		<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.3.min.js"></script>
@@ -78,7 +80,7 @@
 									        </ul>
 								        </li>
 								        <li>
-								        	<a href="#">Sesiones</a>
+								        	<a href="<?php echo base_url(); ?>Sesion/ListarSesiones">Sesiones</a>
 								        </li>								        
 								        <li class="dropdown" id="noticias">
 								          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Noticias <span class="caret"></span></a>

@@ -23,23 +23,28 @@ class Usuario extends CI_Controller {
 		$this->load->view('admin/FormularioRegistroUsuario');
 	}
 
-	public function ModificarUsuario(){
+	public function ModificarUsuario()
+	{
 
 	}
 
-	public function EliminarUsuario(){
+	public function EliminarUsuario()
+	{
 
 	}
 
-	public function PerfilUsuario(){
+	public function PerfilUsuario()
+	{
 
 	}
 
-	public function ListarUsuarios(){
-
+	public function ListarUsuarios()
+	{
+		$this->load->view('admin/ListarUsuarios');
 	}
 
-	public function ValidarUsuario(){
+	public function ValidarUsuario()
+	{
 
 	}
 }

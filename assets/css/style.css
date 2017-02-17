@@ -192,7 +192,6 @@ img.loading{
  	padding-top: 20px;
  }
 
-.form-horizontal,
 .form-basic{
 	float: left;
 	position: relative;
@@ -211,7 +210,23 @@ img.loading{
 	margin-top: -15px;
 	position: absolute;
 	background: transparent;
+	display: block;
+}
+
+figure.load-content{
+	width: 35px;
+	min-height: 35px;
+	position: absolute;
+	margin: 0 5px;
+	left: 160px;
+	top: 0;
+}
+img.loading{
 	display: none;
+	width: 33px;
+	height: 33px;
+	float: right;
+	position: relative;
 }
 
 img.countdown{
@@ -229,6 +244,18 @@ img.countdown{
 .form-basic .mensaje .alert{
 	display: table;
 	margin: 0 auto;
+}
+
+span.red,
+span.red2{	
+	color: #FF0505;
+}
+
+span.red{
+	position: absolute;
+	margin-left: -10px;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 .fondo-opaco h2,
@@ -322,6 +349,10 @@ img.countdown{
 
 #img-carousel > .carousel-inner > .item{
 	height: 550px;		
+}
+
+.table-buttons{
+	margin: 15px 0px;
 }
 
 /*----------SECCION 3----------*/

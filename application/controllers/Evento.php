@@ -23,23 +23,28 @@ class Evento extends CI_Controller {
 		$this->load->view('admin/FormularioRegistroEvento');
 	}
 
-	public function ModificarEvento(){
+	public function ModificarEvento()
+	{
 
 	}
 
-	public function EliminarEvento(){
+	public function EliminarEvento()
+	{
 
 	}
 
-	public function PerfilEvento(){
+	public function PerfilEvento()
+	{
 
 	}
 
-	public function ListarEventos(){
-
+	public function ListarEventos()
+	{
+		$this->load->view('admin/ListarEventos');
 	}
 
-	public function ValidarEvento(){
+	public function ValidarEvento()
+	{
 
 	}
 }

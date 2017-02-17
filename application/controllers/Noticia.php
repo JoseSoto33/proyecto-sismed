@@ -23,23 +23,28 @@ class Noticia extends CI_Controller {
 		$this->load->view('admin/FormularioRegistroNoticia');
 	}
 
-	public function ModificarNoticia(){
+	public function ModificarNoticia()
+	{
 
 	}
 
-	public function EliminarNoticia(){
+	public function EliminarNoticia()
+	{
 
 	}
 
-	public function PerfilNoticia(){
+	public function PerfilNoticia()
+	{
 
 	}
 
-	public function ListarNoticias(){
-
+	public function ListarNoticias()
+	{
+		$this->load->view('admin/ListarNoticias');
 	}
 
-	public function ValidarNoticia(){
+	public function ValidarNoticia()
+	{
 
 	}
 }

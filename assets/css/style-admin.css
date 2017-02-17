@@ -189,10 +189,13 @@ hr.form-divisor-line{
 	background: #0097A7;
 }
 
-.form-horizontal,
 .form-basic{
 	border: 2px #0097A7 solid !important;
 	background: #B2EBF2 !important;
+}
+
+.paginate_button.active a{
+	background: #0097A7 !important;
 }
 /*----------SECCION 3----------*/
 
