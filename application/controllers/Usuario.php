@@ -18,9 +18,44 @@ class Usuario extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	
+	public function __construct()
+    {
+            parent::__construct();
+
+            /*Esto es para validar que el usuario inició sesión*/
+           if (!$this->session->userdata('login')){
+           		header('Location: '.base_url());
+           }
+           /*Esto es para validar que el usuario es Administrador*/
+           if ($this->session->userdata('tipo_usuario') == 2){
+           		header('Location: '.base_url()."Home");
+           }
+           /*Al validar estas dos condiciones en el constructor no hace falta
+           validarlos en cada método*/
+    }
+
 	public function AgregarUsuario()
 	{
-		$this->load->view('admin/FormularioRegistroUsuario');
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			
+			if ($this->UsuarioModel->AgregarUsuario()) {
+				
+				if ($this->input->post("origen") === "login") {
+					
+					header("Location: ".base_url());
+				}else{
+
+				}
+
+			}else{
+
+			}
+
+		}else{
+
+			$this->load->view('admin/FormularioRegistroUsuario');
+		}
 	}
 
 	public function ModificarUsuario()

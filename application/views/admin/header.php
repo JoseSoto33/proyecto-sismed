@@ -140,7 +140,7 @@
 									            </li>
 									            <li role="separator" class="divider"></li>
 									            <li>
-									            	<a href="<?php echo base_url(); ?>">
+									            	<a href="<?php echo base_url(); ?>Sesion/Logout">
 									            		<span class="glyphicon glyphicon-off"></span> Salir
 									            	</a>
 									            </li>				            

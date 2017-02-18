@@ -35,20 +35,20 @@
 					<div class="container">
 						<a class="navbar-brand" href="#">Unidad de Servicio Médico Integral</a>
 						<!--<form id="form-login" class="navbar-form navbar-right" method="post" action="<?php echo base_url(); ?>login/userLogin" >-->
-						<?php echo form_open(base_url()."login/userLogin", $login['form']); ?>
+						<?= form_open(
+									base_url()."Sesion/Login", 
+									'class="navbar-form navbar-right" id="form-login"'
+									); ?>
 							<div class="form-group">
 								<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">
 							</div>
 					        <div class="form-group">
-					          	<!--<input type="text" class="form-control" name="cedula" placeholder="Cédula" requered>-->
-					          	<?= form_input($login['cedula']);?>
+					          	<input type="text" class="form-control" name="cedula" placeholder="Cédula" requered>
 					        </div>
 					        <div class="form-group">
-					          	<!--<input type="password" class="form-control" name="password" placeholder="Password" requered>-->
-					          	<?= form_input($login['password']);?>
+					          	<input type="password" class="form-control" name="password" placeholder="Password" requered>
 					        </div>
-					        <!--<button type="submit" class="btn btn-default">Iniciar sessión</button>-->
-					        <?= form_button($login['submit']); ?>
+					        <button type="submit" class="btn btn-default">Iniciar sessión</button>
 					      <!--</form>-->
 					      <?= form_close(); ?>
 					</div>

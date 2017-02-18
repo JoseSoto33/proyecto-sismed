@@ -39,7 +39,16 @@
 	      	</div>
 	      	<div class="modal-body">	      		
 	      		<!--<form id="form-admin" class="form-horizontal" action="<?php echo base_url(); ?>Usuario/AgregarUsuario">-->
-	      		<?= form_open(base_url()."Usuario/AgregarUsuario", $usaurio['form'], $usaurio['hidden'])); ?>
+	      		<?= form_open(
+	      				base_url()."Usuario/AgregarUsuario",
+	      				'class="form-horizontal" id="form-admin"',
+	      				array(
+	      					"ajax" => "1",
+	      					"especialidad" => "Administrador",
+	      					"tipo_usuario" => "Administrador",
+	      					"origen" => "login"
+	      					)
+	      				); ?>
 	      			<div class="row">
 	      				<div class="col-md-12">
 	        				<div class="mensaje">	
@@ -63,8 +72,7 @@
 								<div class="form-group">
 									<label for="cedula" class="col-sm-5 control-label">Cédula</label>
 								    <div class="col-sm-7">
-								      <!--<input type="text" class="form-control" id="cedula" name="cedula">-->
-								      <?= form_input($usuario['cedula']);?>
+								      <input type="text" class="form-control" id="cedula" name="cedula" minlength="6" maxlength="8" required="required">
 								    </div>
 								</div>
 							</div>
@@ -76,8 +84,7 @@
 								<div class="form-group">
 									<label for="nombre1" class="col-sm-5 control-label">Primer nombre</label>
 								    <div class="col-sm-7">
-								      <!--<input type="text" class="form-control" id="nombre1" name="nombre1" placeholder="">-->
-								      <?= form_input($usuario['cedula']);?>
+								      <input type="text" class="form-control" id="nombre1" name="nombre1" maxlength="30">
 								    </div>
 								</div>						
 							</div>
@@ -85,8 +92,7 @@
 								<div class="form-group">
 									<label for="nombre2" class="col-sm-5 control-label">Segundo nombre</label>
 								    <div class="col-sm-7">
-								      <!--<input type="text" class="form-control" id="nombre2" name="nombre2" placeholder="">-->
-								      <?= form_input($usuario['nombre2']);?>
+								      <input type="text" class="form-control" id="nombre2" name="nombre2" maxlength="30">
 								    </div>
 								</div>
 							</div>
@@ -98,8 +104,7 @@
 								<div class="form-group">
 									<label for="apellido1" class="col-sm-5 control-label">Primer apellido</label>
 								    <div class="col-sm-7">
-								      <!--<input type="text" class="form-control" id="apellido1" name="apellido1" placeholder="">-->
-								      <?= form_input($usuario['apellido1']);?>
+								      <input type="text" class="form-control" id="apellido1" name="apellido1" maxlength="30">
 								    </div>
 								</div>						
 							</div>
@@ -107,8 +112,7 @@
 								<div class="form-group">
 									<label for="apellido2" class="col-sm-5 control-label">Segundo apellido</label>
 								    <div class="col-sm-7">
-								      <!--<input type="text" class="form-control" id="apellido2" name="apellido2" placeholder="">-->
-								      <?= form_input($usuario['apellido2']);?>
+								      <input type="text" class="form-control" id="apellido2" name="apellido2" maxlength="30">
 								    </div>
 								</div>
 							</div>
@@ -121,12 +125,10 @@
 									<label for="sexo" class="col-sm-5 control-label">Sexo</label>
 									<div class="col-sm-7">								
 										<label class="radio-inline">
-										  	<!--<input type="radio" name="sexo" id="sexo1" value="f">-->
-										  	<?= form_radio($usuario['sexo1']);?> Mujer
+										  	<input type="radio" name="sexo" id="sexo1" value="f"> Mujer
 										</label>
 										<label class="radio-inline">
-										  	<!--<input type="radio" name="sexo" id="sexo2" value="m">-->
-										  	<?= form_radio($usuario['sexo2']);?> Hombre
+										  	<input type="radio" name="sexo" id="sexo2" value="m"> Hombre
 										</label>
 									</div>
 								</div>						
@@ -135,8 +137,7 @@
 								<div class="form-group">
 									<label for="fecha_nacimiento" class="col-sm-5 control-label">Fecha de nacimiento</label>
 								    <div class="col-sm-7">
-								      <!--<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d');?>">-->
-								      <?= form_input($usuario['fecha_nacimiento']);?>
+								      <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d');?>" required="required">
 								    </div>
 								</div>						
 							</div>
@@ -148,8 +149,7 @@
 								<div class="form-group">
 									<label for="telef_personal" class="col-sm-5 control-label">Teléfono personal</label>
 								    <div class="col-sm-7">
-								      <!--<input type="text" class="form-control" id="telef_personal" name="telef_personal" placeholder="(0212) 555-44-88">-->
-								      <?= form_input($usuario['telef_personal']);?>
+								      <input type="text" class="form-control" id="telef_personal" name="telef_personal" placeholder="(0212) 555-44-88" minlength="16" maxlength="16" required="required">
 								    </div>
 								</div>							
 							</div>
@@ -157,8 +157,7 @@
 								<div class="form-group">
 									<label for="telef_emergencia" class="col-sm-5 control-label">Teléfono emergencia</label>
 								    <div class="col-sm-7">
-								      <!--<input type="text" class="form-control" id="telef_emergencia" name="telef_emergencia" placeholder="(0212) 555-44-88">-->
-								      <?= form_input($usuario['telef_emergencia']);?>
+								      <input type="text" class="form-control" id="telef_emergencia" name="telef_emergencia" placeholder="(0212) 555-44-88" minlength="16" maxlength="16" required="required">
 								    </div>
 								</div>							
 							</div>
@@ -170,8 +169,7 @@
 								<div class="form-group">
 									<label for="tdireccion" class="col-sm-5 control-label">Dirección</label>
 								    <div class="col-sm-7">
-								      <!--<textarea class="form-control" name="direccion" id="direccion"></textarea>-->
-								      <?= form_textarea($usuario['direccion']);?>
+								      <textarea class="form-control" name="direccion" id="direccion" required="required"></textarea>
 								    </div>
 								</div>						
 							</div>
@@ -179,8 +177,7 @@
 								<div class="form-group">
 									<label for="email" class="col-sm-5 control-label">Correo electrónico</label>
 								    <div class="col-sm-7">
-								      <!--<input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@dominio.com">-->
-								      <?= form_input($usuario['email']);?>
+								      <input type="email" class="form-control" id="email" name="email" placeholder="ejemplo@dominio.com" required="required">
 								    </div>
 								</div>						
 							</div>
@@ -196,24 +193,22 @@
 								<div class="form-group">
 									<label for="username" class="col-sm-5 control-label">Username</label>
 									<div class="col-sm-7">								
-										<!--<input type="text" class="form-control" id="username" name="username">-->
-										<?= form_input($usuario['username']);?>
+										<input type="text" class="form-control" id="username" name="username" minlength="8" maxlength="16" required="required">
 									</div>
 								</div>						
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
-									<label for="especialidad" class="col-sm-5 control-label">Especialidad</label>
+									<label for="grado" class="col-sm-5 control-label">Grado de instrucción</label>
 									<div class="col-sm-7">								
-										<!--<select class="form-control" id="especialidad" name="especialidad" data-placeholder="Seleccione una especialidad...">
+										<select class="form-control" id="grado_instruccion" name="grado_instruccion" data-placeholder="Seleccione un título..." required="required">
 											<option></option>
-											<option value="Administrador">Administrador</option>
-											<option value="Medicina">Medicina</option>
-											<option value="Odontología">Odontología</option>
-											<option value="Laboratorio">Laboratorio</option>
-											<option value="Nutrición">Nutrición</option>
-										</select>-->
-										<?= form_dropdown($usuario['especialidad']['name'],$usuario['especialidad']['options'],$usuario['especialidad']['selected'],$usuario['especialidad']['attributes']);?>
+											<option value="Administrador">Bachillerato</option>
+											<option value="Medicina">TSU</option>
+											<option value="Odontología">Ingeniería</option>
+											<option value="Laboratorio">Licenciatura</option>
+											<option value="Nutrición">Doctorado</option>
+										</select>										
 									</div>
 								</div>						
 							</div>
@@ -225,8 +220,7 @@
 								<div class="form-group">
 									<label for="password1" class="col-sm-5 control-label">Contraseña</label>
 									<div class="col-sm-7">								
-										<!--<input type="password" name="password" class="form-control" id="password1">-->
-										<?= form_input($usuario['password1']);?>
+										<input type="password" name="password" class="form-control" id="password1" minlength="8" maxlength="16" required="required">
 									</div>
 								</div>						
 							</div>
@@ -234,56 +228,18 @@
 								<div class="form-group">
 									<label for="password2" class="col-sm-5 control-label">Confirmar contraseña</label>
 									<div class="col-sm-7">								
-										<!--<input type="password" class="form-control" id="password2" name="password2">-->
-										<?= form_input($usuario['password2']);?>
+										<input type="password" class="form-control" id="password2" name="password2" minlength="8" maxlength="16" required="required">
 									</div>
 								</div>						
 							</div>
 						</div>
-					</div>
-					<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="tipo-usuario" class="col-sm-5 control-label">Tipo de usuario</label>
-									<div class="col-sm-7">								
-										<!--<select class="form-control" id="tipo_usuario" name="tipo_usuario" data-placeholder="Seleccione una opción...">
-											<option></option>
-											<option value="Administrador">Administrador</option>
-											<option value="Doctor">Doctor</option>
-											<option value="Enfermero">Enfermero</option>
-											<option value="Odontólogo">Odontólogo</option>
-											<option value="Bioanalista">Bioanalista</option>
-											<option value="Nutricionista">Nutricionista</option>
-											<option value="Asistente">Asistente</option>
-										</select>-->
-										<?= form_dropdown($usuario['tipo_usuario']['name'],$usuario['tipo_usuario']['options'],$usuario['tipo_usuario']['selected'],$usuario['tipo_usuario']['attributes']);?>
-									</div>
-								</div>						
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="grado" class="col-sm-5 control-label">Grado de instrucción</label>
-									<div class="col-sm-7">								
-										<!--<select class="form-control" id="grado_instruccion" name="grado_instruccion" data-placeholder="Seleccione un título...">
-											<option></option>
-											<option value="Administrador">Bachillerato</option>
-											<option value="Medicina">TSU</option>
-											<option value="Odontología">Ingeniería</option>
-											<option value="Laboratorio">Licenciatura</option>
-											<option value="Nutrición">Doctorado</option>
-										</select>-->
-										<?= form_dropdown($usuario['grado_instruccion']['name'],$usuario['grado_instruccion']['options'],$usuario['grado_instruccion']['selected'],$usuario['grado_instruccion']['attributes']);?>
-									</div>
-								</div>						
-							</div>
-						</div>
-					</div>
+					</div>					
 					<hr class="form-divisor-line">			
-				</form>	
+					<?= form_close(); ?>
+				<!--</form>	-->
 	      	</div>
 	      	<div class="modal-footer">
-				<button type="button" class="btn btn-success">Guardar</button>
+				<button type="submit" class="btn btn-success" form="form-admin">Guardar</button>
 	        	<button type="button" class="btn btn-danger close1" data-dismiss="modal">Cancelar</button>
 	      	</div>
 	    </div>
