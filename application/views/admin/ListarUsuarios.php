@@ -31,18 +31,21 @@
 						<?php 
 							$cont = 1;
 
-							foreach ($usuarios->result_array() as $key => $usuario) {
+							if ($usuarios->num_rows() > 0) {
 								
-								echo "<tr>";
-								echo "<td>".$cont++."</td>";
-								echo "<td>".$usuario["cedula"]."</td>";
-								echo "<td>".$usuario["nombre1"]." ".$usuario["apellido1"]."</td>";
-								echo "<td>".$usuario["especialidad"]."</td>";
-								echo "<td>";
-								echo ($usuario["status"] == 't') ? "Activo":"Inactivo";
-								echo "</td>";
-								echo "<td> </td>";
-								echo "</tr>";
+								foreach ($usuarios->result_array() as $key => $usuario) {
+									
+									echo "<tr>";
+									echo "<td>".$cont++."</td>";
+									echo "<td>".$usuario["cedula"]."</td>";
+									echo "<td>".$usuario["nombre1"]." ".$usuario["apellido1"]."</td>";
+									echo "<td>".$usuario["especialidad"]."</td>";
+									echo "<td>";
+									echo ($usuario["status"] == 't') ? "Activo":"Inactivo";
+									echo "</td>";
+									echo "<td> </td>";
+									echo "</tr>";
+								}
 							}
 						?>
 						

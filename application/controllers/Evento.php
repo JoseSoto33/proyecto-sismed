@@ -64,11 +64,11 @@ class Evento extends CI_Controller {
 
 		$result = $this->EventoModel->ExtraerEvento($condicion);
 
-		if ($result->num_rows() > 0) {
+		///if ($result->num_rows() > 0) {
 			
 			$data["eventos"] = $result;
 			$this->load->view('admin/ListarEventos', $data);
-		}
+		//}
 	}
 
 	public function ValidarEvento()

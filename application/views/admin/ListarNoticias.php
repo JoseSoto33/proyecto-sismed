@@ -29,15 +29,18 @@
 						<?php 
 							$cont = 1;
 
-							foreach ($noticias->result_array() as $key => $noticia) {
+							if ($noticias->num_rows() > 0) {
 								
-								echo "<tr>";
-								echo "<td>".$cont++."</td>";
-								echo "<td>".$noticia["titulo"]."</td>";
-								echo "<td>".$noticia["descripcion"]."</td>";
-								echo "<td><a href=\"".$noticia["url"]."\" target=\"_blank\">".$noticia["url"]."</a></td>";
-								echo "<td> </td>";
-								echo "</tr>";
+								foreach ($noticias->result_array() as $key => $noticia) {
+									
+									echo "<tr>";
+									echo "<td>".$cont++."</td>";
+									echo "<td>".$noticia["titulo"]."</td>";
+									echo "<td>".$noticia["descripcion"]."</td>";
+									echo "<td><a href=\"".$noticia["url"]."\" target=\"_blank\">".$noticia["url"]."</a></td>";
+									echo "<td> </td>";
+									echo "</tr>";
+								}
 							}
 						?>
 					</tbody>

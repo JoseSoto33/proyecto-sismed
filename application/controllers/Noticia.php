@@ -64,11 +64,8 @@ class Noticia extends CI_Controller {
 
 		$result = $this->NoticiaModel->ExtraerNoticia($condicion);
 
-		if ($result->num_rows() > 0) {
-			
-			$data["noticias"] = $result;
-			$this->load->view('admin/ListarNoticias', $data);
-		}
+		$data["noticias"] = $result;
+		$this->load->view('admin/ListarNoticias', $data);		
 	}
 
 	public function ValidarNoticia()

@@ -18,8 +18,7 @@ class SesionModel extends CI_Model {
 
     public function Logout($data = array())
     {
-    	$this->db->set($data["campos"]);
-    	if ( $this->db->update("sesion", $data["where"]) ){
+    	if ( $this->db->update("sesion", $data["campos"], $data["where"]) ){
             return true;
         } else {
             return false;

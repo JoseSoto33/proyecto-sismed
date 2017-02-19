@@ -83,12 +83,10 @@ class Usuario extends CI_Controller {
 		$data = array();
 
 		$result = $this->UsuarioModel->ExtraerUsuario($condicion);
-
-		if ($result->num_rows() > 0) {
-			
-			$data["usuarios"] = $result;
-			$this->load->view('admin/ListarUsuarios', $data);
-		}
+	
+		$data["usuarios"] = $result;
+		$this->load->view('admin/ListarUsuarios', $data);
+		
 	}
 
 	public function ValidarUsuario()

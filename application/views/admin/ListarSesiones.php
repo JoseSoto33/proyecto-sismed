@@ -25,20 +25,7 @@
 						<th> </th>						
 					</tfoot>
 					<tbody>
-						<tr>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td> </td>
-						</tr>
-						<tr>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td> </td>
-						</tr>
+						
 					</tbody>
 				</table>
 			</div>

@@ -20,7 +20,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="fecha_pautada" class="control-label">Fecha de inicio</label>
-						    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" placeholder="" required="required">
+						    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" min="<?php echo date('Y-m-d');?>" placeholder="" required="required">
 						</div>
 					</div>	
 					<div class="col-sm-12">
@@ -48,7 +48,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="fecha_pautada" class="control-label">Fecha de finalización</label>
-						    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" placeholder="" required="required">
+						    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" min="<?php echo date('Y-m-d');?>" placeholder="" required="required">
 						</div>
 					</div>
 					<div class="col-sm-12">
