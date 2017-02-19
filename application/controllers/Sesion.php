@@ -23,93 +23,137 @@ class Sesion extends CI_Controller {
     {
         parent::__construct();
 
-        /*Esto es para validar que el usuario inició sesión*/
-       if ($this->session->userdata('login')){
-       		header('Location: '.base_url()."Home");
-       }
-       /*Al validar estas dos condiciones en el constructor no hace falta
-       validarlos en cada método*/
+        if (!$this->session->has_userdata('login') && ($this->uri->segment(1, 0) != 0 || $this->uri->segment(2, 0) != 0)) {
+        	redirect(base_url());
+        }
+        if ($this->session->has_userdata('login') && $this->session->userdata('login') == true && ($this->uri->segment(1, 0) == 0 || $this->uri->segment(2, 0) == 0)) {
+        	redirect(base_url('Home'));
+        }
     }
 
-	public function Login()
+	public function index()
 	{
-		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-			# code...
-			$condicion = array(
-				"where" => array(
-					"cedula" => $this->input->post("cedula"),
-					"password" => $this->input->post("password")
-					)
+		//if (!$this->session->has_userdata('login')) {
+		
+			if ($_SERVER['REQUEST_METHOD'] == "POST") {
+							
+				$this->form_validation->set_rules(
+				        'cedula', 'Cédula',
+				        array('required','numeric','min_length[6]','max_length[8]'),		        	
+				        array(		                
+				                'min_length'    => 'La %s debe tener al menos 6 caracteres.',
+				                'max_length'    => 'La %s debe tener máximo 8 caracteres.',
+				                'numeric'     	=> 'La %s sólo debe contener números.',
+				                'required'      => 'Debe insertar una %s.'
+				        )
 				);
-			if ($this->UsuarioModel->ValidarUsuario($condicion)) {
-				
-				$usuario = $this->UsuarioModel->ExtraerUsuario($condicion)->row();
 
-				if ($usuario->status === "f") {
-					echo "error 4";
-				}elseif (strcmp($usuario->password,$this->input->post('password'))===0) {
-					
-					$data = array(
-						"id_usuario" => $usuario->id,
-						"fecha_inicio" => date('Y-m-d h:i:s a')
+	            $this->form_validation->set_rules(
+		            	'password', 'Password', 
+		        		array('required','min_length[8]','max_length[16]','alpha_numeric'),	        			
+		                array(
+		                	'required'		=> 'Debe ingresar su %s.',
+		                	'min_length'    => 'El %s debe tener al menos 8 caracteres.',
+			                'max_length'    => 'El %s debe tener máximo 16 caracteres.',
+			                'numeric'     	=> 'El %s debe ser alfanumérico.'
+			                )	                
+	            );
+
+	            if ($this->form_validation->run() == FALSE) {
+	            	
+					$this->load->view('login/index');
+	            }else{
+
+	            	$data = array();
+
+					$condicion = array(
+						"where" => array(
+							"cedula" => $this->input->post("cedula"),
+							"password" => $this->input->post("password")
+							)
 						);
-
-					$id_sesion = $this->SesionModel->Login($data);
-
-					if (!$id_sesion) {
+					if ($this->UsuarioModel->ValidarUsuario($condicion)) {
 						
-						echo "error 3";
-					}else{
+						$usuario = $this->UsuarioModel->ExtraerUsuario($condicion)->row();
 
-						$data = array(
-									'idUsuario' => $usuario->id,
-									'idSesion' => $id_sesion,
-									'username' => $usuario->username,
-									'nombre' => $usuario->nombre1,
-									'apellido' => $usuario->apellido,
-									'login' => true,
-									'tipo_usuario' => $usuario->tipo_usuario
+						if ($usuario->status === "f") {
+
+							$data['mensaje'] = "El usuario ingresado se encuentra inactivo.";
+
+						}elseif (strcmp($usuario->password,$this->input->post('password'))===0) {
+							
+							$data = array(
+								"id_usuario" => $usuario->id,
+								"fecha_inicio" => date('Y-m-d h:i:s a')
 								);
-						$this->session->set_userdata($data);
 
-						header('Location: '.base_url()."Home");
+							$id_sesion = $this->SesionModel->Login($data);
+
+							if (!$id_sesion) {
+								
+								$data['mensaje'] = "Error al intentar iniciar sesión.";
+
+							}else{
+
+								$data = array(
+											'idUsuario' => $usuario->id,
+											'idSesion' => $id_sesion,
+											'username' => $usuario->username,
+											'nombre' => $usuario->nombre1,
+											'apellido' => $usuario->apellido,
+											'login' => true,
+											'tipo_usuario' => $usuario->tipo_usuario
+										);
+								$this->session->set_userdata($data);
+
+								header('Location: '.base_url()."Home");
+							}
+
+						}else{
+
+							$data['mensaje'] = "Contraseña incorrecta.";
+						}
+					}else{
+						$data['mensaje'] = "El usuario no existe... Verifique su cédula y contraseña.";
 					}
 
-				}else{
-
-					echo "error 2";
-				}
+					$this->load->view('login/index', $data);
+	            }
 			}else{
-				echo "error 1";
+				$this->load->view('login/index');
 			}
-		}else{
-			$this->load->view('login/index');
-			echo $this->uri->segment(1);
-		}
+		/*}else{
+			redirect(base_url()."Home");
+		}*/
 	}
 
 	public function Logout()
 	{
-		$data = array(
-			"campos" => array(
-				"fecha_fin" => date('Y-m-d h:i:s a')
-				),
-			"where" => array(
-				"id" => $this->session->userdata('idSesion'),
-				"id_usuario" => $this->session->userdata('idUsuario')
-				)
-			);
+		//if ($this->session->has_userdata('login')) {
+			# code...
+			$data = array(
+				"campos" => array(
+					"fecha_fin" => date('Y-m-d h:i:s a')
+					),
+				"where" => array(
+					"id" => $this->session->userdata('idSesion'),
+					"id_usuario" => $this->session->userdata('idUsuario')
+					)
+				);
 
-		if ($this->SesionModel->Logout($data)) {
-			
-			$data = array('idUsuario','idSesion','username','nombre','apellido','login','tipo_usuario');
-			$this->session->unset_userdata($data);
-			$this->session->sess_destroy();
-			header('Location: '.base_url());
+			if ($this->SesionModel->Logout($data)) {
+				
+				$data = array('idUsuario','idSesion','username','nombre','apellido','login','tipo_usuario');
+				$this->session->unset_userdata($data);
+				$this->session->sess_destroy();
+				header('Location: '.base_url());
 
-		}else{
-			header('Location: '.base_url().'Home');
-		}
+			}else{
+				header('Location: '.base_url().'Home');
+			}
+		/*}else{
+			redirect(base_url());
+		}*/
 	}
 
 	public function ValidarSesion()
@@ -119,6 +163,11 @@ class Sesion extends CI_Controller {
 
 	public function ListarSesiones()
 	{
-		$this->load->view('admin/ListarSesiones');
+		//if ($this->session->has_userdata('login')) {
+			
+			$this->load->view('admin/ListarSesiones');
+		/*}else{
+			redirect(base_url());
+		}*/
 	}
 }

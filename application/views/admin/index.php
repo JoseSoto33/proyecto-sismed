@@ -4,6 +4,16 @@
 	<!--<div class="container">	-->
 		<!--<div class="row">-->
 			<!--<div class="col-xs-12">-->
+			<div class="alert alert-success">				
+				<?= $this->uri->segment(1, 0);?>
+			</div>
+			<div class="alert alert-info">
+				<?= $this->uri->segment(2, 0);?>
+			</div>
+			<div class="alert alert-warning">
+				<?= $this->uri->segment(3, 0);?>				
+			</div>
+
 				<div id="img-carousel" class="carousel slide" data-ride="carousel">
 	  				
 	  				<!-- Indicators -->

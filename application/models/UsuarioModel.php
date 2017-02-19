@@ -80,4 +80,5 @@ class UsuarioModel extends CI_Model {
     		return false;
     	}
     }
+    
 }

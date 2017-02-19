@@ -36,17 +36,17 @@
 						<a class="navbar-brand" href="#">Unidad de Servicio Médico Integral</a>
 						<!--<form id="form-login" class="navbar-form navbar-right" method="post" action="<?php echo base_url(); ?>login/userLogin" >-->
 						<?= form_open(
-									base_url()."Sesion/Login", 
+									base_url(), 
 									'class="navbar-form navbar-right" id="form-login"'
 									); ?>
 							<div class="form-group">
 								<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">
 							</div>
 					        <div class="form-group">
-					          	<input type="text" class="form-control" name="cedula" placeholder="Cédula" requered>
+					          	<input type="text" class="form-control" name="cedula" placeholder="Cédula" minlength="6" maxlength="8" value="<?php echo set_value('cedula'); ?>" requered>
 					        </div>
 					        <div class="form-group">
-					          	<input type="password" class="form-control" name="password" placeholder="Password" requered>
+					          	<input type="password" class="form-control" name="password" placeholder="Password" minlength="8" maxlength="16" value="<?php echo set_value('password'); ?>" requered>
 					        </div>
 					        <button type="submit" class="btn btn-default">Iniciar sessión</button>
 					      <!--</form>-->

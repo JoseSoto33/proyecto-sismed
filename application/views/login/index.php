@@ -3,11 +3,15 @@
 		<div class="fondo-opaco">
 			<div class="container">
 				<div class="row">
-					<div class="col-xs-12">					
-						<div id="mensaje">	
+					<div class="col-xs-12">	
+						<?= validation_errors("<div class=\"alert alert-danger\" role=\"alert\">", "</div>"); ?>				
+						<?php if(isset($mensaje) && !empty($mensaje)) { ?>
 							<div class="alert alert-danger" role="alert">
+								<?= $mensaje; ?>
 							</div>					
-						</div>
+						<?php } ?>
+						
+						
 					</div>
 					<div class="col-md-8">
 						<h2>¡Bienvenido!</h2>		
