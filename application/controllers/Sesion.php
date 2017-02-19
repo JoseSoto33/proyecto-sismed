@@ -27,7 +27,7 @@ class Sesion extends CI_Controller {
         	redirect(base_url());
         }
         if ($this->session->has_userdata('login') && $this->session->userdata('login') == true && ($this->uri->segment(1, 0) == 0 || $this->uri->segment(2, 0) == 0)) {
-        	redirect(base_url('Home'));
+        	redirect(base_url('Home')); 
         }
     }
 
