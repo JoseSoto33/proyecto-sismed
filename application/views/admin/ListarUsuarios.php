@@ -10,7 +10,7 @@
 				<a class="btn btn-success" href="<?php echo base_url(); ?>Usuario/AgregarUsuario"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
 			</div>
 			<div class="col-sm-12 table-responsive">
-				<table class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
+				<table id="lista_usuarios" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<th>Nº</th>
 						<th>Cédula</th>
@@ -28,22 +28,24 @@
 						<th> </th>						
 					</tfoot>
 					<tbody>
-						<tr>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-						</tr>
-						<tr>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-						</tr>
+						<?php 
+							$cont = 1;
+
+							foreach ($usuarios->result_array() as $key => $usuario) {
+								
+								echo "<tr>";
+								echo "<td>".$cont++."</td>";
+								echo "<td>".$usuario["cedula"]."</td>";
+								echo "<td>".$usuario["nombre1"]." ".$usuario["apellido1"]."</td>";
+								echo "<td>".$usuario["especialidad"]."</td>";
+								echo "<td>";
+								echo ($usuario["status"] == 't') ? "Activo":"Inactivo";
+								echo "</td>";
+								echo "<td> </td>";
+								echo "</tr>";
+							}
+						?>
+						
 					</tbody>
 				</table>
 			</div>
@@ -55,7 +57,7 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".table").DataTable( {
+		$("#lista_usuarios").DataTable( {
         "language": {
             	"sProcessing":     "Procesando...",
 				"sLengthMenu":     "Mostrar _MENU_ registros",

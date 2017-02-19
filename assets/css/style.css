@@ -173,7 +173,7 @@ img.loading{
 	margin-top: 90px;*/
 	background: transparent url(../img/sanidad2.jpg) 0 0 scroll no-repeat;
 	background-size: 100%;
-	background-position: center top;
+	background-position: center center;
 }
 .fondo-opaco{
 	/*min-height: 700px;*/

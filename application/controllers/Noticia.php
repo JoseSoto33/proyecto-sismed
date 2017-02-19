@@ -20,7 +20,22 @@ class Noticia extends CI_Controller {
 	 */
 	public function AgregarNoticia()
 	{
-		$this->load->view('admin/FormularioRegistroNoticia');
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			
+			$data = array();
+
+			if ($this->NoticiaModel->AgregarNoticia()) {
+
+				header("Location: ".base_url()."Noticia/ListarNoticias");
+
+			}else{
+				$data['mensaje'] = $this->db->error();
+				$this->load->view('admin/FormularioRegistroNoticia', $data);
+			}
+		}else{
+
+			$this->load->view('admin/FormularioRegistroNoticia');
+		}
 	}
 
 	public function ModificarNoticia()
@@ -40,7 +55,20 @@ class Noticia extends CI_Controller {
 
 	public function ListarNoticias()
 	{
-		$this->load->view('admin/ListarNoticias');
+		$condicion = array(
+			"select" => "id, titulo, descripcion, url",
+			"where" => array("id_usuario" => $this->session->userdata('idUsuario'))
+			);
+
+		$data = array();
+
+		$result = $this->NoticiaModel->ExtraerNoticia($condicion);
+
+		if ($result->num_rows() > 0) {
+			
+			$data["noticias"] = $result;
+			$this->load->view('admin/ListarNoticias', $data);
+		}
 	}
 
 	public function ValidarNoticia()

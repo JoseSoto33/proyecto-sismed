@@ -10,7 +10,7 @@
 				<a class="btn btn-success" href="<?php echo base_url(); ?>Noticia/AgregarNoticia"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
 			</div>
 			<div class="col-sm-12 table-responsive">
-				<table class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
+				<table id="lista_noticias" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<th>Nº</th>
 						<th>Título</th>
@@ -26,20 +26,20 @@
 						<th> </th>						
 					</tfoot>
 					<tbody>
-						<tr>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td> </td>
-						</tr>
-						<tr>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td> </td>
-						</tr>
+						<?php 
+							$cont = 1;
+
+							foreach ($noticias->result_array() as $key => $noticia) {
+								
+								echo "<tr>";
+								echo "<td>".$cont++."</td>";
+								echo "<td>".$noticia["titulo"]."</td>";
+								echo "<td>".$noticia["descripcion"]."</td>";
+								echo "<td><a href=\"".$noticia["url"]."\" target=\"_blank\">".$noticia["url"]."</a></td>";
+								echo "<td> </td>";
+								echo "</tr>";
+							}
+						?>
 					</tbody>
 				</table>
 			</div>
@@ -51,7 +51,7 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(".table").DataTable( {
+		$("#lista_noticias").DataTable( {
         "language": {
             	"sProcessing":     "Procesando...",
 				"sLengthMenu":     "Mostrar _MENU_ registros",

@@ -31,59 +31,60 @@ class Sesion extends CI_Controller {
        validarlos en cada método*/
     }
 
-    public function index()
-    {
-    	$this->load->view('login/index');
-    }
-
 	public function Login()
 	{
-		$condicion = array(
-			"where" => array(
-				"cedula" => $this->input->post("cedula"),
-				"password" => $this->input->post("password")
-				)
-			);
-		if ($this->UsuarioModel->ValidarUsuario($condicion)) {
-			
-			$usuario = $this->UsuarioModel->ExtraerUsuario($condicion)->row();
-
-			if ($usuario->status === "f") {
-				echo "error 4";
-			}elseif (strcmp($usuario->password,$this->input->post('password'))===0) {
+		if ($_SERVER['REQUEST_METHOD'] == "POST") {
+			# code...
+			$condicion = array(
+				"where" => array(
+					"cedula" => $this->input->post("cedula"),
+					"password" => $this->input->post("password")
+					)
+				);
+			if ($this->UsuarioModel->ValidarUsuario($condicion)) {
 				
-				$data = array(
-					"id_usuario" => $usuario->id,
-					"fecha_inicio" => date('Y-m-d h:i:s a')
-					);
+				$usuario = $this->UsuarioModel->ExtraerUsuario($condicion)->row();
 
-				$id_sesion = $this->SesionModel->Login($data);
-
-				if (!$id_sesion) {
+				if ($usuario->status === "f") {
+					echo "error 4";
+				}elseif (strcmp($usuario->password,$this->input->post('password'))===0) {
 					
-					echo "error 3";
+					$data = array(
+						"id_usuario" => $usuario->id,
+						"fecha_inicio" => date('Y-m-d h:i:s a')
+						);
+
+					$id_sesion = $this->SesionModel->Login($data);
+
+					if (!$id_sesion) {
+						
+						echo "error 3";
+					}else{
+
+						$data = array(
+									'idUsuario' => $usuario->id,
+									'idSesion' => $id_sesion,
+									'username' => $usuario->username,
+									'nombre' => $usuario->nombre1,
+									'apellido' => $usuario->apellido,
+									'login' => true,
+									'tipo_usuario' => $usuario->tipo_usuario
+								);
+						$this->session->set_userdata($data);
+
+						header('Location: '.base_url()."Home");
+					}
+
 				}else{
 
-					$data = array(
-								'idUsuario' => $usuario->id,
-								'idSesion' => $id_sesion,
-								'username' => $usuario->username,
-								'nombre' => $usuario->nombre1,
-								'apellido' => $usuario->apellido,
-								'login' => true,
-								'tipo_usuario' => $usuario->tipo_usuario
-							);
-					$this->session->set_userdata($data);
-
-					header('Location: '.base_url()."Home");
+					echo "error 2";
 				}
-
 			}else{
-
-				echo "error 2";
+				echo "error 1";
 			}
 		}else{
-			echo "error 1";
+			$this->load->view('login/index');
+			echo $this->uri->segment(1);
 		}
 	}
 

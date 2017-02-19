@@ -7,34 +7,38 @@
 				<h1>Agregar nueva noticia</h1>
 			</div>
 			<div class="col-sm-6 col-sm-offset-3">
-				<form id="registro-noticia" class="form-basic" action="<?php echo base_url(); ?>Noticia/AgregarNoticia">
+				<?php echo (isset($mensaje)) ? $mensaje : "" ;?>
+				<?= form_open(
+	      				base_url()."Noticia/AgregarNoticia",
+	      				'class="form-basic" id="registro-noticia"'
+	      				); ?>
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="titulo" class="control-label">Títitulo</label>
-						    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="">
+						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" placeholder="" required="required">
 						</div>						
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
-							<label for="link" class="control-label">Enlace</label>
-						    <input type="text" class="form-control" id="link" name="link" placeholder="http://www.paginaweb.com">
+							<label for="url" class="control-label">Enlace</label>
+						    <input type="text" class="form-control" id="url" name="url" pattern="https?://.+" title="Introduzca una dirección válida" placeholder="http://www.paginaweb.com" required="required">
 						</div>
 					</div>			
 					<div class="col-sm-12">			
 						<div class="form-group">
 							<label for="descripcion" class="control-label">Descripción</label>
-						    <textarea class="form-control" name="descripcion" id="descripcion"></textarea>
+						    <textarea class="form-control" name="descripcion" id="descripcion" required="required"></textarea>
 						</div>
 					</div>
 					
 					<hr class="form-divisor-line">
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
-							<button type="button" class="btn btn-form btn-lg btn-block">Guardar</button>
+							<button type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
 							<button type="button" class="btn btn-second-2 btn-lg btn-block">Volver</button>
 						</div>						
 					</div>
-				</form>			
+				<?= form_close();?>		
 			</div>
 		</div>
 	</div>

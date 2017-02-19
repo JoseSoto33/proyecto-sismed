@@ -26,20 +26,22 @@
 						<th> </th>						
 					</tfoot>
 					<tbody>
-						<tr>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td> </td>
-						</tr>
-						<tr>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td>asdasd</td>
-							<td> </td>
-						</tr>
+						<?php 
+							$cont = 1;
+
+							setlocale(LC_TIME,"esp");
+
+							foreach ($eventos->result_array() as $key => $evento) {
+								
+								echo "<tr>";
+								echo "<td>".$cont++."</td>";
+								echo "<td>".$evento["titulo"]."</td>";
+								echo "<td>".$evento["descripcion"]."</td>";
+								echo "<td>".strftime('%d de %B de %Y', strtotime($evento["fecha_hora_inicio"]))."</a></td>";
+								echo "<td> </td>";
+								echo "</tr>";
+							}
+						?>
 					</tbody>
 				</table>
 			</div>
