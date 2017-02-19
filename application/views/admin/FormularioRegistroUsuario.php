@@ -22,7 +22,9 @@
 								<div class="form-group">
 									<label for="cedula" class="col-sm-4 control-label">Cédula</label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="cedula" name="cedula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" title="Sólo números de 6 a 8 dígitos" placeholder="Cedula" required="required">
+								      <input type="text" class="form-control" id="cedula" name="cedula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" required="required" title="Sólo números de 6 a 8 dígitos" placeholder="Sólo números de 6 a 8 dígitos" data-pattern-error="La cédula solo debe contener números de 6 a 8 dígitos"> 
+								      	<div class="help-block with-errors">
+								      	</div>
 								    </div>
 								</div>
 							</div>
@@ -34,7 +36,9 @@
 								<div class="form-group">
 									<label for="nombre1" class="col-sm-4 control-label">Primer nombre</label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" required="required">
+								      <input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos"> 
+								      	<div class="help-block with-errors">
+								      	</div>
 								    </div>
 								</div>						
 							</div>
@@ -42,7 +46,9 @@
 								<div class="form-group">
 									<label for="nombre2" class="col-sm-4 control-label">Segundo nombre</label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="nombre2" name="nombre2" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" required="required">
+								      <input type="text" class="form-control" id="nombre2" name="nombre2" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos">
+								      <div class="help-block with-errors">
+								      </div>	
 								    </div>
 								</div>
 							</div>
@@ -54,7 +60,8 @@
 								<div class="form-group">
 									<label for="apellido1" class="col-sm-4 control-label">Primer apellido</label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" required="required">
+								      <input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos">
+								      <div class="help-block with-errors"></div>
 								    </div>
 								</div>						
 							</div>
@@ -62,7 +69,9 @@
 								<div class="form-group">
 									<label for="apellido2" class="col-sm-4 control-label">Segundo apellido</label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="apellido2" name="apellido2" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30"  required="required">
+								      <input type="text" class="form-control" id="apellido2" name="apellido2" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30"  required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos">
+								      <div class="help-block with-errors">
+								      </div>
 								    </div>
 								</div>
 							</div>
@@ -83,6 +92,8 @@
 									<label for="email" class="col-sm-4 control-label">Correo electrónico</label>
 								    <div class="col-sm-8">
 								      <input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" placeholder="ejemplo@dominio.com" required="required">
+								   	  <div class="help-block with-errors">
+								      </div>
 								    </div>
 								</div>						
 							</div>
@@ -115,19 +126,23 @@
 									<label for="sexo" class="col-sm-4 control-label">Sexo</label>
 									<div class="col-sm-8">								
 										<label class="radio-inline">
-										  	<input type="radio" name="sexo" id="sexo1" value="f"> Mujer
+										  	<input type="radio" name="sexo" id="sexo1" value="f" required="required"> Mujer
 										</label>
 										<label class="radio-inline">
-										  	<input type="radio" name="sexo" id="sexo2" value="m"> Hombre
+										  	<input type="radio" name="sexo" id="sexo2" value="m" required="required"> Hombre
 										</label>
+										<div class="help-block with-errors">
+								      	</div>
 									</div>
 								</div>						
 							</div>
 							<div class="col-sm-6">
 								<div class="form-group">
-									<label for="tdireccion" class="col-sm-4 control-label">Dirección</label>
+									<label for="tdireccion" class="col-sm-4 control-label">Dirección de Habitación</label>
 								    <div class="col-sm-8">
 								      <textarea class="form-control" name="direccion" id="direccion" required="required"></textarea>
+								      <div class="help-block with-errors">
+								      </div>
 								    </div>
 								</div>						
 							</div>
@@ -143,7 +158,9 @@
 								<div class="form-group">
 									<label for="username" class="col-sm-4 control-label">Username</label>
 									<div class="col-sm-8">								
-										<input type="text" class="form-control" id="username" name="username" required="required">
+										<input type="text" class="form-control" id="username" name="username" required="required" data-pattern-error="">
+										<div class="help-block with-errors">
+								     	</div>
 									</div>
 								</div>						
 							</div>
@@ -159,6 +176,8 @@
 											<option value="Laboratorio">Laboratorio</option>
 											<option value="Nutrición">Nutrición</option>
 										</select>
+										<div class="help-block with-errors">
+								      	</div>
 									</div>
 								</div>						
 							</div>
@@ -171,6 +190,8 @@
 									<label for="password1" class="col-sm-4 control-label">Contraseña</label>
 									<div class="col-sm-8">								
 										<input type="password" name="password" class="form-control" id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" required="required">
+										<div class="help-block with-errors">
+								      	</div> 
 									</div>
 								</div>						
 							</div>
@@ -179,6 +200,8 @@
 									<label for="password2" class="col-sm-4 control-label">Confirmar contraseña</label>
 									<div class="col-sm-8">								
 										<input type="password" class="form-control" id="password2" name="password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" required="required">
+										<div class="help-block with-errors">
+								        </div>
 									</div>
 								</div>						
 							</div>
@@ -200,6 +223,8 @@
 											<option value="Nutricionista">Nutricionista</option>
 											<option value="Asistente">Asistente</option>
 										</select>
+										<div class="help-block with-errors">
+								      	</div>
 									</div>
 								</div>						
 							</div>
@@ -215,6 +240,8 @@
 											<option value="Laboratorio">Licenciatura</option>
 											<option value="Nutrición">Doctorado</option>
 										</select>
+										<div class="help-block with-errors">
+								      	</div>
 									</div>
 								</div>						
 							</div>
@@ -235,6 +262,7 @@
 </div>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 
@@ -263,7 +291,7 @@
 	    		no_results_text: "Sin resultados por:",
 	    		allow_single_deselect: true
 	    	});
-
+		$('#registro-usuario').validator();
 	});
 </script>
 
