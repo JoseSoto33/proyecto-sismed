@@ -22,13 +22,26 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="titulo" class="control-label">Títitulo</label>
+<<<<<<< HEAD
 						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" value="<?php echo set_value('titulo'); ?>" required="required">						    
+=======
+						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" minlength="6" maxlength="30" placeholder="" required="required">
+						    <div class="help-block with-errors">
+							</div>						    
+>>>>>>> f1cddf07be0c29e776afc7363bc6c904026c786a
 						</div>						
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-5">
 						<div class="form-group">
+<<<<<<< HEAD
 							<label for="fecha_inicio" class="control-label">Fecha de inicio</label>
 						    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" min="<?php echo date('Y-m-d');?>" value="<?php echo set_value('fecha_inicio'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+=======
+							<label for="fecha_pautada" class="control-label">Fecha de inicio</label>
+						    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" min="<?php echo date('Y-m-d');?>" placeholder="" required="required">
+						    <div class="help-block with-errors">
+							</div>
+>>>>>>> f1cddf07be0c29e776afc7363bc6c904026c786a
 						</div>
 					</div>	
 					<div class="col-xs-12 col-sm-6 col-md-7">
@@ -48,12 +61,21 @@
 									</select>
 								</div>
 							</div>
+							<div class="help-block with-errors">
+							</div>
 						</div>	
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-5">
 						<div class="form-group">
+<<<<<<< HEAD
 							<label for="fecha_fin" class="control-label">Fecha de finalización</label>
 						    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" min="<?php echo date('Y-m-d');?>" value="<?php echo set_value('fecha_fin'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+=======
+							<label for="fecha_pautada" class="control-label">Fecha de finalización</label>
+						    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" min="<?php echo date('Y-m-d');?>" placeholder="" required="required">
+						    <div class="help-block with-errors">
+							</div>
+>>>>>>> f1cddf07be0c29e776afc7363bc6c904026c786a
 						</div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-7">
@@ -73,12 +95,20 @@
 									</select>
 								</div>
 							</div>
+							<div class="help-block with-errors">
+							</div>
 						</div>
 					</div>
 					<div class="col-sm-12">			
 						<div class="form-group">
 							<label for="descripcion" class="control-label">Descripción</label>
+<<<<<<< HEAD
 						    <textarea class="form-control" name="descripcion" id="descripcion" required="required" ></textarea>						    
+=======
+						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" maxlength="" required="required"></textarea>	
+						    <div class="help-block with-errors">
+							</div>					    
+>>>>>>> f1cddf07be0c29e776afc7363bc6c904026c786a
 						</div>
 					</div>					
 					<hr class="form-divisor-line">
