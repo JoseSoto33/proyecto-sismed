@@ -95,16 +95,59 @@ class Evento extends CI_Controller {
             	
 				$this->load->view('admin/FormularioRegistroEvento');
             }else{
+
 				$data = array();
 
-				if ($this->EventoModel->AgregarEvento()) {
+				$fecha_inicio = $this->input->post('fecha_inicio');
+				$fecha_fin 	 = $this->input->post('fecha_fin');
 
-					header("Location: ".base_url()."Evento/ListarEventos");
+				$hora_inicio = $this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano');
+        		$hora_fin 	 = $this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano');
 
+        		$data = $this->EventoModel->ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin);
+
+        		if ($data['status'] === true) {
+        			
+        			if ($this->EventoModel->AgregarEvento()) {
+
+						header("Location: ".base_url()."Evento/ListarEventos");
+
+					}else{
+						$data['mensaje'] = $this->db->error();
+						$this->load->view('admin/FormularioRegistroEvento', $data);
+					}
+        		}else{
+        			
+        			$this->load->view('admin/FormularioRegistroEvento', $data);
+        		}
+
+        		/*$data['mensaje'] = "Diferencia fecha inicio - fecha actual: ".$dif_FInicio_Factual."<br>";
+        		$data['mensaje'] .= "Diferencia fecha fin - fecha actual: ".$dif_FFin_Factual."<br>";
+        		$data['mensaje'] .= "Diferencia fecha inicio - fecha fin: ".$dif_FInicio_fin."<br>";
+        		$data['mensaje'] .= "Diferencia hora inicio - hora fin: ".$difhoras."<br>";*/
+
+				/*if ($this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d")) === true) {
+					$data['mensaje'] = "La fecha de inicio no es válida";
+				}elseif ($this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d")) === false) {
+					$data['mensaje'] = "La fecha actual no es válida";
+				}elseif ($this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d")) >= 0){
+					$data['mensaje'] = "Permitido";
 				}else{
-					$data['mensaje'] = $this->db->error();
-					$this->load->view('admin/FormularioRegistroEvento', $data);
-				}
+					$data['mensaje'] = $this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d"));
+				}*/
+
+				//$data['mensaje'] = $this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d"));
+
+				
+					/*
+					if ($this->EventoModel->AgregarEvento()) {
+
+						header("Location: ".base_url()."Evento/ListarEventos");
+
+					}else{
+						$data['mensaje'] = $this->db->error();
+						$this->load->view('admin/FormularioRegistroEvento', $data);
+					}*/
 			}
 		}else{
 
