@@ -158,7 +158,7 @@
 								<div class="form-group">
 									<label for="username" class="col-sm-4 control-label">Username</label>
 									<div class="col-sm-8">								
-										<input type="text" class="form-control" id="username" name="username" required="required" data-pattern-error="">
+										<input type="text" class="form-control" id="username" name="username" placeholder="Sólo carácteres alfanuméricos de 8 a 16 dígitos" minlength="8" maxlength="16" pattern="([A-Za-zñÑáéíóúüÁÉÍÓÚÜ0-9]){8,16}" data-pattern-error="Ingrese un nombre de usuario valido" required="required">
 										<div class="help-block with-errors">
 								     	</div>
 									</div>
@@ -189,7 +189,7 @@
 								<div class="form-group">
 									<label for="password1" class="col-sm-4 control-label">Contraseña</label>
 									<div class="col-sm-8">								
-										<input type="password" name="password" class="form-control" id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" required="required">
+										<input type="password" name="password" class="form-control" id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" required="required" data-pattern-error="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres">
 										<div class="help-block with-errors">
 								      	</div> 
 									</div>
@@ -199,7 +199,7 @@
 								<div class="form-group">
 									<label for="password2" class="col-sm-4 control-label">Confirmar contraseña</label>
 									<div class="col-sm-8">								
-										<input type="password" class="form-control" id="password2" name="password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" required="required">
+										<input type="password" class="form-control" id="password2" name="password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" data-match="#password1" data-match-error="Las contraseñas no coinciden" placeholder="Confirmar" required="required">
 										<div class="help-block with-errors">
 								        </div>
 									</div>
@@ -213,7 +213,7 @@
 								<div class="form-group">
 									<label for="tipo-usuario" class="col-sm-4 control-label">Tipo de usuario</label>
 									<div class="col-sm-8">								
-										<select class="form-control" id="tipo_usuario" name="tipo_usuario" data-placeholder="Seleccione una opción..." required="required">
+										<select class="form-control" id="tipo_usuario" name="tipo_usuario" data-placeholder="Seleccione una opción..." required="required" >
 											<option></option>
 											<option value="Administrador">Administrador</option>
 											<option value="Doctor">Doctor</option>
