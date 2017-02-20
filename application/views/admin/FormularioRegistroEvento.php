@@ -36,15 +36,9 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<label for="hora_inicio" class="control-label">Hora de inicio</label>
-								</div>							
-								<!--<div class="col-xs-12 col-sm-4 col-md-3">
-							    	<input type="number" min="1" max="12" class="form-control" id="h_i_hora" name="h_i_hora" required="required" placeholder="Hora" value="<?php echo set_value('h_i_hora'); ?>">
-							    </div>
-								<div class="col-xs-12 col-sm-4 col-md-3">
-									<input type="number" min="1" max="59" class="form-control" id="h_i_minuto" name="h_i_minuto" required="required" placeholder="Minuto" value="<?php echo set_value('h_i_minuto'); ?>">
-								</div>-->
+								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
-							    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora (02:15)" value="<?php echo set_value('hora_inicio'); ?>" pattern="(?:[0]|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+							    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora (02:15)" value="<?php echo set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
 							    </div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
@@ -67,16 +61,9 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<label for="hora_fin" class="control-label">Hora de finalización</label>
-								</div>
-								<!--
-							    <div class="col-xs-12 col-sm-4 col-md-3">
-							    	<input type="number" min="1" max="12" class="form-control" id="h_f_hora" name="h_f_hora" required="required" placeholder="Hora" value="<?php echo set_value('h_f_hora'); ?>">
-							    </div>
-								<div class="col-xs-12 col-sm-4 col-md-3">
-									<input type="number" min="1" max="59" class="form-control" id="h_f_minuto" name="h_f_minuto" required="required" placeholder="Minuto" value="<?php echo set_value('h_f_minuto'); ?>">
-								</div>-->
+								</div>								
 								<div class="col-xs-12 col-sm-6 col-md-6">
-							    	<input type="text" class="form-control" id="hora_fin" name="hora_fin" required="required" placeholder="Hora (02:15)" value="<?php echo set_value('hora_fin'); ?>" pattern="(?:[0]|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+							    	<input type="text" class="form-control" id="hora_fin" name="hora_fin" required="required" placeholder="Hora (02:15)" value="<?php echo set_value('hora_fin'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
 							    </div>
 								<div class="col-xs-12 col-sm-4 col-md-6">
 									<select class="form-control" id="h_f_meridiano" name="h_f_meridiano" required="required">
@@ -120,8 +107,8 @@
 	        $("#fecha_fin").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
 	    }	
 
-	    $("#hora_inicio").mask("99:99",{placeholder:"__:__"});
-		$("#hora_fin").mask("99:99",{placeholder:"__:__"});    
+	    $("#hora_inicio").mask("99:99",{placeholder:"00:00"});
+		$("#hora_fin").mask("99:99",{placeholder:"00:00"});    
 
 		$('#registro-evento').validator();
 	});
