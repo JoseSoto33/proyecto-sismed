@@ -171,9 +171,9 @@ img.loading{
 	position: absolute;
 	/*min-height: 700px;
 	margin-top: 90px;*/
-	background: transparent url(../img/sanidad2.jpg) 0 0 scroll no-repeat;
-	background-size: 100%;
-	background-position: center center;
+	background: transparent url(../img/background_medicina.jpg) 0 0 scroll no-repeat;
+	background-size: auto auto;
+	background-position: top center;
 }
 .fondo-opaco{
 	/*min-height: 700px;*/

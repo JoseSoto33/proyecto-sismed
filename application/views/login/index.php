@@ -13,8 +13,10 @@
 						
 						
 					</div>
-					<div class="col-md-8">
+					<div class="col-xs-12">						
 						<h2>¡Bienvenido!</h2>		
+					</div>
+					<div class="col-md-8">
 						<p>La Medicina debe aspirar a ser honorable y dirigir su propia vida profesional; ser moderada y prudente; ser asequible y económicamente sostenible; ser justa y equitativa; y a respetar las opciones y la dignidad de las personas. Los valores elementales de la Medicina contribuyen a preservar su integridad frente a las presiones políticas y sociales que defienden unos fines ajenos o anacrónicos.</p>
 					</div>
 					<div class="col-md-4">

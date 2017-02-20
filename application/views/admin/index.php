@@ -4,6 +4,7 @@
 	<!--<div class="container">	-->
 		<!--<div class="row">-->
 			<!--<div class="col-xs-12">-->
+			<!--
 			<div class="alert alert-success">				
 				<?= $this->uri->segment(1, 0);?>
 			</div>
@@ -12,7 +13,7 @@
 			</div>
 			<div class="alert alert-warning">
 				<?= $this->uri->segment(3, 0);?>				
-			</div>
+			</div>-->
 
 				<div id="img-carousel" class="carousel slide" data-ride="carousel">
 	  				
