@@ -19,7 +19,7 @@
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
-							<label for="fecha_pautada" class="control-label">Fecha de inicio</label>
+							<label for="fecha_inicio" class="control-label">Fecha de inicio</label>
 						    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" min="<?php echo date('Y-m-d');?>" placeholder="" required="required">
 						</div>
 					</div>	

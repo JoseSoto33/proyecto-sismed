@@ -22,15 +22,37 @@ class Evento extends CI_Controller {
 	{
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			
-			$data = array();
+			$this->form_validation->set_rules(
+			        'titulo', 'Título',
+			        array('required','regex_match[/A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& /]'),		        	
+			        array(   
+		                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras, números y espacios.',
+		                'required'   	=> 'Debe insertar un %s.'
+			        )
+			);
 
-			if ($this->EventoModel->AgregarEvento()) {
+            $this->form_validation->set_rules(
+	            	'fecha_inicio', 'Fecha de inicio', 
+	        		array('required'),	        			
+	                array(
+	                	'required'		=> 'Debe ingresar una %s.'
+		                )	                
+            );
 
-				header("Location: ".base_url()."Evento/ListarEventos");
+			if ($this->form_validation->run() == FALSE) {
+            	
+				$this->load->view('admin/FormularioRegistroEvento');
+            }else{
+				$data = array();
 
-			}else{
-				$data['mensaje'] = $this->db->error();
-				$this->load->view('admin/FormularioRegistroEvento', $data);
+				if ($this->EventoModel->AgregarEvento()) {
+
+					header("Location: ".base_url()."Evento/ListarEventos");
+
+				}else{
+					$data['mensaje'] = $this->db->error();
+					$this->load->view('admin/FormularioRegistroEvento', $data);
+				}
 			}
 		}else{
 
