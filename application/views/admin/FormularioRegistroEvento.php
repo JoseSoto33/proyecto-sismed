@@ -14,13 +14,17 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="titulo" class="control-label">Títitulo</label>
-						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" placeholder="" required="required">						    
+						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" minlength="6" maxlength="30" placeholder="" required="required">
+						    <div class="help-block with-errors">
+							</div>						    
 						</div>						
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="fecha_pautada" class="control-label">Fecha de inicio</label>
 						    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" min="<?php echo date('Y-m-d');?>" placeholder="" required="required">
+						    <div class="help-block with-errors">
+							</div>
 						</div>
 					</div>	
 					<div class="col-sm-12">
@@ -43,12 +47,16 @@
 									</select>
 								</div>
 							</div>
+							<div class="help-block with-errors">
+							</div>
 						</div>	
 					</div>
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="fecha_pautada" class="control-label">Fecha de finalización</label>
 						    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" min="<?php echo date('Y-m-d');?>" placeholder="" required="required">
+						    <div class="help-block with-errors">
+							</div>
 						</div>
 					</div>
 					<div class="col-sm-12">
@@ -71,12 +79,16 @@
 									</select>
 								</div>
 							</div>
+							<div class="help-block with-errors">
+							</div>
 						</div>
 					</div>
 					<div class="col-sm-12">			
 						<div class="form-group">
 							<label for="descripcion" class="control-label">Descripción</label>
-						    <textarea class="form-control" name="descripcion" id="descripcion" required="required"></textarea>						    
+						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" maxlength="" required="required"></textarea>	
+						    <div class="help-block with-errors">
+							</div>					    
 						</div>
 					</div>					
 					<hr class="form-divisor-line">
