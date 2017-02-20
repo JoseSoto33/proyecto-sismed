@@ -21,16 +21,61 @@ class Noticia extends CI_Controller {
 	public function AgregarNoticia()
 	{
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			
-			$data = array();
 
-			if ($this->NoticiaModel->AgregarNoticia()) {
+			$this->form_validation->set_rules(
+			        'titulo', 'Título',
+			        array('required','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),		        	
+			        array(   
+		                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras, números y espacios.',
+		                'required'   	=> 'Debe insertar un %s.'
+			        )
+			);
 
-				header("Location: ".base_url()."Noticia/ListarNoticias");
+			$this->form_validation->set_rules(
+	            	'url', 'dirección de enlace', 
+	        		array('required','regex_match[/^(ht|f)tps?:\/\/\w+([\.\-\w]+)?\.([a-z]{2,6})?([\.\-\w\/_]+)$/i]'),
+	                array(
+	                	'regex_match'  	=> 'La %s es inválida.',
+	                	'required'	=> 'Debe ingresar una %s.'
+		                )	                
+            );
 
-			}else{
-				$data['mensaje'] = $this->db->error();
-				$this->load->view('admin/FormularioRegistroNoticia', $data);
+			$this->form_validation->set_rules(
+	            	'descripcion', 'Descripción', 
+	        		array('required'),	        			
+	                array(
+	                	'required'	=> 'Debe especificar una %s.'
+		                )	                
+            );
+
+			if ($this->form_validation->run() == FALSE) {
+            	
+				$this->load->view('admin/FormularioRegistroNoticia');
+            }else{
+				
+				$condicion = array(
+						'where' => array(
+							'titulo' => $this->input->post('titulo'),
+							'url' => $this->input->post('url')
+							)
+					);
+
+				if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
+					
+					$data = array();
+
+					if ($this->NoticiaModel->AgregarNoticia()) {
+
+						header("Location: ".base_url()."Noticia/ListarNoticias");
+
+					}else{
+						$data['mensaje'] = $this->db->error();
+						$this->load->view('admin/FormularioRegistroNoticia', $data);
+					}
+				}else{
+					$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
+					$this->load->view('admin/FormularioRegistroNoticia', $data);
+				}
 			}
 		}else{
 

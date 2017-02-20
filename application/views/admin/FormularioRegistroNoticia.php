@@ -6,8 +6,15 @@
 			<div class="col-sm-12">
 				<h1>Agregar nueva noticia</h1>
 			</div>
+			<div class="col-xs-12">
+				<?= validation_errors("<div class=\"alert alert-danger\" role=\"alert\">", "</div>"); ?>
+				<?php if(isset($mensaje) && !empty($mensaje)) { ?>
+					<div class="alert alert-danger" role="alert">
+						<?= $mensaje; ?>
+					</div>					
+				<?php } ?>
+			</div>
 			<div class="col-sm-6 col-sm-offset-3">
-				<?php echo (isset($mensaje)) ? $mensaje : "" ;?>
 				<?= form_open(
 	      				base_url()."Noticia/AgregarNoticia",
 	      				'class="form-basic" id="registro-noticia"'
@@ -15,7 +22,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="titulo" class="control-label">Títitulo</label>
-						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{5,}" placeholder="" required="required">
+						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{5,}" placeholder="" value="<?php echo set_value('titulo'); ?>" required="required">
 						    <div class="help-block with-errors">
 							</div>
 						</div>						
@@ -23,7 +30,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="url" class="control-label">Enlace</label>
-						    <input type="text" class="form-control" id="url" name="url" pattern="https?://.+" title="Introduzca una dirección válida" placeholder="http://www.paginaweb.com" required="required" data-pattern-error="Introduzca una dirección Válida">
+						    <input type="text" class="form-control" id="url" name="url" pattern="https?://.+" title="Introduzca una dirección válida" placeholder="http://www.paginaweb.com" value="<?php echo set_value('url'); ?>" required="required" data-pattern-error="Introduzca una dirección Válida">
 						    <div class="help-block with-errors">
 							</div>
 						</div>
@@ -51,9 +58,9 @@
 </div>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript">
-		$(document).ready(function(){
-			$('#registro-noticia').validator();	
-		});
+	$(document).ready(function(){
+		$('#registro-noticia').validator();	
+	});
 </script>	
 
 <?php include('footer.php') ?>

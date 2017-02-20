@@ -108,16 +108,29 @@ class Evento extends CI_Controller {
 
         		if ($data['status'] === true) {
         			
-        			if ($this->EventoModel->AgregarEvento()) {
+        			$condicion = array(
+		        			'where' => array(
+		        				'titulo' => $this->input->post('titulo'),
+		        				'fecha_hora_inicio' => $this->input->post('fecha_inicio')." ".$this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano'),
+		        				'fecha_hora_fin' => $this->input->post('fecha_fin')." ".$this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano')
+		        				)
+		        			);
+        			if (!$this->EventoModel->ValidarEvento($condicion)) {
+        				
+	        			if ($this->EventoModel->AgregarEvento()) {
 
-						header("Location: ".base_url()."Evento/ListarEventos");
+							header("Location: ".base_url()."Evento/ListarEventos");
 
-					}else{
-						$data['mensaje'] = $this->db->error();
+						}else{
+							$data['mensaje'] = $this->db->error();
+							$this->load->view('admin/FormularioRegistroEvento', $data);
+						}
+        			}else{
+        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
 						$this->load->view('admin/FormularioRegistroEvento', $data);
-					}
+        			}
         		}else{
-        			
+
         			$this->load->view('admin/FormularioRegistroEvento', $data);
         		}
 
