@@ -9,9 +9,9 @@ class EventoModel extends CI_Model {
 
     public function AgregarEvento()   
     {
-        $fecha_hora_inicio = $this->input->post('fecha_inicio')." ".$this->input->post('h_f_hora').":".$this->input->post('h_f_minuto')." ".$this->input->post('h_i_meridiano');
+        $fecha_hora_inicio = $this->input->post('fecha_inicio')." ".$this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano');
 
-        $fecha_hora_fin = $this->input->post('fecha_fin')." ".$this->input->post('h_f_hora').":".$this->input->post('h_f_minuto')." ".$this->input->post('h_f_meridiano');
+        $fecha_hora_fin = $this->input->post('fecha_fin')." ".$this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano');
 
      	$data = array(
      			"id_usuario" => $this->session->userdata('idUsuario'),

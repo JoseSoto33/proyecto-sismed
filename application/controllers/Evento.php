@@ -24,7 +24,7 @@ class Evento extends CI_Controller {
 			
 			$this->form_validation->set_rules(
 			        'titulo', 'Título',
-			        array('required','regex_match[/A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& /]'),		        	
+			        array('required','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),		        	
 			        array(   
 		                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras, números y espacios.',
 		                'required'   	=> 'Debe insertar un %s.'
@@ -33,9 +33,61 @@ class Evento extends CI_Controller {
 
             $this->form_validation->set_rules(
 	            	'fecha_inicio', 'Fecha de inicio', 
+	        		array('required','regex_match[/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/]'),
+	                array(
+	                	'regex_match'  	=> 'La %s debe tener el formato año-mes-día (2017-02-15 por ejemplo).',
+	                	'required'	=> 'Debe ingresar una %s.'
+		                )	                
+            );
+
+            $this->form_validation->set_rules(
+	            	'hora_inicio', 'hora de inicio', 
+	        		array('required','regex_match[/^(0[1-9]|1[0-2]):[0-5][0-9]$/]'),
+	                array(
+	                	'required'	=> 'Debe ingresar la %s.',
+	                	'regex_match'	=> 'La %s debe tener un formato de hh:mm (02:25 por ejemplo).'
+		                )	                
+            );
+
+            $this->form_validation->set_rules(
+	            	'h_i_meridiano', 'meridiano', 
 	        		array('required'),	        			
 	                array(
-	                	'required'		=> 'Debe ingresar una %s.'
+	                	'required'	=> 'Debe seleccionar un %s.'
+		                )	                
+            );
+
+            $this->form_validation->set_rules(
+	            	'fecha_fin', 'Fecha de finalización', 
+	        		array('required','regex_match[/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/]'),
+	                array(
+	                	'regex_match'  	=> 'La %s debe tener el formato año-mes-día (2017-02-15 por ejemplo).',
+	                	'required'	=> 'Debe ingresar una %s.'
+		                )	                
+            );
+
+            $this->form_validation->set_rules(
+	            	'hora_fin', 'hora', 
+	        		array('required','regex_match[/^(0[1-9]|1[0-2]):[0-5][0-9]$/]'),
+	                array(
+	                	'required'	=> 'Debe ingresar la %s.',
+	                	'regex_match'	=> 'La %s debe tener un formato de hh:mm (02:25 por ejemplo).'
+		                )	                
+            );
+
+            $this->form_validation->set_rules(
+	            	'h_f_meridiano', 'meridiano', 
+	        		array('required'),	        			
+	                array(
+	                	'required'	=> 'Debe seleccionar un %s.'
+		                )	                
+            );
+
+            $this->form_validation->set_rules(
+	            	'descripcion', 'Descripción', 
+	        		array('required'),	        			
+	                array(
+	                	'required'	=> 'Debe especificar una %s.'
 		                )	                
             );
 
