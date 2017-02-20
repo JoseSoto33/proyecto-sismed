@@ -15,7 +15,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="titulo" class="control-label">Títitulo</label>
-						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" placeholder="" required="required">
+						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" placeholder="" required="required">
 						</div>						
 					</div>
 					<div class="col-sm-12">
@@ -38,10 +38,16 @@
 							<button type="button" class="btn btn-second-2 btn-lg btn-block">Volver</button>
 						</div>						
 					</div>
-				<?= form_close();?>		
+				<?= form_close();?>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
+<script type="text/javascript">
+		$(document).ready(function(){
+			$('#registro-noticia').validator();	
+		});
+</script>	
 
 <?php include('footer.php') ?>

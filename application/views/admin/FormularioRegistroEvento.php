@@ -14,7 +14,7 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="titulo" class="control-label">Títitulo</label>
-						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" placeholder="" required="required">						    
+						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{3,}" placeholder="" required="required">						    
 						</div>						
 					</div>
 					<div class="col-sm-12">
@@ -76,7 +76,7 @@
 					<div class="col-sm-12">			
 						<div class="form-group">
 							<label for="descripcion" class="control-label">Descripción</label>
-						    <textarea class="form-control" name="descripcion" id="descripcion"></textarea>						    
+						    <textarea class="form-control" name="descripcion" id="descripcion" required="required"></textarea>						    
 						</div>
 					</div>					
 					<hr class="form-divisor-line">
@@ -91,6 +91,7 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -103,7 +104,7 @@
 
 	        $("#fecha_fin").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
 	    }	    
-
+		$('#registro-evento').validator();
 	});
 </script>
 <?php include('footer.php') ?>
