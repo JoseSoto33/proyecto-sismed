@@ -41,7 +41,7 @@ class Sesion extends CI_Controller {
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						
 			$this->form_validation->set_rules(
-			        'cedula', 'Cédula',
+			        'log_cedula', 'Cédula',
 			        array('required','numeric','min_length[6]','max_length[8]'),		        	
 			        array(		                
 			                'min_length'    => 'La %s debe tener al menos 6 caracteres.',
@@ -52,7 +52,7 @@ class Sesion extends CI_Controller {
 			);
 
             $this->form_validation->set_rules(
-	            	'password', 'Password', 
+	            	'log_password', 'Password', 
 	        		array('required','min_length[8]','max_length[16]','alpha_numeric'),	        			
 	                array(
 	                	'required'		=> 'Debe ingresar su %s.',
