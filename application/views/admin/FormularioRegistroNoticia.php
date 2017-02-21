@@ -48,7 +48,7 @@
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
 							<button type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<button type="button" class="btn btn-second-2 btn-lg btn-block">Volver</button>
+							<a href="javascript:history.back(1)" class="btn btn-second-2 btn-lg btn-block">Volver</a>
 						</div>						
 					</div>
 				<?= form_close();?>

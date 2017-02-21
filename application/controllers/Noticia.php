@@ -18,6 +18,19 @@ class Noticia extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	public function __construct()
+    {
+        parent::__construct();
+
+        if (!$this->session->has_userdata('login') && ($this->uri->segment(1, 0) != '0' || $this->uri->segment(2, 0) != '0')) {
+        	redirect(base_url());
+        }
+        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador") {
+        	redirect(base_url('Home')); 
+        }
+    }
+
 	public function AgregarNoticia()
 	{
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -33,9 +46,10 @@ class Noticia extends CI_Controller {
 
 			$this->form_validation->set_rules(
 	            	'url', 'dirección de enlace', 
-	        		array('required','regex_match[/^(ht|f)tps?:\/\/\w+([\.\-\w]+)?\.([a-z]{2,6})?([\.\-\w\/_]+)$/i]'),
+	        		array('required','valid_url','regex_match[/^(ht|f)tps?:\/\/\w+([\.\-\w]+)?\.([a-z]{2,6})?([\.\-\w\/_]+)$/i]'),
 	                array(
 	                	'regex_match'  	=> 'La %s es inválida.',
+	                	'valid_url'		=> 'La %s no es válida.',
 	                	'required'	=> 'Debe ingresar una %s.'
 		                )	                
             );

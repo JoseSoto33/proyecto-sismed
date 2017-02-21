@@ -18,6 +18,19 @@ class Evento extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	public function __construct()
+    {
+        parent::__construct();
+
+        if (!$this->session->has_userdata('login') && ($this->uri->segment(1, 0) != '0' || $this->uri->segment(2, 0) != '0')) {
+        	redirect(base_url());
+        }
+        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador") {
+        	redirect(base_url('Home')); 
+        }
+    }
+
 	public function AgregarEvento()
 	{
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -133,34 +146,6 @@ class Evento extends CI_Controller {
 
         			$this->load->view('admin/FormularioRegistroEvento', $data);
         		}
-
-        		/*$data['mensaje'] = "Diferencia fecha inicio - fecha actual: ".$dif_FInicio_Factual."<br>";
-        		$data['mensaje'] .= "Diferencia fecha fin - fecha actual: ".$dif_FFin_Factual."<br>";
-        		$data['mensaje'] .= "Diferencia fecha inicio - fecha fin: ".$dif_FInicio_fin."<br>";
-        		$data['mensaje'] .= "Diferencia hora inicio - hora fin: ".$difhoras."<br>";*/
-
-				/*if ($this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d")) === true) {
-					$data['mensaje'] = "La fecha de inicio no es válida";
-				}elseif ($this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d")) === false) {
-					$data['mensaje'] = "La fecha actual no es válida";
-				}elseif ($this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d")) >= 0){
-					$data['mensaje'] = "Permitido";
-				}else{
-					$data['mensaje'] = $this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d"));
-				}*/
-
-				//$data['mensaje'] = $this->EventoModel->CompararFechas($this->input->post('fecha_inicio'),date("Y-m-d"));
-
-				
-					/*
-					if ($this->EventoModel->AgregarEvento()) {
-
-						header("Location: ".base_url()."Evento/ListarEventos");
-
-					}else{
-						$data['mensaje'] = $this->db->error();
-						$this->load->view('admin/FormularioRegistroEvento', $data);
-					}*/
 			}
 		}else{
 

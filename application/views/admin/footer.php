@@ -51,11 +51,10 @@
 					</div>
 					<div class="col-xs-12 col-sm-4">
 						<label class="footer-title">Navegación</label>
-						<a href="<?php echo base_url(); ?>odontologia" class="footer-nav-link">Medicina</a>
-						<a href="#" class="footer-nav-link">Usuarios</a>
-						<a href="#" class="footer-nav-link">Sesiones</a>
-						<a href="#" class="footer-nav-link">Noticias</a>
-						<a href="#" class="footer-nav-link">Eventos</a>
+						<a href="<?php echo base_url(); ?>Usuario/ListarUsuarios" class="footer-nav-link">Usuarios</a>
+						<a href="<?php echo base_url(); ?>Sesion/ListarSesiones" class="footer-nav-link">Sesiones</a>
+						<a href="<?php echo base_url(); ?>Noticia/ListarNoticias" class="footer-nav-link">Noticias</a>
+						<a href="<?php echo base_url(); ?>Evento/ListarEvento" class="footer-nav-link">Eventos</a>
 						<a href="#" class="footer-nav-link">Reportes</a>
 					</div>
 				</div>			
