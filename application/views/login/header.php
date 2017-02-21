@@ -43,10 +43,10 @@
 								<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">
 							</div>
 					        <div class="form-group">
-					          	<input type="text" class="form-control" name="cedula" placeholder="Cédula" minlength="6" maxlength="8" value="<?php echo set_value('cedula'); ?>" requered>
+					          	<input type="text" class="form-control" name="log_cedula" placeholder="Cédula" minlength="6" maxlength="8" value="<?php echo set_value('log_cedula'); ?>" requered>
 					        </div>
 					        <div class="form-group">
-					          	<input type="password" class="form-control" name="password" placeholder="Password" minlength="8" maxlength="16" value="<?php echo set_value('password'); ?>" requered>
+					          	<input type="password" class="form-control" name="log_password" placeholder="Password" minlength="8" maxlength="16" value="<?php echo set_value('log_password'); ?>" requered>
 					        </div>
 					        <button type="submit" class="btn btn-default">Iniciar sessión</button>
 					      <!--</form>-->

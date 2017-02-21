@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-sm-6 col-sm-offset-3">
 				<?= form_open(
-	      				base_url()."Evento/AgregarEvento",
+	      				base_url()."Evento/".$this->uri->segment(2, 0),
 	      				'class="form-basic" id="registro-evento"'
 	      				); ?>
 					<div class="col-sm-12">

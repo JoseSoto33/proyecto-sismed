@@ -28,5 +28,5 @@ $(document).ready(function(){
     		allow_single_deselect: true,
     		width: "100%"
     	});
-
+    $('#form-admin').validator();
 });

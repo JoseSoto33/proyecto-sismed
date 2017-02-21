@@ -13,11 +13,12 @@
 						<?= $mensaje; ?>
 					</div>					
 				<?php } ?>
-			</div>
+			</div>		
+			
 			<div class="col-sm-12">
 				<!--<form id="registro-usuario" class="form-horizontal form-basic" action="<?php echo base_url(); ?>Usuario/AgregarUsuario">-->
 				<?= form_open(
-	      				base_url()."Usuario/AgregarUsuario",
+	      				base_url()."Usuario/".$this->uri->segment(2, 0),
 	      				'class="form-horizontal form-basic" id="registro-usuario"'
 	      				); ?>
 					<div class="col-sm-12">

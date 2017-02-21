@@ -195,7 +195,15 @@ class Usuario extends CI_Controller {
 			
 			if ($this->form_validation->run() == FALSE) {
             	
-				$this->load->view('admin/FormularioRegistroUsuario');
+            	if ($this->input->post("origen") === "login") {
+					
+					/*$error = $this->form_validation->error_string();
+					var_dump($error);*/
+					$this->load->view('login/index');
+				}else{
+					
+					$this->load->view('admin/FormularioRegistroUsuario');
+				}
             }else{
 
             	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
@@ -223,26 +231,29 @@ class Usuario extends CI_Controller {
 							}
 						}else{
 							$data['mensaje'] = $this->db->error();
-							$this->load->view('admin/FormularioRegistroUsuario', $data);
 						}
             		}else{
             			$data['mensaje'] = "Ya existe un usuario registrado con ambos nombres y apellidos.";
-						$this->load->view('admin/FormularioRegistroUsuario', $data);
             		}
 
             	}elseif ($dif_Fnacimiento_Factual >= 0) {
 
             		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
-					$this->load->view('admin/FormularioRegistroUsuario', $data);
             	}elseif ($dif_Fnacimiento_Factual === true) {
                 
 	                $data['mensaje'] = "La fecha de nacimiento no es válida.";
-	                $this->load->view('admin/FormularioRegistroUsuario', $data);
 	            }elseif ($dif_Fnacimiento_Factual === false) {
 	                
 	                $data['mensaje'] = "La fecha actual del servidor no es válida.";
-	                $this->load->view('admin/FormularioRegistroUsuario', $data);
 	            }
+
+	            if ($this->input->post("origen") === "login") {
+								
+					$this->load->view('login/index', $data);
+				}else{
+					
+					$this->load->view('admin/FormularioRegistroUsuario', $data);
+				}
 			}
 
 		}else{

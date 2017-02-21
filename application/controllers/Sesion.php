@@ -33,6 +33,11 @@ class Sesion extends CI_Controller {
 
 	public function index()
 	{		
+
+        $data = array();
+
+        $data['existe_usuario'] = $this->UsuarioModel->ValidarUsuario(array());
+
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 						
 			$this->form_validation->set_rules(
@@ -59,15 +64,13 @@ class Sesion extends CI_Controller {
 
             if ($this->form_validation->run() == FALSE) {
             	
-				$this->load->view('login/index');
+				$this->load->view('login/index',$data);
             }else{
-
-            	$data = array();
 
 				$condicion = array(
 					"where" => array(
-						"cedula" => $this->input->post("cedula"),
-						"password" => $this->input->post("password")
+						"cedula" => $this->input->post("log_cedula"),
+						"password" => $this->input->post("log_password")
 						)
 					);
 				if ($this->UsuarioModel->ValidarUsuario($condicion)) {
@@ -78,7 +81,7 @@ class Sesion extends CI_Controller {
 
 						$data['mensaje'] = "El usuario ingresado se encuentra inactivo.";
 
-					}elseif (strcmp($usuario->password,$this->input->post('password'))===0) {
+					}elseif (strcmp($usuario->password,$this->input->post('log_password'))===0) {
 						
 						$data = array(
 							"id_usuario" => $usuario->id,
@@ -118,7 +121,7 @@ class Sesion extends CI_Controller {
 				$this->load->view('login/index', $data);
             }
 		}else{
-			$this->load->view('login/index');
+			$this->load->view('login/index',$data);
 		}		
 	}
 

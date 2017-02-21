@@ -16,7 +16,7 @@
 			</div>
 			<div class="col-sm-6 col-sm-offset-3">
 				<?= form_open(
-	      				base_url()."Noticia/AgregarNoticia",
+	      				base_url()."Noticia/".$this->uri->segment(2, 0),
 	      				'class="form-basic" id="registro-noticia"'
 	      				); ?>
 					<div class="col-sm-12">
