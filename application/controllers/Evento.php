@@ -153,19 +153,54 @@ class Evento extends CI_Controller {
 		}
 	}
 
-	public function ModificarEvento()
+	public function ModificarEvento($id)
 	{
 
 	}
 
-	public function EliminarEvento()
+	public function EliminarEvento($id)
 	{
+		$condicion = array(
+			'where' => array("MD5(concat('sismed',id))",$id)
+			);
 
+		if ($this->EventoModel->EliminarEvento($condicion)) {
+			setcookie('success','Eliminacion exitosa.');		
+		}else{
+			setcookie('fail','Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error());
+		}
+		redirect(base_url('Evento/ListarEventos'));
 	}
 
-	public function PerfilEvento()
+	public function VerEvento()
 	{
+		$id = $this->input->post('id');
+		$condicion = array(
+			"where" => array("MD5(concat('sismed',id))" => $id)
+			);
 
+		$result = $this->EventoModel->ExtraerEvento($condicion);
+
+		if ($result->num_rows() > 0) {
+			
+			$data = $result->row_array();
+
+			$fecha_inicio = date('d \d\e F \d\e Y', strtotime($data["fecha_hora_inicio"]));		
+			$fecha_fin 	  = date('d \d\e F \d\e Y', strtotime($data["fecha_hora_inicio"]));		
+			$hora_inicio  = date('h:i:s a', strtotime($data["fecha_hora_fin"]));		
+			$hora_fin 	  = date('h:i:s a', strtotime($data["fecha_hora_fin"]));
+
+			$data["fecha_inicio"] = $fecha_inicio;
+			$data["fecha_fin"] = $fecha_fin;
+			$data["hora_inicio"] = $hora_inicio;
+			$data["hora_fin"] = $hora_fin;
+			$data["result"] = true;
+		}else{
+			$data["result"] = false;
+			$data["message"] = 'Error: '.$this->db->error();
+		}
+
+		echo json_encode($data);
 	}
 
 	public function ListarEventos()

@@ -156,9 +156,21 @@ class Sesion extends CI_Controller {
 
 	public function ListarSesiones()
 	{
-		
-			
-			$this->load->view('admin/ListarSesiones');
+		$condicion = array(
+			'select' => 'sesion.id as id, usuario.id as id_usuario, usuario.nombre1 as nombre1, usuario.nombre2 as nombre2, usuario.apellido1 as apellido1, usuario.apellido2 as apellido2, sesion.fecha_inicio as inicio, sesion.fecha_fin as fin',
+			'join' => array(
+				'table' => 'usuario',
+				'condicion' => 'usuario.id = sesion.id_usuario',
+				'tipo' => 'left'
+				),
+			'where' => array("sesion.fecha_fin !=" => null)
+			);
+
+		$result = $this->SesionModel->ExtraerSesiones($condicion);
+	
+		$data["sesiones"] = $result;
+
+		$this->load->view('admin/ListarSesiones', $data);
 		
 	}
 }

@@ -284,3 +284,13 @@ hr.form-divisor-line{
 #footer2{
 	background: #607D8B;
 }
+
+/*-----------MODAL-----------*/
+.modal .modal-header{
+	background-color: #0097A7 !important;
+	color: #ffffff !important;
+}
+
+.modal .modal-content{
+	background-color: #F9F9F9 !important;
+}

@@ -25,7 +25,25 @@
 						<th> </th>						
 					</tfoot>
 					<tbody>
-						
+						<?php 
+							$cont = 1;
+
+							if ($sesiones->num_rows() > 0) {
+
+								setlocale(LC_TIME,"esp");
+								
+								foreach ($sesiones->result_array() as $key => $sesion) {
+									
+									echo "<tr>";
+									echo "<td>".$cont++."</td>";
+									echo "<td>".$sesion["nombre1"]." ".$sesion["nombre2"]." ".$sesion["apellido1"]." ".$sesion["apellido2"]."</td>";
+									echo "<td>".date('d \d\e F \d\e Y \a \l\a\s h:i:s a', strtotime($sesion["inicio"]))."</td>";
+									echo "<td>".date('d \d\e F \d\e Y \a \l\a\s h:i:s a', strtotime($sesion["fin"]))."</td>";
+									echo "<td> </td>";
+									echo "</tr>";
+								}
+							}
+						?>
 					</tbody>
 				</table>
 			</div>

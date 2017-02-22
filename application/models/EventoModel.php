@@ -35,7 +35,21 @@ class EventoModel extends CI_Model {
 
     public function EliminarEvento($condicion = array())
     {
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
 
+        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
+            
+            $this->db->or_where($condicion['or_where']);
+        }
+
+        if ($this->db->delete('evento')) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function ExtraerEvento($condicion = array())
