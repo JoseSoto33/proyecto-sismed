@@ -39,7 +39,13 @@
 									echo "<td>".$sesion["nombre1"]." ".$sesion["nombre2"]." ".$sesion["apellido1"]." ".$sesion["apellido2"]."</td>";
 									echo "<td>".date('d \d\e F \d\e Y \a \l\a\s h:i:s a', strtotime($sesion["inicio"]))."</td>";
 									echo "<td>".date('d \d\e F \d\e Y \a \l\a\s h:i:s a', strtotime($sesion["fin"]))."</td>";
-									echo "<td> </td>";
+									echo "<td>";
+									
+									echo "<a class=\"btn btn-sm btn-info detalle-sesion\" href=\"#\" data-toggle=\"modal\" data-target=\"#DetalleSesion\" title=\"Ver detalles\" data-idsesion=\"".md5('sismed'.$sesion["id"])."\">";
+									echo "<span class=\"glyphicon glyphicon-search\"></span>";
+									echo "</a>";
+
+									echo "</td>";
 									echo "</tr>";
 								}
 							}

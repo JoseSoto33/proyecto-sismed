@@ -102,6 +102,20 @@ hr.form-divisor-line{
 	color: #ffffff;
 }
 
+table.table > thead > tr > th,
+table.table > thead > tr > td,
+table.table > tfoot > tr > th, 
+table.table > tfoot > tr > td{
+	color: #ffffff !important;
+	background: #0097A7 !important;
+}
+/*
+table.table > tfoot > tr > th, 
+table.table > tfoot > tr > td{
+	color: #ffffff !important;
+	background: #00bcd4 !important;
+}*/
+
 /*=============================PANTALLA PRINCIPAL=============================*/
 /*Cabecera*/
 
@@ -294,3 +308,11 @@ hr.form-divisor-line{
 .modal .modal-content{
 	background-color: #F9F9F9 !important;
 }
+
+/*----------PERFIL----------*/
+#tabla-info table,
+#tabla-info table > tbody > tr > th, 
+#tabla-info table > tbody > tr > td{
+	border: 1px #0097a7 solid;
+}
+

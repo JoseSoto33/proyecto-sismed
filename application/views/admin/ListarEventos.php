@@ -41,7 +41,7 @@
 									echo "<td>".$evento["descripcion"]."</td>";
 									echo "<td>".strftime('%d de %B de %Y', strtotime($evento["fecha_hora_inicio"]))."</td>";
 									echo "<td>";
-									echo "<div class=\"btn-group\" role=\"group\" aria-label=\"...\">";
+									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 									//---Boton ver detalles---
 									echo "<a class=\"btn btn-sm btn-info detalle-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#VerEvento\" title=\"Ver detalles\" data-idevento=\"".md5('sismed'.$evento["id"])."\">";
 									echo "<span class=\"glyphicon glyphicon-search\"></span>";
@@ -53,7 +53,7 @@
 									echo "</a>";
 
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-sm btn-danger eliminar-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarEvento\" title=\"Eliminar evento\" data-idevento=\"".$evento["id"]."\">";
+									echo "<a class=\"btn btn-sm btn-danger eliminar-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarEvento\" title=\"Eliminar evento\" data-idevento=\"".md5('sismed'.$evento["id"])."\" data-titulo=\"".$evento["titulo"]."\">";
 									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 									echo "</a>";
 
@@ -82,40 +82,35 @@
         <div class="row">
         	<div class="col-xs-12">
         		<figure class="img-portada">
-        			<img id="portada-evento" src="<?php echo base_url(); ?>assets/img/Eventos.jpg" class="img-responsive img-thumbnail">
+        			<img id="portada-evento" src="" class="img-responsive img-thumbnail">
         		</figure>
         		<div class="caption">
-			        <h3 id="titulo-evento">Título evento</h3>
-			        <p id="descripcion-evento">Descripción : Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>				        
+			        <h3 id="titulo-evento"></h3>
+			        <p id="descripcion-evento"></p>				        
 			    </div>
 			    <div class="col-xs-12 col-sm-6">			    	
-			    	<h5><strong>Inicio</strong></h5>
+			    	<h5><strong>Comienza el:</strong></h5>
 			    	<blockquote>
 			    		<small>
 			    			<span class="glyphicon glyphicon-calendar"></span>
-			    			<span id="fecha_inicio"> 30 de enero del 2017</span>
+			    			<span id="fecha_inicio"></span>
 			    		</small>
 			    		<small>
 			    			<span class="glyphicon glyphicon-time"></span>
-			    			<span id="hora_inicio"> 12:30pm</span>
+			    			<span id="hora_inicio"></span>
 			    		</small>
 			    	</blockquote>
 			    </div>
 			    <div class="col-xs-12 col-sm-6">			    	
-			    	<h5><strong>Fin</strong></h5>
+			    	<h5><strong>Finaliza el:</strong></h5>
 			    	<blockquote>
 			    		<small>
 			    			<span class="glyphicon glyphicon-calendar"></span> 
-			    			<span id="fecha_fin"> 30 de enero del 2017</span>
+			    			<span id="fecha_fin"></span>
 		    			</small>
 			    		<small>
 			    			<span class="glyphicon glyphicon-time"></span>
-			    			<span id="hora_fin"> 2:30pm</span>
+			    			<span id="hora_fin"></span>
 			    		</small>
 			    	</blockquote>
 			    </div>
@@ -140,12 +135,13 @@
       <div class="modal-body">
         <div class="row">
         	<div class="col-xs-12">
-        		<h3>¿Está seguro que desea eliminar el evento <span id="el-evento"></span>?</h3>
+        		<h3 id="delete-title">¿Está seguro que desea eliminar el evento "<span id="el-evento"></span>"?</h3>
+        		<div id="delete-message" class="alert hidden"></div>
         	</div>
         </div>
       </div>
       <div class="modal-footer">
-      	<button type="button" id="accion-eliminar-evento" class="btn btn-default" data-idevento="">Eliminar</button>
+      	<button type="button" id="accion-eliminar-evento" class="btn btn-principal-2" data-idevento="">Eliminar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

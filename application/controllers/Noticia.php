@@ -104,12 +104,21 @@ class Noticia extends CI_Controller {
 
 	public function EliminarNoticia()
 	{
+		$id = $this->input->post('id');
+		$condicion = array(
+			'where' => array("MD5(concat('sismed',id))" => $id)
+			);
 
-	}
-
-	public function PerfilNoticia()
-	{
-
+		if ($this->NoticiaModel->EliminarNoticia($condicion)) {
+			
+			$data['result']  = true;
+			$data['message'] = 'Eliminación exitosa!\n Espere mientras recarga la página...';
+		}else{
+			$data['result']  = false;
+			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();
+		}
+		//redirect(base_url('Evento/ListarEventos'));
+		echo json_encode($data);
 	}
 
 	public function ListarNoticias()

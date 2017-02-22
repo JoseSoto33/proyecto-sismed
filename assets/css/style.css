@@ -674,3 +674,86 @@ span.red{
 	font-size: 18px;
 	font-family: oswaldregular;
 }
+
+/*-----------PERFIL-----------*/
+#inicioadm{
+	width:100%;
+	min-height:525px;
+	opacity: 0.9;
+	padding: 25px 20px;
+	background:#F0F0F0;
+	border:0px solid #000000;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	margin: 0px auto;
+	border-radius:0px;
+}
+
+#inicioadm > figure{
+	width: 100%;
+}
+
+#inicioadm > figure img{
+	width: auto;
+	height: 400px;	
+}
+.img-perfil{
+	padding-top: 20px;
+}
+.img-perfil > figure{
+	width: 300px;
+	height: auto;
+	padding: 10px;
+	margin: 0 auto;
+	display: table;
+	border: 5px #4682B4 solid;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	background-color: #CAE6F4;	
+}
+
+.img-perfil > figure > img{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+.user-name{	
+	padding: 5px 25px;
+	margin: 20px auto;
+	display: table;
+	font-size: 25px;
+	color: #ffffff;
+	background-color: #6CBF6C;	
+}
+
+#tabla-info{
+	padding: 5px 30px 30px;
+}
+
+.user-name,
+.img-perfil > figure,
+#tabla-info table{
+	-webkit-box-shadow: 0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	-moz-box-shadow:    0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	box-shadow:         0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+}
+#tabla-info table,
+#tabla-info table > tbody > tr > th, 
+#tabla-info table > tbody > tr > td{
+	border: 1px #4682B4 solid;
+}
+
+#tabla-info table > tbody > tr > th{
+	width: 30%;
+	text-align: right;
+}
+
+#tabla-info table > tbody > tr > td{
+	width: 70%;
+}
+#tabla-info > h3 > span.glyphicon,
+#sesiones-content > h3 > span.glyphicon{
+	color: #D76519;
+}

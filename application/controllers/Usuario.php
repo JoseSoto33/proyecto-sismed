@@ -272,15 +272,42 @@ class Usuario extends CI_Controller {
 
 	}
 
-	public function PerfilUsuario()
+	public function PerfilUsuario($id = null)
 	{
+		if (!isset($id) || empty($id)) {
+			$id = $this->session->userdata('id');
+		}
 
+		$condicion = array(
+			'where' => array("MD5(concat('sismed',id))" => $id)
+			);
+
+		$result = $this->UsuarioModel->ExtraerUsuario($condicion);
+		if ($result->num_rows() > 0) {
+			
+			$data['usuario'] = $result->row_array();
+		}else{
+			$data['message'] = $this->db->error();
+		}
+
+		$condicion = array(
+			'where' => array(
+					"fecha_fin !=" => null,
+					"MD5(concat('sismed',id_usuario))" => $id
+					)
+			);
+
+		$result = $this->SesionModel->ExtraerSesiones($condicion);
+			
+		$data['sesiones'] = $result;
+
+		$this->load->view('admin/PerfilUsuario', $data);
 	}
 
 	public function ListarUsuarios()
 	{
 		$condicion = array(
-			"select" => "id, cedula, nombre1, apellido1, especialidad, status",
+			"select" => "id, cedula, nombre1, nombre2, apellido1, apellido2, especialidad, status",
 			"where" => array("id !=" => $this->session->userdata('idUsuario'))
 			);
 
@@ -289,6 +316,7 @@ class Usuario extends CI_Controller {
 		$result = $this->UsuarioModel->ExtraerUsuario($condicion);
 	
 		$data["usuarios"] = $result;
+
 		$this->load->view('admin/ListarUsuarios', $data);
 		
 	}

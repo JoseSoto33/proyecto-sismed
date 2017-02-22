@@ -35,15 +35,42 @@
 								
 								foreach ($usuarios->result_array() as $key => $usuario) {
 									
-									echo "<tr>";
+									echo "<tr id=\"fila_".md5('sismed'.$usuario["id"])."\">";
 									echo "<td>".$cont++."</td>";
 									echo "<td>".$usuario["cedula"]."</td>";
-									echo "<td>".$usuario["nombre1"]." ".$usuario["apellido1"]."</td>";
+									echo "<td>".$usuario["nombre1"]." ".$usuario["nombre2"]." ".$usuario["apellido1"]." ".$usuario["apellido2"]."</td>";
 									echo "<td>".$usuario["especialidad"]."</td>";
 									echo "<td>";
-									echo ($usuario["status"] == 't') ? "Activo":"Inactivo";
+									echo ($usuario["status"] == 't') ? "<span class=\"label label-success\">Activo</span>":"<span class=\"label label-danger\">Inactivo</span>";
 									echo "</td>";
-									echo "<td> </td>";
+									echo "<td>";
+									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
+									//---Boton ver detalles---
+									echo "<a class=\"btn btn-sm btn-info detalle-usuario\" href=\"".base_url("Usuario/PerfilUsuario/".md5('sismed'.$usuario["id"]))."\" data-toggle=\"modal\" title=\"Ver detalles\">";
+									echo "<span class=\"glyphicon glyphicon-search\"></span>";
+									echo "</a>";
+
+									//---Boton editar---
+									echo "<a class=\"btn btn-sm btn-success editar-usuario\" href=\"".base_url("Usuario/ModificarUsuario/".md5('sismed'.$usuario["id"]))."\" title=\"Editar usuario\">";
+									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
+									echo "</a>";
+
+									if ($usuario["status"] == 't') {
+										
+									//---Boton Inhabilitar---
+									echo "<a class=\"btn btn-sm btn-danger in-hab-usuario\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarUsuario\" title=\"Eliminar usuario\" data-idusuario=\"".md5('sismed'.$usuario["id"])."\" data-titulo=\"".$usuario["nombre1"]." ".$usuario["apellido1"]."\">";
+									echo "<span class=\"glyphicon glyphicon-ban-circle\"></span>";
+									echo "</a>";
+
+									}else{
+
+									//---Boton habilitar---
+									echo "<a class=\"btn btn-sm btn-danger in-hab-usuario\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarUsuario\" title=\"Eliminar usuario\" data-idusuario=\"".md5('sismed'.$usuario["id"])."\" data-titulo=\"".$usuario["nombre1"]." ".$usuario["apellido1"]."\">";
+									echo "<span class=\"glyphicon glyphicon-ban-circle\"></span>";
+									echo "</a>";
+									}
+									echo "</div>";
+									echo "</td>";
 									echo "</tr>";
 								}
 							}

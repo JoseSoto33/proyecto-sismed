@@ -158,18 +158,23 @@ class Evento extends CI_Controller {
 
 	}
 
-	public function EliminarEvento($id)
+	public function EliminarEvento()
 	{
+		$id = $this->input->post('id');
 		$condicion = array(
-			'where' => array("MD5(concat('sismed',id))",$id)
+			'where' => array("MD5(concat('sismed',id))" => $id)
 			);
 
 		if ($this->EventoModel->EliminarEvento($condicion)) {
-			setcookie('success','Eliminacion exitosa.');		
+			
+			$data['result']  = true;
+			$data['message'] = "Eliminación exitosa!\n Espere mientras recarga la página...";
 		}else{
-			setcookie('fail','Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error());
+			$data['result']  = false;
+			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();
 		}
-		redirect(base_url('Evento/ListarEventos'));
+		//redirect(base_url('Evento/ListarEventos'));
+		echo json_encode($data);
 	}
 
 	public function VerEvento()
@@ -185,8 +190,10 @@ class Evento extends CI_Controller {
 			
 			$data = $result->row_array();
 
-			$fecha_inicio = date('d \d\e F \d\e Y', strtotime($data["fecha_hora_inicio"]));		
-			$fecha_fin 	  = date('d \d\e F \d\e Y', strtotime($data["fecha_hora_inicio"]));		
+			setlocale(LC_TIME,"esp");
+
+			$fecha_inicio = strftime('%d de %B de %Y', strtotime($data["fecha_hora_inicio"]));		
+			$fecha_fin 	  = strftime('%d de %B de %Y', strtotime($data["fecha_hora_inicio"]));		
 			$hora_inicio  = date('h:i:s a', strtotime($data["fecha_hora_fin"]));		
 			$hora_fin 	  = date('h:i:s a', strtotime($data["fecha_hora_fin"]));
 
