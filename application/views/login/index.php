@@ -244,6 +244,7 @@
 								</div>
 							</div>
 						</div>
+						<!--
 						<div class="col-sm-12">
 							<div class="row">
 								<div class="col-sm-6">
@@ -267,7 +268,7 @@
 									</div>						
 								</div>
 							</div>
-						</div>					
+						</div>	-->				
 						<hr class="form-divisor-line">	
 					</div>		
 				<?= form_close(); ?>

@@ -6,6 +6,17 @@
 			<div class="col-sm-12">
 				<h1>Listado de usuarios</h1>
 			</div>
+			<div class="col-xs-12">
+				<?php if(get_cookie("message") != null) { ?>
+					<div class="alert alert-success" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<?php 
+							echo $this->input->cookie('message'); 
+							delete_cookie('message');
+						?>
+					</div>					
+				<?php } ?>
+			</div>	
 			<div class="col-sm-12 table-buttons">
 				<a class="btn btn-success" href="<?php echo base_url(); ?>Usuario/AgregarUsuario"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
 			</div>
@@ -113,6 +124,13 @@
 				}
         	}
         });
+
+        if ($(".alert").length) {
+
+        	setTimeout( function(){                  
+                $(".alert").hide('fast');  //Recargar la página luego de 5 segundos
+            }, 15000);
+    }
 	});
 </script>
 <?php include('footer.php') ?>

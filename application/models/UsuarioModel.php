@@ -22,7 +22,6 @@ class UsuarioModel extends CI_Model {
      			"telf_emergencia" => $this->input->post('telef_emergencia'),
      			"email" => $this->input->post('email'),
      			"username" => $this->input->post('username'),
-     			"password" => $this->input->post('password'),
      			"grado_instruccion" => $this->input->post('grado_instruccion'),
      			"especialidad" => $this->input->post('especialidad'),
      			"tipo_usuario" => $this->input->post('tipo_usuario')

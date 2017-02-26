@@ -58,10 +58,9 @@ class Usuario extends CI_Controller {
 
 			$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
 			        'nombre2', 'Segundo nombre',
-			        array('required','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
+			        array('regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
 			        array(   
-		                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.',
-		                'required'  => 'Debe ingresar su %s.'
+		                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.'
 			        )
 			);
 
@@ -76,10 +75,9 @@ class Usuario extends CI_Controller {
 
 			$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
 			        'apellido2', 'Segundo apellido',
-			        array('required','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
+			        array('regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
 			        array(   
-		                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.',
-		                'required'  => 'Debe ingresar su %s.'
+		                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.'
 			        )
 			);
 
@@ -153,7 +151,7 @@ class Usuario extends CI_Controller {
 			        	'required'   	=> 'Debe seleccionar una %s.'
 			        )
 			);
-
+			/*
 			$this->form_validation->set_rules(
 			        'password', 'Contraseña',
 			        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
@@ -175,7 +173,7 @@ class Usuario extends CI_Controller {
 		                'matches'   	=> 'La %s no coinside.',
 		                'required'   	=> 'Debe insertar un %s.'
 			        )
-			);
+			);*/
 
 			$this->form_validation->set_rules(
 			        'tipo_usuario', 'Tipo de usuario',
@@ -227,6 +225,7 @@ class Usuario extends CI_Controller {
 								
 								header("Location: ".base_url());
 							}else{
+								set_cookie("message","El usuario '".$this->input->post('username')."' fue registrado exitosamente", time()+15);
 								header("Location: ".base_url()."Usuario/ListarUsuarios");
 							}
 						}else{
