@@ -268,7 +268,28 @@ class Usuario extends CI_Controller {
 
 	public function EliminarUsuario()
 	{
+		$id = $this->input->post('id');
+		$action = $this->input->post('action');
+		$condicion = array(
+			'where' => array("MD5(concat('sismed',id))" => $id)
+			);
 
+		if ($action == "habilitar") {
+			$condicion['data'] = array('status' => true);
+		}else{
+			$condicion['data'] = array('status' => false);
+		}
+
+		if ($this->UsuarioModel->ModificarUsuario($condicion)) {
+			
+			$data['result']  = true;
+			$data['message'] = "Operación exitosa!...";
+		}else{
+			$data['result']  = false;
+			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();
+		}
+		
+		echo json_encode($data);
 	}
 
 	public function PerfilUsuario($id = null)
@@ -306,8 +327,9 @@ class Usuario extends CI_Controller {
 	public function ListarUsuarios()
 	{
 		$condicion = array(
-			"select" => "id, cedula, nombre1, nombre2, apellido1, apellido2, especialidad, status",
-			"where" => array("id !=" => $this->session->userdata('idUsuario'))
+			"select" => "id, cedula, username, nombre1, nombre2, apellido1, apellido2, especialidad, status",
+			"where" => array("id !=" => $this->session->userdata('idUsuario')),
+			"order_by" => array("campo" => "id", "direccion" => "ASC")
 			);
 
 		$data = array();

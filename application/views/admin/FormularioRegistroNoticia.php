@@ -7,9 +7,10 @@
 				<h1>Agregar nueva noticia</h1>
 			</div>
 			<div class="col-xs-12">
-				<?= validation_errors("<div class=\"alert alert-danger\" role=\"alert\">", "</div>"); ?>
+				<?= validation_errors("<div class=\"alert alert-danger\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>", "</div>"); ?>
 				<?php if(isset($mensaje) && !empty($mensaje)) { ?>
 					<div class="alert alert-danger" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<?= $mensaje; ?>
 					</div>					
 				<?php } ?>
@@ -21,7 +22,7 @@
 	      				); ?>
 					<div class="col-sm-12">
 						<div class="form-group">
-							<label for="titulo" class="control-label">Títitulo</label>
+							<label for="titulo" class="control-label"><span class="red">*</span> Títitulo</label>
 						    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{5,}" placeholder="" value="<?php echo set_value('titulo'); ?>" required="required">
 						    <div class="help-block with-errors">
 							</div>
@@ -30,20 +31,24 @@
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="url" class="control-label">Enlace</label>
-						    <input type="text" class="form-control" id="url" name="url" pattern="https?://.+" title="Introduzca una dirección válida" placeholder="http://www.paginaweb.com" value="<?php echo set_value('url'); ?>" required="required" data-pattern-error="Introduzca una dirección Válida">
+						    <input type="text" class="form-control" id="url" name="url" pattern="https?://.+" title="Introduzca una dirección válida" placeholder="http://www.paginaweb.com" value="<?php echo set_value('url'); ?>" data-pattern-error="Introduzca una dirección Válida">
 						    <div class="help-block with-errors">
 							</div>
 						</div>
 					</div>			
 					<div class="col-sm-12">			
 						<div class="form-group">
-							<label for="descripcion" class="control-label">Descripción</label>
+							<label for="descripcion" class="control-label"><span class="red">*</span> Descripción</label>
 						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" maxlength="" required="required" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{12,}"></textarea>
 						    <div class="help-block with-errors">
 							</div>
 						</div>
 					</div>
-					
+					<div class="col-sm-12">						
+						<small> 
+							<span class="red2">Los campos con (*) son obligatorios.</span>
+						</small>
+					</div>
 					<hr class="form-divisor-line">
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">

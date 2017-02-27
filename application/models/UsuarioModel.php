@@ -34,14 +34,42 @@ class UsuarioModel extends CI_Model {
      	}
     }
 
-    public function ModificarUsuario()
+    public function ModificarUsuario($condicion = array())
     {
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
 
+        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
+            
+            $this->db->or_where($condicion['or_where']);
+        }
+
+        if ($this->db->update('usuario', $condicion['data'])) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function EliminarUsuario($condicion = array())
     {
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
 
+        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
+            
+            $this->db->or_where($condicion['or_where']);
+        }
+
+        if ($this->db->delete('usuario')) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function ExtraerUsuario($condicion = array())
@@ -64,6 +92,11 @@ class UsuarioModel extends CI_Model {
     		
     		$this->db->or_where($condicion['or_where']);
     	}
+
+        if (isset($condicion['order_by']) && !empty($condicion['order_by'])) {
+            
+            $this->db->order_by($condicion['order_by']['campo'],$condicion['order_by']['direccion']);
+        }
 
     	return $this->db->get();
     	
