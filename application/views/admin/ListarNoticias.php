@@ -45,7 +45,7 @@
 								
 								foreach ($noticias->result_array() as $key => $noticia) {
 									
-									echo "<tr>";
+									echo "<tr id=\"fila_".md5('sismed'.$noticia["id"])."\">";
 									echo "<td>".$cont++."</td>";
 									echo "<td>".$noticia["titulo"]."</td>";
 									echo "<td>".$noticia["descripcion"]."</td>";
@@ -88,7 +88,7 @@
         <div class="row">
         	<div class="col-xs-12">
         		<h3 id="delete-title">¿Está seguro que desea eliminar la noticia "<span id="la-noticia"></span>"?</h3>
-        		<div id="delete-message" class="alert hidden"></div>
+        		<div id="delete-message" class="alert"></div>
         	</div>
         </div>
       </div>

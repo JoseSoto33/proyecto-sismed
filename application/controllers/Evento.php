@@ -169,7 +169,7 @@ class Evento extends CI_Controller {
 		if ($this->EventoModel->EliminarEvento($condicion)) {
 			
 			$data['result']  = true;
-			$data['message'] = "Eliminación exitosa!\n Espere mientras recarga la página...";
+			$data['message'] = "Evento eliminado exitosamente!...";
 		}else{
 			$data['result']  = false;
 			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();

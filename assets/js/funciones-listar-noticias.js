@@ -2,32 +2,32 @@ $(document).ready(function(){
 
 	var url = $("#base_url").val();
 
-	$("#lista_noticias").DataTable( {
-    "language": {
-        	"sProcessing":     "Procesando...",
-			"sLengthMenu":     "Mostrar _MENU_ registros",
-			"sZeroRecords":    "No se encontraron resultados",
-			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-			"sInfoPostFix":    "",
-			"sSearch":         "Buscar:",
-			"sUrl":            "",
-			"sInfoThousands":  ",",
-			"sLoadingRecords": "Cargando...",
-			"oPaginate": {
-				"sFirst":    "Primero",
-				"sLast":     "Último",
-				"sNext":     "Siguiente",
-				"sPrevious": "Anterior"
-			},
-			"oAria": {
-				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-			}
-    	}
-    });
+	var tabla = $("#lista_noticias").DataTable( {
+        "language": {
+            	"sProcessing":     "Procesando...",
+    			"sLengthMenu":     "Mostrar _MENU_ registros",
+    			"sZeroRecords":    "No se encontraron resultados",
+    			"sEmptyTable":     "Ningún dato disponible en esta tabla",
+    			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+    			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+    			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+    			"sInfoPostFix":    "",
+    			"sSearch":         "Buscar:",
+    			"sUrl":            "",
+    			"sInfoThousands":  ",",
+    			"sLoadingRecords": "Cargando...",
+    			"oPaginate": {
+    				"sFirst":    "Primero",
+    				"sLast":     "Último",
+    				"sNext":     "Siguiente",
+    				"sPrevious": "Anterior"
+    			},
+    			"oAria": {
+    				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+    				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+    			}
+        	}
+        });
 
      if ($("#alert-message").length) {
 
@@ -40,6 +40,8 @@ $(document).ready(function(){
 
     	var idnoticia = $(this).data("idnoticia"); 
     	var titulo = $(this).data("titulo"); 
+
+        $("#delete-message").hide();
 
     	$("#la-noticia").html(titulo);
     	$("#accion-eliminar-noticia").data('idnoticia', idnoticia);
@@ -66,17 +68,26 @@ $(document).ready(function(){
             if (response['result'] == true) {
             	
             	$("#delete-title").hide();
-            	$("#delete-message").removeClass('alert-danger').addClass('alert-success').show().html(response['message']);
+            	$("#delete-message").removeClass('alert-danger').addClass('alert-success').html(response['message']).show();
             	$("#accion-eliminar-noticia").attr('disabled','disabled');
-            	setTimeout( function(){                  
-                    location.reload();  //Recargar la página luego de 5 segundos
-                }, 5000);
-
+                tabla.row($("#fila_"+idnoticia)).remove().draw();
+            	
             }else{
             	//alert(response['message']);
-            	$("#delete-message").removeClass('alert-success').addClass('alert-danger').show().html(response['message']);
+            	$("#delete-message").removeClass('alert-success').addClass('alert-danger').html(response['message']).show();
             }
             
+            setTimeout( function(){
+
+                $('#EliminarNoticia').modal('hide');
+            }, 5000);
+
+            setTimeout( function(){
+                $("#delete-message").hide();
+                $("#delete-title").show();
+                $("#accion-eliminar-noticia").removeAttr('disabled');
+            }, 6000);
+
         });
 
         request.fail(function (jqXHR, textStatus, thrown){

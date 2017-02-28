@@ -46,7 +46,7 @@
 
 								foreach ($eventos->result_array() as $key => $evento) {
 									
-									echo "<tr>";
+									echo "<tr id=\"fila_".md5('sismed'.$evento["id"])."\">";
 									echo "<td>".$cont++."</td>";
 									echo "<td>".$evento["titulo"]."</td>";
 									echo "<td>".$evento["descripcion"]."</td>";
@@ -147,7 +147,7 @@
         <div class="row">
         	<div class="col-xs-12">
         		<h3 id="delete-title">¿Está seguro que desea eliminar el evento "<span id="el-evento"></span>"?</h3>
-        		<div id="delete-message" class="alert hidden"></div>
+        		<div id="delete-message" class="alert"></div>
         	</div>
         </div>
       </div>
