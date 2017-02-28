@@ -46,11 +46,10 @@ class Noticia extends CI_Controller {
 
 			$this->form_validation->set_rules(
 	            	'url', 'dirección de enlace', 
-	        		array('required','valid_url','regex_match[/^(ht|f)tps?:\/\/\w+([\.\-\w]+)?\.([a-z]{2,6})?([\.\-\w\/_]+)$/i]'),
+	        		array('valid_url','regex_match[/^(ht|f)tps?:\/\/\w+([\.\-\w]+)?\.([a-z]{2,6})?([\.\-\w\/_]+)$/i]'),
 	                array(
 	                	'regex_match'  	=> 'La %s es inválida.',
-	                	'valid_url'		=> 'La %s no es válida.',
-	                	'required'	=> 'Debe ingresar una %s.'
+	                	'valid_url'		=> 'La %s no es válida.'
 		                )	                
             );
 
@@ -69,10 +68,15 @@ class Noticia extends CI_Controller {
 				
 				$condicion = array(
 						'where' => array(
-							'titulo' => $this->input->post('titulo'),
-							'url' => $this->input->post('url')
+							'titulo' => $this->input->post('titulo')
 							)
 					);
+
+				$url = $this->input->post('url');
+				if ($url != null && $url != "") {
+					
+					$condicion["where"]["url"] = $url;
+				}
 
 				if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
 					
@@ -80,6 +84,7 @@ class Noticia extends CI_Controller {
 
 					if ($this->NoticiaModel->AgregarNoticia()) {
 
+						set_cookie("message","La noticia <strong>'".$this->input->post('titulo')."'</strong> fue registrada exitosamente!...", time()+15);
 						header("Location: ".base_url()."Noticia/ListarNoticias");
 
 					}else{

@@ -225,7 +225,7 @@ class Usuario extends CI_Controller {
 								
 								header("Location: ".base_url());
 							}else{
-								set_cookie("message","El usuario '".$this->input->post('username')."' fue registrado exitosamente", time()+15);
+								set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
 								header("Location: ".base_url()."Usuario/ListarUsuarios");
 							}
 						}else{

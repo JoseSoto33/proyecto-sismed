@@ -6,7 +6,10 @@
 			<div class="col-sm-12">
 				<h1>Listado de usuarios</h1>
 			</div>
-			<div class="col-xs-12">
+			<div class="col-xs-12 col-sm-3 table-buttons">
+				<a class="btn btn-success" href="<?php echo base_url(); ?>Usuario/AgregarUsuario"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+			</div>
+			<div class="col-xs-12 col-sm-9">
 				<?php if(get_cookie("message") != null) { ?>
 					<div class="alert alert-success" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -17,9 +20,6 @@
 					</div>					
 				<?php } ?>
 			</div>	
-			<div class="col-sm-12 table-buttons">
-				<a class="btn btn-success" href="<?php echo base_url(); ?>Usuario/AgregarUsuario"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
-			</div>
 			<input type="hidden" name="base_url" id="base_url" value="<?= base_url(); ?>">
 			<div class="col-sm-12 table-responsive">
 				<table id="lista_usuarios" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">

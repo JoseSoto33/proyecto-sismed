@@ -39,7 +39,7 @@
 					<div class="col-sm-12">			
 						<div class="form-group">
 							<label for="descripcion" class="control-label"><span class="red">*</span> Descripción</label>
-						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" maxlength="" required="required" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{12,}"></textarea>
+						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" maxlength="" required="required" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{12,}"><?php echo  trim(set_value('descripcion')); ?></textarea>
 						    <div class="help-block with-errors">
 							</div>
 						</div>
@@ -52,8 +52,8 @@
 					<hr class="form-divisor-line">
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
-							<button type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<a href="javascript:history.back(1)" class="btn btn-second-2 btn-lg btn-block">Volver</a>
+							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
+							<a href="<?php echo base_url(); ?>Noticia/ListarNoticias" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
 				<?= form_close();?>
@@ -62,10 +62,6 @@
 	</div>
 </div>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#registro-noticia').validator();	
-	});
-</script>	
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-formulario-noticia.js"></script>
 
 <?php include('footer.php') ?>

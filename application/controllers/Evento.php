@@ -132,6 +132,7 @@ class Evento extends CI_Controller {
         				
 	        			if ($this->EventoModel->AgregarEvento()) {
 
+	        				set_cookie("message","El evento <strong>'".$this->input->post('titulo')."'</strong> fue registrado exitosamente!...", time()+15);
 							header("Location: ".base_url()."Evento/ListarEventos");
 
 						}else{

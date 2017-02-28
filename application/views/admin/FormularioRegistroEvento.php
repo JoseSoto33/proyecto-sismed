@@ -101,7 +101,7 @@
 					<div class="col-sm-12">			
 						<div class="form-group">
 							<label for="descripcion" class="control-label"><span class="red">*</span> Descripción</label>
-						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" required="required" ></textarea>	
+						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" required="required" ><?php echo  trim(set_value('descripcion')); ?></textarea>	
 						    <div class="help-block with-errors">
 							</div>
 						</div>
@@ -114,8 +114,8 @@
 					<hr class="form-divisor-line">
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
-							<button type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<a href="javascript:history.back(1)" class="btn btn-second-2 btn-lg btn-block">Volver</a>
+							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
+							<a href="<?php echo base_url(); ?>Evento/ListarEventos" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
 				<?= form_close();?>			
@@ -125,22 +125,5 @@
 </div>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-
-		var nav = navigator.userAgent.toLowerCase(); //La variable nav almacenará la información del navegador del usuario
-
-	    if(nav.indexOf("firefox") != -1){   //En caso de que el usuario este usando el navegador MozillaFirefox
-	        
-	        $("#fecha_inicio").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
-
-	        $("#fecha_fin").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
-	    }	
-
-	    $("#hora_inicio").mask("99:99",{placeholder:"00:00"});
-		$("#hora_fin").mask("99:99",{placeholder:"00:00"});    
-
-		$('#registro-evento').validator();
-	});
-</script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-formulario-evento.js"></script>
 <?php include('footer.php') ?>

@@ -29,6 +29,13 @@ $(document).ready(function(){
     	}
     });
 
+     if ($("#alert-message").length) {
+
+        setTimeout( function(){                  
+            $(".alert").hide('fast');  
+        }, 10000);
+    }
+
     $(".table-responsive").on("click", "#lista_noticias tbody tr td .eliminar-noticia", function(e){
 
     	var idnoticia = $(this).data("idnoticia"); 

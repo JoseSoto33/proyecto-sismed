@@ -272,8 +272,8 @@
 					<hr class="form-divisor-line">					
 					<div class="col-sm-12">
 						<div class="col-sm-4 col-sm-offset-4">
-							<button type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<a href="javascript:history.back(1)" class="btn btn-second-2 btn-lg btn-block">Volver</a>
+							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
+							<a href="<?php echo base_url(); ?>Usuario/ListarUsuarios" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
 				<?= form_close(); ?>

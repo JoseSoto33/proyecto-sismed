@@ -25,5 +25,12 @@ $(document).ready(function(){
     		no_results_text: "Sin resultados por:",
     		allow_single_deselect: true
     	});
+
 	$('#registro-usuario').validator();
+
+    $("#guardar").on("click", function(){
+
+        $(this).attr("disabled","disabled");
+        $('#seccion2').animate({scrollTop : 0}, 500);
+    });
 });

@@ -34,7 +34,7 @@ $(document).ready(function(){
 
     	setTimeout( function(){                  
             $(".alert").hide('fast');  //Recargar la página luego de 5 segundos
-        }, 15000);
+        }, 10000);
 	}
 
 	$("#lista_usuarios").on("click", "tbody tr td div a.in-hab-usuario", function(e) {

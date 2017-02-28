@@ -29,6 +29,13 @@ $(document).ready(function(){
     	}
     });
 
+     if ($("#alert-message").length) {
+
+        setTimeout( function(){                  
+            $(".alert").hide('fast');  
+        }, 10000);
+    }
+
     $(".table-responsive").on("click", "#lista-eventos tbody tr td .detalle-evento", function(e){
 
         var idevento = $(this).data("idevento");        
