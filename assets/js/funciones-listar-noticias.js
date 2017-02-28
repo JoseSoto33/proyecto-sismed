@@ -32,7 +32,7 @@ $(document).ready(function(){
      if ($("#alert-message").length) {
 
         setTimeout( function(){                  
-            $(".alert").hide('fast');  
+            $("#alert-message").hide('fast');  
         }, 10000);
     }
 

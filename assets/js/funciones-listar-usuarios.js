@@ -30,10 +30,10 @@ $(document).ready(function(){
     	}
     });
 
-    if ($(".alert").length) {
+    if ($("#alert-message").length) {
 
     	setTimeout( function(){                  
-            $(".alert").hide('fast');  //Recargar la página luego de 5 segundos
+            $("#alert-message").hide('fast');  //Recargar la página luego de 5 segundos
         }, 10000);
 	}
 

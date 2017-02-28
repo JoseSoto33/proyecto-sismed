@@ -11,7 +11,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-9">
 				<?php if(get_cookie("message") != null) { ?>
-					<div class="alert alert-success" role="alert">
+					<div id="alert-message" class="alert alert-success" role="alert">
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 						<?php 
 							echo $this->input->cookie('message'); 

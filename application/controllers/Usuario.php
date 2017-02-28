@@ -33,176 +33,11 @@ class Usuario extends CI_Controller {
 
 	public function AgregarUsuario()
 	{
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		$data = array("titulo" => "Agregar nuevo usuario");
 
-			$this->form_validation->set_rules(
-			        'cedula', 'Cédula',
-			        array('required','numeric','min_length[6]','max_length[8]','is_unique[usuario.cedula]'),		        	
-			        array(		                
-			                'min_length'    => 'La %s debe tener al menos 6 caracteres.',
-			                'max_length'    => 'La %s debe tener máximo 8 caracteres.',
-			                'numeric'     	=> 'La %s sólo debe contener números.',
-			                'is_unique'     => 'La %s ya ha sido registrada anteriormente.',
-			                'required'      => 'Debe insertar su %s.'
-			        )
-			);
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {			
 
-			$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
-			        'nombre1', 'Primer nombre',
-			        array('required','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
-			        array(   
-		                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.',
-		                'required'  => 'Debe ingresar su %s.'
-			        )
-			);
-
-			$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
-			        'nombre2', 'Segundo nombre',
-			        array('regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
-			        array(   
-		                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.'
-			        )
-			);
-
-			$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
-			        'apellido1', 'Primer apellido',
-			        array('required','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
-			        array(   
-		                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.',
-		                'required'  => 'Debe ingresar su %s.'
-			        )
-			);
-
-			$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
-			        'apellido2', 'Segundo apellido',
-			        array('regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
-			        array(   
-		                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.'
-			        )
-			);
-
-			$this->form_validation->set_rules(
-	            	'fecha_nacimiento', 'Fecha de nacimiento', 
-	        		array('required','regex_match[/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/]'),
-	                array(
-	                	'regex_match'  	=> 'La %s debe tener el formato año-mes-día (2017-02-15 por ejemplo).',
-	                	'required'	=> 'Debe ingresar una %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'email', 'Correo electrónico', 
-	        		array('required','valid_email','is_unique[usuario.email]'),
-	                array(
-	                	'valid_url'	=> 'El %s no es válido.',
-			            'is_unique' => 'El %s ya ha sido registrado anteriormente.',
-	                	'required'	=> 'Debe ingresar su %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'telef_personal', 'Teléfono personal', ///^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/
-	        		array('required','regex_match[/^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/]'),
-	                array(
-	                	'regex_match'  	=> 'Su %s debe tener un código de área válido y el formato de ejemplo: (0212) 555-45-02.',
-	                	'required'	=> 'Debe ingresar su %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'telef_emergencia', 'Teléfono de emergencia', ///^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/
-	        		array('regex_match[/^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/]'),
-	                array(
-	                	'regex_match'  	=> 'Su %s debe tener un código de área válido y el formato de ejemplo: (0212) 555-45-02).'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'sexo', 'Sexo', 
-	        		array('required'),
-	                array(
-	                	'required'	=> 'Debe ingresar su %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'direccion', 'Direccion de habitación',
-	        		array('required'),
-	                array(
-	                	'required'	=> 'Debe ingresar su %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-			        'username', 'Username',
-			        array('required','min_length[8]','max_length[16]','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+/]'),		        	
-			        array( 
-			        	'min_length'    => 'El %s debe tener al menos 8 caracteres.',
-			            'max_length'    => 'El %s debe tener máximo 16 caracteres.',
-		                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras  y números.',
-		                'required'   	=> 'Debe insertar un %s.'
-			        )
-			);
-
-			$this->form_validation->set_rules(
-			        'especialidad', 'Especialidad',
-			        array('required'),		        	
-			        array( 
-			        	'required'   	=> 'Debe seleccionar una %s.'
-			        )
-			);
-			/*
-			$this->form_validation->set_rules(
-			        'password', 'Contraseña',
-			        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
-			        array( 
-			        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
-			            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
-		                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
-		                'required'   	=> 'Debe insertar un %s.'
-			        )
-			);
-
-			$this->form_validation->set_rules(
-			        'password2', 'Contraseña de confirmación',
-			        array('required','matches[password]','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
-			        array( 
-			        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
-			            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
-		                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
-		                'matches'   	=> 'La %s no coinside.',
-		                'required'   	=> 'Debe insertar un %s.'
-			        )
-			);*/
-
-			$this->form_validation->set_rules(
-			        'tipo_usuario', 'Tipo de usuario',
-			        array('required'),		        	
-			        array( 
-			        	'required'   	=> 'Debe seleccionar un %s.'
-			        )
-			);
-
-			$this->form_validation->set_rules(
-			        'grado_instruccion', 'Grado de instrucción',
-			        array('required'),		        	
-			        array( 
-			        	'required'   	=> 'Debe seleccionar un %s.'
-			        )
-			);
-			
-			if ($this->form_validation->run() == FALSE) {
-            	
-            	if ($this->input->post("origen") === "login") {
-					
-					/*$error = $this->form_validation->error_string();
-					var_dump($error);*/
-					$this->load->view('login/index');
-				}else{
-					
-					$this->load->view('admin/FormularioRegistroUsuario');
-				}
-            }else{
+            if ($this->ValidarUsuario($data, 0) === false) {
 
             	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
             	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
@@ -257,13 +92,99 @@ class Usuario extends CI_Controller {
 
 		}else{
 
-			$this->load->view('admin/FormularioRegistroUsuario');
+			$this->load->view('admin/FormularioRegistroUsuario', $data);
 		}
 	}
 
-	public function ModificarUsuario()
+	public function ModificarUsuario($id_usuario = null)
 	{
+		$data = array("titulo" => "Modificar datos de usuario");
 
+		$cond = array(
+				"where" => array(
+					"MD5(concat('sismed',id))" => $id_usuario
+					)
+				);
+
+		$result = $this->UsuarioModel->ExtraerUsuario($cond);
+
+		if ($result->num_rows() > 0) {
+			
+			$data['usuario'] = $result->row_array();
+
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+				if ($this->ValidarUsuario($data, 1) === false) {
+	            	
+	            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
+	            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
+
+	            	if ($dif_Fnacimiento_Factual < 0) {
+	            			
+	            		$condicion = array(
+	            				"where" => array(
+	            					"nombre1" => $this->input->post("nombre1"),
+	            					"nombre2" => $this->input->post("nombre2"),
+	            					"apellido1" => $this->input->post("apellido1"),
+	            					"apellido2" => $this->input->post("apellido2"),
+	            					"MD5(concat('sismed',id)) !=" => $id_usuario
+	            					)
+	            			);	            		         		
+
+	            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
+	            			
+	            			$condicion = array(
+		            				"data" => array(
+							     			"cedula" => $this->input->post('cedula'),
+							     			"nombre1" => $this->input->post('nombre1'),
+							     			"nombre2" => $this->input->post('nombre2'),
+							     			"apellido1" => $this->input->post('apellido1'),
+							     			"apellido2" => $this->input->post('apellido2'),
+							     			"sexo" => $this->input->post('sexo'),
+							     			"fecha_nacimiento" => $this->input->post('fecha_nacimiento'),
+							     			"direccion" => $this->input->post('direccion'),
+							     			"telf_personal" => $this->input->post('telef_personal'),
+							     			"telf_emergencia" => $this->input->post('telef_emergencia'),
+							     			"email" => $this->input->post('email'),
+							     			"username" => $this->input->post('username'),
+							     			"grado_instruccion" => $this->input->post('grado_instruccion'),
+							     			"especialidad" => $this->input->post('especialidad'),
+							     			"tipo_usuario" => $this->input->post('tipo_usuario')
+							     		),
+		            				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
+		            			);
+
+							if ($this->UsuarioModel->ModificarUsuario($condicion)) {
+								
+								set_cookie("message","Datos del usuario <strong>'".$this->input->post('username')."'</strong> modificados exitosamente!...", time()+15);
+								header("Location: ".base_url()."Usuario/ListarUsuarios");
+							}else{
+								$data['mensaje'] = $this->db->error();
+							}
+	            		}
+
+	            	}elseif ($dif_Fnacimiento_Factual >= 0) {
+
+	            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
+	            	}elseif ($dif_Fnacimiento_Factual === true) {
+	                
+		                $data['mensaje'] = "La fecha de nacimiento no es válida.";
+		            }elseif ($dif_Fnacimiento_Factual === false) {
+		                
+		                $data['mensaje'] = "La fecha actual del servidor no es válida.";
+		            }           
+						
+					$this->load->view('admin/FormularioRegistroUsuario', $data);				
+				}
+
+			}else{
+				
+				$this->load->view('admin/FormularioRegistroUsuario', $data);
+			}
+		}else{
+			$data['message'] = $this->db->error();
+			$this->load->view('admin/FormularioRegistroUsuario', $data);
+		}
 	}
 
 	public function EliminarUsuario()
@@ -342,8 +263,202 @@ class Usuario extends CI_Controller {
 		
 	}
 
-	public function ValidarUsuario()
+	public function ValidarUsuario($data, $operacion)
 	{
 
+		$cedula_validacion = array('required','numeric','min_length[6]','max_length[8]');
+		$cedula_respuestas = array(		                
+		                'min_length'    => 'La %s debe tener al menos 6 caracteres.',
+		                'max_length'    => 'La %s debe tener máximo 8 caracteres.',
+		                'numeric'     	=> 'La %s sólo debe contener números.',
+		                'required'      => 'Debe insertar su %s.'
+		        	);
+
+		$email_validacion = array('required','valid_email');
+		$email_respuestas = array(
+                	'valid_url'	=> 'El %s no es válido.',
+                	'required'	=> 'Debe ingresar su %s.'
+	                );
+
+		if ($operacion == 0) {
+
+			$cedula_validacion[] = 'is_unique[usuario.cedula]';
+			$cedula_respuestas['is_unique'] = 'La %s ya ha sido registrada anteriormente.';
+
+			$email_validacion[] = 'is_unique[usuario.email]';
+			$email_respuestas['is_unique'] = 'El %s ya ha sido registrado anteriormente.';
+
+		}elseif ($operacion == 1 && isset($data['usuario'])) {
+
+			if (strcmp($data['usuario']['cedula'], $_POST['cedula']) != 0) {
+				
+				$cedula_validacion[] = 'is_unique[usuario.cedula]';
+				$cedula_respuestas['is_unique'] = 'La %s ya ha sido registrada anteriormente.';
+			}
+
+			if (strcmp($data['usuario']['email'], $_POST['email']) != 0) {
+				
+				$email_validacion[] = 'is_unique[usuario.email]';
+				$email_respuestas['is_unique'] = 'El %s ya ha sido registrado anteriormente.';
+			}
+
+		}
+
+		$this->form_validation->set_rules('cedula', 'Cédula',$cedula_validacion,$cedula_respuestas);
+		
+		$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
+		        'nombre1', 'Primer nombre',
+		        array('required','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
+		        array(   
+	                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.',
+	                'required'  => 'Debe ingresar su %s.'
+		        )
+		);
+
+		$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
+		        'nombre2', 'Segundo nombre',
+		        array('regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
+		        array(   
+	                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.'
+		        )
+		);
+
+		$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
+		        'apellido1', 'Primer apellido',
+		        array('required','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
+		        array(   
+	                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.',
+	                'required'  => 'Debe ingresar su %s.'
+		        )
+		);
+
+		$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
+		        'apellido2', 'Segundo apellido',
+		        array('regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
+		        array(   
+	                'regex_match'  	=> 'El %s sólo puede contener caracteres alfabéticos sin espacios.'
+		        )
+		);
+
+		$this->form_validation->set_rules(
+            	'fecha_nacimiento', 'Fecha de nacimiento', 
+        		array('required','regex_match[/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/]'),
+                array(
+                	'regex_match'  	=> 'La %s debe tener el formato año-mes-día (2017-02-15 por ejemplo).',
+                	'required'	=> 'Debe ingresar una %s.'
+	                )	                
+        );
+
+		$this->form_validation->set_rules('email', 'Correo electrónico',$email_validacion, $email_respuestas);
+       
+        $this->form_validation->set_rules(
+            	'telef_personal', 'Teléfono personal', ///^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/
+        		array('required','regex_match[/^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/]'),
+                array(
+                	'regex_match'  	=> 'Su %s debe tener un código de área válido y el formato de ejemplo: (0212) 555-45-02.',
+                	'required'	=> 'Debe ingresar su %s.'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'telef_emergencia', 'Teléfono de emergencia', ///^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/
+        		array('regex_match[/^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/]'),
+                array(
+                	'regex_match'  	=> 'Su %s debe tener un código de área válido y el formato de ejemplo: (0212) 555-45-02).'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'sexo', 'Sexo', 
+        		array('required'),
+                array(
+                	'required'	=> 'Debe ingresar su %s.'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'direccion', 'Direccion de habitación',
+        		array('required'),
+                array(
+                	'required'	=> 'Debe ingresar su %s.'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+		        'username', 'Username',
+		        array('required','min_length[8]','max_length[16]','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+/]'),		        	
+		        array( 
+		        	'min_length'    => 'El %s debe tener al menos 8 caracteres.',
+		            'max_length'    => 'El %s debe tener máximo 16 caracteres.',
+	                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras  y números.',
+	                'required'   	=> 'Debe insertar un %s.'
+		        )
+		);
+
+		$this->form_validation->set_rules(
+		        'especialidad', 'Especialidad',
+		        array('required'),		        	
+		        array( 
+		        	'required'   	=> 'Debe seleccionar una %s.'
+		        )
+		);			
+
+		$this->form_validation->set_rules(
+		        'tipo_usuario', 'Tipo de usuario',
+		        array('required'),		        	
+		        array( 
+		        	'required'   	=> 'Debe seleccionar un %s.'
+		        )
+		);
+
+		$this->form_validation->set_rules(
+		        'grado_instruccion', 'Grado de instrucción',
+		        array('required'),		        	
+		        array( 
+		        	'required'   	=> 'Debe seleccionar un %s.'
+		        )
+		);
+		
+		if ($this->form_validation->run() == FALSE) {
+        	//var_dump($data);
+        	//var_dump($_POST);
+        	if ($this->input->post("origen") === "login") {					
+					
+				$this->load->view('login/index');
+			}else{
+				
+				$this->load->view('admin/FormularioRegistroUsuario', $data);
+			}
+			
+        }else{
+        	return false;
+        }
+	}
+
+	public function ValidarPasswordUsuario()
+	{
+		/*
+			$this->form_validation->set_rules(
+			        'password', 'Contraseña',
+			        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
+			        array( 
+			        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
+			            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
+		                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
+		                'required'   	=> 'Debe insertar un %s.'
+			        )
+			);
+
+			$this->form_validation->set_rules(
+			        'password2', 'Contraseña de confirmación',
+			        array('required','matches[password]','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
+			        array( 
+			        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
+			            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
+		                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
+		                'matches'   	=> 'La %s no coinside.',
+		                'required'   	=> 'Debe insertar un %s.'
+			        )
+			);*/
 	}
 }
