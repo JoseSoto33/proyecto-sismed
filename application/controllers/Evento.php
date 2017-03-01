@@ -33,91 +33,20 @@ class Evento extends CI_Controller {
 
 	public function AgregarEvento()
 	{
+		$data = array("titulo" => "Agregar nuevo evento");
+
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			
-			$this->form_validation->set_rules(
-			        'titulo', 'Título',
-			        array('required','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),		        	
-			        array(   
-		                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras, números y espacios.',
-		                'required'   	=> 'Debe insertar un %s.'
-			        )
-			);
-
-            $this->form_validation->set_rules(
-	            	'fecha_inicio', 'Fecha de inicio', 
-	        		array('required','regex_match[/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/]'),
-	                array(
-	                	'regex_match'  	=> 'La %s debe tener el formato año-mes-día (2017-02-15 por ejemplo).',
-	                	'required'	=> 'Debe ingresar una %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'hora_inicio', 'hora de inicio', 
-	        		array('required','regex_match[/^(0[1-9]|1[0-2]):[0-5][0-9]$/]'),
-	                array(
-	                	'required'	=> 'Debe ingresar la %s.',
-	                	'regex_match'	=> 'La %s debe tener un formato de hh:mm (02:25 por ejemplo).'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'h_i_meridiano', 'meridiano', 
-	        		array('required'),	        			
-	                array(
-	                	'required'	=> 'Debe seleccionar un %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'fecha_fin', 'Fecha de finalización', 
-	        		array('required','regex_match[/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/]'),
-	                array(
-	                	'regex_match'  	=> 'La %s debe tener el formato año-mes-día (2017-02-15 por ejemplo).',
-	                	'required'	=> 'Debe ingresar una %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'hora_fin', 'hora', 
-	        		array('required','regex_match[/^(0[1-9]|1[0-2]):[0-5][0-9]$/]'),
-	                array(
-	                	'required'	=> 'Debe ingresar la %s.',
-	                	'regex_match'	=> 'La %s debe tener un formato de hh:mm (02:25 por ejemplo).'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'h_f_meridiano', 'meridiano', 
-	        		array('required'),	        			
-	                array(
-	                	'required'	=> 'Debe seleccionar un %s.'
-		                )	                
-            );
-
-            $this->form_validation->set_rules(
-	            	'descripcion', 'Descripción', 
-	        		array('required'),	        			
-	                array(
-	                	'required'	=> 'Debe especificar una %s.'
-		                )	                
-            );
-
-			if ($this->form_validation->run() == FALSE) {
+            if ($this->ValidarEvento($data) === false) {
             	
-				$this->load->view('admin/FormularioRegistroEvento');
-            }else{
-
-				$data = array();
-
 				$fecha_inicio = $this->input->post('fecha_inicio');
 				$fecha_fin 	 = $this->input->post('fecha_fin');
 
 				$hora_inicio = $this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano');
         		$hora_fin 	 = $this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano');
 
-        		$data = $this->EventoModel->ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin);
+        		$data = $this->EventoModel->ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data);
+        		//$data["titulo"] = "Agregar nuevo evento";
 
         		if ($data['status'] === true) {
         			
@@ -136,27 +65,92 @@ class Evento extends CI_Controller {
 							header("Location: ".base_url()."Evento/ListarEventos");
 
 						}else{
+
 							$data['mensaje'] = $this->db->error();
-							$this->load->view('admin/FormularioRegistroEvento', $data);
 						}
+
         			}else{
         				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
-						$this->load->view('admin/FormularioRegistroEvento', $data);
         			}
-        		}else{
-
-        			$this->load->view('admin/FormularioRegistroEvento', $data);
         		}
 			}
-		}else{
-
-			$this->load->view('admin/FormularioRegistroEvento');
 		}
+
+		$this->load->view('admin/FormularioRegistroEvento', $data);
 	}
 
-	public function ModificarEvento($id)
+	public function ModificarEvento($id_evento)
 	{
+		$data = array("titulo" => "Modificar datos de evento");
 
+		$cond = array(
+				"where" => array(
+					"MD5(concat('sismed',id))" => $id_evento
+					)
+				);
+
+		$result = $this->EventoModel->ExtraerEvento($cond);
+
+		if ($result->num_rows() > 0) {
+
+			$data['evento'] = $result->row_array();
+
+			$data['evento']['fecha_inicio'] = date("Y-m-d", strtotime($data['evento']['fecha_hora_inicio']));
+			$data['evento']['hora_inicio'] = date("h:i", strtotime($data['evento']['fecha_hora_inicio']));
+			$data['evento']['h_i_meridiano'] = date("a", strtotime($data['evento']['fecha_hora_inicio']));
+
+			$data['evento']['fecha_fin'] = date("Y-m-d", strtotime($data['evento']['fecha_hora_fin']));
+			$data['evento']['hora_fin'] = date("h:i", strtotime($data['evento']['fecha_hora_fin']));
+			$data['evento']['h_f_meridiano'] = date("a", strtotime($data['evento']['fecha_hora_fin']));
+
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+				
+	            if ($this->ValidarEvento($data) === false) {
+	            	
+					$fecha_inicio = $this->input->post('fecha_inicio');
+					$fecha_fin 	 = $this->input->post('fecha_fin');
+
+					$hora_inicio = $this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano');
+	        		$hora_fin 	 = $this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano');
+
+	        		$data = $this->EventoModel->ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data);
+
+	        		if ($data['status'] === true) {
+	        			
+	        			$condicion = array(
+			        			'where' => array(
+			        				'titulo' => $this->input->post('titulo'),
+			        				'fecha_hora_inicio' => $this->input->post('fecha_inicio')." ".$this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano'),
+			        				'fecha_hora_fin' => $this->input->post('fecha_fin')." ".$this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano')
+			        				)
+			        			);
+	        			if (!$this->EventoModel->ValidarEvento($condicion)) {
+	        				
+	        				$condicion = array(								
+					     		"where" => array("MD5(concat('sismed',id))" => $id_evento)
+							);
+
+		        			if ($this->EventoModel->ModificarEvento($condicion)) {
+
+		        				set_cookie("message","El evento <strong>'".$this->input->post('titulo')."'</strong> fue registrado exitosamente!...", time()+15);
+								header("Location: ".base_url()."Evento/ListarEventos");
+
+							}else{
+
+								$data['mensaje'] = $this->db->error();
+							}
+
+	        			}else{
+	        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
+	        			}
+	        		}
+				}
+			}
+		}else{
+			$data['message'] = $this->db->error();
+		}
+
+		$this->load->view('admin/FormularioRegistroEvento', $data);
 	}
 
 	public function EliminarEvento()
@@ -194,8 +188,8 @@ class Evento extends CI_Controller {
 			setlocale(LC_TIME,"esp");
 
 			$fecha_inicio = strftime('%d de %B de %Y', strtotime($data["fecha_hora_inicio"]));		
-			$fecha_fin 	  = strftime('%d de %B de %Y', strtotime($data["fecha_hora_inicio"]));		
-			$hora_inicio  = date('h:i:s a', strtotime($data["fecha_hora_fin"]));		
+			$fecha_fin 	  = strftime('%d de %B de %Y', strtotime($data["fecha_hora_fin"]));		
+			$hora_inicio  = date('h:i:s a', strtotime($data["fecha_hora_inicio"]));		
 			$hora_fin 	  = date('h:i:s a', strtotime($data["fecha_hora_fin"]));
 
 			$data["fecha_inicio"] = $fecha_inicio;
@@ -229,8 +223,83 @@ class Evento extends CI_Controller {
 		//}
 	}
 
-	public function ValidarEvento()
+	public function ValidarEvento($data)
 	{
+		$this->form_validation->set_rules(
+		        'titulo', 'Título',
+		        array('required','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),		        	
+		        array(   
+	                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras, números y espacios.',
+	                'required'   	=> 'Debe insertar un %s.'
+		        )
+		);
 
+        $this->form_validation->set_rules(
+            	'fecha_inicio', 'Fecha de inicio', 
+        		array('required','regex_match[/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/]'),
+                array(
+                	'regex_match'  	=> 'La %s debe tener el formato año-mes-día (2017-02-15 por ejemplo).',
+                	'required'	=> 'Debe ingresar una %s.'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'hora_inicio', 'hora de inicio', 
+        		array('required','regex_match[/^(0[1-9]|1[0-2]):[0-5][0-9]$/]'),
+                array(
+                	'required'	=> 'Debe ingresar la %s.',
+                	'regex_match'	=> 'La %s debe tener un formato de hh:mm (02:25 por ejemplo).'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'h_i_meridiano', 'meridiano', 
+        		array('required'),	        			
+                array(
+                	'required'	=> 'Debe seleccionar un %s.'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'fecha_fin', 'Fecha de finalización', 
+        		array('required','regex_match[/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/]'),
+                array(
+                	'regex_match'  	=> 'La %s debe tener el formato año-mes-día (2017-02-15 por ejemplo).',
+                	'required'	=> 'Debe ingresar una %s.'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'hora_fin', 'hora', 
+        		array('required','regex_match[/^(0[1-9]|1[0-2]):[0-5][0-9]$/]'),
+                array(
+                	'required'	=> 'Debe ingresar la %s.',
+                	'regex_match'	=> 'La %s debe tener un formato de hh:mm (02:25 por ejemplo).'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'h_f_meridiano', 'meridiano', 
+        		array('required'),	        			
+                array(
+                	'required'	=> 'Debe seleccionar un %s.'
+	                )	                
+        );
+
+        $this->form_validation->set_rules(
+            	'descripcion', 'Descripción', 
+        		array('required'),	        			
+                array(
+                	'required'	=> 'Debe especificar una %s.'
+	                )	                
+        );
+
+		if ($this->form_validation->run() == FALSE) {
+        	
+			$this->load->view('admin/FormularioRegistroEvento', $data);
+        }else{
+
+			return false;
+		}
 	}
 }

@@ -28,9 +28,35 @@ class EventoModel extends CI_Model {
      	}
     }
 
-    public function ModificarEvento()
+    public function ModificarEvento($condicion = array())
     {
+        $fecha_hora_inicio = $this->input->post('fecha_inicio')." ".$this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano');
 
+        $fecha_hora_fin = $this->input->post('fecha_fin')." ".$this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano');
+
+        $data = array(
+                "id_usuario" => $this->session->userdata('idUsuario'),
+                "titulo" => $this->input->post('titulo'),
+                "descripcion" => $this->input->post('descripcion'),
+                "fecha_hora_inicio" => $fecha_hora_inicio,
+                "fecha_hora_fin" => $fecha_hora_fin
+            );
+
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
+
+        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
+            
+            $this->db->or_where($condicion['or_where']);
+        }
+
+        if ($this->db->update('evento', $data)) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function EliminarEvento($condicion = array())
@@ -141,7 +167,7 @@ class EventoModel extends CI_Model {
         } 
     }
 
-    public function ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin)
+    public function ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data)
     {
 
         $dif_FInicio_Factual = $this->CompararFechas($fecha_inicio,date("Y-m-d"));
@@ -150,7 +176,7 @@ class EventoModel extends CI_Model {
         //echo $dif_FInicio_fin;
         $difhoras = $this->RestarHoras($hora_inicio,$hora_fin);
 
-        $data = array('status' => true, 'mensaje' => "");
+        $data['status'] =  true;
 
         if ($dif_FInicio_Factual >= 0 && $dif_FFin_Factual >= 0 && $dif_FInicio_fin >= 0) {
 
