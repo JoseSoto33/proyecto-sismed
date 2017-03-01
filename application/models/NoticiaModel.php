@@ -23,9 +23,23 @@ class NoticiaModel extends CI_Model {
      	}
     }
 
-    public function ModificarNoticia()
+    public function ModificarNoticia($condicion = array())
     {
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
 
+        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
+            
+            $this->db->or_where($condicion['or_where']);
+        }
+
+        if ($this->db->update('noticia', $condicion['data'])) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function EliminarNoticia($condicion = array())

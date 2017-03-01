@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	$('#registro-noticia').validator();	
 
-	 $("#guardar").on("click", function(){
+	 $("#registro-noticia").on("submit", function(){
 
         $(this).attr("disabled","disabled");
         $('#seccion2').animate({scrollTop : 0}, 500);

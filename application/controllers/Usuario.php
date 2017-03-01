@@ -172,19 +172,15 @@ class Usuario extends CI_Controller {
 		            }elseif ($dif_Fnacimiento_Factual === false) {
 		                
 		                $data['mensaje'] = "La fecha actual del servidor no es válida.";
-		            }           
-						
-					$this->load->view('admin/FormularioRegistroUsuario', $data);				
+		            }           				
 				}
-
-			}else{
-				
-				$this->load->view('admin/FormularioRegistroUsuario', $data);
 			}
+
 		}else{
 			$data['message'] = $this->db->error();
-			$this->load->view('admin/FormularioRegistroUsuario', $data);
 		}
+		
+		$this->load->view('admin/FormularioRegistroUsuario', $data);
 	}
 
 	public function EliminarUsuario()
@@ -207,7 +203,7 @@ class Usuario extends CI_Controller {
 			$data['message'] = "Operación exitosa!...";
 		}else{
 			$data['result']  = false;
-			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();
+			$data['message'] = "Error: Ha ocurrido un problema durante la eliminación.\n".$this->db->error();
 		}
 		
 		echo json_encode($data);

@@ -33,39 +33,12 @@ class Noticia extends CI_Controller {
 
 	public function AgregarNoticia()
 	{
+		$data = array("titulo" => "Agregar nueva noticia");
+
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-			$this->form_validation->set_rules(
-			        'titulo', 'Título',
-			        array('required','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),		        	
-			        array(   
-		                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras, números y espacios.',
-		                'required'   	=> 'Debe insertar un %s.'
-			        )
-			);
-
-			$this->form_validation->set_rules(
-	            	'url', 'dirección de enlace', 
-	        		array('valid_url','regex_match[/^(ht|f)tps?:\/\/\w+([\.\-\w]+)?\.([a-z]{2,6})?([\.\-\w\/_]+)$/i]'),
-	                array(
-	                	'regex_match'  	=> 'La %s es inválida.',
-	                	'valid_url'		=> 'La %s no es válida.'
-		                )	                
-            );
-
-			$this->form_validation->set_rules(
-	            	'descripcion', 'Descripción', 
-	        		array('required'),	        			
-	                array(
-	                	'required'	=> 'Debe especificar una %s.'
-		                )	                
-            );
-
-			if ($this->form_validation->run() == FALSE) {
-            	
-				$this->load->view('admin/FormularioRegistroNoticia');
-            }else{
 				
+			if ($this->ValidarNoticia($data) === false) {
+				# code...
 				$condicion = array(
 						'where' => array(
 							'titulo' => $this->input->post('titulo')
@@ -89,22 +62,80 @@ class Noticia extends CI_Controller {
 
 					}else{
 						$data['mensaje'] = $this->db->error();
-						$this->load->view('admin/FormularioRegistroNoticia', $data);
 					}
 				}else{
 					$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
-					$this->load->view('admin/FormularioRegistroNoticia', $data);
+				}
+			}
+		}
+
+		$this->load->view('admin/FormularioRegistroNoticia', $data);
+	}
+
+	public function ModificarNoticia($id_noticia)
+	{
+		$data = array("titulo" => "Modificar noticia");
+
+		$cond = array(
+				"where" => array(
+					"MD5(concat('sismed',id))" => $id_noticia
+					)
+				);
+
+		$result = $this->NoticiaModel->ExtraerNoticia($cond);
+
+		if ($result->num_rows() > 0) {
+			
+			$data['noticia'] = $result->row_array();
+
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+					
+				if ($this->ValidarNoticia($data) === false) {
+					# code...
+					$condicion = array(
+							'where' => array(
+								'titulo' => $this->input->post('titulo'),
+								"MD5(concat('sismed',id)) !=" => $id_noticia
+								)
+						);
+
+					$url = $this->input->post('url');
+
+					if ($url != null && $url != "") {
+						
+						$condicion["where"]["url"] = $url;
+					}
+
+					if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
+						
+						$condicion = array(
+								"data" => array(
+					     			"id_usuario" => $this->session->userdata('idUsuario'),
+					     			"titulo" => $this->input->post('titulo'),
+					     			"url" => $this->input->post('url'),
+					     			"descripcion" => $this->input->post('descripcion')
+					     		),
+					     		"where" => array("MD5(concat('sismed',id))" => $id_noticia)
+							);
+
+						if ($this->NoticiaModel->ModificarNoticia($condicion)) {
+
+							set_cookie("message","La noticia <strong>'".$this->input->post('titulo')."'</strong> fue modificada exitosamente!...", time()+15);
+							header("Location: ".base_url()."Noticia/ListarNoticias");
+
+						}else{
+							$data['mensaje'] = $this->db->error();
+						}
+					}else{
+						$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
+					}
 				}
 			}
 		}else{
-
-			$this->load->view('admin/FormularioRegistroNoticia');
+			$data['message'] = $this->db->error();
 		}
-	}
 
-	public function ModificarNoticia()
-	{
-
+		$this->load->view('admin/FormularioRegistroNoticia', $data);
 	}
 
 	public function EliminarNoticia()
@@ -141,8 +172,40 @@ class Noticia extends CI_Controller {
 		$this->load->view('admin/ListarNoticias', $data);		
 	}
 
-	public function ValidarNoticia()
+	public function ValidarNoticia($data)
 	{
+		$this->form_validation->set_rules(
+		        'titulo', 'Título',
+		        array('required','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),		        	
+		        array(   
+	                'regex_match'  	=> 'El %s es alfanumérico... sólo puede contener letras, números y espacios.',
+	                'required'   	=> 'Debe insertar un %s.'
+		        )
+		);
 
+		$this->form_validation->set_rules(
+            	'url', 'dirección de enlace', 
+        		array('valid_url','regex_match[/^(ht|f)tps?:\/\/\w+([\.\-\w]+)?\.([a-z]{2,6})?([\.\-\w\/_]+)$/i]'),
+                array(
+                	'regex_match'  	=> 'La %s es inválida.',
+                	'valid_url'		=> 'La %s no es válida.'
+	                )	                
+        );
+
+		$this->form_validation->set_rules(
+            	'descripcion', 'Descripción', 
+        		array('required'),	        			
+                array(
+                	'required'	=> 'Debe especificar una %s.'
+	                )	                
+        );
+
+		if ($this->form_validation->run() == FALSE) {
+        	
+			$this->load->view('admin/FormularioRegistroNoticia', $data);
+        }else{
+
+        	return false;
+        }
 	}
 }
