@@ -243,26 +243,28 @@ table.table > tfoot > tr > td{
 
 /*----------Noticias----------*/
 
-#div-noticias{
-	background: #00BCD4;
-}
-
 .icon-content{
 	text-align: center;
 }
 
 #div-noticias .sub-title .glyphicon{
-	color: #ffffff !important;
-}
-
-/*----------Eventos----------*/
-
-#div-eventos .sub-title .glyphicon{
 	color: #212121 !important;
 }
 
-#div-eventos hr.divisor-line-2{
+#div-noticias hr.divisor-line-2{
 	border-color: #212121 !important;	
+}
+
+/*----------Eventos----------*/
+#div-eventos{	
+	background: #00BCD4;
+}
+#div-eventos .sub-title .glyphicon{
+	color: #ffffff !important;
+}
+
+#div-eventos hr.divisor-line-2{
+	border-color: #ffffff !important;	
 }
 
 /*----------FOOTER----------*/

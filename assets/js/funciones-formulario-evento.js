@@ -19,4 +19,12 @@ $(document).ready(function(){
         $(this).attr("disabled","disabled");
         $('#seccion2').animate({scrollTop : 0}, 500);
     });
+
+    $("#imagen").fileinput({
+        language: "es",
+        fileType: "image",
+        showUpload: false,
+        browseLabel: 'Examinar &hellip;',
+        removeLabel: 'Remover'
+    });
 });

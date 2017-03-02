@@ -103,7 +103,8 @@ class Sesion extends CI_Controller {
 										'nombre' => $usuario->nombre1,
 										'apellido' => $usuario->apellido,
 										'login' => true,
-										'tipo_usuario' => $usuario->tipo_usuario
+										'tipo_usuario' => $usuario->tipo_usuario,
+										'especialidad' => $usuario->especialidad
 									);
 							$this->session->set_userdata($data);
 

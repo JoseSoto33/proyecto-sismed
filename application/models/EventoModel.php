@@ -13,12 +13,15 @@ class EventoModel extends CI_Model {
 
         $fecha_hora_fin = $this->input->post('fecha_fin')." ".$this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano');
 
+        $file_info = $this->upload->data();
+
      	$data = array(
      			"id_usuario" => $this->session->userdata('idUsuario'),
      			"titulo" => $this->input->post('titulo'),
                 "descripcion" => $this->input->post('descripcion'),
      			"fecha_hora_inicio" => $fecha_hora_inicio,
-                "fecha_hora_fin" => $fecha_hora_fin
+                "fecha_hora_fin" => $fecha_hora_fin,
+                "img" =>  $file_info["file_name"]
      		);
 
      	if($this->db->insert("evento", $data)){
@@ -39,7 +42,8 @@ class EventoModel extends CI_Model {
                 "titulo" => $this->input->post('titulo'),
                 "descripcion" => $this->input->post('descripcion'),
                 "fecha_hora_inicio" => $fecha_hora_inicio,
-                "fecha_hora_fin" => $fecha_hora_fin
+                "fecha_hora_fin" => $fecha_hora_fin,
+                "img" =>  $file_info["file_name"]
             );
 
         if (isset($condicion['where']) && !empty($condicion['where'])) {

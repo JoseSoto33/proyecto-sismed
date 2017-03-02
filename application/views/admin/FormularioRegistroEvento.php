@@ -22,7 +22,7 @@
 						$url .= "/".$this->uri->segment(3, 0);
 					}
 
-					echo form_open(
+					echo form_open_multipart(
 	      				$url,
 	      				'class="form-basic" id="registro-evento"'
 	      				); ?>
@@ -111,6 +111,12 @@
 						    <div class="help-block with-errors">
 							</div>
 						</div>
+					</div>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label for="imagen" class="control-label">Imagen</label>
+							<input name="imagen" id="imagen" class="form-control" type="file" multiple=true accept="image/*" value="<?php echo (isset($evento['img']))? $evento['img'] : set_value('imagen'); ?>">
+						</div>
 					</div>	
 					<div class="col-sm-12">						
 						<small> 
@@ -131,5 +137,6 @@
 </div>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/fileinput.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-formulario-evento.js"></script>
 <?php include('footer.php') ?>

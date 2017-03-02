@@ -66,4 +66,25 @@ class Home extends CI_Controller {
 			header('Location: '.base_url());
 		}
 	}
+
+	public function ExtraerEventos()
+	{
+		$condicion = array(
+			"select" => "id as id, titulo as title, descripcion, fecha_hora_inicio as fecha_inicio, fecha_hora_inicio as hora_inicio, fecha_hora_fin as fecha_fin, fecha_hora_fin as hora_fin, fecha_hora_inicio as start, fecha_hora_fin as end, img"
+			);
+		$result = $this->EventoModel->ExtraerEvento($condicion);
+
+		$eventos = $result->result();
+
+		foreach ($eventos as $key => $evento) {
+			
+			setlocale(LC_TIME,"esp");
+
+			$evento->fecha_inicio = strftime('%d de %B de %Y', strtotime($evento->fecha_inicio));		
+			$evento->fecha_fin 	  = strftime('%d de %B de %Y', strtotime($evento->fecha_fin));		
+			$evento->hora_inicio  = date('h:i a', strtotime($evento->hora_inicio));		
+			$evento->hora_fin 	  = date('h:i a', strtotime($evento->hora_fin));
+		}
+		echo json_encode($eventos);
+	}
 }
