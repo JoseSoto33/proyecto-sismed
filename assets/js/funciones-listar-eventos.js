@@ -66,7 +66,7 @@ $(document).ready(function(){
             	
             	if (response['img'] != null) {
 
-            		$("#portada-evento").attr('src',response['img']);
+            		$("#portada-evento").attr('src',url+"assets/img/eventos/"+response['img']);
             	}else{
             		$("#portada-evento").attr('src',url+"assets/img/Eventos.jpg");
             	}
@@ -80,8 +80,6 @@ $(document).ready(function(){
             }else{
             	alert(response['message']);
             }
-
-            //dump(response);
             
         });
 

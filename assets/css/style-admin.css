@@ -267,6 +267,29 @@ table.table > tfoot > tr > td{
 	border-color: #ffffff !important;	
 }
 
+#imagen-content figure,
+#imagen-content figure img{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+#imagen-content figure{
+	padding: 2px;
+	border: 1px #CCCCCC solid;
+	background: #ffffff;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+#imagen-content figure img{
+	height: auto;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
 /*----------FOOTER----------*/
 
 #footer{

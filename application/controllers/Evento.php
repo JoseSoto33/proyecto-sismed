@@ -37,17 +37,13 @@ class Evento extends CI_Controller {
 
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-			echo "bandera 1";
-			
-            if ($this->ValidarEvento($data) === false) {
+            if ($this->ValidarEvento($data) === false) {            	
+		        
+		        $ruta 		= './assets/img/eventos/';
+		        $nombre 	= $this->input->post('titulo')."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
+		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
-            	echo "bandera 2";
-            	
-            	if ($this->SubirImagen($data) === false) {
-
-            		echo "bandera 3";
-
-            		$file_info = $this->upload->data();
+		        if ($file_info != false) {
 
 					$fecha_inicio = $this->input->post('fecha_inicio');
 					$fecha_fin 	 = $this->input->post('fecha_fin');
@@ -60,39 +56,36 @@ class Evento extends CI_Controller {
 
 	        		if ($data['status'] === true) {
 
-	        			echo "bandera 4";
+	        			$fecha_hora_inicio = $fecha_inicio." ".$hora_inicio;
+		        		$fecha_hora_fin = $fecha_fin." ".$hora_fin;
 	        			
 	        			$condicion = array(
 			        			'where' => array(
 			        				'titulo' => $this->input->post('titulo'),
-			        				'fecha_hora_inicio' => $this->input->post('fecha_inicio')." ".$this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano'),
-			        				'fecha_hora_fin' => $this->input->post('fecha_fin')." ".$this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano')
+			        				'fecha_hora_inicio' => $fecha_hora_inicio,
+			        				'fecha_hora_fin' => $fecha_hora_fin
 			        				)
 			        			);
 	        			if (!$this->EventoModel->ValidarEvento($condicion)) {
 
-	        				echo "bandera 5";
-	        				
-		        			if ($this->EventoModel->AgregarEvento()) {
-
-		        				echo "bandera 6";
+	        				if ($this->EventoModel->AgregarEvento()) {
 
 		        				set_cookie("message","El evento <strong>'".$this->input->post('titulo')."'</strong> fue registrado exitosamente!...", time()+15);
 								header("Location: ".base_url()."Evento/ListarEventos");
 
 							}else{
 
-								echo "bandera 7";
-
 								$data['mensaje'] = $this->db->error();
 							}
 
 	        			}else{
 
-	        				echo "bandera 8";
 	        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
 	        			}
 	        		}
+	        	}else{
+	        		$data['mensaje'] = $this->upload->display_errors();		            
+		            //$this->load->view('admin/FormularioRegistroEvento', $data);
 	        	}
 			}
 		}
@@ -128,11 +121,21 @@ class Evento extends CI_Controller {
 				
 	            if ($this->ValidarEvento($data) === false) {
 
-	            	if ($this->SubirImagen($data) === true) {
-	            		
-	            		$file_info = $this->upload->data();
+	            	if (isset($_POST['img-change']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != '' ) {
+	            		//return "bandera";
+	            		var_dump($_FILES);
+		            	$ruta 		= './assets/img/eventos/';
+				        $nombre 	= base64_encode($this->input->post('titulo'))."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
+				        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
-						$fecha_inicio = $this->input->post('fecha_inicio');
+				        if ($file_info != false) {
+				        	$data['evento']['img'] = $file_info['file_name'];
+				        }
+	            	}
+
+			        if (!isset($file_info) || (isset($file_info) && $file_info != false)) {
+	            		
+	            		$fecha_inicio = $this->input->post('fecha_inicio');
 						$fecha_fin 	 = $this->input->post('fecha_fin');
 
 						$hora_inicio = $this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano');
@@ -141,17 +144,31 @@ class Evento extends CI_Controller {
 		        		$data = $this->EventoModel->ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data);
 
 		        		if ($data['status'] === true) {
-		        			
+
+		        			$fecha_hora_inicio = $fecha_inicio." ".$hora_inicio;
+		        			$fecha_hora_fin = $fecha_fin." ".$hora_fin;
+
 		        			$condicion = array(
 				        			'where' => array(
 				        				'titulo' => $this->input->post('titulo'),
-				        				'fecha_hora_inicio' => $this->input->post('fecha_inicio')." ".$this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano'),	            	
-				        				'fecha_hora_fin' => $this->input->post('fecha_fin')." ".$this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano')
+				        				'fecha_hora_inicio' => $fecha_hora_inicio,
+				        				'fecha_hora_fin' => $fecha_hora_fin,
+				        				"MD5(concat('sismed',id)) != " => $id_evento
 				        				)
 				        			);
 		        			if (!$this->EventoModel->ValidarEvento($condicion)) {
-		        				
-		        				$condicion = array(								
+
+						        $file_info = $this->upload->data();						        
+
+		        				$condicion = array(	
+		        					"data" => array(
+						                "id_usuario" => $this->session->userdata('idUsuario'),
+						                "titulo" => $this->input->post('titulo'),
+						                "descripcion" => $this->input->post('descripcion'),
+						                "fecha_hora_inicio" => $fecha_hora_inicio,
+						                "fecha_hora_fin" => $fecha_hora_fin,
+						                "img" =>  $data['evento']['img']
+						            ),
 						     		"where" => array("MD5(concat('sismed',id))" => $id_evento)
 								);
 
@@ -169,11 +186,13 @@ class Evento extends CI_Controller {
 		        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
 		        			}
 		        		}
+		        	}else{
+		        		$data['mensaje'] = $this->upload->display_errors();	
 		        	}
 				}
 			}
 		}else{
-			$data['message'] = $this->db->error();
+			$data['mensaje'] = $this->db->error();
 		}
 
 		$this->load->view('admin/FormularioRegistroEvento', $data);
@@ -335,27 +354,5 @@ class Evento extends CI_Controller {
 
 			return false;
 		}
-	}
-
-	public function SubirImagen($data)
-	{		
-		$config['upload_path'] = './assets/img/eventos/';
-		//$config['file_name'] = $this->input->post('titulo')."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
-        $config['allowed_types'] = 'gif|jpg|jpeg|png';
-        $config['max_width'] = '2024';
-        $config['max_height'] = '2008';
-        $config['overwrite'] = TRUE;
-
-        $this->upload->initialize($config);
-
-        if (!$this->upload->do_upload("imagen")) {
-
-            $data['message'] = $this->upload->display_errors();
-            //var_dump($data);
-            $this->load->view('admin/FormularioRegistroEvento', $data);
-        }else{
-        	return false;
-        	//echo $this->upload->display_errors();
-        }
-	}
+	}	
 }

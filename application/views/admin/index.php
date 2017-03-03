@@ -275,11 +275,10 @@
 				events: $.parseJSON(data),
 				timeFormat: 'hh:mm t',
 				displayEventTime: true,
-				eventClick: function(event, jsEvent, view){
-					
+				eventClick: function(event, jsEvent, view){					
 					       
 					if (event.img != null && event.img != "") {
-	            		$("#portada-evento").attr('src',event.img);
+	            		$("#portada-evento").attr('src',"<?php echo base_url(); ?>assets/img/eventos/"+event.img);
 	            	}else{
 	            		$("#portada-evento").attr('src',"<?php echo base_url(); ?>assets/img/Eventos.jpg");
 	            	}
@@ -290,16 +289,8 @@
 	            	$("#fecha_fin").html(event.fecha_fin);
 	            	$("#hora_fin").html(event.hora_fin);
 
-	            	$("#VerEvento").modal();
+	            	$("#VerEvento").modal();			        
 			        
-			        /*
-			        $("#portada-evento").attr('src',"<?php echo base_url(); ?>assets/img/loading.gif");
-			        $("#titulo-evento").html('');
-			    	$("#descripcion-evento").html('');
-			    	$("#fecha_inicio").html('');
-			    	$("#hora_inicio").html('');
-			    	$("#fecha_fin").html('');
-			    	$("#hora_fin").html('');*/  
 				}
 			});
         });

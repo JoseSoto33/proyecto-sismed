@@ -112,12 +112,39 @@
 							</div>
 						</div>
 					</div>
+					<?php 
+						if (isset($evento)) {
+					?>
+					<div class="col-xs-12" id="imagen-content">
+						<?php if (isset($evento['img']) && ($evento['img']) != null || $evento['img'] != "") { ?>
+						<figure>
+							<img src="<?php echo base_url().'assets/img/eventos/'.$evento['img']; ?>" alt="<?php echo $evento['img']; ?>">
+						</figure>
+						<?php }else{ ?>
+						<h4>No ha cargado una imagen para este evento...</h4>
+						<?php } ?>
+						<div class="checkbox">
+						    <label>
+						        <input type="checkbox" name="img-change" id="img-change" value="1"> Editar imagen
+						    </label>
+    					</div>
+						<div class="form-group hidden">
+							<label for="imagen" class="control-label">Imagen</label>
+							<input name="imagen" id="imagen" class="form-control" type="file" accept="image/*" >
+						</div>
+					</div>
+					<?php 
+						}else{
+					?>
 					<div class="col-xs-12">
 						<div class="form-group">
 							<label for="imagen" class="control-label">Imagen</label>
-							<input name="imagen" id="imagen" class="form-control" type="file" multiple=true accept="image/*" value="<?php echo (isset($evento['img']))? $evento['img'] : set_value('imagen'); ?>">
+							<input name="imagen" id="imagen" class="form-control" type="file" accept="image/*">
 						</div>
 					</div>	
+					<?php 
+						}
+					?>
 					<div class="col-sm-12">						
 						<small> 
 							<span class="red2">Los campos con (*) son obligatorios.</span>
