@@ -49,7 +49,13 @@
 									echo "<tr id=\"fila_".md5('sismed'.$evento["id"])."\">";
 									echo "<td>".$cont++."</td>";
 									echo "<td>".$evento["titulo"]."</td>";
-									echo "<td>".$evento["descripcion"]."</td>";
+									echo "<td>";
+									if (strlen($evento["descripcion"]) > 75) {
+										echo substr($evento["descripcion"], 0, 75)."...";
+									}else{
+										echo $evento["descripcion"];
+									}											
+									echo "</td>";
 									echo "<td>".strftime('%d de %B de %Y', strtotime($evento["fecha_hora_inicio"]))."</td>";
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";

@@ -90,6 +90,11 @@ class EventoModel extends CI_Model {
     		$this->db->or_where($condicion['or_where']);
     	}
 
+        if (isset($condicion['order_by']) && !empty($condicion['order_by'])) {
+            
+            $this->db->order_by($condicion['order_by']);
+        }
+
     	return $this->db->get();
     	
     }

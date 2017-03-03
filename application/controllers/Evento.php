@@ -254,7 +254,8 @@ class Evento extends CI_Controller {
 	{
 		$condicion = array(
 			"select" => "id, titulo, descripcion, fecha_hora_inicio",
-			"where" => array("id_usuario" => $this->session->userdata('idUsuario'))
+			"where" => array("id_usuario" => $this->session->userdata('idUsuario')),
+			"order_by" => "id ASC"
 			);
 
 		$data = array();
