@@ -9,11 +9,14 @@ class NoticiaModel extends CI_Model {
 
     public function AgregarNoticia()   
     {
+        $file_info = $this->upload->data();
+
      	$data = array(
      			"id_usuario" => $this->session->userdata('idUsuario'),
      			"titulo" => $this->input->post('titulo'),
-     			"url" => $this->input->post('url'),
-     			"descripcion" => $this->input->post('descripcion')
+     			"descripcion" => $this->input->post('descripcion'),
+                "url" => $this->input->post('url'),
+                "img" => $file_info["file_name"]
      		);
 
      	if($this->db->insert("noticia", $data)){

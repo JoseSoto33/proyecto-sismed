@@ -38,34 +38,43 @@ class Noticia extends CI_Controller {
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 			if ($this->ValidarNoticia($data) === false) {
-				# code...
-				$condicion = array(
-						'where' => array(
-							'titulo' => $this->input->post('titulo')
-							)
-					);
+				
+				$ruta 		= './assets/img/noticias/';
+		        $nombre 	= base64_encode($this->input->post('titulo'))."_".date("d-m-Y");
+		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
-				$url = $this->input->post('url');
-				if ($url != null && $url != "") {
-					
-					$condicion["where"]["url"] = $url;
-				}
+		        if ($file_info != false) {
 
-				if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
-					
-					$data = array();
+					$condicion = array(
+							'where' => array(
+								'titulo' => $this->input->post('titulo')
+								)
+						);
 
-					if ($this->NoticiaModel->AgregarNoticia()) {
+					$url = $this->input->post('url');
+					if ($url != null && $url != "") {
+						
+						$condicion["where"]["url"] = $url;
+					}
 
-						set_cookie("message","La noticia <strong>'".$this->input->post('titulo')."'</strong> fue registrada exitosamente!...", time()+15);
-						header("Location: ".base_url()."Noticia/ListarNoticias");
+					if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
+						
+						$data = array();
 
+						if ($this->NoticiaModel->AgregarNoticia()) {
+
+							set_cookie("message","La noticia <strong>'".$this->input->post('titulo')."'</strong> fue registrada exitosamente!...", time()+15);
+							header("Location: ".base_url()."Noticia/ListarNoticias");
+
+						}else{
+							$data['mensaje'] = $this->db->error();
+						}
 					}else{
-						$data['mensaje'] = $this->db->error();
+						$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
 					}
 				}else{
-					$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
-				}
+	        		$data['mensaje'] = $this->upload->display_errors();		     
+	        	}
 			}
 		}
 
@@ -91,48 +100,68 @@ class Noticia extends CI_Controller {
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 					
 				if ($this->ValidarNoticia($data) === false) {
-					# code...
-					$condicion = array(
-							'where' => array(
-								'titulo' => $this->input->post('titulo'),
-								"MD5(concat('sismed',id)) !=" => $id_noticia
-								)
-						);
+					
+					if (isset($_POST['img-change']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != '' ) {
+	            		//return "bandera";
+	            		//var_dump($_FILES);
+		            	$ruta 		= './assets/img/noticias/';
+				        $nombre 	= base64_encode($this->input->post('titulo'))."_".date("d-m-Y");
+				        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
-					$url = $this->input->post('url');
+				        if ($file_info != false) {
+				        	$data['noticia']['img'] = $file_info['file_name'];
+				        }
+	            	}
 
-					if ($url != null && $url != "") {
-						
-						$condicion["where"]["url"] = $url;
-					}
+	            	if (!isset($file_info) || (isset($file_info) && $file_info != false)) {
 
-					if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
-						
 						$condicion = array(
-								"data" => array(
-					     			"id_usuario" => $this->session->userdata('idUsuario'),
-					     			"titulo" => $this->input->post('titulo'),
-					     			"url" => $this->input->post('url'),
-					     			"descripcion" => $this->input->post('descripcion')
-					     		),
-					     		"where" => array("MD5(concat('sismed',id))" => $id_noticia)
+								'where' => array(
+									'titulo' => $this->input->post('titulo'),
+									"MD5(concat('sismed',id)) !=" => $id_noticia
+									)
 							);
 
-						if ($this->NoticiaModel->ModificarNoticia($condicion)) {
+						$url = $this->input->post('url');
 
-							set_cookie("message","La noticia <strong>'".$this->input->post('titulo')."'</strong> fue modificada exitosamente!...", time()+15);
-							header("Location: ".base_url()."Noticia/ListarNoticias");
+						if ($url != null && $url != "") {
+							
+							$condicion["where"]["url"] = $url;
+						}
 
+						if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
+
+							$file_info = $this->upload->data();
+							
+							$condicion = array(
+									"data" => array(
+						     			"id_usuario" => $this->session->userdata('idUsuario'),
+						     			"titulo" => $this->input->post('titulo'),
+						     			"descripcion" => $this->input->post('descripcion'),
+						     			"url" => $this->input->post('url'),
+						     			"img" => $data['noticia']['img']
+						     		),
+						     		"where" => array("MD5(concat('sismed',id))" => $id_noticia)
+								);
+
+							if ($this->NoticiaModel->ModificarNoticia($condicion)) {
+
+								set_cookie("message","La noticia <strong>'".$this->input->post('titulo')."'</strong> fue modificada exitosamente!...", time()+15);
+								header("Location: ".base_url()."Noticia/ListarNoticias");
+
+							}else{
+								$data['mensaje'] = $this->db->error();
+							}
 						}else{
-							$data['mensaje'] = $this->db->error();
+							$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
 						}
 					}else{
-						$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
-					}
+		        		$data['mensaje'] = $this->upload->display_errors();	
+		        	}
 				}
 			}
 		}else{
-			$data['message'] = $this->db->error();
+			$data['mensaje'] = $this->db->error();
 		}
 
 		$this->load->view('admin/FormularioRegistroNoticia', $data);

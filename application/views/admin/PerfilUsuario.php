@@ -20,12 +20,43 @@
 									<figure >
 										<?php	
 											
-											if ($usuario["sexo"] === 'f') {
-										
-									echo   "<img src=\"".base_url()."assets/img/usuarios/user-female-alt-icon.png\"/>";
-										
+											if (isset($usuario["img"]) && !empty($usuario["img"])) {
+
+												$ruta = base_url()."assets/img/usuarios/";
+
+								            	switch ($usuario["especialidad"]) {
+								            		case 'Administrador':
+								            			$ruta .= "admin/";
+								            			break;  
+
+								            		case 'Medicina':
+								            			$ruta .= "med/";
+								            			break; 
+
+								            		case 'Odontología':
+								            			$ruta .= "odon/";
+								            			break; 
+
+								            		case 'Laboratorio':
+								            			$ruta .= "lab/";
+								            			break; 
+
+								            		case 'Nutrición':
+								            			$ruta .= "nut/";
+								            			break; 
+								            	}
+								            	$ruta .= $usuario["img"];
+
+								            	echo   "<img src=\"$ruta\"/>";
 											}else{
-									echo   "<img src=\"".base_url()."assets/img/usuarios/user-male-alt-icon.png\"/>";	
+
+												if ($usuario["sexo"] === 'f') {
+											
+										echo   "<img src=\"".base_url()."assets/img/usuarios/user-female-alt-icon.png\"/>";
+											
+												}else{
+										echo   "<img src=\"".base_url()."assets/img/usuarios/user-male-alt-icon.png\"/>";	
+												}
 											}
 										?>
 										

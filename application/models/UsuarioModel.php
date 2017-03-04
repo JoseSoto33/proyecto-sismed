@@ -9,6 +9,8 @@ class UsuarioModel extends CI_Model {
 
     public function AgregarUsuario()   
     {
+        $file_info = $this->upload->data();
+        
      	$data = array(
      			"cedula" => $this->input->post('cedula'),
      			"nombre1" => $this->input->post('nombre1'),
@@ -24,7 +26,8 @@ class UsuarioModel extends CI_Model {
      			"username" => $this->input->post('username'),
      			"grado_instruccion" => $this->input->post('grado_instruccion'),
      			"especialidad" => $this->input->post('especialidad'),
-     			"tipo_usuario" => $this->input->post('tipo_usuario')
+     			"tipo_usuario" => $this->input->post('tipo_usuario'),
+                "img" =>  $file_info["file_name"]
      		);
 
      	if($this->db->insert("usuario", $data)){

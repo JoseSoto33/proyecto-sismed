@@ -14,7 +14,7 @@ $(document).ready(function(){
 
 	$('#registro-evento').validator();
 
-	$("#guardar").on("click", function(){
+	$("#registro-evento").on("submit", function(){
 
         $(this).attr("disabled","disabled");
         $('#seccion2').animate({scrollTop : 0}, 500);

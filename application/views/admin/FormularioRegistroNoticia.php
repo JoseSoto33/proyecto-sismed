@@ -23,7 +23,7 @@
 						$url .= "/".$this->uri->segment(3, 0);
 					}
 
-					echo form_open(
+					echo form_open_multipart(
 	      				$url,
 	      				'class="form-basic" id="registro-noticia"'
 	      				); ?>
@@ -51,6 +51,39 @@
 							</div>
 						</div>
 					</div>
+					<?php 
+						if (isset($noticia)) {
+					?>
+					<div class="col-xs-12" id="imagen-content">
+						<?php if (isset($noticia['img']) && ($noticia['img']) != null || $noticia['img'] != "") { ?>
+						<figure>
+							<img src="<?php echo base_url().'assets/img/noticias/'.$noticia['img']; ?>" alt="<?php echo $noticia['img']; ?>">
+						</figure>
+						<?php }else{ ?>
+						<h4>No ha cargado una imagen para esta noticia...</h4>
+						<?php } ?>
+						<div class="checkbox">
+						    <label>
+						        <input type="checkbox" name="img-change" id="img-change" value="1"> Editar imagen
+						    </label>
+    					</div>
+						<div class="form-group hidden">
+							<label for="imagen" class="control-label">Imagen</label>
+							<input name="imagen" id="imagen" class="form-control" type="file" accept="image/*" >
+						</div>
+					</div>
+					<?php 
+						}else{
+					?>
+					<div class="col-xs-12">
+						<div class="form-group">
+							<label for="imagen" class="control-label">Imagen</label>
+							<input name="imagen" id="imagen" class="form-control" type="file" accept="image/*">
+						</div>
+					</div>	
+					<?php 
+						}
+					?>
 					<div class="col-sm-12">						
 						<small> 
 							<span class="red2">Los campos con (*) son obligatorios.</span>
@@ -69,6 +102,7 @@
 	</div>
 </div>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/fileinput.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-formulario-noticia.js"></script>
 
 <?php include('footer.php') ?>

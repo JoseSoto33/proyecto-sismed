@@ -39,47 +39,78 @@ class Usuario extends CI_Controller {
 
             if ($this->ValidarUsuario($data, 0) === false) {
 
-            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
-            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
+            	$ruta 		= './assets/img/usuarios/';
+            	$espec = $this->input->post("especialidad");
 
-            	if ($dif_Fnacimiento_Factual < 0) {
-            		
-            		$condicion = array(
-            				'where' => array(
-            					'nombre1' => $this->input->post('nombre1'),
-            					'nombre2' => $this->input->post('nombre2'),
-            					'apellido1' => $this->input->post('apellido1'),
-            					'apellido2' => $this->input->post('apellido2')
-            					)
-            			);
-            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
-            			# code...
-						if ($this->UsuarioModel->AgregarUsuario()) {
-							
-							if ($this->input->post("origen") === "login") {
+            	switch ($espec) {
+            		case 'Administrador':
+            			$ruta .="admin/";
+            			break;  
+
+            		case 'Medicina':
+            			$ruta .="med/";
+            			break; 
+
+            		case 'Odontología':
+            			$ruta .="odon/";
+            			break; 
+
+            		case 'Laboratorio':
+            			$ruta .="lab/";
+            			break; 
+
+            		case 'Nutrición':
+            			$ruta .="nut/";
+            			break; 
+            	}
+
+		        $nombre 	= base64_encode($this->input->post('username'))."_".base64_encode($this->input->post('cedula'));
+		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
+
+		        if ($file_info != false) {
+
+	            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
+	            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
+
+	            	if ($dif_Fnacimiento_Factual < 0) {
+	            		
+	            		$condicion = array(
+	            				'where' => array(
+	            					'nombre1' => $this->input->post('nombre1'),
+	            					'nombre2' => $this->input->post('nombre2'),
+	            					'apellido1' => $this->input->post('apellido1'),
+	            					'apellido2' => $this->input->post('apellido2')
+	            					)
+	            			);
+	            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
+	            			# code...
+							if ($this->UsuarioModel->AgregarUsuario()) {
 								
-								header("Location: ".base_url());
+								if ($this->input->post("origen") === "login") {
+									
+									header("Location: ".base_url());
+								}else{
+									set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
+									header("Location: ".base_url()."Usuario/ListarUsuarios");
+								}
 							}else{
-								set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
-								header("Location: ".base_url()."Usuario/ListarUsuarios");
+								$data['mensaje'] = $this->db->error();
 							}
-						}else{
-							$data['mensaje'] = $this->db->error();
-						}
-            		}else{
-            			$data['mensaje'] = "Ya existe un usuario registrado con ambos nombres y apellidos.";
-            		}
+	            		}else{
+	            			$data['mensaje'] = "Ya existe un usuario registrado con ambos nombres y apellidos.";
+	            		}
 
-            	}elseif ($dif_Fnacimiento_Factual >= 0) {
+	            	}elseif ($dif_Fnacimiento_Factual >= 0) {
 
-            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
-            	}elseif ($dif_Fnacimiento_Factual === true) {
-                
-	                $data['mensaje'] = "La fecha de nacimiento no es válida.";
-	            }elseif ($dif_Fnacimiento_Factual === false) {
+	            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
+	            	}elseif ($dif_Fnacimiento_Factual === true) {
 	                
-	                $data['mensaje'] = "La fecha actual del servidor no es válida.";
-	            }
+		                $data['mensaje'] = "La fecha de nacimiento no es válida.";
+		            }elseif ($dif_Fnacimiento_Factual === false) {
+		                
+		                $data['mensaje'] = "La fecha actual del servidor no es válida.";
+		            }
+		        }
 
 	            if ($this->input->post("origen") === "login") {
 								
@@ -116,63 +147,107 @@ class Usuario extends CI_Controller {
 
 				if ($this->ValidarUsuario($data, 1) === false) {
 	            	
-	            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
-	            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
+	            	if (isset($_POST['img-change']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != '' ) {
+	            		//return "bandera";
+	            		//var_dump($_FILES);
+		            	$ruta 		= './assets/img/usuarios/';
 
-	            	if ($dif_Fnacimiento_Factual < 0) {
-	            			
-	            		$condicion = array(
-	            				"where" => array(
-	            					"nombre1" => $this->input->post("nombre1"),
-	            					"nombre2" => $this->input->post("nombre2"),
-	            					"apellido1" => $this->input->post("apellido1"),
-	            					"apellido2" => $this->input->post("apellido2"),
-	            					"MD5(concat('sismed',id)) !=" => $id_usuario
-	            					)
-	            			);	            		         		
+		            	$espec = $this->input->post("especialidad");
 
-	            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
-	            			
-	            			$condicion = array(
-		            				"data" => array(
-							     			"cedula" => $this->input->post('cedula'),
-							     			"nombre1" => $this->input->post('nombre1'),
-							     			"nombre2" => $this->input->post('nombre2'),
-							     			"apellido1" => $this->input->post('apellido1'),
-							     			"apellido2" => $this->input->post('apellido2'),
-							     			"sexo" => $this->input->post('sexo'),
-							     			"fecha_nacimiento" => $this->input->post('fecha_nacimiento'),
-							     			"direccion" => $this->input->post('direccion'),
-							     			"telf_personal" => $this->input->post('telef_personal'),
-							     			"telf_emergencia" => $this->input->post('telef_emergencia'),
-							     			"email" => $this->input->post('email'),
-							     			"username" => $this->input->post('username'),
-							     			"grado_instruccion" => $this->input->post('grado_instruccion'),
-							     			"especialidad" => $this->input->post('especialidad'),
-							     			"tipo_usuario" => $this->input->post('tipo_usuario')
-							     		),
-		            				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
-		            			);
+		            	switch ($espec) {
+		            		case 'Administrador':
+		            			$ruta .="admin/";
+		            			break;  
 
-							if ($this->UsuarioModel->ModificarUsuario($condicion)) {
-								
-								set_cookie("message","Datos del usuario <strong>'".$this->input->post('username')."'</strong> modificados exitosamente!...", time()+15);
-								header("Location: ".base_url()."Usuario/ListarUsuarios");
-							}else{
-								$data['mensaje'] = $this->db->error();
-							}
-	            		}
+		            		case 'Medicina':
+		            			$ruta .="med/";
+		            			break; 
 
-	            	}elseif ($dif_Fnacimiento_Factual >= 0) {
+		            		case 'Odontología':
+		            			$ruta .="odon/";
+		            			break; 
 
-	            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
-	            	}elseif ($dif_Fnacimiento_Factual === true) {
-	                
-		                $data['mensaje'] = "La fecha de nacimiento no es válida.";
-		            }elseif ($dif_Fnacimiento_Factual === false) {
+		            		case 'Laboratorio':
+		            			$ruta .="lab/";
+		            			break; 
+
+		            		case 'Nutrición':
+		            			$ruta .="nut/";
+		            			break; 
+		            	}
+            	
+				        $nombre 	= base64_encode($this->input->post('username'))."_".base64_encode($this->input->post('cedula'));
+				        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
+
+				        if ($file_info != false) {
+				        	$data['usuario']['img'] = $file_info['file_name'];
+				        }
+	            	}
+
+			        if (!isset($file_info) || (isset($file_info) && $file_info != false)) {
+
+	            		$fecha_nacimiento = $this->input->post('fecha_nacimiento');
+	            		$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
+
+		            	if ($dif_Fnacimiento_Factual < 0) {
+		            			
+		            		$condicion = array(
+		            				"where" => array(
+		            					"nombre1" => $this->input->post("nombre1"),
+		            					"nombre2" => $this->input->post("nombre2"),
+		            					"apellido1" => $this->input->post("apellido1"),
+		            					"apellido2" => $this->input->post("apellido2"),
+		            					"MD5(concat('sismed',id)) !=" => $id_usuario
+		            					)
+		            			);	            		         		
+
+		            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
+		            			
+		            			$condicion = array(
+			            				"data" => array(
+								     			"cedula" => $this->input->post('cedula'),
+								     			"nombre1" => $this->input->post('nombre1'),
+								     			"nombre2" => $this->input->post('nombre2'),
+								     			"apellido1" => $this->input->post('apellido1'),
+								     			"apellido2" => $this->input->post('apellido2'),
+								     			"sexo" => $this->input->post('sexo'),
+								     			"fecha_nacimiento" => $this->input->post('fecha_nacimiento'),
+								     			"direccion" => $this->input->post('direccion'),
+								     			"telf_personal" => $this->input->post('telef_personal'),
+								     			"telf_emergencia" => $this->input->post('telef_emergencia'),
+								     			"email" => $this->input->post('email'),
+								     			"username" => $this->input->post('username'),
+								     			"grado_instruccion" => $this->input->post('grado_instruccion'),
+								     			"especialidad" => $this->input->post('especialidad'),
+								     			"tipo_usuario" => $this->input->post('tipo_usuario'),
+						                		"img" =>  $data['usuario']['img']
+								     		),
+			            				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
+			            			);
+
+								if ($this->UsuarioModel->ModificarUsuario($condicion)) {
+									
+									set_cookie("message","Datos del usuario <strong>'".$this->input->post('username')."'</strong> modificados exitosamente!...", time()+15);
+									header("Location: ".base_url()."Usuario/ListarUsuarios");
+								}else{
+									$data['mensaje'] = $this->db->error();
+								}
+		            		}
+
+		            	}elseif ($dif_Fnacimiento_Factual >= 0) {
+
+		            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
+		            	}elseif ($dif_Fnacimiento_Factual === true) {
 		                
-		                $data['mensaje'] = "La fecha actual del servidor no es válida.";
-		            }           				
+			                $data['mensaje'] = "La fecha de nacimiento no es válida.";
+			            }elseif ($dif_Fnacimiento_Factual === false) {
+			                
+			                $data['mensaje'] = "La fecha actual del servidor no es válida.";
+			            } 
+
+			        }else{
+		        		$data['mensaje'] = $this->upload->display_errors();	
+		        	}         				
 				}
 			}
 

@@ -23,7 +23,7 @@
 					if ($this->uri->segment(3, 0) != "0") {
 						$url .= "/".$this->uri->segment(3, 0);
 					}
-					echo form_open(
+					echo form_open_multipart(
 	      				$url,
 	      				'class="form-horizontal form-basic" id="registro-usuario"'
 	      				); ?>
@@ -180,6 +180,79 @@
 					<hr class="form-divisor-line">
 					<div class="col-sm-12">
 						<div class="row">
+							<?php 
+								if (isset($usuario)) {
+							?>
+							<div class="col-xs-6" id="imagen-content">
+								<?php 
+									if (isset($usuario['img']) && ($usuario['img']) != null || $usuario['img'] != "") { 
+										$ruta = base_url()."assets/img/usuarios/";
+
+						            	switch ($usuario["especialidad"]) {
+						            		case 'Administrador':
+						            			$ruta .= "admin/";
+						            			break;  
+
+						            		case 'Medicina':
+						            			$ruta .= "med/";
+						            			break; 
+
+						            		case 'Odontología':
+						            			$ruta .= "odon/";
+						            			break; 
+
+						            		case 'Laboratorio':
+						            			$ruta .= "lab/";
+						            			break; 
+
+						            		case 'Nutrición':
+						            			$ruta .= "nut/";
+						            			break; 
+						            	}
+						            	$ruta .= $usuario["img"];
+								?>
+								<div class="form-group">
+									<div class="col-xs-12 col-sm-8 col-sm-offset-4">
+										<figure>
+											<img src="<?php echo $ruta; ?>" alt="<?php echo $usuario['img']; ?>">
+										</figure>
+									</div>
+								</div>
+								<?php }else{ ?>
+								<h4 class="text-right">No ha cargado una imagen para este usuario...</h4>
+								<?php } ?>
+								<div class="form-group">
+									<div class="col-xs-12 col-sm-8 col-sm-offset-4">
+										<div class="checkbox">
+										    <label>
+										        <input type="checkbox" name="img-change" id="img-change" value="1"> Editar imagen de perfil
+										    </label>
+				    					</div>
+				    				</div>
+		    					</div>
+								<div class="form-group hidden" id="input-imagen">
+									<label for="imagen" class="col-sm-4 control-label">Imagen:</label>
+									<div class="col-sm-8">
+										<input name="imagen" id="imagen" class="form-control" type="file" accept="image/*" >
+									</div>
+								</div>
+							</div>
+							<?php 
+								}else{
+							?>
+							<div class="col-xs-6">
+								<div class="form-group">
+									<label for="imagen" class="col-sm-4 control-label">Imagen:</label>
+									<div class="col-sm-8">
+										<input name="imagen" id="imagen" class="form-control" type="file" accept="image/*">
+									</div>
+								</div>
+							</div>
+							<?php 
+								}
+							?>
+						</div>
+						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group">
 									<label for="username" class="col-sm-4 control-label"><span class="red">*</span> Username:</label>
@@ -290,6 +363,7 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/fileinput.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-formulario-usuario.js"></script>
 
 <?php include('footer.php') ?>

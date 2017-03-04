@@ -30,7 +30,30 @@ $(document).ready(function(){
 
     $("#registro-usuario").on("submit", function(){
 
-        $(this).attr("disabled","disabled");
+        $("#guardar").attr("disabled","disabled");
         $('#seccion2').animate({scrollTop : 0}, 500);
     });
+
+    $("#imagen").fileinput({
+        language: "es",
+        fileType: "image",
+        showUpload: false,
+        showRemove: false,
+        browseLabel: 'Examinar &hellip;'
+    });
+
+    $("#img-change").on("click", function(){
+        
+        if ($("#img-change").is(":checked")) {
+
+            $("#imagen-content figure").hide();
+            $("#imagen-content h4").hide();
+            $("#imagen-content #input-imagen").removeClass("hidden");
+        }else{
+            $("#imagen-content figure").show();
+            $("#imagen-content h4").show();
+            $("#imagen-content #input-imagen").addClass("hidden");
+        }
+    });
+
 });

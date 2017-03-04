@@ -40,7 +40,7 @@ class Evento extends CI_Controller {
             if ($this->ValidarEvento($data) === false) {            	
 		        
 		        $ruta 		= './assets/img/eventos/';
-		        $nombre 	= $this->input->post('titulo')."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
+		        $nombre 	= base64_encode($this->input->post('titulo'))."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
 		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
 		        if ($file_info != false) {
@@ -123,7 +123,7 @@ class Evento extends CI_Controller {
 
 	            	if (isset($_POST['img-change']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != '' ) {
 	            		//return "bandera";
-	            		var_dump($_FILES);
+	            		//var_dump($_FILES);
 		            	$ruta 		= './assets/img/eventos/';
 				        $nombre 	= base64_encode($this->input->post('titulo'))."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
 				        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);

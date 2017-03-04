@@ -48,7 +48,13 @@
 									echo "<tr id=\"fila_".md5('sismed'.$noticia["id"])."\">";
 									echo "<td>".$cont++."</td>";
 									echo "<td>".$noticia["titulo"]."</td>";
-									echo "<td>".$noticia["descripcion"]."</td>";
+									echo "<td>";
+									if (strlen($noticia["descripcion"]) > 75) {
+										echo substr($noticia["descripcion"], 0, 75)."...";
+									}else{
+										echo $noticia["descripcion"];
+									}											
+									echo "</td>";
 									echo ($noticia["url"] == "")? "<td>Sin enlace...</td>" : "<td><a href=\"".$noticia["url"]."\" target=\"_blank\">".$noticia["url"]."</a></td>";
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
