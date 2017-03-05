@@ -39,34 +39,9 @@ class Sesion extends CI_Controller {
         $data['existe_usuario'] = $this->UsuarioModel->ValidarUsuario(array());
 
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
-						
-			$this->form_validation->set_rules(
-			        'log_cedula', 'Cédula',
-			        array('required','numeric','min_length[6]','max_length[8]'),		        	
-			        array(		                
-			                'min_length'    => 'La %s debe tener al menos 6 caracteres.',
-			                'max_length'    => 'La %s debe tener máximo 8 caracteres.',
-			                'numeric'     	=> 'La %s sólo debe contener números.',
-			                'required'      => 'Debe insertar su %s.'
-			        )
-			);
-
-            $this->form_validation->set_rules(
-	            	'log_password', 'Password', 
-	        		array('required','min_length[8]','max_length[16]','alpha_numeric'),	        			
-	                array(
-	                	'required'		=> 'Debe ingresar su %s.',
-	                	'min_length'    => 'El %s debe tener al menos 8 caracteres.',
-		                'max_length'    => 'El %s debe tener máximo 16 caracteres.',
-		                'numeric'     	=> 'El %s debe ser alfanumérico.'
-		                )	                
-            );
-
-            if ($this->form_validation->run() == FALSE) {
+			
+            if ($this->ValidarSesion($data) === FALSE) {
             	
-				$this->load->view('login/index',$data);
-            }else{
-
 				$condicion = array(
 					"where" => array(
 						"cedula" => $this->input->post("log_cedula"),
@@ -83,6 +58,9 @@ class Sesion extends CI_Controller {
 
 					}elseif (strcmp($usuario->password,$this->input->post('log_password'))===0) {
 						
+						$condicion = array("where" => array("id_usuario" => $usuario->id));
+						$firstTime = !($this->SesionModel->ValidarSesion($condicion));
+
 						$data = array(
 							"id_usuario" => $usuario->id,
 							"fecha_inicio" => date('Y-m-d h:i:s a')
@@ -106,9 +84,16 @@ class Sesion extends CI_Controller {
 										'tipo_usuario' => $usuario->tipo_usuario,
 										'especialidad' => $usuario->especialidad
 									);
-							$this->session->set_userdata($data);
 
-							header('Location: '.base_url()."Home");
+							if ($firstTime === false) {
+								$data["first_session"] = false;
+								$this->session->set_userdata($data);
+								header('Location: '.base_url()."Home");
+							}else{
+								$data["first_session"] = true;
+								$this->session->set_userdata($data);
+								header('Location: '.base_url()."Usuario/PasswordChange");
+							}
 						}
 
 					}else{
@@ -150,9 +135,36 @@ class Sesion extends CI_Controller {
 		}		
 	}
 
-	public function ValidarSesion()
+	public function ValidarSesion($data)
 	{
+		$this->form_validation->set_rules(
+		        'log_cedula', 'Cédula',
+		        array('required','numeric','min_length[6]','max_length[8]'),		        	
+		        array(		                
+		                'min_length'    => 'La %s debe tener al menos 6 caracteres.',
+		                'max_length'    => 'La %s debe tener máximo 8 caracteres.',
+		                'numeric'     	=> 'La %s sólo debe contener números.',
+		                'required'      => 'Debe insertar su %s.'
+		        )
+		);
 
+        $this->form_validation->set_rules(
+            	'log_password', 'Password', 
+        		array('required','min_length[8]','max_length[16]','alpha_numeric'),	        			
+                array(
+                	'required'		=> 'Debe ingresar su %s.',
+                	'min_length'    => 'El %s debe tener al menos 8 caracteres.',
+	                'max_length'    => 'El %s debe tener máximo 16 caracteres.',
+	                'numeric'     	=> 'El %s debe ser alfanumérico.'
+	                )	                
+        );
+
+        if ($this->form_validation->run() == FALSE) {
+        	
+			$this->load->view('login/index',$data);
+        }else{
+        	return false;
+        }
 	}
 
 	public function ListarSesiones()
@@ -171,7 +183,6 @@ class Sesion extends CI_Controller {
 	
 		$data["sesiones"] = $result;
 
-		$this->load->view('admin/ListarSesiones', $data);
-		
+		$this->load->view('admin/ListarSesiones', $data);		
 	}
 }

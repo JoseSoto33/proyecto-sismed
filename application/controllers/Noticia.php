@@ -186,6 +186,27 @@ class Noticia extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	public function VerNoticia()
+	{
+		$id = $this->input->post('id');
+		$condicion = array(
+			"where" => array("MD5(concat('sismed',id))" => $id)
+			);
+
+		$result = $this->NoticiaModel->ExtraerNoticia($condicion);
+
+		if ($result->num_rows() > 0) {
+			
+			$data = $result->row_array();			
+			$data["result"] = true;
+		}else{
+			$data["result"] = false;
+			$data["message"] = 'Error: '.$this->db->error();
+		}
+
+		echo json_encode($data);
+	}
+
 	public function ListarNoticias()
 	{
 		$condicion = array(

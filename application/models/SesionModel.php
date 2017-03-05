@@ -25,9 +25,15 @@ class SesionModel extends CI_Model {
         }
     }
 
-    public function ValidarSesion()
+    public function ValidarSesion($condicion = array())
     {
+        $query = $this->ExtraerSesiones($condicion);
 
+        if ($query->num_rows() > 0) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function ExtraerSesiones($condicion = array())

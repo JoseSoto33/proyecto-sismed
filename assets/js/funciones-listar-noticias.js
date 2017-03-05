@@ -36,6 +36,59 @@ $(document).ready(function(){
         }, 10000);
     }
 
+     $(".table-responsive").on("click", "#lista_noticias tbody tr td .detalle-noticia", function(e){
+
+        var idnoticia = $(this).data("idnoticia");        
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        $("#portada-noticia").attr('src',url+"assets/img/loading.gif");
+        $("#titulo-noticia").html('');
+        $("#descripcion-noticia").html('');
+       
+        request = $.ajax({
+            url: url+"Noticia/VerNoticia",
+            type: "POST",
+            dataType: "json",
+            data: "id="+idnoticia
+        });
+
+        request.done(function (response, textStatus, jqXHR){            
+            
+            if (response['result'] == true) {
+                
+                if (response['img'] != null) {
+
+                    $("#portada-noticia").attr('src',url+"assets/img/noticias/"+response['img']);
+                }else{
+                    $("#portada-noticia").attr('src',url+"assets/img/noticias/Noticias.png");
+                }
+
+                if (response['url'] != null) {
+                    $("a#link").attr("href",response['url']).removeClass("hidden");
+                }else{
+                    $("a#link").attr("src","").addClass("hidden");
+                }
+
+                $("#titulo-noticia").html(response['titulo']);
+                $("#descripcion-noticia").html(response['descripcion']);                
+            }else{
+                alert(response['message']);
+            }
+            
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            alert('Error: '+textStatus);
+            alert(thrown);
+        });
+
+        e.preventDefault();
+    });
+
     $(".table-responsive").on("click", "#lista_noticias tbody tr td .eliminar-noticia", function(e){
 
     	var idnoticia = $(this).data("idnoticia"); 

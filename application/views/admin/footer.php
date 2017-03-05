@@ -1,4 +1,4 @@
-
+		<?php if(!$this->session->userdata("first_session")) { ?>
 		<div id="footer">
 			<div class="container">
 				<div class="row">
@@ -60,6 +60,7 @@
 				</div>			
 			</div>
 		</div>
+		<?php } ?>
 		<div id="footer2">
 			<div class="container">	
 				<label class="col-xs-12">IUT "Dr. Federico Rivero Palacio" | Iformática Trayecto 3 | 2017</label>	

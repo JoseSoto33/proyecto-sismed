@@ -26,7 +26,9 @@ class Home extends CI_Controller {
             /*Esto es para validar que el usuario inició sesión*/
            if (!$this->session->userdata('login')){
            		header('Location: '.base_url());
-           }           
+           }elseif ($this->session->userdata('first_session') === true) {
+           		header('Location: '.base_url().'Usuario/PasswordChange');
+           }         
     }
 
 	public function index()

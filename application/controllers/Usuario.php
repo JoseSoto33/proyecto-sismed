@@ -26,7 +26,7 @@ class Usuario extends CI_Controller {
        	if (!$this->session->has_userdata('login') && $this->uri->segment(2, 0) != 'AgregarUsuario') {
         	redirect(base_url());
         }
-        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && $this->uri->segment(2, 0) != 'PerfilUsuario') {
+        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && ($this->uri->segment(2, 0) != 'PerfilUsuario' || $this->uri->segment(2, 0) != 'PasswordChange' || ($this->uri->segment(2, 0) != 'ModificarUsuario' && $this->uri->segment(2, 0) == '0'))) {
         	redirect(base_url('Home')); 
         }
     }
@@ -204,26 +204,26 @@ class Usuario extends CI_Controller {
 		            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
 		            			
 		            			$condicion = array(
-			            				"data" => array(
-								     			"cedula" => $this->input->post('cedula'),
-								     			"nombre1" => $this->input->post('nombre1'),
-								     			"nombre2" => $this->input->post('nombre2'),
-								     			"apellido1" => $this->input->post('apellido1'),
-								     			"apellido2" => $this->input->post('apellido2'),
-								     			"sexo" => $this->input->post('sexo'),
-								     			"fecha_nacimiento" => $this->input->post('fecha_nacimiento'),
-								     			"direccion" => $this->input->post('direccion'),
-								     			"telf_personal" => $this->input->post('telef_personal'),
-								     			"telf_emergencia" => $this->input->post('telef_emergencia'),
-								     			"email" => $this->input->post('email'),
-								     			"username" => $this->input->post('username'),
-								     			"grado_instruccion" => $this->input->post('grado_instruccion'),
-								     			"especialidad" => $this->input->post('especialidad'),
-								     			"tipo_usuario" => $this->input->post('tipo_usuario'),
-						                		"img" =>  $data['usuario']['img']
-								     		),
-			            				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
-			            			);
+		            				"data" => array(
+							     			"cedula" => $this->input->post('cedula'),
+							     			"nombre1" => $this->input->post('nombre1'),
+							     			"nombre2" => $this->input->post('nombre2'),
+							     			"apellido1" => $this->input->post('apellido1'),
+							     			"apellido2" => $this->input->post('apellido2'),
+							     			"sexo" => $this->input->post('sexo'),
+							     			"fecha_nacimiento" => $this->input->post('fecha_nacimiento'),
+							     			"direccion" => $this->input->post('direccion'),
+							     			"telf_personal" => $this->input->post('telef_personal'),
+							     			"telf_emergencia" => $this->input->post('telef_emergencia'),
+							     			"email" => $this->input->post('email'),
+							     			"username" => $this->input->post('username'),
+							     			"grado_instruccion" => $this->input->post('grado_instruccion'),
+							     			"especialidad" => $this->input->post('especialidad'),
+							     			"tipo_usuario" => $this->input->post('tipo_usuario'),
+					                		"img" =>  $data['usuario']['img']
+							     		),
+		            				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
+		            			);
 
 								if ($this->UsuarioModel->ModificarUsuario($condicion)) {
 									
@@ -256,6 +256,34 @@ class Usuario extends CI_Controller {
 		}
 		
 		$this->load->view('admin/FormularioRegistroUsuario', $data);
+	}
+
+	public function PasswordChange()
+	{
+		$data = array("titulo" => "Cambio de contraseña");
+
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			if ($this->ValidarPasswordUsuario($data) === false) {
+
+				$condicion = array(
+    				"data" => array(
+			     			"password" => $this->input->post('password')
+			     		),
+    				"where" => array("id" => $this->session->userdata('idUsuario'))
+    			);
+
+				if ($this->UsuarioModel->ModificarUsuario($condicion)) {
+					
+					$this->session->set_userdata('first_session', false);			
+					header("Location: ".base_url()."Home");
+				}else{
+					$data['mensaje'] = $this->db->error();
+				}
+			}
+		}
+
+		$this->load->view('admin/FormularioCambioClave', $data);
 	}
 
 	public function EliminarUsuario()
@@ -506,30 +534,38 @@ class Usuario extends CI_Controller {
         }
 	}
 
-	public function ValidarPasswordUsuario()
+	public function ValidarPasswordUsuario($data)
 	{
-		/*
-			$this->form_validation->set_rules(
-			        'password', 'Contraseña',
-			        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
-			        array( 
-			        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
-			            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
-		                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
-		                'required'   	=> 'Debe insertar un %s.'
-			        )
-			);
+		
+		$this->form_validation->set_rules(
+	        'password', 'Contraseña',
+	        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
+	        array( 
+	        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
+	            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
+                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
+                'required'   	=> 'Debe insertar un %s.'
+	        )
+		);
 
-			$this->form_validation->set_rules(
-			        'password2', 'Contraseña de confirmación',
-			        array('required','matches[password]','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
-			        array( 
-			        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
-			            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
-		                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
-		                'matches'   	=> 'La %s no coinside.',
-		                'required'   	=> 'Debe insertar un %s.'
-			        )
-			);*/
+		$this->form_validation->set_rules(
+	        'password2', 'Contraseña de confirmación',
+	        array('required','matches[password]','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
+	        array( 
+	        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
+	            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
+                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
+                'matches'   	=> 'La %s no coinside.',
+                'required'   	=> 'Debe insertar un %s.'
+	        )
+		);
+
+		if ($this->form_validation->run() == FALSE) {
+        	//var_dump($data);
+        	//var_dump($_POST);
+			$this->load->view('admin/FormularioCambioClave', $data);
+        }else{
+        	return false;
+        }
 	}
 }
