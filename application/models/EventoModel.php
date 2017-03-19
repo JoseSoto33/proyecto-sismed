@@ -11,11 +11,15 @@ class EventoModel extends CI_Model {
      * @method boolean AgregarEvento()
      * @method boolean ModificarEvento(mixed[] $condicion)
      * @method boolean EliminarEvento(mixed[] $condicion)
-     * @method boolean ExtraerEvento(mixed[] $condicion)
+     * @method object ExtraerEvento(mixed[] $condicion)
      * @method boolean ValidarEvento(mixed[] $condicion)
-     * @method boolean RestarHoras($horaini,$horafin)
-     * @method boolean CompararFechas($primera, $segunda)
-     * @method boolean ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data)
+     * @method integer RestarHoras(string $horaini, string $horafin)
+     * @method boolean|integer CompararFechas(string $primera, string $segunda)
+     * @method mixed[] ValidarFechaHora(string $fecha_inicio, string $fecha_fin, string $hora_inicio, string $hora_fin, mixed[] $data)
+     */
+
+    /**
+     * @todo Comentar el resto de los archivos
      */
     public function AgregarEvento()   
     {
