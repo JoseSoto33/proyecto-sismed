@@ -10,12 +10,15 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/chosen.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/fullcalendar.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/fileinput.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/owl.carousel.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/owl.theme.default.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style-admin.css">
 		<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.3.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/moment.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/fullcalendar.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/owl.carousel.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/locale/es.js"></script>
 	</head>
 	<body>

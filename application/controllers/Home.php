@@ -34,7 +34,7 @@ class Home extends CI_Controller {
     /**
      * @method void index()
      * @method void	ExtraerEventos()
-     * @method void ExtraerNoticias()
+     * @method mixed[]|boolean ExtraerNoticias()
      */
 
     /**
@@ -47,41 +47,43 @@ class Home extends CI_Controller {
 		//Si existe una sesión iniciada...
 		if ($this->session->userdata('login')) {
 
+			$data = array("noticias" => $this->ExtraerNoticias());
+
 			//Dependiendo del tipo de usuario..
 			switch ($this->session->userdata('tipo_usuario')) {
 				//Si el tipo de usuario es "Administrador"...
 				case "Administrador":
-					$this->load->view('admin/index');
+					$this->load->view('admin/index',$data);
 					break;
 				
 				//Si el tipo de usuario es "Doctor"...
 				case "Doctor":
-					$this->load->view('medicina/doctor/index');
+					$this->load->view('medicina/doctor/index',$data);
 					break;
 
 				//Si el tipo de usuario es "Enfermero"...
 				case "Enfermero":
-					$this->load->view('medicina/enfermero/index');
+					$this->load->view('medicina/enfermero/index',$data);
 					break;
 
 				//Si el tipo de usuario es "Odontólogo"...
 				case "Odontólogo":
-					$this->load->view('odontologia/index');
+					$this->load->view('odontologia/index',$data);
 					break;
 
 				//Si el tipo de usuario es "Bioanalista"...
 				case "Bioanalista":
-					$this->load->view('laboratorio/index');
+					$this->load->view('laboratorio/index',$data);
 					break;
 
 				//Si el tipo de usuario es "Nutricionista"...
 				case "Nutricionista":
-					$this->load->view('nutricion/nutricionista/index');
+					$this->load->view('nutricion/nutricionista/index',$data);
 					break;
 
 				//Si el tipo de usuario es "Asistente"...
 				case "Asistente":
-					$this->load->view('nutricion/asistente/index');
+					$this->load->view('nutricion/asistente/index',$data);
 					break;
 			}
 		//Si no existe una sesión iniciada...
@@ -115,5 +117,27 @@ class Home extends CI_Controller {
 			$evento->hora_fin 	  = date('h:i a', strtotime($evento->hora_fin));
 		}
 		echo json_encode($eventos);
+	}
+
+	/**
+	 * Extrae las últimas noticias de la base de datos, o retorna false si no se consiguen registros
+	 *
+	 * @return mixed[]|boolean
+	 */
+	public function ExtraerNoticias()
+	{
+		$condicion = array(
+			"where" => array(
+				"Extract(month from created_at) =" => date("m"),
+				"Extract(year from created_at) =" => date("Y")
+				)
+			);
+		$result = $this->NoticiaModel->ExtraerNoticia($condicion);
+
+		if ($result->num_rows() > 0) {
+			return $result->result_array();
+		}else{
+			return false;
+		}
 	}
 }
