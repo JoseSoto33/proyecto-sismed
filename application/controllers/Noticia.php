@@ -37,7 +37,7 @@ class Noticia extends CI_Controller {
      * @method void EliminarNoticia()
      * @method void VerNoticia()
      * @method void ListarNoticias()
-     * @method void ValidarNoticia(mixed[] $data)
+     * @method void|boolean ValidarNoticia(mixed[] $data)
      */
 
     /**

@@ -34,6 +34,7 @@ class Home extends CI_Controller {
     /**
      * @method void index()
      * @method void	ExtraerEventos()
+     * @method void ExtraerNoticias()
      */
 
     /**
@@ -90,7 +91,7 @@ class Home extends CI_Controller {
 	}
 
 	/**
-	 * Extrae de la base de datos la información de los próximos eventos del meS
+	 * Extrae de la base de datos la información de los próximos eventos del mes
 	 * 
 	 * @return 	void 
 	 */

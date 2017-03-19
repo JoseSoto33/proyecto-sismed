@@ -7,6 +7,16 @@ class EventoModel extends CI_Model {
             parent::__construct();
     }
 
+    /**
+     * @method boolean AgregarEvento()
+     * @method boolean ModificarEvento(mixed[] $condicion)
+     * @method boolean EliminarEvento(mixed[] $condicion)
+     * @method boolean ExtraerEvento(mixed[] $condicion)
+     * @method boolean ValidarEvento(mixed[] $condicion)
+     * @method boolean RestarHoras($horaini,$horafin)
+     * @method boolean CompararFechas($primera, $segunda)
+     * @method boolean ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data)
+     */
     public function AgregarEvento()   
     {
         $fecha_hora_inicio = $this->input->post('fecha_inicio')." ".$this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano');

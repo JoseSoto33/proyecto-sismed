@@ -36,7 +36,7 @@ class Evento extends CI_Controller {
      * @method void EliminarEvento()
      * @method void VerEvento()
      * @method void ListarEventos()
-     * @method void ValidarEvento(mixed[] $data)
+     * @method void|boolean ValidarEvento(mixed[] $data)
      */
 
     /**

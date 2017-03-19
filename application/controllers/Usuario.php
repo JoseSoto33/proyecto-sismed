@@ -18,10 +18,6 @@ class Usuario extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-
-	/**
-	 * @todo Comentar el código de este archivo
-	 */
 	
 	public function __construct()
     {
@@ -35,34 +31,62 @@ class Usuario extends CI_Controller {
         }
     }
 
+    /**
+     * @method void AgregarUsuario()
+     * @method void ModificarUsuario(integer $id_usuario)
+     * @method void PasswordChange()
+     * @method void EliminarUsuario()
+     * @method void PerfilUsuario(integer $id)
+     * @method void ListarUsuarios()
+     * @method void|boolean ValidarUsuario(mixed[] $data, integer $operacion)
+     * @method void|boolean ValidarPasswordUsuario(mixed[] $data)
+     */
+
+    /**
+     * Muestra la interfaz del formulario para registrar un nuevo usuario, o registra un nuevo 
+     * usuario en la base de datos, si se llama a este método mediante una petición POST.
+     *
+     * El usuario registrado tendrá por defecto la contraseña 'User1234'. Deberá cambiarla la próxima vez 
+     * que inicie seción.
+     *
+     * @return void
+     */
 	public function AgregarUsuario()
 	{
 		$data = array("titulo" => "Agregar nuevo usuario");
 
+		//Si se envió una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {			
 
+			//Si los datos de registro son correctos...
             if ($this->ValidarUsuario($data, 0) === false) {
 
             	$ruta 		= './assets/img/usuarios/';
             	$espec = $this->input->post("especialidad");
 
+            	//Dependiendo de la especialidad del usuario a registrar...
             	switch ($espec) {
+					//Si la especialidad es 'Administrador'
             		case 'Administrador':
             			$ruta .="admin/";
             			break;  
 
+					//Si la especialidad es 'Medicina'
             		case 'Medicina':
             			$ruta .="med/";
             			break; 
 
+					//Si la especialidad es 'Odontología'
             		case 'Odontología':
             			$ruta .="odon/";
             			break; 
 
+					//Si la especialidad es 'Laboratorio'
             		case 'Laboratorio':
             			$ruta .="lab/";
             			break; 
 
+					//Si la especialidad es 'Nutrición'
             		case 'Nutrición':
             			$ruta .="nut/";
             			break; 
@@ -71,11 +95,13 @@ class Usuario extends CI_Controller {
 		        $nombre 	= base64_encode($this->input->post('username'))."_".base64_encode($this->input->post('cedula'));
 		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
+		        //Si el archivo se cargó correctamente...
 		        if ($file_info != false) {
 
 	            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
 	            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
 
+	            	//Si la fecha de nacimiento es válida (menor a la fecha actual)...
 	            	if ($dif_Fnacimiento_Factual < 0) {
 	            		
 	            		$condicion = array(
@@ -86,51 +112,75 @@ class Usuario extends CI_Controller {
 	            					'apellido2' => $this->input->post('apellido2')
 	            					)
 	            			);
+	            		//No exiten usuarios con datos idénticos al que se está registrando...
 	            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
-	            			# code...
+	            			
+	            			//Si se realiza el registro exitosamente en la base de datos...
 							if ($this->UsuarioModel->AgregarUsuario()) {
 								
+								set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
+
+								//Si el registro de usuario se realiza desde la vista del login...
 								if ($this->input->post("origen") === "login") {
 									
 									header("Location: ".base_url());
+
+								//Si se registra desde una sesión de administrador...
 								}else{
-									set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
 									header("Location: ".base_url()."Usuario/ListarUsuarios");
 								}
+							//Si ocurre un error durante el registro en base de datos...
 							}else{
 								$data['mensaje'] = $this->db->error();
 							}
+						//Si los datos a registrar coinsiden con los de un usuario existente...
 	            		}else{
 	            			$data['mensaje'] = "Ya existe un usuario registrado con ambos nombres y apellidos.";
 	            		}
 
+            		//Si no, si la fecha de nadimiento es mayor a la fecha actual...
 	            	}elseif ($dif_Fnacimiento_Factual >= 0) {
 
 	            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
+
+            		//Si no, si existe un error en la fecha de nacimiento...
 	            	}elseif ($dif_Fnacimiento_Factual === true) {
 	                
 		                $data['mensaje'] = "La fecha de nacimiento no es válida.";
+
+	                //Si no, si existe un error en la fecha actual...
 		            }elseif ($dif_Fnacimiento_Factual === false) {
 		                
 		                $data['mensaje'] = "La fecha actual del servidor no es válida.";
 		            }
 		        }
 
+		        //Si se está registrando un usuario desde la vista del login...
 	            if ($this->input->post("origen") === "login") {
-								
-					$this->load->view('login/index', $data);
+							
+					$this->load->view('login/index', $data);//Se carga la vista del login
+
+				//Si se está registrando un usuario desde una sesión de administración...
 				}else{
 					
-					$this->load->view('admin/FormularioRegistroUsuario', $data);
+					$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario de registro de usuario
 				}
 			}
 
+		//Si no se hizo POST...
 		}else{
 
-			$this->load->view('admin/FormularioRegistroUsuario', $data);
+			$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario de registro de usuario
 		}
 	}
 
+	/**
+	 * Muestra el formulario para modificar los datos de un usaurio, o realiza la modificación de los datos si se llama a éste método mediante un POST
+	 *
+	 * @param null|integer $id_usuario Identificador único del usuario
+	 *
+	 * @return void
+	 */
 	public function ModificarUsuario($id_usuario = null)
 	{
 		$data = array("titulo" => "Modificar datos de usuario");
@@ -143,38 +193,47 @@ class Usuario extends CI_Controller {
 
 		$result = $this->UsuarioModel->ExtraerUsuario($cond);
 
+		//Si los registros encontrados son más de 0...
 		if ($result->num_rows() > 0) {
 			
 			$data['usuario'] = $result->row_array();
 
+			//Si se envía una petición POST...
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+				//Si los datos del usuario son válidos...
 				if ($this->ValidarUsuario($data, 1) === false) {
-	            	
+	            		
+					//Si se cambió la imagen del usuario...
 	            	if (isset($_POST['img-change']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != '' ) {
-	            		//return "bandera";
-	            		//var_dump($_FILES);
-		            	$ruta 		= './assets/img/usuarios/';
+	            		
+		            	$ruta = './assets/img/usuarios/';
 
 		            	$espec = $this->input->post("especialidad");
 
+		            	//Dependiendo de la especialidad del usaurio...
 		            	switch ($espec) {
+							//Si la especialidad es 'Administrador'		            		
 		            		case 'Administrador':
 		            			$ruta .="admin/";
 		            			break;  
 
+							//Si la especialidad es 'Medicina'
 		            		case 'Medicina':
 		            			$ruta .="med/";
 		            			break; 
 
+							//Si la especialidad es 'Odontología'
 		            		case 'Odontología':
 		            			$ruta .="odon/";
 		            			break; 
 
+							//Si la especialidad es 'Laboratorio'
 		            		case 'Laboratorio':
 		            			$ruta .="lab/";
 		            			break; 
 
+							//Si la especialidad es 'Nutrición'
 		            		case 'Nutrición':
 		            			$ruta .="nut/";
 		            			break; 
@@ -183,16 +242,19 @@ class Usuario extends CI_Controller {
 				        $nombre 	= base64_encode($this->input->post('username'))."_".base64_encode($this->input->post('cedula'));
 				        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
+				        //Si se cargó el archivo...
 				        if ($file_info != false) {
 				        	$data['usuario']['img'] = $file_info['file_name'];
 				        }
 	            	}
 
+	            	//Si el archivo está declarado...
 			        if (!isset($file_info) || (isset($file_info) && $file_info != false)) {
 
 	            		$fecha_nacimiento = $this->input->post('fecha_nacimiento');
 	            		$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
 
+	            		//Si la fecha de nacimiento es correcta (si es anterior a la fecha actual)...
 		            	if ($dif_Fnacimiento_Factual < 0) {
 		            			
 		            		$condicion = array(
@@ -205,6 +267,7 @@ class Usuario extends CI_Controller {
 		            					)
 		            			);	            		         		
 
+		            		//Si no existe otro usuario con datos idénticos a los ingresados...
 		            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
 		            			
 		            			$condicion = array(
@@ -229,45 +292,60 @@ class Usuario extends CI_Controller {
 		            				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
 		            			);
 
+		            			//Si se realiza la modificación exitosamente...
 								if ($this->UsuarioModel->ModificarUsuario($condicion)) {
 									
 									set_cookie("message","Datos del usuario <strong>'".$this->input->post('username')."'</strong> modificados exitosamente!...", time()+15);
 									header("Location: ".base_url()."Usuario/ListarUsuarios");
+
+								//Si ocurre un error durante la modificación...
 								}else{
 									$data['mensaje'] = $this->db->error();
 								}
 		            		}
-
+	            		//Si no, si la fecha de nacimiento es posterior a la fecha actual...
 		            	}elseif ($dif_Fnacimiento_Factual >= 0) {
 
 		            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
+
+	            		//Si no, si existe un error en la fecha de nacimiento...
 		            	}elseif ($dif_Fnacimiento_Factual === true) {
 		                
 			                $data['mensaje'] = "La fecha de nacimiento no es válida.";
+
+		                //Si no, si existe un error en la fecha actual...
 			            }elseif ($dif_Fnacimiento_Factual === false) {
 			                
 			                $data['mensaje'] = "La fecha actual del servidor no es válida.";
 			            } 
 
+		            //Si no se pudo declarar el archivo...
 			        }else{
 		        		$data['mensaje'] = $this->upload->display_errors();	
 		        	}         				
 				}
 			}
-
+		//Si no se encontraron registros...
 		}else{
 			$data['message'] = $this->db->error();
 		}
 		
-		$this->load->view('admin/FormularioRegistroUsuario', $data);
+		$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario para modificar un usuario...
 	}
 
+	/**
+	 * Muestra el formulario para cambiar la contraseña de usuario, o realiza la modificación de la contraseña si se llama a éste método mediante un POST
+	 *
+	 * @return void
+	 */
 	public function PasswordChange()
 	{
 		$data = array("titulo" => "Cambio de contraseña");
 
+		//Si se envía una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+			//Si los datos fueron ingresados correctamente...
 			if ($this->ValidarPasswordUsuario($data) === false) {
 
 				$condicion = array(
@@ -277,19 +355,27 @@ class Usuario extends CI_Controller {
     				"where" => array("id" => $this->session->userdata('idUsuario'))
     			);
 
+				//Si la modificación se realiza con éxito...
 				if ($this->UsuarioModel->ModificarUsuario($condicion)) {
 					
 					$this->session->set_userdata('first_session', false);			
 					header("Location: ".base_url()."Home");
+
+				//Si ocurre un error durante la modificación...
 				}else{
 					$data['mensaje'] = $this->db->error();
 				}
 			}
 		}
 
-		$this->load->view('admin/FormularioCambioClave', $data);
+		$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
 	}
 
+	/**
+	 * Cambia el estatus de un usuario determinado de activo a inactivo y viceversa 
+	 *
+	 * @return void
+	 */
 	public function EliminarUsuario()
 	{
 		$id = $this->input->post('id');
@@ -298,16 +384,22 @@ class Usuario extends CI_Controller {
 			'where' => array("MD5(concat('sismed',id))" => $id)
 			);
 
+		//Si la acción a realizar es 'habilitar'...
 		if ($action == "habilitar") {
 			$condicion['data'] = array('status' => true);
+
+		//Si la acción a realizar es 'inhabilitar'...
 		}else{
 			$condicion['data'] = array('status' => false);
 		}
 
+		//Si la modificación se realiza con éxito...
 		if ($this->UsuarioModel->ModificarUsuario($condicion)) {
 			
 			$data['result']  = true;
 			$data['message'] = "Operación exitosa!...";
+
+		//Si ocurre un error durante la modificación...
 		}else{
 			$data['result']  = false;
 			$data['message'] = "Error: Ha ocurrido un problema durante la eliminación.\n".$this->db->error();
@@ -316,8 +408,16 @@ class Usuario extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	/**
+	 * Muestra la información detallada de un usuario
+	 *
+	 * @param null|integer $id Identificador único de un usuario
+	 *
+	 * @return void
+	 */
 	public function PerfilUsuario($id = null)
 	{
+		//Si no se envió un id por parámetro...
 		if (!isset($id) || empty($id)) {
 			$id = $this->session->userdata('id');
 		}
@@ -327,9 +427,13 @@ class Usuario extends CI_Controller {
 			);
 
 		$result = $this->UsuarioModel->ExtraerUsuario($condicion);
+
+		//Si se consigue al usuario en la base de datos...
 		if ($result->num_rows() > 0) {
 			
 			$data['usuario'] = $result->row_array();
+
+		//Si no se consigue al usuario en la base de datos...
 		}else{
 			$data['message'] = $this->db->error();
 		}
@@ -345,9 +449,14 @@ class Usuario extends CI_Controller {
 			
 		$data['sesiones'] = $result;
 
-		$this->load->view('admin/PerfilUsuario', $data);
+		$this->load->view('admin/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
 	}
 
+	/**
+	 * Muestra un listado de los usuarios registrados en el sistema.
+	 *
+	 * @return void
+	 */
 	public function ListarUsuarios()
 	{
 		$condicion = array(
@@ -362,10 +471,19 @@ class Usuario extends CI_Controller {
 	
 		$data["usuarios"] = $result;
 
-		$this->load->view('admin/ListarUsuarios', $data);
-		
+		$this->load->view('admin/ListarUsuarios', $data);//Cargar vista del listado de usuarios		
 	}
 
+	/**
+	 * Verifica que los datos de usuarios ingresados en el formulario de registro y modificación sean cumplan con las reglas de integridad
+	 *
+	 * @param mixed[] $data Arreglo con información que se enviará a la vista
+	 * @param integer $operación Valor numérico que identifica la acción que se realiza
+	 *		0 -> Registro de usuario
+	 *		1 -> Modificación de datos de usuario
+	 *
+	 * @return void|boolean
+	 */
 	public function ValidarUsuario($data, $operacion)
 	{
 
@@ -383,6 +501,7 @@ class Usuario extends CI_Controller {
                 	'required'	=> 'Debe ingresar su %s.'
 	                );
 
+		//Si la operación es un registro de usuario...
 		if ($operacion == 0) {
 
 			$cedula_validacion[] = 'is_unique[usuario.cedula]';
@@ -391,14 +510,17 @@ class Usuario extends CI_Controller {
 			$email_validacion[] = 'is_unique[usuario.email]';
 			$email_respuestas['is_unique'] = 'El %s ya ha sido registrado anteriormente.';
 
+		//Si la operación es una modificación de los datos de un usuario...
 		}elseif ($operacion == 1 && isset($data['usuario'])) {
 
+			//Si la cédula almacenada del usaurio es diferente a la ingresada por formulario...
 			if (strcmp($data['usuario']['cedula'], $_POST['cedula']) != 0) {
 				
 				$cedula_validacion[] = 'is_unique[usuario.cedula]';
 				$cedula_respuestas['is_unique'] = 'La %s ya ha sido registrada anteriormente.';
 			}
 
+			//Si el email almacenado es diferente al email ingresado por formulario...
 			if (strcmp($data['usuario']['email'], $_POST['email']) != 0) {
 				
 				$email_validacion[] = 'is_unique[usuario.email]';
@@ -409,7 +531,7 @@ class Usuario extends CI_Controller {
 
 		$this->form_validation->set_rules('cedula', 'Cédula',$cedula_validacion,$cedula_respuestas);
 		
-		$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
+		$this->form_validation->set_rules(
 		        'nombre1', 'Primer nombre',
 		        array('required','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
 		        array(   
@@ -418,7 +540,7 @@ class Usuario extends CI_Controller {
 		        )
 		);
 
-		$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
+		$this->form_validation->set_rules(
 		        'nombre2', 'Segundo nombre',
 		        array('regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
 		        array(   
@@ -426,7 +548,7 @@ class Usuario extends CI_Controller {
 		        )
 		);
 
-		$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
+		$this->form_validation->set_rules(
 		        'apellido1', 'Primer apellido',
 		        array('required','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
 		        array(   
@@ -435,7 +557,7 @@ class Usuario extends CI_Controller {
 		        )
 		);
 
-		$this->form_validation->set_rules(//'regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'
+		$this->form_validation->set_rules(
 		        'apellido2', 'Segundo apellido',
 		        array('regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ]+$/]'),		        	
 		        array(   
@@ -455,7 +577,7 @@ class Usuario extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Correo electrónico',$email_validacion, $email_respuestas);
        
         $this->form_validation->set_rules(
-            	'telef_personal', 'Teléfono personal', ///^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/
+            	'telef_personal', 'Teléfono personal', 
         		array('required','regex_match[/^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/]'),
                 array(
                 	'regex_match'  	=> 'Su %s debe tener un código de área válido y el formato de ejemplo: (0212) 555-45-02.',
@@ -464,7 +586,7 @@ class Usuario extends CI_Controller {
         );
 
         $this->form_validation->set_rules(
-            	'telef_emergencia', 'Teléfono de emergencia', ///^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/
+            	'telef_emergencia', 'Teléfono de emergencia', 
         		array('regex_match[/^\(0(2[0-9]{2}|412|414|416|424|426)\) [0-9+]{3}-[0-9]{2}-[0-9]{2}/]'),
                 array(
                 	'regex_match'  	=> 'Su %s debe tener un código de área válido y el formato de ejemplo: (0212) 555-45-02).'
@@ -522,22 +644,33 @@ class Usuario extends CI_Controller {
 		        )
 		);
 		
+		//Si algún dato es incorrecto...
 		if ($this->form_validation->run() == FALSE) {
-        	//var_dump($data);
-        	//var_dump($_POST);
+        	
+        	//Si la operación se realizó desde la vista del login...
         	if ($this->input->post("origen") === "login") {					
 					
-				$this->load->view('login/index');
+				$this->load->view('login/index');//Cargar vista de login
+
+			//Si la operación se realizó desde el formulario en una sesión de administrador...
 			}else{
 				
-				$this->load->view('admin/FormularioRegistroUsuario', $data);
+				$this->load->view('admin/FormularioRegistroUsuario', $data);//Cargar vista de formulario de registro o modificación de usuario
 			}
-			
+		
+		//Si los datos son correctos...
         }else{
         	return false;
         }
 	}
 
+	/**
+	 * Verifica que la contraseña ingresada cumpla con las reglas de integridad
+	 *
+	 * @param mixed[] $data Arreglo con la información que se enviará a la vista
+	 *
+	 * @return void|boolean
+	 */
 	public function ValidarPasswordUsuario($data)
 	{
 		
@@ -564,9 +697,12 @@ class Usuario extends CI_Controller {
 	        )
 		);
 
+		//Si existe algún error en los datos ingresados...
 		if ($this->form_validation->run() == FALSE) {
         	
-			$this->load->view('admin/FormularioCambioClave', $data);
+			$this->load->view('admin/FormularioCambioClave', $data);//Se carga la vista del formulario de cambio de contraseña
+
+		//Si los datos son correctos...
         }else{
         	return false;
         }
