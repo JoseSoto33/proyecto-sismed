@@ -18,6 +18,10 @@ class Usuario extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+
+	/**
+	 * @todo Comentar el código de este archivo
+	 */
 	
 	public function __construct()
     {
@@ -561,8 +565,7 @@ class Usuario extends CI_Controller {
 		);
 
 		if ($this->form_validation->run() == FALSE) {
-        	//var_dump($data);
-        	//var_dump($_POST);
+        	
 			$this->load->view('admin/FormularioCambioClave', $data);
         }else{
         	return false;

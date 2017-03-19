@@ -31,15 +31,29 @@ class Sesion extends CI_Controller {
         }
     }
 
-	public function index()
-	{		
+    /**
+     * @method void index()
+     * @method void Logout()
+     * @method void ValidarSesion(mixed[] $data)
+     * @method void ListarSesiones()
+     */
 
+    /**
+     * Muestra la página principal para iniciar sesión, o
+	 * inicia sesión si se envía una petición POST
+	 *
+	 * @return void
+     */
+	public function index()
+	{	
         $data = array();
 
         $data['existe_usuario'] = $this->UsuarioModel->ValidarUsuario(array());
 
+        //Si se envió una petición POST...
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			
+			//Si los datos enviados por formulario son correctos...
             if ($this->ValidarSesion($data) === FALSE) {
             	
 				$condicion = array(
@@ -48,14 +62,18 @@ class Sesion extends CI_Controller {
 						"password" => $this->input->post("log_password")
 						)
 					);
+
+				//Si los datos ingresados pertenecen a un usuario registrado...
 				if ($this->UsuarioModel->ValidarUsuario($condicion)) {
 					
 					$usuario = $this->UsuarioModel->ExtraerUsuario($condicion)->row();
 
+					//Si el usuario está inactivo...
 					if ($usuario->status === "f") {
 
 						$data['mensaje'] = "El usuario ingresado se encuentra inactivo.";
 
+					//Sino, si la contraseña ingresada coinside con la contraseña registrada...
 					}elseif (strcmp($usuario->password,$this->input->post('log_password'))===0) {
 						
 						$condicion = array("where" => array("id_usuario" => $usuario->id));
@@ -68,10 +86,12 @@ class Sesion extends CI_Controller {
 
 						$id_sesion = $this->SesionModel->Login($data);
 
+						//Si no se se creó la sesión...
 						if (!$id_sesion) {
 							
 							$data['mensaje'] = "Error al intentar iniciar sesión.";
 
+						//Si se creó y registró la sesión...
 						}else{
 
 							$data = array(
@@ -85,10 +105,14 @@ class Sesion extends CI_Controller {
 										'especialidad' => $usuario->especialidad
 									);
 
+							//Si no es la primera vez que el usuario inicia sesión...
 							if ($firstTime === false) {
+
 								$data["first_session"] = false;
 								$this->session->set_userdata($data);
 								header('Location: '.base_url()."Home");
+
+							//Si es la primera vez que el usuario inicia sesión...
 							}else{
 								$data["first_session"] = true;
 								$this->session->set_userdata($data);
@@ -96,21 +120,34 @@ class Sesion extends CI_Controller {
 							}
 						}
 
+					//Si la contraseña ingresada no coinside con la contraseña registrada...
 					}else{
 
 						$data['mensaje'] = "Contraseña incorrecta.";
 					}
+
+				//Si los datos no son correctos...
 				}else{
 					$data['mensaje'] = "El usuario no existe... Verifique su cédula y contraseña.";
 				}
 
+				//Cargar vista del login
 				$this->load->view('login/index', $data);
             }
+
+        //Si no se envió la petición POST
 		}else{
+
+			//Cargar vista del login
 			$this->load->view('login/index',$data);
 		}		
 	}
 
+	/**
+	 * Destruye la sesión del usuario.
+	 *
+	 * @return void
+	 */
 	public function Logout()
 	{		
 		$data = array(
@@ -123,6 +160,7 @@ class Sesion extends CI_Controller {
 				)
 			);
 
+		//Si la sesión se cierra exitosamente...
 		if ($this->SesionModel->Logout($data)) {
 			
 			$data = array('idUsuario','idSesion','username','nombre','apellido','login','tipo_usuario');
@@ -130,11 +168,17 @@ class Sesion extends CI_Controller {
 			$this->session->sess_destroy();
 			header('Location: '.base_url());
 
+		//Si no se puede cerrar sesión...
 		}else{
 			header('Location: '.base_url().'Home');
 		}		
 	}
 
+	/**
+	 * Verifica que los datos enviados para iniciar sesión sean correctos
+	 *
+	 * @return void|boolean
+	 */
 	public function ValidarSesion($data)
 	{
 		$this->form_validation->set_rules(
@@ -159,14 +203,23 @@ class Sesion extends CI_Controller {
 	                )	                
         );
 
+        //Si los datos son correctos...
         if ($this->form_validation->run() == FALSE) {
         	
 			$this->load->view('login/index',$data);
+
+		//Si los datos son incorrectos...
         }else{
         	return false;
         }
 	}
 
+	/**
+	 * Extrae de la base de datos información sobre las sesiones realizadas
+	 * por los demás usuarios
+	 *
+	 * @return void
+	 */
 	public function ListarSesiones()
 	{
 		$condicion = array(
@@ -183,6 +236,7 @@ class Sesion extends CI_Controller {
 	
 		$data["sesiones"] = $result;
 
+		//Carga la vista de listar sesiones
 		$this->load->view('admin/ListarSesiones', $data);		
 	}
 }

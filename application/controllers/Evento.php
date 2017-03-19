@@ -30,19 +30,36 @@ class Evento extends CI_Controller {
         	redirect(base_url('Home')); 
         }
     }
+    /**
+     * @method void AgregarEvento()
+     * @method void ModificarEvento(integer $id_evento)
+     * @method void EliminarEvento()
+     * @method void VerEvento()
+     * @method void ListarEventos()
+     * @method void ValidarEvento(mixed[] $data)
+     */
 
+    /**
+     * Muestra la interfaz del formulario para agregar evento, o realiza 
+     * la inserción del evento si se hace una petición POST
+     *
+     * @return 	void
+     */
 	public function AgregarEvento()
 	{
 		$data = array("titulo" => "Agregar nuevo evento");
 
+		//Si se envió una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+			//Si los datos enviados por formulario son correctos...
             if ($this->ValidarEvento($data) === false) {            	
 		        
 		        $ruta 		= './assets/img/eventos/';
 		        $nombre 	= base64_encode($this->input->post('titulo'))."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
 		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
+		        //Si se cargó el archivo correctamente...
 		        if ($file_info != false) {
 
 					$fecha_inicio = $this->input->post('fecha_inicio');
@@ -52,8 +69,8 @@ class Evento extends CI_Controller {
 	        		$hora_fin 	 = $this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano');
 
 	        		$data = $this->EventoModel->ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data);
-	        		//$data["titulo"] = "Agregar nuevo evento";
-
+	        		
+	        		//Si la fecha de inicio y fin del evento son válidas...
 	        		if ($data['status'] === true) {
 
 	        			$fecha_hora_inicio = $fecha_inicio." ".$hora_inicio;
@@ -66,33 +83,46 @@ class Evento extends CI_Controller {
 			        				'fecha_hora_fin' => $fecha_hora_fin
 			        				)
 			        			);
+
+	        			//Si no existe un evento registrado con el mismo nombre para
+	        			//las mismas fechas...
 	        			if (!$this->EventoModel->ValidarEvento($condicion)) {
 
+	        				//Si el evento se agrega exitosamente a la base de datos...
 	        				if ($this->EventoModel->AgregarEvento()) {
 
 		        				set_cookie("message","El evento <strong>'".$this->input->post('titulo')."'</strong> fue registrado exitosamente!...", time()+15);
 								header("Location: ".base_url()."Evento/ListarEventos");
 
+							//Si hay error en la inserción
 							}else{
 
 								$data['mensaje'] = $this->db->error();
 							}
-
+						//Si ya existe un evento con los datos enviados
 	        			}else{
 
 	        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
 	        			}
 	        		}
+	        	//Si no se cargó el archivo...
 	        	}else{
-	        		$data['mensaje'] = $this->upload->display_errors();		            
-		            //$this->load->view('admin/FormularioRegistroEvento', $data);
+	        		$data['mensaje'] = $this->upload->display_errors();		      
 	        	}
 			}
 		}
-
+		//Cargar vista del formulario de registro de evento
 		$this->load->view('admin/FormularioRegistroEvento', $data);
 	}
 
+	/**
+	 * Muestra la interfaz del formulario para modificar un evento, o  
+     * realiza la modificación del evento si se hace una petición POST
+     *
+     * @param int $id_evento Código que identifica al evento en la base de datos
+     *
+     * @return void
+	 */
 	public function ModificarEvento($id_evento)
 	{
 		$data = array("titulo" => "Modificar datos de evento");
@@ -105,6 +135,7 @@ class Evento extends CI_Controller {
 
 		$result = $this->EventoModel->ExtraerEvento($cond);
 
+		//Si los registros encontrados son más de 0...
 		if ($result->num_rows() > 0) {
 
 			$data['evento'] = $result->row_array();
@@ -117,22 +148,26 @@ class Evento extends CI_Controller {
 			$data['evento']['hora_fin'] = date("h:i", strtotime($data['evento']['fecha_hora_fin']));
 			$data['evento']['h_f_meridiano'] = date("a", strtotime($data['evento']['fecha_hora_fin']));
 
+			//Si se envía una petición POST...
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
+				//Si los datos del evento son válidos...
 	            if ($this->ValidarEvento($data) === false) {
 
+	            	//Si se cambió la imagen del evento...
 	            	if (isset($_POST['img-change']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != '' ) {
-	            		//return "bandera";
-	            		//var_dump($_FILES);
+	            		
 		            	$ruta 		= './assets/img/eventos/';
 				        $nombre 	= base64_encode($this->input->post('titulo'))."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
 				        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
+				        //Si el archivo se cargó correctamente...
 				        if ($file_info != false) {
 				        	$data['evento']['img'] = $file_info['file_name'];
 				        }
 	            	}
 
+	            	//Si el archivo fue declarado...
 			        if (!isset($file_info) || (isset($file_info) && $file_info != false)) {
 	            		
 	            		$fecha_inicio = $this->input->post('fecha_inicio');
@@ -143,6 +178,7 @@ class Evento extends CI_Controller {
 
 		        		$data = $this->EventoModel->ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data);
 
+		        		//Si las fechas del evento son válidas...
 		        		if ($data['status'] === true) {
 
 		        			$fecha_hora_inicio = $fecha_inicio." ".$hora_inicio;
@@ -156,6 +192,8 @@ class Evento extends CI_Controller {
 				        				"MD5(concat('sismed',id)) != " => $id_evento
 				        				)
 				        			);
+
+		        			//Si los datos del evento son correctos...
 		        			if (!$this->EventoModel->ValidarEvento($condicion)) {
 
 						        $file_info = $this->upload->data();						        
@@ -172,32 +210,46 @@ class Evento extends CI_Controller {
 						     		"where" => array("MD5(concat('sismed',id))" => $id_evento)
 								);
 
+		        				//Si la modificación es exitosa...
 			        			if ($this->EventoModel->ModificarEvento($condicion)) {
 
 			        				set_cookie("message","El evento <strong>'".$this->input->post('titulo')."'</strong> fue registrado exitosamente!...", time()+15);
 									header("Location: ".base_url()."Evento/ListarEventos");
 
+								//Si ocurre un error en la modificación...
 								}else{
 
 									$data['mensaje'] = $this->db->error();
 								}
 
+							//Si los datos coinsiden con un evento registrado...
 		        			}else{
 		        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
 		        			}
 		        		}
+
+	        		//Si no se pudo cargar el archivo...
 		        	}else{
 		        		$data['mensaje'] = $this->upload->display_errors();	
 		        	}
 				}
 			}
+
+		//Si no se encontraron registros...
 		}else{
 			$data['mensaje'] = $this->db->error();
 		}
 
+		//Se carga la vista del formulario para modificar eventos
 		$this->load->view('admin/FormularioRegistroEvento', $data);
 	}
 
+	/**
+	 * Elimina un evento de la base de datos. El id del evento se envía
+	 * por Ajax como un POST
+	 *
+	 * @return 	void 
+	 */
 	public function EliminarEvento()
 	{
 		$id = $this->input->post('id');
@@ -205,18 +257,26 @@ class Evento extends CI_Controller {
 			'where' => array("MD5(concat('sismed',id))" => $id)
 			);
 
+		//Si se elimina el evento exitosamente...
 		if ($this->EventoModel->EliminarEvento($condicion)) {
 			
 			$data['result']  = true;
 			$data['message'] = "Evento eliminado exitosamente!...";
+
+		//Si ocurre un error durante la eliminación...
 		}else{
 			$data['result']  = false;
 			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();
 		}
-		//redirect(base_url('Evento/ListarEventos'));
+		
 		echo json_encode($data);
 	}
 
+	/**
+	 * Extrae los detalles de un evento determinado
+	 *
+	 * @return void
+	 */
 	public function VerEvento()
 	{
 		$id = $this->input->post('id');
@@ -226,6 +286,7 @@ class Evento extends CI_Controller {
 
 		$result = $this->EventoModel->ExtraerEvento($condicion);
 
+		//Si la cantidad de registros encontrados es mayor a 0
 		if ($result->num_rows() > 0) {
 			
 			$data = $result->row_array();
@@ -242,6 +303,8 @@ class Evento extends CI_Controller {
 			$data["hora_inicio"] = $hora_inicio;
 			$data["hora_fin"] = $hora_fin;
 			$data["result"] = true;
+
+		//Si no se encontraron registros...
 		}else{
 			$data["result"] = false;
 			$data["message"] = 'Error: '.$this->db->error();
@@ -250,6 +313,12 @@ class Evento extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	/**
+	 * Extrae los eventos existentes de la base de datos, registrados
+	 * por el usuario en sesión y ordenados por su id
+	 *
+	 * @return void
+	 */
 	public function ListarEventos()
 	{
 		$condicion = array(
@@ -264,11 +333,19 @@ class Evento extends CI_Controller {
 
 		///if ($result->num_rows() > 0) {
 			
-			$data["eventos"] = $result;
-			$this->load->view('admin/ListarEventos', $data);
+		$data["eventos"] = $result;
+		$this->load->view('admin/ListarEventos', $data);
 		//}
 	}
 
+	/**
+	 * Verifica si los datos ingresados por formulario son correctos.
+	 * Valida la integridad de los datos
+	 *
+	 * @param mixed[] $data Arreglo que almacena los datos que se enviarán a la vista
+	 *
+	 * @return void|boolean
+	 */
 	public function ValidarEvento($data)
 	{
 		$this->form_validation->set_rules(
@@ -348,11 +425,13 @@ class Evento extends CI_Controller {
 	                )	                
         );
 
+        //Si no hay datos inválidos...
 		if ($this->form_validation->run() == FALSE) {
         	
 			$this->load->view('admin/FormularioRegistroEvento', $data);
-        }else{
 
+		//Si hay datos inválidos...
+        }else{
 			return false;
 		}
 	}	

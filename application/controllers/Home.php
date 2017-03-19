@@ -31,44 +31,69 @@ class Home extends CI_Controller {
            }         
     }
 
+    /**
+     * @method void index()
+     * @method void	ExtraerEventos()
+     */
+
+    /**
+     * Muestra la pantalla principal para cada usuario
+     * 
+     * @return 	void 	
+     */
 	public function index()
 	{
+		//Si existe una sesión iniciada...
 		if ($this->session->userdata('login')) {
 
+			//Dependiendo del tipo de usuario..
 			switch ($this->session->userdata('tipo_usuario')) {
+				//Si el tipo de usuario es "Administrador"...
 				case "Administrador":
 					$this->load->view('admin/index');
 					break;
 				
+				//Si el tipo de usuario es "Doctor"...
 				case "Doctor":
 					$this->load->view('medicina/doctor/index');
 					break;
 
+				//Si el tipo de usuario es "Enfermero"...
 				case "Enfermero":
 					$this->load->view('medicina/enfermero/index');
 					break;
 
+				//Si el tipo de usuario es "Odontólogo"...
 				case "Odontólogo":
 					$this->load->view('odontologia/index');
 					break;
 
+				//Si el tipo de usuario es "Bioanalista"...
 				case "Bioanalista":
 					$this->load->view('laboratorio/index');
 					break;
 
+				//Si el tipo de usuario es "Nutricionista"...
 				case "Nutricionista":
 					$this->load->view('nutricion/nutricionista/index');
 					break;
 
+				//Si el tipo de usuario es "Asistente"...
 				case "Asistente":
 					$this->load->view('nutricion/asistente/index');
 					break;
 			}
+		//Si no existe una sesión iniciada...
 		}else{
 			header('Location: '.base_url());
 		}
 	}
 
+	/**
+	 * Extrae de la base de datos la información de los próximos eventos del meS
+	 * 
+	 * @return 	void 
+	 */
 	public function ExtraerEventos()
 	{
 		$condicion = array(
@@ -78,6 +103,7 @@ class Home extends CI_Controller {
 
 		$eventos = $result->result();
 
+		//Para cada registro encontrado...
 		foreach ($eventos as $key => $evento) {
 			
 			setlocale(LC_TIME,"esp");

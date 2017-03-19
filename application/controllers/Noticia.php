@@ -31,18 +31,38 @@ class Noticia extends CI_Controller {
         }
     }
 
+    /**
+     * @method void AgregarNoticia()
+     * @method void ModificarNoticia(integer $id_evento)
+     * @method void EliminarNoticia()
+     * @method void VerNoticia()
+     * @method void ListarNoticias()
+     * @method void ValidarNoticia(mixed[] $data)
+     */
+
+    /**
+     * Muestra la interfaz del formulario para agregar una noticia, 
+     * o realiza el registro de la noticia en la base de datos si 
+     * se hace una petición POST
+     *
+     * @return 	void
+     */
+
 	public function AgregarNoticia()
 	{
 		$data = array("titulo" => "Agregar nueva noticia");
 
+		//Si se envió una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				
+			
+			//Si los datos enviados por formulario son correctos...
 			if ($this->ValidarNoticia($data) === false) {
 				
 				$ruta 		= './assets/img/noticias/';
 		        $nombre 	= base64_encode($this->input->post('titulo'))."_".date("d-m-Y");
 		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
+		        //Si se cargó el archivo correctamente...
 		        if ($file_info != false) {
 
 					$condicion = array(
@@ -52,35 +72,52 @@ class Noticia extends CI_Controller {
 						);
 
 					$url = $this->input->post('url');
+
+					//Si $url no está vacío...
 					if ($url != null && $url != "") {
 						
 						$condicion["where"]["url"] = $url;
 					}
 
+					//Si no existe una noticia registrada con el mismo nombre y
+					//la misma URL
 					if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
 						
-						$data = array();
+						//$data = array();
 
+						//Si la noticia se agrega exitosamente a la base de datos...
 						if ($this->NoticiaModel->AgregarNoticia()) {
 
 							set_cookie("message","La noticia <strong>'".$this->input->post('titulo')."'</strong> fue registrada exitosamente!...", time()+15);
 							header("Location: ".base_url()."Noticia/ListarNoticias");
 
+						//Si hay error en la inserción
 						}else{
 							$data['mensaje'] = $this->db->error();
 						}
+
+					//Si ya existe una noticia con los datos enviados
 					}else{
 						$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
 					}
+				//Si no se cargó el archivo...
 				}else{
 	        		$data['mensaje'] = $this->upload->display_errors();		     
 	        	}
 			}
 		}
-
+		//Cargar vista del formulario de registro de noticia
 		$this->load->view('admin/FormularioRegistroNoticia', $data);
 	}
 
+	/**
+	 * Muestra la interfaz del formulario para modificar una noticia, o  
+     * realiza la modificación de la noticia si se hace una petición POST
+     *
+     * @param int $id_noticia Código que identifica a la noticia en la base de datos
+     *
+     * @return void
+	 */
 	public function ModificarNoticia($id_noticia)
 	{
 		$data = array("titulo" => "Modificar noticia");
@@ -93,26 +130,31 @@ class Noticia extends CI_Controller {
 
 		$result = $this->NoticiaModel->ExtraerNoticia($cond);
 
+		//Si los registros encontrados son más de 0...
 		if ($result->num_rows() > 0) {
 			
 			$data['noticia'] = $result->row_array();
 
+			//Si se envía una petición POST...
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
-					
+				
+				//Si los datos de la noticia son válidos...
 				if ($this->ValidarNoticia($data) === false) {
 					
+					//Si se cambió la imagen de la noticia...
 					if (isset($_POST['img-change']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != '' ) {
-	            		//return "bandera";
-	            		//var_dump($_FILES);
+	            		
 		            	$ruta 		= './assets/img/noticias/';
 				        $nombre 	= base64_encode($this->input->post('titulo'))."_".date("d-m-Y");
 				        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
+				        //Si el archivo se cargó correctamente...
 				        if ($file_info != false) {
 				        	$data['noticia']['img'] = $file_info['file_name'];
 				        }
 	            	}
 
+	            	//Si el archivo fue declarado...
 	            	if (!isset($file_info) || (isset($file_info) && $file_info != false)) {
 
 						$condicion = array(
@@ -124,11 +166,13 @@ class Noticia extends CI_Controller {
 
 						$url = $this->input->post('url');
 
+						//Si $url no está vacío...
 						if ($url != null && $url != "") {
 							
 							$condicion["where"]["url"] = $url;
 						}
 
+						//Si los datos de la noticia son correctos...
 						if (!$this->NoticiaModel->ValidarNoticia($condicion)) {
 
 							$file_info = $this->upload->data();
@@ -144,29 +188,44 @@ class Noticia extends CI_Controller {
 						     		"where" => array("MD5(concat('sismed',id))" => $id_noticia)
 								);
 
+							//Si la modificación es exitosa...
 							if ($this->NoticiaModel->ModificarNoticia($condicion)) {
 
 								set_cookie("message","La noticia <strong>'".$this->input->post('titulo')."'</strong> fue modificada exitosamente!...", time()+15);
 								header("Location: ".base_url()."Noticia/ListarNoticias");
 
+							//Si ocurre un error en la modificación...
 							}else{
 								$data['mensaje'] = $this->db->error();
 							}
+
+						//Si los datos coinsiden con una noticia registrado...
 						}else{
 							$data['mensaje'] = "Ya existe una noticia registrada con el mismo título y dirección de enlace.";
 						}
+
+					//Si no se pudo cargar el archivo...
 					}else{
 		        		$data['mensaje'] = $this->upload->display_errors();	
 		        	}
 				}
 			}
+
+		//Si no se encontraron registros...
 		}else{
 			$data['mensaje'] = $this->db->error();
 		}
 
+		//Se carga la vista del formulario para modificar noticia
 		$this->load->view('admin/FormularioRegistroNoticia', $data);
 	}
 
+	/**
+	 * Elimina una noticia de la base de datos. El id de la noticia
+	 * se envía por Ajax como un POST
+	 *
+	 * @return 	void 
+	 */
 	public function EliminarNoticia()
 	{
 		$id = $this->input->post('id');
@@ -174,18 +233,26 @@ class Noticia extends CI_Controller {
 			'where' => array("MD5(concat('sismed',id))" => $id)
 			);
 
+		//Si se elimina la noticia exitosamente...
 		if ($this->NoticiaModel->EliminarNoticia($condicion)) {
 			
 			$data['result']  = true;
 			$data['message'] = 'Noticia eliminada exitosamente!...';
+
+		//Si ocurre un error durante la eliminación...
 		}else{
 			$data['result']  = false;
 			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();
 		}
-		//redirect(base_url('Evento/ListarEventos'));
+		
 		echo json_encode($data);
 	}
 
+	/**
+	 * Extrae los detalles de una noticia determinado
+	 *
+	 * @return void
+	 */
 	public function VerNoticia()
 	{
 		$id = $this->input->post('id');
@@ -195,10 +262,13 @@ class Noticia extends CI_Controller {
 
 		$result = $this->NoticiaModel->ExtraerNoticia($condicion);
 
+		//Si la cantidad de registros encontrados es mayor a 0
 		if ($result->num_rows() > 0) {
 			
 			$data = $result->row_array();			
 			$data["result"] = true;
+
+		//Si no se encontraron registros...
 		}else{
 			$data["result"] = false;
 			$data["message"] = 'Error: '.$this->db->error();
@@ -207,6 +277,12 @@ class Noticia extends CI_Controller {
 		echo json_encode($data);
 	}
 
+	/**
+	 * Extrae las noticias existentes de la base de datos, registrados
+	 * por el usuario en sesión y ordenados por su id
+	 *
+	 * @return void
+	 */
 	public function ListarNoticias()
 	{
 		$condicion = array(
@@ -222,6 +298,14 @@ class Noticia extends CI_Controller {
 		$this->load->view('admin/ListarNoticias', $data);		
 	}
 
+	/**
+	 * Verifica si los datos ingresados por formulario son correctos.
+	 * Valida la integridad de los datos
+	 *
+	 * @param mixed[] $data Arreglo que almacena los datos que se enviarán a la vista
+	 *
+	 * @return void|boolean
+	 */
 	public function ValidarNoticia($data)
 	{
 		$this->form_validation->set_rules(
@@ -250,9 +334,12 @@ class Noticia extends CI_Controller {
 	                )	                
         );
 
+		//Si no hay datos inválidos...
 		if ($this->form_validation->run() == FALSE) {
         	
 			$this->load->view('admin/FormularioRegistroNoticia', $data);
+
+		//Si hay datos inválidos...
         }else{
 
         	return false;
