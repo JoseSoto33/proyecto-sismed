@@ -58,12 +58,12 @@ class Home extends CI_Controller {
 				
 				//Si el tipo de usuario es "Doctor"...
 				case "Doctor":
-					$this->load->view('medicina/doctor/index',$data);
+					$this->load->view('medicina/index',$data);
 					break;
 
 				//Si el tipo de usuario es "Enfermero"...
 				case "Enfermero":
-					$this->load->view('medicina/enfermero/index',$data);
+					$this->load->view('medicina/index',$data);
 					break;
 
 				//Si el tipo de usuario es "Odontólogo"...
@@ -78,12 +78,12 @@ class Home extends CI_Controller {
 
 				//Si el tipo de usuario es "Nutricionista"...
 				case "Nutricionista":
-					$this->load->view('nutricion/nutricionista/index',$data);
+					$this->load->view('nutricion/index',$data);
 					break;
 
 				//Si el tipo de usuario es "Asistente"...
 				case "Asistente":
-					$this->load->view('nutricion/asistente/index',$data);
+					$this->load->view('nutricion/index',$data);
 					break;
 			}
 		//Si no existe una sesión iniciada...

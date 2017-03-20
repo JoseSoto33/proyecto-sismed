@@ -26,7 +26,7 @@ class Noticia extends CI_Controller {
         if (!$this->session->has_userdata('login') && ($this->uri->segment(1, 0) != '0' || $this->uri->segment(2, 0) != '0')) {
         	redirect(base_url());
         }
-        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador") {
+        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && $this->uri->segment(2, 0) != "VerNoticia") {
         	redirect(base_url('Home')); 
         }
     }
