@@ -35,7 +35,7 @@
 					<div class="container">
 						<a class="navbar-brand" href="#">Unidad de Servicio Médico Integral</a>
 						<!--<form id="form-login" class="navbar-form navbar-right" method="post" action="<?php echo base_url(); ?>login/userLogin" >-->
-						<?= form_open(
+						<?php echo form_open(
 									base_url(), 
 									'class="navbar-form navbar-right" id="form-login"'
 									); ?>
@@ -50,7 +50,7 @@
 					        </div>
 					        <button type="submit" class="btn btn-default">Iniciar sessión</button>
 					      <!--</form>-->
-					      <?= form_close(); ?>
+					      <?php echo form_close(); ?>
 					</div>
 				</nav>
 			</header>

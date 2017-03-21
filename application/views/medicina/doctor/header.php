@@ -69,13 +69,13 @@
 						          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Historias clínicas <span class="caret"></span></a>
 							        <ul class="dropdown-menu">									            
 							            <li>
-							            	<a href="<?php echo base_url(); ?>HistoriasClinicas/AgregarPaciente">
+							            	<a href="<?php echo base_url(); ?>HistoriaClinica/AgregarPaciente">
 							            		<span class="glyphicon glyphicon-arrow-right"></span> Registrar paciente
 							            	</a>
 							            </li>
 							            <li role="separator" class="divider"></li>									            
 							            <li>
-							            	<a href="<?php echo base_url(); ?>HistoriasClinicas/ListarHistorias">
+							            	<a href="<?php echo base_url(); ?>HistoriaClinica/ListarHistorias">
 							            		<span class="glyphicon glyphicon-arrow-right"></span> Listado de Historias clínicas
 							            	</a>
 							            </li>				            
