@@ -34,7 +34,7 @@
 					</div>
 					<div class="container">
 						<a class="navbar-brand" href="#">Unidad de Servicio Médico Integral</a>
-						<!--<form id="form-login" class="navbar-form navbar-right" method="post" action="<?php echo base_url(); ?>login/userLogin" >-->
+						
 						<?php echo form_open(
 									base_url(), 
 									'class="navbar-form navbar-right" id="form-login"'
@@ -49,7 +49,7 @@
 					          	<input type="password" class="form-control" name="log_password" placeholder="Password" minlength="8" maxlength="16" value="<?php echo set_value('log_password'); ?>" requered>
 					        </div>
 					        <button type="submit" class="btn btn-default">Iniciar sessión</button>
-					      <!--</form>-->
+					      
 					      <?php echo form_close(); ?>
 					</div>
 				</nav>

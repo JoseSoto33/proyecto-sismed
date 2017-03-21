@@ -35,14 +35,14 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
-				<h1 class="text-center"><?= $titulo; ?></h1>
+				<h1 class="text-center"><?php echo $titulo; ?></h1>
 			</div>
 			<div class="col-xs-12">
-				<?= validation_errors("<div class=\"alert alert-danger\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>", "</div>"); ?>
+				<?php echo validation_errors("<div class=\"alert alert-danger\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>", "</div>"); ?>
 				<?php if(isset($mensaje) && !empty($mensaje)) { ?>
 					<div class="alert alert-danger" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<?= $mensaje; ?>
+						<?php echo $mensaje; ?>
 					</div>					
 				<?php } ?>
 			</div>
@@ -95,7 +95,7 @@
 							<a href="<?php echo base_url(); ?>Evento/ListarEventos" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
-				<?= form_close();?>			
+				<?php echo form_close();?>			
 			</div>
 		</div>
 	</div>
