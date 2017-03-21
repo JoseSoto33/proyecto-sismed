@@ -20,7 +20,7 @@
 					</div>					
 				<?php } ?>
 			</div>	
-			<input type="hidden" name="base_url" id="base_url" value="<?= base_url(); ?>">
+			<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
 			<div class="col-sm-12 table-responsive">
 				<table id="lista_noticias" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
