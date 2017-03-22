@@ -59,17 +59,100 @@ class Patologia extends CI_Controller {
 			$this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario de registro de patologia
 		}
  	}
-	public function ModificarPatologia()
+	public function ModificarPatologia($id_patologia = null)
 	{
+		$data = array("titulo" => "Modificar datos de la Patologia");
 
+		$cond = array(
+				"where" => array(
+					"MD5(concat('sismed',id))" => $id_patologia
+					)
+				);
+
+		$result = $this->PatologiaModel->ExtraerPatologia($cond);
+		//Si los registros encontrados son más de 0...
+		if ($result->num_rows() > 0) {
+			
+			$data['patologia'] = $result->row_array(); // guarda lo que se trae de la bdd en la variable $data['patologia'] , como un arreglo asosiativo con el nombre de las columnas en la bdd
+			//var_dump($data['patologia']);
+			//Si se envía una petición POST...
+			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+			  	if($this->ValidarPatologia($data, 1) === FALSE)
+			  	{
+				//var_dump($_POST);
+
+					$condicion = array(
+						"data" => array(
+							"nombre" => $this->input->post('patologia'),
+			     			"descripcion" => $this->input->post('descripcion')
+							),
+			            	"where" => array("MD5(concat('sismed',id))" => $id_patologia) // codifica y compara el campo id de la tabla patologia con el id que se envia desde el formulario
+			            );
+					//var_dump($condicion);
+				//Si se realiza la modificación exitosamente...
+					if ($this->PatologiaModel->ModificarPatologia($condicion)) {
+						
+						set_cookie("message","Datos de la patología <strong>'".$this->input->post('patologia')."'</strong> modificados exitosamente!...", time()+15);
+						header("Location: ".base_url()."Patologia/ListarPatologias");
+
+					//Si ocurre un error durante la modificación...
+					}else{
+						$data['mensaje'] = $this->db->error();
+					}
+				}
+				
+			}
+		}
+
+		$this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario para modificar una patolohia...
+
+			
 	}
 	public function EliminarPatologia()
 	{
+		$id = $this->input->post('id');
+		$action = $this->input->post('action');
+		$condicion = array(
+			'where' => array("MD5(concat('sismed',id))" => $id)
+			);
 
+		//Si la acción a realizar es 'habilitar'...
+		if ($action == "habilitar") {
+			$condicion['data'] = array('status' => true);
+
+		//Si la acción a realizar es 'inhabilitar'...
+		}else{
+			$condicion['data'] = array('status' => false);
+		}
+
+		//Si la modificación se realiza con éxito...
+		if ($this->PatologiaModel->ModificarPatologia($condicion)) {
+			
+			$data['result']  = true;
+			$data['message'] = "Operación exitosa!...";
+
+		//Si ocurre un error durante la modificación...
+		}else{
+			$data['result']  = false;
+			$data['message'] = "Error: Ha ocurrido un problema durante la eliminación.\n".$this->db->error();
+		}
+		
+		echo json_encode($data);
 	}
 	public function ListarPatologias()
 	{
+		$condicion = array(
+			"order_by" => array("campo" => "id", "direccion" => "ASC")
+			);
 
+		$data = array();
+
+		$result = $this->PatologiaModel->ExtraerPatologia($condicion);
+	
+		$data["patologias"] = $result;
+
+		$this->load->view('medicina/ListarPatologias', $data);//Cargar vista del listado de patologias
 	}
 	/**
 	* Verifica que los datos de la Patologia ingresados en el formulario de registro y modificación cumplan con las reglas de integridad

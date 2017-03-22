@@ -99,7 +99,7 @@
 									            </li>
 									            <li role="separator" class="divider"></li>									            
 									            <li>
-									            	<a href="<?php echo base_url(); ?>patologias/ListarPatologias">
+									            	<a href="<?php echo base_url(); ?>Patologia/ListarPatologias">
 									            		<span class="glyphicon glyphicon-arrow-right"></span> Listado de patologías
 									            	</a>
 									            </li>

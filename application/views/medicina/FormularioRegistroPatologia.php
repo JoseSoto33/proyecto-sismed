@@ -47,7 +47,7 @@ switch ($this->session->userdata('tipo_usuario')){
 					
 					<div class="col-sm-12">			
 						<div class="form-group">
-							<label for="descripcion" class="control-label"><span class="red">*</span> Descripción</label>
+							<label for="descripcion" class="control-label"><span class="red"> </span> Descripción</label>
 						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" ><?php echo (isset($patologia['descripcion']))? trim($patologia['descripcion']) : trim(set_value('descripcion')); ?></textarea>	
 						    <div class="help-block with-errors">
 							</div>
