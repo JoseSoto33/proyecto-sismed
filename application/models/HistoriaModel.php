@@ -34,7 +34,13 @@ class HistoriaModel extends CI_Model {
 
     public function ExtraerHistoria($condicion = array())
     {
-        //Si se declaró una consulta SQL personalizada y se guardó en la posición 'select'
+        //Si se declaró una sentencia SQL personalizada...
+        if (isset($condicion['query']) && !empty($condicion['query'])) {
+            
+            return $this->db->query($condicion['query']);
+        }
+
+        //Si se declaró una sentencia 'select'...
         if (isset($condicion['select']) && !empty($condicion['select'])) {
             
             $this->db->select($condicion['select']);
@@ -47,12 +53,12 @@ class HistoriaModel extends CI_Model {
                             
             //Si el tipo de usuario es "Doctor"...
             case "Doctor":
-                $this->db->from("historia_medicina as historia");
+                $this->db->from("historia_medicina AS historia");
                 break;
 
             //Si el tipo de usuario es "Enfermero"...
             case "Enfermero":
-                $this->db->from("historia_medicina as historia");
+                $this->db->from("historia_medicina AS historia");
                 break;
             /*
             //Si el tipo de usuario es "Odontólogo"...
