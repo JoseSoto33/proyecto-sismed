@@ -79,7 +79,7 @@ class HistoriaModel extends CI_Model {
         //Si está definida una cláusula 'where'
         if (isset($condicion['join']) && !empty($condicion['join'])) {
             
-            $this->db->join($condicion['join']);
+            $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion']);
         }
 
         //Si está definida una cláusula 'where'
