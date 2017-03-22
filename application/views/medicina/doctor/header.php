@@ -93,7 +93,7 @@
 				                            <ul class="dropdown-menu">
 			                                	
 			                                	<li>
-									            	<a href="<?php echo base_url(); ?>patologias/AgregarPatologia">
+									            	<a href="<?php echo base_url(); ?>Patologia/AgregarPatologia">
 									            		<span class="glyphicon glyphicon-arrow-right"></span> Agregar patología
 									            	</a>
 									            </li>
