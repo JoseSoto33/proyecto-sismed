@@ -1,14 +1,14 @@
 <?php 
 	
-	switch ($this->session->userdata('tipo_usuario')) {
+switch ($this->session->userdata('tipo_usuario')) {
 
-	case "Doctor":					
-		include('doctor/header.php'); 
-		break;
+case "Doctor":					
+	include('doctor/header.php'); 
+	break;
 
-	case "Enfermero":					
-		include('enfermero/header.php'); 
-		break;
+case "Enfermero":					
+	include('enfermero/header.php'); 
+	break;
 }
 ?>
 
