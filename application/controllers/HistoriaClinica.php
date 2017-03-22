@@ -42,16 +42,21 @@ class HistoriaClinica extends CI_Controller {
      * @return void
      */
     public function ListarHistorias()
-    {/*
+    {
     	$condicion = array(
+            "distinct" => true,
 			"select" => "historia.cod_historia, historia.fecha_creada, paciente.id, paciente.nombre1, paciente.nombre2, paciente.apellido1, paciente.apellido2",
-			"join" => array("paciente", "paciente.id = historia.id_paciente")
-			);*/
+			"join" => array(
+                "tabla" => "paciente",
+                "condicion" => "paciente.id = historia.id_paciente"
+                )
+			);
+            /*
 		$condicion = array(
 			"query" => "SELECT historia.cod_historia, historia.fecha_creada, paciente.id, paciente.nombre1, paciente.nombre2, paciente.apellido1, paciente.apellido2
 				FROM historia_medicina AS historia
 				JOIN paciente ON paciente.id = historia.id_paciente;"
-			);
+			);*/
 
 		$data = array();
 
@@ -69,5 +74,18 @@ class HistoriaClinica extends CI_Controller {
     public function ConsultarHistoriaClinica()
     {
     	
+    }
+
+    /**
+     * Registra una nueva historia clínica, dependiendo del tipo de usuario
+     *
+     * @param string $data Contiene el código de la historia clínica y el id del paciente
+     * codificado con url_encode
+     *
+     * @return void
+     */
+    public function CrearHistoriaClinica($data = null)
+    {
+        var_dump($data);
     }
 }
