@@ -90,6 +90,6 @@ class HistoriaClinica extends CI_Controller {
      */
     public function CrearHistoriaClinica($data = null)
     {
-        var_dump($data);
+        $cods = explode("_", $data);
     }
 }

@@ -32,10 +32,15 @@ class PacienteModel extends CI_Model {
 		$data["pnf"] = $this->input->post('pnf');
 		$data["tipo_sangre"] = $this->input->post('tipo_sangre');
 
-		var_dump($data);
+		var_dump($_POST);
 
      	if($this->db->insert("paciente", $data)){
-     		return $this->db->insert_id();
+
+            if (isset($_POST['id_usuario']) && !empty($_POST['id_usuario'])) {
+            
+               return $data["id"];
+            } 
+     		return $this->db->insert_id('persona_id_seq');
      		//return $id_paciente;
      	}else{
      		return false;
