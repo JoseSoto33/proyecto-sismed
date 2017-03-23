@@ -47,7 +47,7 @@ switch ($this->session->userdata('tipo_usuario')){
 					
 					<div class="col-sm-12">			
 						<div class="form-group">
-							<label for="descripcion" class="control-label"><span class="red">*</span> Descripción</label>
+							<label for="descripcion" class="control-label"><span class="red"> </span> Descripción</label>
 						    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" ><?php echo (isset($patologia['descripcion']))? trim($patologia['descripcion']) : trim(set_value('descripcion')); ?></textarea>	
 						    <div class="help-block with-errors">
 							</div>
@@ -62,7 +62,7 @@ switch ($this->session->userdata('tipo_usuario')){
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<a href="<?php echo base_url(); ?>Patologia/ListarPatologia" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
+							<a href="<?php echo base_url(); ?>Patologia/ListarPatologias" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
 				<?php echo form_close();?>			

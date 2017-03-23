@@ -179,7 +179,7 @@
 							        </ul>
 						        </li>
 						        <li class="dropdown" id="usuario">
-						          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?= $this->session->userdata('username'); ?> <span class="caret"></span></a>
+						          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $this->session->userdata('username'); ?> <span class="caret"></span></a>
 							        <ul class="dropdown-menu">
 							            <li>
 							            	<a href="#" class="footer-nav-link">
