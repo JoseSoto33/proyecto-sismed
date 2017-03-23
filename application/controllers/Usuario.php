@@ -95,65 +95,61 @@ class Usuario extends CI_Controller {
 		        $nombre 	= base64_encode($this->input->post('username'))."_".base64_encode($this->input->post('cedula'));
 		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
-		        //Si el archivo se cargó correctamente...
-		        if ($file_info != false) {
+            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
+            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
 
-	            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
-	            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
+            	//Si la fecha de nacimiento es válida (menor a la fecha actual)...
+            	if ($dif_Fnacimiento_Factual < 0) {
+            		
+            		$condicion = array(
+            				'where' => array(
+            					'nombre1' => $this->input->post('nombre1'),
+            					'nombre2' => $this->input->post('nombre2'),
+            					'apellido1' => $this->input->post('apellido1'),
+            					'apellido2' => $this->input->post('apellido2')
+            					)
+            			);
+            		//No exiten usuarios con datos idénticos al que se está registrando...
+            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
+            			
+            			//Si se realiza el registro exitosamente en la base de datos...
+						if ($this->UsuarioModel->AgregarUsuario($file_info)) {
+							
+							set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
 
-	            	//Si la fecha de nacimiento es válida (menor a la fecha actual)...
-	            	if ($dif_Fnacimiento_Factual < 0) {
-	            		
-	            		$condicion = array(
-	            				'where' => array(
-	            					'nombre1' => $this->input->post('nombre1'),
-	            					'nombre2' => $this->input->post('nombre2'),
-	            					'apellido1' => $this->input->post('apellido1'),
-	            					'apellido2' => $this->input->post('apellido2')
-	            					)
-	            			);
-	            		//No exiten usuarios con datos idénticos al que se está registrando...
-	            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
-	            			
-	            			//Si se realiza el registro exitosamente en la base de datos...
-							if ($this->UsuarioModel->AgregarUsuario()) {
+							//Si el registro de usuario se realiza desde la vista del login...
+							if ($this->input->post("origen") === "login") {
 								
-								set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
+								header("Location: ".base_url());
 
-								//Si el registro de usuario se realiza desde la vista del login...
-								if ($this->input->post("origen") === "login") {
-									
-									header("Location: ".base_url());
-
-								//Si se registra desde una sesión de administrador...
-								}else{
-									header("Location: ".base_url()."Usuario/ListarUsuarios");
-								}
-							//Si ocurre un error durante el registro en base de datos...
+							//Si se registra desde una sesión de administrador...
 							}else{
-								$data['mensaje'] = $this->db->error();
+								header("Location: ".base_url()."Usuario/ListarUsuarios");
 							}
-						//Si los datos a registrar coinsiden con los de un usuario existente...
-	            		}else{
-	            			$data['mensaje'] = "Ya existe un usuario registrado con ambos nombres y apellidos.";
-	            		}
+						//Si ocurre un error durante el registro en base de datos...
+						}else{
+							$data['mensaje'] = $this->db->error();
+						}
+					//Si los datos a registrar coinsiden con los de un usuario existente...
+            		}else{
+            			$data['mensaje'] = "Ya existe un usuario registrado con ambos nombres y apellidos.";
+            		}
 
-            		//Si no, si la fecha de nadimiento es mayor a la fecha actual...
-	            	}elseif ($dif_Fnacimiento_Factual >= 0) {
+        		//Si no, si la fecha de nadimiento es mayor a la fecha actual...
+            	}elseif ($dif_Fnacimiento_Factual >= 0) {
 
-	            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
+            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
 
-            		//Si no, si existe un error en la fecha de nacimiento...
-	            	}elseif ($dif_Fnacimiento_Factual === true) {
+        		//Si no, si existe un error en la fecha de nacimiento...
+            	}elseif ($dif_Fnacimiento_Factual === true) {
+                
+	                $data['mensaje'] = "La fecha de nacimiento no es válida.";
+
+                //Si no, si existe un error en la fecha actual...
+	            }elseif ($dif_Fnacimiento_Factual === false) {
 	                
-		                $data['mensaje'] = "La fecha de nacimiento no es válida.";
-
-	                //Si no, si existe un error en la fecha actual...
-		            }elseif ($dif_Fnacimiento_Factual === false) {
-		                
-		                $data['mensaje'] = "La fecha actual del servidor no es válida.";
-		            }
-		        }
+	                $data['mensaje'] = "La fecha actual del servidor no es válida.";
+	            }
 
 		        //Si se está registrando un usuario desde la vista del login...
 	            if ($this->input->post("origen") === "login") {

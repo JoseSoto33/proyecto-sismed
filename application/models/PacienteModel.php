@@ -35,7 +35,7 @@ class PacienteModel extends CI_Model {
 		var_dump($data);
 
      	if($this->db->insert("paciente", $data)){
-     		return $this->db->insert_id("persona_id_seq");
+     		return $this->db->insert_id();
      		//return $id_paciente;
      	}else{
      		return false;

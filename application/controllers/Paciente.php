@@ -78,12 +78,12 @@ class Paciente extends CI_Controller {
             			//Si se realiza el registro exitosamente en la base de datos...
 						if ($id_paciente = $this->PacienteModel->AgregarPaciente()) {
             			
-            				$cod_historia = uppercase(substr($_POST['tipo_paciente'], 0, 1)).$_POST['cedula'];
+            				$cod_historia = strtoupper(substr($_POST['tipo_paciente'], 0, 1)).$_POST['cedula'];
 							
 							set_cookie("message","El paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue registrado exitosamente!...", time()+15);
 
 							//Si el registro de usuario se realiza desde la vista del login...
-							header("Location: ".base_url()."HistoriaClinica/CrearHistoriaClinica/".urlencode($id_paciente." ".$cod_historia));
+							header("Location: ".base_url()."HistoriaClinica/CrearHistoriaClinica/".$id_paciente."_".$cod_historia);
 
 						//Si ocurre un error durante el registro en base de datos...
 						}else{
