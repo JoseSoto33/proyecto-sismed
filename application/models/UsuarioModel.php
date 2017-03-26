@@ -108,7 +108,7 @@ class UsuarioModel extends CI_Model {
     	
     }
 
-    public function ValidarUsuario($condicion = array())
+    public function ValidarUsuario($condicion = array(), $condicion = null)
     {
     	$query = $this->ExtraerUsuario($condicion);
 

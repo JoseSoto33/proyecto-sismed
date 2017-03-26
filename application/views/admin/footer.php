@@ -1,4 +1,4 @@
-		<?php if(!$this->session->userdata("first_session")) { ?>
+		<?php if($this->session->has_userdata("login")) { ?>
 		<div id="footer">
 			<div class="container">
 				<div class="row">

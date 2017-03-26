@@ -49,7 +49,7 @@ class Home extends CI_Controller {
 
 			$data = array("noticias" => $this->ExtraerNoticias());
 
-			var_dump($this->session->userdata('tipo_usuario'));
+			//var_dump($this->session->userdata('tipo_usuario'));
 			//Dependiendo del tipo de usuario..
 			switch ($this->session->userdata('tipo_usuario')) {
 				//Si el tipo de usuario es "Administrador"...

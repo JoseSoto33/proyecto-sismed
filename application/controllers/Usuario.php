@@ -23,10 +23,10 @@ class Usuario extends CI_Controller {
     {
         parent::__construct();
 
-       	if (!$this->session->has_userdata('login') && $this->uri->segment(2, 0) != 'AgregarUsuario') {
+       	if (!$this->session->has_userdata('login') && ($this->uri->segment(2, 0) != 'AgregarUsuario' && $this->uri->segment(2, 0) != 'PasswordChange')) {
         	redirect(base_url());
         }
-        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && ($this->uri->segment(2, 0) != 'PerfilUsuario' || $this->uri->segment(2, 0) != 'PasswordChange' || ($this->uri->segment(2, 0) != 'ModificarUsuario' && $this->uri->segment(2, 0) == '0'))) {
+        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && $this->uri->segment(2, 0) != 'PerfilUsuario' && $this->uri->segment(2, 0) != 'ModificarUsuario' && $this->uri->segment(2, 0) == '0') {
         	redirect(base_url('Home')); 
         }
     }
@@ -181,6 +181,10 @@ class Usuario extends CI_Controller {
 	{
 		$data = array("titulo" => "Modificar datos de usuario");
 
+		if ($id_usuario == null) {
+			$id_usuario = md5('sismed'.$this->session->userdata('idUsuario'));
+		}
+
 		$cond = array(
 				"where" => array(
 					"MD5(concat('sismed',id))" => $id_usuario
@@ -290,9 +294,15 @@ class Usuario extends CI_Controller {
 
 		            			//Si se realiza la modificación exitosamente...
 								if ($this->UsuarioModel->ModificarUsuario($condicion)) {
-									
-									set_cookie("message","Datos del usuario <strong>'".$this->input->post('username')."'</strong> modificados exitosamente!...", time()+15);
-									header("Location: ".base_url()."Usuario/ListarUsuarios");
+												
+									if ($this->session->userdata('idUsuario') == $data['usuario']['id']) {
+
+										set_cookie("message","Se han modificado tus datos personales exitosamente exitosamente!...", time()+15);
+										header("Location: ".base_url()."Usuario/PerfilUsuario");
+									}else{
+										set_cookie("message","Datos del usuario <strong>'".$this->input->post('username')."'</strong> modificados exitosamente!...", time()+15);
+										header("Location: ".base_url()."Usuario/ListarUsuarios");
+									}
 
 								//Si ocurre un error durante la modificación...
 								}else{
@@ -334,9 +344,10 @@ class Usuario extends CI_Controller {
 	 *
 	 * @return void
 	 */
-	public function PasswordChange()
+	public function PasswordChange($id_usuario)
 	{
 		$data = array("titulo" => "Cambio de contraseña");
+		$update = true;
 
 		//Si se envía una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -346,25 +357,58 @@ class Usuario extends CI_Controller {
 
 				$condicion = array(
     				"data" => array(
-			     			"password" => $this->input->post('password')
+			     			"password" => $this->input->post('password1')
 			     		),
-    				"where" => array("id" => $this->session->userdata('idUsuario'))
+    				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
     			);
 
-				//Si la modificación se realiza con éxito...
-				if ($this->UsuarioModel->ModificarUsuario($condicion)) {
+				if ($this->session->has_userdata("login")) {
 					
-					$this->session->set_userdata('first_session', false);			
-					header("Location: ".base_url()."Home");
+					$cond = array(
+						"where" => array(
+							"id" => $this->session->userdata("idUsuario"),
+							"password" => $this->input->post("password0")
+							)
+						);
 
-				//Si ocurre un error durante la modificación...
+					if (!$this->UsuarioModel->ValidarUsuario($cond)) {
+						
+						$udate = false;
+						$data['mensaje'] = "Error: Contraseña incorrecta, verifíquela e intente nuevamente...";
+					}
+
 				}else{
-					$data['mensaje'] = $this->db->error();
+
+					$condicion["data"]["first_session"] = false;
 				}
+
+				if ($update === true) {
+					
+					//Si la modificación se realiza con éxito...
+					if ($this->UsuarioModel->ModificarUsuario($condicion)) {
+						/*
+						$this->session->set_userdata('first_session', false);			
+						header("Location: ".base_url()."Home");*/
+						if ($this->session->has_userdata("login")) {
+							redirect(base_url()."Home");
+						}else{
+
+							redirect(base_url()."Sesion/Login/".$id_usuario);
+						}
+
+					//Si ocurre un error durante la modificación...
+					}else{
+						$data['mensaje'] = $this->db->error();
+					}
+				}
+
+				$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
 			}
+		}else{
+
+			$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
 		}
 
-		$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
 	}
 
 	/**
@@ -414,8 +458,8 @@ class Usuario extends CI_Controller {
 	public function PerfilUsuario($id = null)
 	{
 		//Si no se envió un id por parámetro...
-		if (!isset($id) || empty($id)) {
-			$id = $this->session->userdata('id');
+		if ($id == null) {
+			$id = md5('sismed'.$this->session->userdata('idUsuario'));
 		}
 
 		$condicion = array(
@@ -669,27 +713,44 @@ class Usuario extends CI_Controller {
 	 */
 	public function ValidarPasswordUsuario($data)
 	{
-		
+		//Si el usuario está logueado
+		if ($this->session->has_userdata('login')) {
+			
+			//Reglas de validación para la contraseña actual
+			$this->form_validation->set_rules(
+	        'password0', 'Contraseña actual',
+		        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
+		        array( 
+		        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
+		            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
+	                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
+	                'required'   	=> 'Debe insertar su %s.'
+		        )
+			);	
+		}
+
+		//Reglas de validación para la contraseña nueva
 		$this->form_validation->set_rules(
-	        'password', 'Contraseña',
+	        'password1', 'Nueva ontraseña',
 	        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
 	        array( 
 	        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
 	            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
                 'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
-                'required'   	=> 'Debe insertar un %s.'
+                'required'   	=> 'Debe insertar una %s.'
 	        )
 		);
 
+		//Reglas de validación para la contraseña de confirmación
 		$this->form_validation->set_rules(
 	        'password2', 'Contraseña de confirmación',
-	        array('required','matches[password]','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
+	        array('required','matches[password1]','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
 	        array( 
 	        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
 	            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
                 'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
                 'matches'   	=> 'La %s no coinside.',
-                'required'   	=> 'Debe insertar un %s.'
+                'required'   	=> 'Debe insertar la %s.'
 	        )
 		);
 

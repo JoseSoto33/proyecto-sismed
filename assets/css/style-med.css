@@ -153,6 +153,19 @@ table.table > tfoot > tr > td{
 	color: #ffffff !important;
 }
 
+#principal-menu > .nav > li#usuario > .dropdown-menu > .header-info{
+	background: #009688;
+	color: #ffffff;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > li:hover > a{
+	background: transparent !important;
+	color: #009688 !important;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > .header-info > img{
+	border: 3px #B2EBF2 solid;
+}
 /*----------SECCION 2----------*/
 
 #img-carousel .carousel-inner .item #text1{

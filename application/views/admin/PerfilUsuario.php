@@ -12,6 +12,17 @@
 					  	<h2>Perfil de usuario</h2>
 					</div>
 					<div class="row">
+						<?php if(get_cookie("message") != null) { ?>
+							<div class="col-xs-12">
+								<div id="alert-message" class="alert alert-success" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<?php 
+										echo $this->input->cookie('message'); 
+										delete_cookie('message');
+									?>
+								</div>					
+							</div>	
+						<?php } ?>
 
 						<?php if (isset($usuario)) { ?>					
 						
@@ -66,6 +77,14 @@
 											<?php echo ucwords($usuario["nombre1"]." ".$usuario["apellido1"]);?>
 										</label>					
 									</div>
+									<?php if ($this->session->userdata('tipo_usuario') == "Administrador" && $this->session->userdata('idUsuario') != $usuario["id"]) { ?>
+									<div class="col-xs-12">
+										<div class="center">
+											<a href="<?php echo base_url('Usuario/ListarUsuarios'); ?>" class="btn btn-second-2 pull-right">Volver</a>
+										</div>
+									</div>
+									<?php } ?>
+										
 								</div>
 								<div class="col-md-7">
 									<?php 
@@ -85,7 +104,12 @@
 										<h3>
 											<span class="glyphicon glyphicon-list"></span> 
 											Datos personales
-											<a href="javascript:history.back(1)" class="btn btn-second-2 pull-right">Volver</a>	
+											<?php if ($this->session->userdata('idUsuario') == $usuario["id"]) { ?>
+											<div class="btn-group pull-right" role="group" aria-label="...">
+												<a href="<?php echo base_url('Usuario/ModificarUsuario'); ?>" class="btn btn-second-2">Editar</a>
+												<a href="<?php echo base_url('Usuario/ListarUsuarios'); ?>" class="btn btn-second-2">Seguridad</a>
+											</div>	
+											<?php } ?>											
 										</h3>
 										<hr class="title-line">
 										<div class="col-md-12 table-responsive">
@@ -230,6 +254,13 @@
 				}
         	}
         });
+
+        if ($("#alert-message").length) {
+
+    	setTimeout( function(){                  
+            $("#alert-message").hide('fast');  
+        }, 10000);
+	}
 	});
 </script>
 <?php include("footer.php"); ?>
