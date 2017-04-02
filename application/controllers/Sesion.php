@@ -23,7 +23,7 @@ class Sesion extends CI_Controller {
     {
         parent::__construct();
 
-        if (!$this->session->has_userdata('login') && ($this->uri->segment(1, 0) != '0' || $this->uri->segment(2, 0) != '0')) {
+        if (!$this->session->has_userdata('login') && ($this->uri->segment(1, 0) != '0' || $this->uri->segment(2, 0) != '0') && $this->uri->segment(2, 0) != 'Login') {
         	redirect(base_url());
         }
         if ($this->session->has_userdata('login') && $this->session->userdata('login') == true && ($this->uri->segment(1, 0) == '0' && $this->uri->segment(2, 0) == '0')) {
@@ -58,8 +58,7 @@ class Sesion extends CI_Controller {
             	
 				$condicion = array(
 					"where" => array(
-						"cedula" => $this->input->post("log_cedula"),
-						"password" => $this->input->post("log_password")
+						"cedula" => $this->input->post("log_cedula")
 						)
 					);
 
@@ -73,51 +72,18 @@ class Sesion extends CI_Controller {
 
 						$data['mensaje'] = "El usuario ingresado se encuentra inactivo.";
 
-					//Sino, si la contraseña ingresada coinside con la contraseña registrada...
+					//Si no, si la contraseña ingresada coinside con la contraseña registrada...
 					}elseif (strcmp($usuario->password,$this->input->post('log_password'))===0) {
 						
-						$condicion = array("where" => array("id_usuario" => $usuario->id));
-						$firstTime = !($this->SesionModel->ValidarSesion($condicion));
-
-						$data = array(
-							"id_usuario" => $usuario->id,
-							"fecha_inicio" => date('Y-m-d h:i:s a')
-							);
-
-						$id_sesion = $this->SesionModel->Login($data);
-
-						//Si no se se creó la sesión...
-						if (!$id_sesion) {
+						//Si no es la primera vez que el usuario inicia sesión...
+						if ($usuario->first_session === 'f') {
 							
-							$data['mensaje'] = "Error al intentar iniciar sesión.";
+							$this->Login(md5("sismed".$usuario->id));
 
-						//Si se creó y registró la sesión...
+						//Si es la primera vez que el usuario inicia sesión...
 						}else{
-
-							$data = array(
-										'idUsuario' => $usuario->id,
-										'idSesion' => $id_sesion,
-										'username' => $usuario->username,
-										'nombre' => $usuario->nombre1,
-										'apellido' => $usuario->apellido,
-										'login' => true,
-										'tipo_usuario' => $usuario->tipo_usuario,
-										'especialidad' => $usuario->especialidad
-									);
-
-							//Si no es la primera vez que el usuario inicia sesión...
-							if ($firstTime === false) {
-
-								$data["first_session"] = false;
-								$this->session->set_userdata($data);
-								header('Location: '.base_url()."Home");
-
-							//Si es la primera vez que el usuario inicia sesión...
-							}else{
-								$data["first_session"] = true;
-								$this->session->set_userdata($data);
-								header('Location: '.base_url()."Usuario/PasswordChange");
-							}
+						
+							redirect(base_url()."Usuario/PasswordChange/".md5("sismed".$usuario->id));
 						}
 
 					//Si la contraseña ingresada no coinside con la contraseña registrada...
@@ -141,6 +107,58 @@ class Sesion extends CI_Controller {
 			//Cargar vista del login
 			$this->load->view('login/index',$data);
 		}		
+	}
+
+	/**
+	 * Crea una nueva sesión de usuario.
+	 *
+	 * @param integer $id_usuario El identificador principal del usuario en la base de datos
+	 *
+	 * @return boolean
+	 */
+	public function Login($id_usuario)
+	{
+		$condicion = array(
+			"where" => array("MD5(concat('sismed',id))" => $id_usuario)
+			);
+
+		$usuario = $this->UsuarioModel->ExtraerUsuario($condicion)->row();
+
+		$data = array(
+			"id_usuario" => $usuario->id,
+			"fecha_inicio" => date('Y-m-d h:i:s a')
+			);
+
+		$id_sesion = $this->SesionModel->Login($data);
+
+		//Si no se se creó la sesión...
+		if (!$id_sesion) {
+		
+			//$data['mensaje'] = "Error al intentar iniciar sesión.";
+			set_cookie("message","Error al intentar iniciar sesión.", time()+15);
+			redirect(base_url());
+
+		//Si se creó y registró la sesión...
+		}else{
+
+			$data = array(
+					'idUsuario' => $usuario->id,
+					'idSesion' => $id_sesion,
+					'username' => $usuario->username,
+					'nombre' => $usuario->nombre1,
+					'apellido' => $usuario->apellido1,
+					'login' => true,
+					'tipo_usuario' => $usuario->tipo_usuario,
+					'especialidad' => $usuario->especialidad,
+					'sexo' => $usuario->sexo,
+					'first_session' => $usuario->first_session,
+					'fecha_creado' => $usuario->fecha_creado,
+					'img' => $usuario->img
+				);
+
+			$this->session->set_userdata($data);
+			redirect(base_url()."Home");
+		}
 	}
 
 	/**

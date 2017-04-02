@@ -33,7 +33,7 @@ $(document).ready(function(){
     if ($("#alert-message").length) {
 
     	setTimeout( function(){                  
-            $("#alert-message").hide('fast');  //Recargar la página luego de 5 segundos
+            $("#alert-message").hide('fast');  
         }, 10000);
 	}
 

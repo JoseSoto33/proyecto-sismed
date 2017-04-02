@@ -23,10 +23,10 @@ class Usuario extends CI_Controller {
     {
         parent::__construct();
 
-       	if (!$this->session->has_userdata('login') && $this->uri->segment(2, 0) != 'AgregarUsuario') {
+       	if (!$this->session->has_userdata('login') && ($this->uri->segment(2, 0) != 'AgregarUsuario' && $this->uri->segment(2, 0) != 'PasswordChange')) {
         	redirect(base_url());
         }
-        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && ($this->uri->segment(2, 0) != 'PerfilUsuario' || $this->uri->segment(2, 0) != 'PasswordChange' || ($this->uri->segment(2, 0) != 'ModificarUsuario' && $this->uri->segment(2, 0) == '0'))) {
+        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && $this->uri->segment(2, 0) != 'PerfilUsuario' && $this->uri->segment(2, 0) != 'ModificarUsuario' && $this->uri->segment(2, 0) == '0') {
         	redirect(base_url('Home')); 
         }
     }
@@ -95,65 +95,61 @@ class Usuario extends CI_Controller {
 		        $nombre 	= base64_encode($this->input->post('username'))."_".base64_encode($this->input->post('cedula'));
 		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
-		        //Si el archivo se cargó correctamente...
-		        if ($file_info != false) {
+            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
+            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
 
-	            	$fecha_nacimiento = $this->input->post('fecha_nacimiento');
-	            	$dif_Fnacimiento_Factual = $this->EventoModel->CompararFechas($fecha_nacimiento,date("Y-m-d"));
+            	//Si la fecha de nacimiento es válida (menor a la fecha actual)...
+            	if ($dif_Fnacimiento_Factual < 0) {
+            		
+            		$condicion = array(
+            				'where' => array(
+            					'nombre1' => $this->input->post('nombre1'),
+            					'nombre2' => $this->input->post('nombre2'),
+            					'apellido1' => $this->input->post('apellido1'),
+            					'apellido2' => $this->input->post('apellido2')
+            					)
+            			);
+            		//No exiten usuarios con datos idénticos al que se está registrando...
+            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
+            			
+            			//Si se realiza el registro exitosamente en la base de datos...
+						if ($this->UsuarioModel->AgregarUsuario($file_info)) {
+							
+							set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
 
-	            	//Si la fecha de nacimiento es válida (menor a la fecha actual)...
-	            	if ($dif_Fnacimiento_Factual < 0) {
-	            		
-	            		$condicion = array(
-	            				'where' => array(
-	            					'nombre1' => $this->input->post('nombre1'),
-	            					'nombre2' => $this->input->post('nombre2'),
-	            					'apellido1' => $this->input->post('apellido1'),
-	            					'apellido2' => $this->input->post('apellido2')
-	            					)
-	            			);
-	            		//No exiten usuarios con datos idénticos al que se está registrando...
-	            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
-	            			
-	            			//Si se realiza el registro exitosamente en la base de datos...
-							if ($this->UsuarioModel->AgregarUsuario()) {
+							//Si el registro de usuario se realiza desde la vista del login...
+							if ($this->input->post("origen") === "login") {
 								
-								set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
+								header("Location: ".base_url());
 
-								//Si el registro de usuario se realiza desde la vista del login...
-								if ($this->input->post("origen") === "login") {
-									
-									header("Location: ".base_url());
-
-								//Si se registra desde una sesión de administrador...
-								}else{
-									header("Location: ".base_url()."Usuario/ListarUsuarios");
-								}
-							//Si ocurre un error durante el registro en base de datos...
+							//Si se registra desde una sesión de administrador...
 							}else{
-								$data['mensaje'] = $this->db->error();
+								header("Location: ".base_url()."Usuario/ListarUsuarios");
 							}
-						//Si los datos a registrar coinsiden con los de un usuario existente...
-	            		}else{
-	            			$data['mensaje'] = "Ya existe un usuario registrado con ambos nombres y apellidos.";
-	            		}
+						//Si ocurre un error durante el registro en base de datos...
+						}else{
+							$data['mensaje'] = $this->db->error();
+						}
+					//Si los datos a registrar coinsiden con los de un usuario existente...
+            		}else{
+            			$data['mensaje'] = "Ya existe un usuario registrado con ambos nombres y apellidos.";
+            		}
 
-            		//Si no, si la fecha de nadimiento es mayor a la fecha actual...
-	            	}elseif ($dif_Fnacimiento_Factual >= 0) {
+        		//Si no, si la fecha de nadimiento es mayor a la fecha actual...
+            	}elseif ($dif_Fnacimiento_Factual >= 0) {
 
-	            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
+            		$data['mensaje'] = "La fecha de nacimiento no puede ser igual ni superior a la actual.";
 
-            		//Si no, si existe un error en la fecha de nacimiento...
-	            	}elseif ($dif_Fnacimiento_Factual === true) {
+        		//Si no, si existe un error en la fecha de nacimiento...
+            	}elseif ($dif_Fnacimiento_Factual === true) {
+                
+	                $data['mensaje'] = "La fecha de nacimiento no es válida.";
+
+                //Si no, si existe un error en la fecha actual...
+	            }elseif ($dif_Fnacimiento_Factual === false) {
 	                
-		                $data['mensaje'] = "La fecha de nacimiento no es válida.";
-
-	                //Si no, si existe un error en la fecha actual...
-		            }elseif ($dif_Fnacimiento_Factual === false) {
-		                
-		                $data['mensaje'] = "La fecha actual del servidor no es válida.";
-		            }
-		        }
+	                $data['mensaje'] = "La fecha actual del servidor no es válida.";
+	            }
 
 		        //Si se está registrando un usuario desde la vista del login...
 	            if ($this->input->post("origen") === "login") {
@@ -184,6 +180,10 @@ class Usuario extends CI_Controller {
 	public function ModificarUsuario($id_usuario = null)
 	{
 		$data = array("titulo" => "Modificar datos de usuario");
+
+		if ($id_usuario == null) {
+			$id_usuario = md5('sismed'.$this->session->userdata('idUsuario'));
+		}
 
 		$cond = array(
 				"where" => array(
@@ -294,9 +294,15 @@ class Usuario extends CI_Controller {
 
 		            			//Si se realiza la modificación exitosamente...
 								if ($this->UsuarioModel->ModificarUsuario($condicion)) {
-									
-									set_cookie("message","Datos del usuario <strong>'".$this->input->post('username')."'</strong> modificados exitosamente!...", time()+15);
-									header("Location: ".base_url()."Usuario/ListarUsuarios");
+												
+									if ($this->session->userdata('idUsuario') == $data['usuario']['id']) {
+
+										set_cookie("message","Se han modificado tus datos personales exitosamente exitosamente!...", time()+15);
+										header("Location: ".base_url()."Usuario/PerfilUsuario");
+									}else{
+										set_cookie("message","Datos del usuario <strong>'".$this->input->post('username')."'</strong> modificados exitosamente!...", time()+15);
+										header("Location: ".base_url()."Usuario/ListarUsuarios");
+									}
 
 								//Si ocurre un error durante la modificación...
 								}else{
@@ -338,9 +344,10 @@ class Usuario extends CI_Controller {
 	 *
 	 * @return void
 	 */
-	public function PasswordChange()
+	public function PasswordChange($id_usuario)
 	{
 		$data = array("titulo" => "Cambio de contraseña");
+		$update = true;
 
 		//Si se envía una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -350,25 +357,58 @@ class Usuario extends CI_Controller {
 
 				$condicion = array(
     				"data" => array(
-			     			"password" => $this->input->post('password')
+			     			"password" => $this->input->post('password1')
 			     		),
-    				"where" => array("id" => $this->session->userdata('idUsuario'))
+    				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
     			);
 
-				//Si la modificación se realiza con éxito...
-				if ($this->UsuarioModel->ModificarUsuario($condicion)) {
+				if ($this->session->has_userdata("login")) {
 					
-					$this->session->set_userdata('first_session', false);			
-					header("Location: ".base_url()."Home");
+					$cond = array(
+						"where" => array(
+							"id" => $this->session->userdata("idUsuario"),
+							"password" => $this->input->post("password0")
+							)
+						);
 
-				//Si ocurre un error durante la modificación...
+					if (!$this->UsuarioModel->ValidarUsuario($cond)) {
+						
+						$udate = false;
+						$data['mensaje'] = "Error: Contraseña incorrecta, verifíquela e intente nuevamente...";
+					}
+
 				}else{
-					$data['mensaje'] = $this->db->error();
+
+					$condicion["data"]["first_session"] = false;
 				}
+
+				if ($update === true) {
+					
+					//Si la modificación se realiza con éxito...
+					if ($this->UsuarioModel->ModificarUsuario($condicion)) {
+						/*
+						$this->session->set_userdata('first_session', false);			
+						header("Location: ".base_url()."Home");*/
+						if ($this->session->has_userdata("login")) {
+							redirect(base_url()."Home");
+						}else{
+
+							redirect(base_url()."Sesion/Login/".$id_usuario);
+						}
+
+					//Si ocurre un error durante la modificación...
+					}else{
+						$data['mensaje'] = $this->db->error();
+					}
+				}
+
+				$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
 			}
+		}else{
+
+			$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
 		}
 
-		$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
 	}
 
 	/**
@@ -418,8 +458,8 @@ class Usuario extends CI_Controller {
 	public function PerfilUsuario($id = null)
 	{
 		//Si no se envió un id por parámetro...
-		if (!isset($id) || empty($id)) {
-			$id = $this->session->userdata('id');
+		if ($id == null) {
+			$id = md5('sismed'.$this->session->userdata('idUsuario'));
 		}
 
 		$condicion = array(
@@ -673,27 +713,44 @@ class Usuario extends CI_Controller {
 	 */
 	public function ValidarPasswordUsuario($data)
 	{
-		
+		//Si el usuario está logueado
+		if ($this->session->has_userdata('login')) {
+			
+			//Reglas de validación para la contraseña actual
+			$this->form_validation->set_rules(
+	        'password0', 'Contraseña actual',
+		        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
+		        array( 
+		        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
+		            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
+	                'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
+	                'required'   	=> 'Debe insertar su %s.'
+		        )
+			);	
+		}
+
+		//Reglas de validación para la contraseña nueva
 		$this->form_validation->set_rules(
-	        'password', 'Contraseña',
+	        'password1', 'Nueva ontraseña',
 	        array('required','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
 	        array( 
 	        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
 	            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
                 'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
-                'required'   	=> 'Debe insertar un %s.'
+                'required'   	=> 'Debe insertar una %s.'
 	        )
 		);
 
+		//Reglas de validación para la contraseña de confirmación
 		$this->form_validation->set_rules(
 	        'password2', 'Contraseña de confirmación',
-	        array('required','matches[password]','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
+	        array('required','matches[password1]','min_length[8]','max_length[16]','regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,16}$/]'),		        	
 	        array( 
 	        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
 	            'max_length'    => 'La %s debe tener máximo 16 caracteres.',
                 'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo debe contener al menos una letra mayúscula, al menos una letra minúscula y al menos un número.',
                 'matches'   	=> 'La %s no coinside.',
-                'required'   	=> 'Debe insertar un %s.'
+                'required'   	=> 'Debe insertar la %s.'
 	        )
 		);
 

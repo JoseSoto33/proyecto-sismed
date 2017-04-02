@@ -76,17 +76,25 @@ body,
 a,
 p,
 label,
+small,
 h1,
 h2,
 h3,
 h4,
 h5,
-h6{
+h6,
+div,
+li{
 	font-family: "fira_sansregular" !important;
 }
 
 .container{
 	max-width: 1200px !important;
+}
+
+.center{
+	display: table;
+	margin: 0 auto;
 }
 
 hr.divisor-line{
@@ -126,7 +134,7 @@ hr.form-divisor-line{
     display:block;
 }
 
-.dropdown-submenu>a:after {
+.dropdown-submenu > a:after {
     display:block;
     content:" ";
     float:right;
@@ -149,6 +157,10 @@ hr.form-divisor-line{
     margin-left:10px;
 }
 
+.fixed-bottom{
+	position: absolute !important;
+	bottom: 0;
+}
 /*=============================LOGIN=============================*/
 /*=====Estilos del Index=====*/
 /*Cabecera*/
@@ -366,6 +378,42 @@ span.red{
 	border: 1px solid;
 }
 
+#principal-menu > .nav > li#usuario > .dropdown-menu{
+	width: 280px;
+	padding: 1px !important;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > .header-info{
+	min-height: 175px;
+    padding: 10px 10px 5px;
+    text-align: center;
+} 
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > .header-info > img{
+	background: #ffffff;
+    height: 90px;
+    width: 90px;
+    z-index: 5;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > .header-info > p{
+	color: #ffffff;
+	font-size: 17px;
+    margin-top: 10px !important;
+    margin-bottom: 0px !important;
+    z-index: 5;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > .header-info > p > small{
+	display: block;
+    font-size: 12px;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > .footer-info{
+	width: 100%;
+	float: left;
+	padding: 10px;
+} 
 
 /*----------SECCION 2----------*/
 
@@ -775,7 +823,7 @@ span.red{
 }
 .img-perfil > figure{
 	width: 300px;
-	height: auto;
+	height: 300px;
 	padding: 10px;
 	margin: 0 auto;
 	display: table;

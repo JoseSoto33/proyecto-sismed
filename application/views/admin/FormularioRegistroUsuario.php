@@ -281,32 +281,7 @@
 								</div>						
 							</div>
 						</div>
-					</div>
-					<!--
-					<div class="col-sm-12">
-						<div class="row">
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="password1" class="col-sm-4 control-label">Contraseña</label>
-									<div class="col-sm-8">								
-										<input type="password" name="password" class="form-control" id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" value="<?php echo set_value('password'); ?>" required="required" data-pattern-error="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres">
-										<div class="help-block with-errors">
-								      	</div> 
-									</div>
-								</div>						
-							</div>
-							<div class="col-sm-6">
-								<div class="form-group">
-									<label for="password2" class="col-sm-4 control-label">Confirmar contraseña</label>
-									<div class="col-sm-8">								
-										<input type="password" class="form-control" id="password2" name="password2" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" data-match="#password1" data-match-error="Las contraseñas no coinciden" placeholder="Confirmar" value="<?php echo set_value('password2'); ?>" required="required">
-										<div class="help-block with-errors">
-								        </div>
-									</div>
-								</div>						
-							</div>
-						</div>
-					</div>-->
+					</div>					
 					<div class="col-sm-12">
 						<div class="row">
 							<div class="col-sm-6">
@@ -351,7 +326,11 @@
 					<div class="col-sm-12">
 						<div class="col-sm-4 col-sm-offset-4">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
+							<?php if (isset($usuario["id"]) && $this->session->userdata('idUsuario') == $usuario["id"]) { ?>
+							<a href="<?php echo base_url(); ?>Usuario/PerfilUsuario" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
+							<?php }else{ ?>	
 							<a href="<?php echo base_url(); ?>Usuario/ListarUsuarios" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
+							<?php } ?>
 						</div>						
 					</div>
 				<?php echo form_close(); ?>

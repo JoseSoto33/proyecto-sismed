@@ -53,14 +53,14 @@ hr.form-divisor-line{
 .btn-principal-2{
 	background: #ffffff;
 	border-color: #0097A7; 
-	color: #0097A7;
+	color: #0097A7 !important;
 }
 
 .btn-principal-2:hover,
 .btn-principal-2:focus,
 .btn-principal-2.focus{
 	background: #0097A7;
-	color: #ffffff;
+	color: #ffffff !important;
 }
 
 .btn-second-2{
@@ -153,6 +153,20 @@ table.table > tfoot > tr > td{
 #principal-menu > ul > li.dropdown > .dropdown-menu > li.active > a{
 	background: #00BCD4;
 	color: #ffffff !important;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > .header-info{
+	background: #00BCD4;
+	color: #ffffff;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > li:hover > a{
+	background: transparent !important;
+	color: #00BCD4 !important;
+}
+
+#principal-menu > .nav > li#usuario > .dropdown-menu > .header-info > img{
+	border: 3px #B2EBF2 solid;
 }
 
 /*----------SECCION 2----------*/

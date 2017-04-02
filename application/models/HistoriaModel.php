@@ -40,6 +40,12 @@ class HistoriaModel extends CI_Model {
             return $this->db->query($condicion['query']);
         }
 
+        //Si se declaró una sentencia 'distinct'...
+        if (isset($condicion['distinct']) && $condicion['distinct'] != false) {
+            
+            $this->db->distinct();
+        }
+
         //Si se declaró una sentencia 'select'...
         if (isset($condicion['select']) && !empty($condicion['select'])) {
             
@@ -49,7 +55,7 @@ class HistoriaModel extends CI_Model {
         }
 
         //Dependiendo del tipo de usuario..
-        switch ($this->session->userdata('tipo_usuario')) {
+        /*switch ($this->session->userdata('tipo_usuario')) {
                             
             //Si el tipo de usuario es "Doctor"...
             case "Doctor":
@@ -59,7 +65,7 @@ class HistoriaModel extends CI_Model {
             //Si el tipo de usuario es "Enfermero"...
             case "Enfermero":
                 $this->db->from("historia_medicina AS historia");
-                break;
+                break;*/
             /*
             //Si el tipo de usuario es "Odontólogo"...
             case "Odontólogo":
@@ -80,7 +86,9 @@ class HistoriaModel extends CI_Model {
             case "Asistente":
                 $this->db->from("historia_medicina");
                 break;*/
-        }
+        //}
+
+        $this->db->from("historia_clinica AS historia");
 
         //Si está definida una cláusula 'where'
         if (isset($condicion['join']) && !empty($condicion['join'])) {

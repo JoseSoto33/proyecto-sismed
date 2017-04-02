@@ -145,25 +145,66 @@
 							        </ul>
 						        </li>
 						        <li class="dropdown" id="usuario">
-						          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?= $this->session->userdata('username'); ?> <span class="caret"></span></a>
+						          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $this->session->userdata('username'); ?> <span class="caret"></span></a>
 							        <ul class="dropdown-menu">
-							            <li>
-							            	<a href="#" class="footer-nav-link">
-												<span class="glyphicon glyphicon-pencil"></span> Editar Perfil
-											</a>
-							            </li>
-							            <li role="separator" class="divider"></li>
-							            <li>
-							            	<a href="#">
-												<span class="glyphicon glyphicon-lock"></span> Seguridad
-											</a>
-							            </li>
-							            <li role="separator" class="divider"></li>
-							            <li>
-							            	<a href="<?php echo base_url(); ?>Sesion/Logout">
-							            		<span class="glyphicon glyphicon-off"></span> Salir
-							            	</a>
-							            </li>					            
+							        	<li class="header-info">
+							        		<?php												
+												if ($this->session->has_userdata('img') && $this->session->userdata('img') != null && $this->session->userdata('img') != '') {
+
+													$ruta = base_url()."assets/img/usuarios/";
+
+									            	switch ($usuario["especialidad"]) {
+									            		case 'Administrador':
+									            			$ruta .= "admin/";
+									            			break;  
+
+									            		case 'Medicina':
+									            			$ruta .= "med/";
+									            			break; 
+
+									            		case 'Odontología':
+									            			$ruta .= "odon/";
+									            			break; 
+
+									            		case 'Laboratorio':
+									            			$ruta .= "lab/";
+									            			break; 
+
+									            		case 'Nutrición':
+									            			$ruta .= "nut/";
+									            			break; 
+									            	}
+									            	$ruta .= $usuario["img"];
+
+												}elseif ($this->session->userdata('sexo') == 'm') {
+																									
+													$ruta = base_url()."assets/img/usuarios/user-male-alt-icon.png";	
+												}elseif ($this->session->userdata('sexo') == 'f') {
+																									
+													$ruta = base_url()."assets/img/usuarios/user-female-alt-icon.png";	
+												}
+											?>
+							        		<img src="<?php echo $ruta; ?>" class="img-circle">
+							        		<p>
+							        			<?php 
+							        				echo $this->session->userdata('nombre')." ".$this->session->userdata('apellido');
+							        			?>
+							        			<small>
+							        				<?php 
+							        					setlocale(LC_TIME,"esp"); 
+							        					echo "Miembro desde ".strftime('%B de %Y', strtotime($this->session->userdata('fecha_creado')));
+							        				?>
+							        			</small>
+							        		</p>
+							        	</li>
+							        	<li class="footer-info">
+							        		<div class="pull-left">
+							        			<a href="#" class="btn btn-principal-2"><span class="glyphicon glyphicon-user"></span> Perfil</a>
+							        		</div>
+							        		<div class="pull-right">
+							        			<a href="<?php echo base_url(); ?>Sesion/Logout" class="btn btn-principal-2"> <span class="glyphicon glyphicon-off"></span> Salir</a>
+							        		</div>	
+							        	</li>	            
 							        </ul>
 						        </li>
 						    </ul>				     

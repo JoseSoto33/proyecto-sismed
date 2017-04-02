@@ -1,5 +1,6 @@
 <?php 
-	if($this->session->userdata("first_session") === true) { 
+	include('header.php');
+	/*if($this->session->userdata("first_session") === true) { 
 		include('header.php');
 	}else{
 
@@ -28,7 +29,7 @@
     			break; 
     	}
     	include($ruta.'header.php');
-	}
+	}*/
 ?>
 
 <div id="seccion2">
@@ -45,8 +46,15 @@
 						<?php echo $mensaje; ?>
 					</div>					
 				<?php } ?>
+
+				<?php if(isset($_COOKIE["message"]) && !empty($_COOKIE["message"])) { ?>
+					<div class="alert alert-danger" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<?php echo $_COOKIE("message"); ?>
+					</div>					
+				<?php } ?>
 			</div>
-			<?php if($this->session->userdata("first_session") === true) {?>
+			<?php if(!$this->session->has_userdata("login")) {?>
 			<div class="col-sm-6 col-sm-offset-3">
 				<blockquote>
     				<p>Antes de continuar a la pantalla principal, debes cambiar la contraseña que posees por defecto...</p>
@@ -65,11 +73,21 @@
 	      				$url,
 	      				'class="form-basic" id="cambio-clave"'
 	      				); ?>
-									
+					<?php if ($this->session->has_userdata("login")) { ?>
 					<div class="col-sm-12">
 						<div class="form-group">
-							<label for="password1" class="control-label"><span class="red">*</span> Contraseña:</label>	
-							<input type="password" name="password" class="form-control" id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" value="<?php echo set_value('password'); ?>" required="required" data-pattern-error="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres">
+							<label for="password0" class="control-label"><span class="red">*</span>Contraseña anterior:</label>	
+							<input type="password" name="password0" class="form-control" id="password0" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" value="<?php echo set_value('password0'); ?>" required="required" data-pattern-error="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres">
+							<div class="help-block with-errors">
+					      	</div> 
+						</div>						
+					</div>
+					<?php } ?>
+
+					<div class="col-sm-12">
+						<div class="form-group">
+							<label for="password1" class="control-label"><span class="red">*</span>Nueva contraseña:</label>	
+							<input type="password" name="password1" class="form-control" id="password1" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}" minlength="8" maxlength="16" title="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres" value="<?php echo set_value('password'); ?>" required="required" data-pattern-error="Debe contener al menos un número, una letra mayúscula, una letra minúscula y ser de 8 a 16 caracteres">
 							<div class="help-block with-errors">
 					      	</div> 
 						</div>						
@@ -92,7 +110,7 @@
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<a href="<?php echo base_url(); ?>Evento/ListarEventos" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
+							<a href="<?php echo base_url(); ?>" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
 				<?php echo form_close();?>			
@@ -100,14 +118,10 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
-<script type="text/javascript">
-	$(window).ready(function(){
 
-		$("#cambio-clave").validator();
-	});
-</script>
 <?php 
+	include('footer.php');
+/*
 	if($this->session->userdata("first_session")) { 
 		include('footer.php');
 	}else{
@@ -137,5 +151,12 @@
     			break; 
     	}
     	include($ruta.'footer.php');
-	}
+	}*/
 ?>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
+<script type="text/javascript">
+	$(window).ready(function(){
+
+		$("#cambio-clave").validator();
+	});
+</script>
