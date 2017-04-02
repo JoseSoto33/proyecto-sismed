@@ -44,8 +44,8 @@ class Inventario extends CI_Controller {
 				//Si la Insumo se agrega exitosamente a la base de datos...
 	        	if ($this->InsumoModel->AgregarInsumo()) {
 
-    				set_cookie("message","La Patología <strong>'".$this->input->post('insumo')."'</strong> fue registrada exitosamente!...", time()+15);
-					header("Location: ".base_url()."Insumo/ListarInsumos"); //controlador y metododo del controlador que carga la vista
+    				set_cookie("message","El insumo <strong>'".$this->input->post('insumo')."'</strong> fue registrada exitosamente!...", time()+15);
+					header("Location: ".base_url()."Inventario/ListarInsumos"); //controlador y metododo del controlador que carga la vista
 
 				//Si hay error en la inserción
 				}else{
@@ -76,7 +76,7 @@ class Inventario extends CI_Controller {
 			$data['insumo'] = $result->row_array(); // guarda lo que se trae de la bdd en la variable $data['Insumo'] , como un arreglo asosiativo con el nombre de las columnas en la bdd
 			//var_dump($data['Insumo']);
 			//Si se envía una petición POST...
-			if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			if ($_SERVER["REQUEST_METHOD"] == "POST") { //Metodo que se utiliza para pasar datos de un formulario
 
 			  	if($this->ValidarInsumo($data, 1) === FALSE)
 			  	{
