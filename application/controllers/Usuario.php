@@ -110,6 +110,10 @@ class Usuario extends CI_Controller {
             					)
             			);
             		//No exiten usuarios con datos idénticos al que se está registrando...
+            		/**
+            		 * @todo Hay algo mal con ésta condición. Está indicando que existen usuarios que coinsiden
+            		 * con los datos suministrados, cuando en realidad no es así
+            		 */
             		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
             			
             			//Si se realiza el registro exitosamente en la base de datos...
