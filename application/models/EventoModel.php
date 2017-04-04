@@ -30,7 +30,7 @@ class EventoModel extends CI_Model {
         $file_info = $this->upload->data();
 
      	$data = array(
-     			"cedula_usuario" => $this->session->userdata('cedula'),
+     			"id_usuario" => $this->session->userdata('idUsuario'),
      			"titulo" => $this->input->post('titulo'),
                 "descripcion" => $this->input->post('descripcion'),
      			"fecha_hora_inicio" => $fecha_hora_inicio,

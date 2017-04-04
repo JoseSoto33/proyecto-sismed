@@ -129,7 +129,7 @@ class Home extends CI_Controller {
 	{
 		$condicion = array(
 			"where" => array(
-				"Extract(month from created_at) <=" => date("m"),
+				"Extract(month from created_at) =" => date("m"),
 				"Extract(year from created_at) =" => date("Y")
 				)
 			);

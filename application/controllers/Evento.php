@@ -200,7 +200,7 @@ class Evento extends CI_Controller {
 
 		        				$condicion = array(	
 		        					"data" => array(
-						                "cedula_usuario" => $this->session->userdata('cedula'),
+						                "id_usuario" => $this->session->userdata('idUsuario'),
 						                "titulo" => $this->input->post('titulo'),
 						                "descripcion" => $this->input->post('descripcion'),
 						                "fecha_hora_inicio" => $fecha_hora_inicio,
@@ -323,7 +323,7 @@ class Evento extends CI_Controller {
 	{
 		$condicion = array(
 			"select" => "id, titulo, descripcion, fecha_hora_inicio",
-			"where" => array("cedula_usuario" => $this->session->userdata('cedula')),
+			"where" => array("id_usuario" => $this->session->userdata('idUsuario')),
 			"order_by" => "id ASC"
 			);
 
