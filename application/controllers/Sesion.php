@@ -78,12 +78,12 @@ class Sesion extends CI_Controller {
 						//Si no es la primera vez que el usuario inicia sesión...
 						if ($usuario->first_session === 'f') {
 							
-							$this->Login(md5("sismed".$usuario->id));
+							$this->Login(md5("sismed".$usuario->cedula));
 
 						//Si es la primera vez que el usuario inicia sesión...
 						}else{
 						
-							redirect(base_url()."Usuario/PasswordChange/".md5("sismed".$usuario->id));
+							redirect(base_url()."Usuario/PasswordChange/".md5("sismed".$usuario->cedula));
 						}
 
 					//Si la contraseña ingresada no coinside con la contraseña registrada...
@@ -112,20 +112,20 @@ class Sesion extends CI_Controller {
 	/**
 	 * Crea una nueva sesión de usuario.
 	 *
-	 * @param integer $id_usuario El identificador principal del usuario en la base de datos
+	 * @param integer $cedula_usuario El identificador principal del usuario en la base de datos
 	 *
 	 * @return boolean
 	 */
-	public function Login($id_usuario)
+	public function Login($cedula_usuario)
 	{
 		$condicion = array(
-			"where" => array("MD5(concat('sismed',id))" => $id_usuario)
+			"where" => array("MD5(concat('sismed',cedula))" => $cedula_usuario)
 			);
 
 		$usuario = $this->UsuarioModel->ExtraerUsuario($condicion)->row();
 
 		$data = array(
-			"id_usuario" => $usuario->id,
+			"cedula" => $usuario->cedula,
 			"fecha_inicio" => date('Y-m-d h:i:s a')
 			);
 
@@ -142,7 +142,7 @@ class Sesion extends CI_Controller {
 		}else{
 
 			$data = array(
-					'idUsuario' => $usuario->id,
+					'cedula' => $usuario->cedula,
 					'idSesion' => $id_sesion,
 					'username' => $usuario->username,
 					'nombre' => $usuario->nombre1,
@@ -174,14 +174,14 @@ class Sesion extends CI_Controller {
 				),
 			"where" => array(
 				"id" => $this->session->userdata('idSesion'),
-				"id_usuario" => $this->session->userdata('idUsuario')
+				"cedula_usuario" => $this->session->userdata('cedula')
 				)
 			);
 
 		//Si la sesión se cierra exitosamente...
 		if ($this->SesionModel->Logout($data)) {
 			
-			$data = array('idUsuario','idSesion','username','nombre','apellido','login','tipo_usuario');
+			$data = array('cedula','idSesion','username','nombre','apellido','login','tipo_usuario');
 			$this->session->unset_userdata($data);
 			$this->session->sess_destroy();
 			header('Location: '.base_url());

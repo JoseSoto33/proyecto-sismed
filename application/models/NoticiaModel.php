@@ -12,7 +12,7 @@ class NoticiaModel extends CI_Model {
         $file_info = $this->upload->data();
 
      	$data = array(
-     			"id_usuario" => $this->session->userdata('idUsuario'),
+     			"cedula_usuario" => $this->session->userdata('cedula'),
      			"titulo" => $this->input->post('titulo'),
      			"descripcion" => $this->input->post('descripcion'),
                 "url" => $this->input->post('url'),

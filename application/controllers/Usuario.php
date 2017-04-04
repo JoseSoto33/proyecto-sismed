@@ -177,21 +177,21 @@ class Usuario extends CI_Controller {
 	/**
 	 * Muestra el formulario para modificar los datos de un usaurio, o realiza la modificación de los datos si se llama a éste método mediante un POST
 	 *
-	 * @param null|integer $id_usuario Identificador único del usuario
+	 * @param null|integer $cedula_usuario Identificador único del usuario
 	 *
 	 * @return void
 	 */
-	public function ModificarUsuario($id_usuario = null)
+	public function ModificarUsuario($cedula_usuario = null)
 	{
 		$data = array("titulo" => "Modificar datos de usuario");
 
-		if ($id_usuario == null) {
-			$id_usuario = md5('sismed'.$this->session->userdata('idUsuario'));
+		if ($cedula_usuario == null) {
+			$cedula_usuario = md5('sismed'.$this->session->userdata('idUsuario'));
 		}
 
 		$cond = array(
 				"where" => array(
-					"MD5(concat('sismed',id))" => $id_usuario
+					"MD5(concat('sismed',cedula))" => $cedula_usuario
 					)
 				);
 
@@ -267,7 +267,7 @@ class Usuario extends CI_Controller {
 		            					"nombre2" => $this->input->post("nombre2"),
 		            					"apellido1" => $this->input->post("apellido1"),
 		            					"apellido2" => $this->input->post("apellido2"),
-		            					"MD5(concat('sismed',id)) !=" => $id_usuario
+		            					"MD5(concat('sismed',cedula)) !=" => $cedula_usuario
 		            					)
 		            			);	            		         		
 
@@ -293,13 +293,13 @@ class Usuario extends CI_Controller {
 							     			"tipo_usuario" => $this->input->post('tipo_usuario'),
 					                		"img" =>  $data['usuario']['img']
 							     		),
-		            				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
+		            				"where" => array("MD5(concat('sismed',cedula))" => $cedula_usuario)
 		            			);
 
 		            			//Si se realiza la modificación exitosamente...
 								if ($this->UsuarioModel->ModificarUsuario($condicion)) {
 												
-									if ($this->session->userdata('idUsuario') == $data['usuario']['id']) {
+									if ($this->session->userdata('cedula') == $data['usuario']['cedula']) {
 
 										set_cookie("message","Se han modificado tus datos personales exitosamente exitosamente!...", time()+15);
 										header("Location: ".base_url()."Usuario/PerfilUsuario");
@@ -348,7 +348,7 @@ class Usuario extends CI_Controller {
 	 *
 	 * @return void
 	 */
-	public function PasswordChange($id_usuario)
+	public function PasswordChange($cedula_usuario)
 	{
 		$data = array("titulo" => "Cambio de contraseña");
 		$update = true;
@@ -363,14 +363,14 @@ class Usuario extends CI_Controller {
     				"data" => array(
 			     			"password" => $this->input->post('password1')
 			     		),
-    				"where" => array("MD5(concat('sismed',id))" => $id_usuario)
+    				"where" => array("MD5(concat('sismed',cedula))" => $cedula_usuario)
     			);
 
 				if ($this->session->has_userdata("login")) {
 					
 					$cond = array(
 						"where" => array(
-							"id" => $this->session->userdata("idUsuario"),
+							"cedula" => $this->session->userdata("cedula"),
 							"password" => $this->input->post("password0")
 							)
 						);
@@ -397,7 +397,7 @@ class Usuario extends CI_Controller {
 							redirect(base_url()."Home");
 						}else{
 
-							redirect(base_url()."Sesion/Login/".$id_usuario);
+							redirect(base_url()."Sesion/Login/".$cedula_usuario);
 						}
 
 					//Si ocurre un error durante la modificación...
@@ -422,10 +422,10 @@ class Usuario extends CI_Controller {
 	 */
 	public function EliminarUsuario()
 	{
-		$id = $this->input->post('id');
+		$cedula = $this->input->post('cedula');
 		$action = $this->input->post('action');
 		$condicion = array(
-			'where' => array("MD5(concat('sismed',id))" => $id)
+			'where' => array("MD5(concat('sismed',cedula))" => $cedula)
 			);
 
 		//Si la acción a realizar es 'habilitar'...
@@ -459,15 +459,15 @@ class Usuario extends CI_Controller {
 	 *
 	 * @return void
 	 */
-	public function PerfilUsuario($id = null)
+	public function PerfilUsuario($cedula = null)
 	{
 		//Si no se envió un id por parámetro...
-		if ($id == null) {
-			$id = md5('sismed'.$this->session->userdata('idUsuario'));
+		if ($cedula == null) {
+			$cedula = md5('sismed'.$this->session->userdata('cedula'));
 		}
 
 		$condicion = array(
-			'where' => array("MD5(concat('sismed',id))" => $id)
+			'where' => array("MD5(concat('sismed',cedula))" => $cedula)
 			);
 
 		$result = $this->UsuarioModel->ExtraerUsuario($condicion);
@@ -485,7 +485,7 @@ class Usuario extends CI_Controller {
 		$condicion = array(
 			'where' => array(
 					"fecha_fin !=" => null,
-					"MD5(concat('sismed',id_usuario))" => $id
+					"MD5(concat('sismed',cedula_usuario))" => $cedula
 					)
 			);
 
@@ -504,9 +504,9 @@ class Usuario extends CI_Controller {
 	public function ListarUsuarios()
 	{
 		$condicion = array(
-			"select" => "id, cedula, username, nombre1, nombre2, apellido1, apellido2, especialidad, status",
-			"where" => array("id !=" => $this->session->userdata('idUsuario')),
-			"order_by" => array("campo" => "id", "direccion" => "ASC")
+			"select" => "username, nombre1, nombre2, apellido1, apellido2, especialidad, status",
+			"where" => array("cedula !=" => $this->session->userdata('cedula')),
+			"order_by" => array("campo" => "cedula", "direccion" => "ASC")
 			);
 
 		$data = array();

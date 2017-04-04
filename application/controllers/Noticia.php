@@ -179,7 +179,7 @@ class Noticia extends CI_Controller {
 							
 							$condicion = array(
 									"data" => array(
-						     			"id_usuario" => $this->session->userdata('idUsuario'),
+						     			"cedula_usuario" => $this->session->userdata('cedula'),
 						     			"titulo" => $this->input->post('titulo'),
 						     			"descripcion" => $this->input->post('descripcion'),
 						     			"url" => $this->input->post('url'),
@@ -287,7 +287,7 @@ class Noticia extends CI_Controller {
 	{
 		$condicion = array(
 			"select" => "id, titulo, descripcion, url",
-			"where" => array("id_usuario" => $this->session->userdata('idUsuario'))
+			"where" => array("cedula_usuario" => $this->session->userdata('cedula'))
 			);
 
 		$data = array();
