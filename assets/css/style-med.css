@@ -53,14 +53,14 @@ hr.form-divisor-line{
 .btn-principal-2{
 	background: #ffffff;
 	border-color: #00796B; 
-	color: #00796B;
+	color: #00796B !important;
 }
 
 .btn-principal-2:hover,
 .btn-principal-2:focus,
 .btn-principal-2.focus{
 	background: #00796B;
-	color: #ffffff;
+	color: #ffffff !important;
 }
 
 .btn-second-2{

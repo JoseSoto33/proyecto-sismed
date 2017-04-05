@@ -32,19 +32,30 @@ $(document).ready(function(){
     });
 
     $('#registro-paciente').validator();  
-/*
-    $("#cedula").on("keyup", function(e){
 
-        var cedula = $(this).val();
+
+    $('[data-toggle="tooltip"]').tooltip({
+        delay: { 
+            "show": 50,
+            "hide": 1000 
+        }
+    });
+
+    $("#search").on("click", function(e){
+
+        e.preventDefault();
+        var cedula = $("#cedula").val();
+
+        $("#ced-load span").hide();
+        $("#ced-load .loading-2").show();
 
         validarpaciente(cedula);
-    });*/
+    });
 
-    $("#cedula").on("focusout", function(e){
+    $("#reset").on("click", function(e){
 
-        var cedula = $(this).val();
-
-        validarpaciente(cedula);
+        e.preventDefault();
+        formReset();
     });
 
     $("#registro-paciente").on("submit", function(){
@@ -76,18 +87,16 @@ $(document).ready(function(){
                 
                 formActivate(response);
 
-                if (response['result']) {                    
-                    
-
-                }else{
-                    //alert(response['message']);
-                }
+                $("#ced-load span").show();
+                $("#ced-load .loading-2").hide();                
                 
             });
 
             request.fail(function (jqXHR, textStatus, thrown){
                 alert('Error: '+textStatus);
                 //alert(thrown);
+                $("#ced-load span").show();
+                $("#ced-load .loading-2").hide();
             });
         }
     }
@@ -155,7 +164,7 @@ $(document).ready(function(){
                     }                
                 }
                 $(".form-group select.form-control").trigger('chosen:updated');
-                $("#cedula").prop("readonly",false);
+                //$("#cedula").prop("readonly",false);
             });
 
         }else{
@@ -179,8 +188,29 @@ $(document).ready(function(){
             $(".form-group select.form-control").prop("checked",false);
 
             $("#cedula").val(cedula);
-        }
+        }        
+    }
 
+    /**
+     * Resetea el formulario
+     */
+    function formReset(){
+
+        $("input.form-control").prop("readonly",true).val("");
+        $("textarea.form-control").prop("readonly",true).html("");
+        $("input[type=radio]").prop("readonly",true).prop("checked",false);
+        //$("select.form-control").prop("disabled",false);
+        //$("select.form-control option").removeAttr("selected");
         
+        $(".form-group select.form-control option").each(function(i, val){
+            
+            if ($(this).html() == null || $(this).html() == "" || $(this).html() == " ") {
+                $(this).prop("selected",true);
+            }            
+        });
+        $(".form-group select.form-control").trigger('chosen:updated');
+        $(".form-group select.form-control").prop("readonly",true);
+
+        $("#cedula").prop("readonly",false).val("");
     }
 });

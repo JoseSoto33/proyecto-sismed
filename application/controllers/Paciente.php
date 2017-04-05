@@ -91,6 +91,29 @@ class Paciente extends CI_Controller {
 						}
 					//Si los datos a registrar coinsiden con los de un usuario existente...
             		}else{
+
+            			$cond = array(
+            					"where" => array('id' => $this->input->post('id_paciente'))
+            				);
+
+            			switch ($this->session->userdata('especialidad')) {
+            				case 'Medicina':
+            					$cond['from'] = 'historia_medicina'
+            					break;
+            				
+            				case 'Odontología':
+            					$cond['from'] = 'historia_odontologia'
+            					break;
+
+            				case 'Laboratorio':
+            					$cond['from'] = 'historia_laboratorio'
+            					break;
+
+            				case 'Nutrición':
+            					$cond['from'] = 'historia_nutricion'
+            					break;
+            			}
+            			
             			$data['mensaje'] = "Ya existe un paciente registrado con ambos nombres y apellidos.";
             		}
 
@@ -126,6 +149,7 @@ class Paciente extends CI_Controller {
     	$cedula = $this->input->post('cedula');
 
     	$cond = array(
+    			"distinct" => true,
     			"select" => "persona.*, paciente.id AS id_paciente, paciente.lugar_nacimiento, paciente.tipo_paciente, paciente.departamento, paciente.trayecto, paciente.pnf, paciente.tipo_sangre, historia.antecedentes_personales, historia.antecedentes_familiares",
     			"from" => "persona",
     			"joins" => array(

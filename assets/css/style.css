@@ -208,13 +208,6 @@ a.navbar-brand{
 	color: #ffffff !important;
 }
 
-img.loading{
-	display: none;
-	width: 33px;
-	height: 33px;
-	float: right;
-	position: relative;
-}
 
 /*Portada*/
 #portada{
@@ -273,12 +266,22 @@ figure.load-content{
 	left: 160px;
 	top: 0;
 }
-img.loading{
+
+img.loading,
+img.loading-2{
 	display: none;
-	width: 33px;
-	height: 33px;
 	float: right;
 	position: relative;
+}
+
+img.loading{	
+	width: 33px;
+	height: 33px;
+}
+
+img.loading-2{	
+	width: 20px;
+	height: 20px;
 }
 
 img.countdown{

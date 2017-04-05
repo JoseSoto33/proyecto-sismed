@@ -42,7 +42,7 @@
 
 		<div id="seccion1">	
 			<div class="container">					
-			<?php if(!$this->session->userdata("first_session")) { ?>	
+			<?php if($this->session->userdata("first_session") === 'f') { ?>	
 				<label class="nav-titulo hidden-xs"><span class="glyphicon glyphicon-asterisk"></span> Unidad de Medicina</label>
 				<nav class="navbar navbar-default navbar-right navbar-collapse" id="nav-menu-principal">
 				  	<div class="container-fluid">

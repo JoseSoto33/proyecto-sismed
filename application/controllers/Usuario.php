@@ -383,7 +383,7 @@ class Usuario extends CI_Controller {
 
 				}else{
 
-					$condicion["data"]["first_session"] = false;
+					$condicion["data"]["first_session"] = 'FALSE';
 				}
 
 				if ($update === true) {

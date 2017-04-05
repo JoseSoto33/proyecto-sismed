@@ -88,9 +88,14 @@ class HistoriaModel extends CI_Model {
                 break;*/
         //}
 
-        $this->db->from("historia_clinica AS historia");
+        if (isset($condicion['from']) && !empty($condicion['from'])) {
+            
+            $this->db->from($condicion['from']);
+        }else{            
+            $this->db->from("historia_clinica AS historia");
+        }
 
-        //Si está definida una cláusula 'where'
+        //Si está definida una cláusula 'join'
         if (isset($condicion['join']) && !empty($condicion['join'])) {
             
             $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion']);
@@ -119,7 +124,13 @@ class HistoriaModel extends CI_Model {
 
     public function ValidarHistoria($condicion = array())
     {
+        $query = $this->ExtraerHistoria($condicion);
 
+        if ($query->num_rows() > 0) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
 }
