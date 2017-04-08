@@ -69,21 +69,25 @@ class Paciente extends CI_Controller {
             					'apellido2' => $this->input->post('apellido2')
             					),
             				'or_where' => array(
-            					'id' => $this->input->post('id_paciente')
+            					'id' => $this->input->post('id_persona')
             					)
             			);
             		//No exiten usuarios con datos idénticos al que se está registrando...
             		if (!$this->PacienteModel->ValidarPaciente($condicion)) {
 
             			//Si se realiza el registro exitosamente en la base de datos...
-						if ($id_paciente = $this->PacienteModel->AgregarPaciente()) {
+						if ($id_persona = $this->PacienteModel->AgregarPaciente()) {
             			
             				$cod_historia = strtoupper(substr($_POST['tipo_paciente'], 0, 1)).$_POST['cedula'];
 							
-							set_cookie("message","El paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue registrado exitosamente!...", time()+15);
+							//set_cookie("message","El paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue registrado exitosamente!...", time()+15);
 
 							//Si el registro de usuario se realiza desde la vista del login...
-							header("Location: ".base_url()."HistoriaClinica/CrearHistoriaClinica/".$id_paciente."_".$cod_historia);
+							//header("Location: ".base_url()."HistoriaClinica/CrearHistoriaClinica/".$id_paciente."_".$cod_historia);
+
+							$data['id_persona'] = $id_persona;
+							$data['cod_historia'] = $cod_historia;
+							$data['info'] = 'Registrando datos - Creando historia clínica...';
 
 						//Si ocurre un error durante el registro en base de datos...
 						}else{
@@ -98,19 +102,19 @@ class Paciente extends CI_Controller {
 
             			switch ($this->session->userdata('especialidad')) {
             				case 'Medicina':
-            					$cond['from'] = 'historia_medicina'
+            					$cond['from'] = 'historia_medicina';
             					break;
             				
             				case 'Odontología':
-            					$cond['from'] = 'historia_odontologia'
+            					$cond['from'] = 'historia_odontologia';
             					break;
 
             				case 'Laboratorio':
-            					$cond['from'] = 'historia_laboratorio'
+            					$cond['from'] = 'historia_laboratorio';
             					break;
 
             				case 'Nutrición':
-            					$cond['from'] = 'historia_nutricion'
+            					$cond['from'] = 'historia_nutricion';
             					break;
             			}
             			

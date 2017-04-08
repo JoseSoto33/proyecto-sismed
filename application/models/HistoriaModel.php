@@ -20,11 +20,19 @@ class HistoriaModel extends CI_Model {
      * Los datos serán registrados en tablas diferentes, dependiendo el tipo de 
      * usuario que esté realizando la operación.
      *
+     * @param mixed[]   $data   Arreglo que debe contener los datos a insertar y 
+     * el nombre de la tabla donde serán insertados los datos
+     *
      * @return boolean
      */
-    public function AgregarHistoria()
+    public function AgregarHistoria($data = array())
     {
-
+        if($this->db->insert($data['table'], $data['insert'])){
+           
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function ModificarHistoria($condicion = array())

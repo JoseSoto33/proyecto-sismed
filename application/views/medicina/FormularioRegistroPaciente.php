@@ -13,6 +13,13 @@
 						<?php echo $mensaje; ?>
 					</div>					
 				<?php } ?>
+
+				<?php if(isset($info) && !empty($info)) { ?>
+					<div class="alert alert-warning" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<?php echo $info; ?>
+					</div>					
+				<?php } ?>
 			</div>		
 			
 			<div class="col-sm-12">
@@ -35,7 +42,12 @@
 						</h2>
 					</div>
 					<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
-					<input type="hidden" name="id_usuario" id="id" value="">
+					<input type="hidden" name="id_persona" id="id" value="<?php echo (isset($id_persona))? $id_persona : ''; ?>">
+					<?php
+						if (isset($cod_historia)) {
+							echo "<input type=\"hidden\" name=\"cod_historia\" id=\"cod_historia\" value=\"$cod_historia\">";
+						}
+					?>
 					<hr class="form-divisor-line">
 					<div class="col-sm-12">	
 						<div class="row">

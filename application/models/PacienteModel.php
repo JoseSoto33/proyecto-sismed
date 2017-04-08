@@ -9,9 +9,9 @@ class PacienteModel extends CI_Model {
 
     public function AgregarPaciente()   
     {
-    	if (isset($_POST['id_usuario']) && !empty($_POST['id_usuario'])) {
+    	if (isset($_POST['id_persona']) && !empty($_POST['id_persona'])) {
         	
-        	$data["id"] = $this->input->post('id_usuario');
+        	$data["id"] = $this->input->post('id_persona');
         }     
 
 		$data["cedula"] = $this->input->post('cedula');
@@ -32,11 +32,9 @@ class PacienteModel extends CI_Model {
 		$data["pnf"] = $this->input->post('pnf');
 		$data["tipo_sangre"] = $this->input->post('tipo_sangre');
 
-		var_dump($_POST);
-
      	if($this->db->insert("paciente", $data)){
 
-            if (isset($_POST['id_usuario']) && !empty($_POST['id_usuario'])) {
+            if (isset($_POST['id_persona']) && !empty($_POST['id_persona'])) {
             
                return $data["id"];
             } 

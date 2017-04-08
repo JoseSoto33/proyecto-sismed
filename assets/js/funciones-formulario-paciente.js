@@ -64,6 +64,10 @@ $(document).ready(function(){
         $('#seccion2').animate({scrollTop : 0}, 500);
     });
 
+    if ($("#cod_historia").length > 0) {
+        crearHistoriaClinica();
+    }
+
     /**
      * Validar paciente en la base de datos
      */
@@ -212,5 +216,35 @@ $(document).ready(function(){
         $(".form-group select.form-control").prop("readonly",true);
 
         $("#cedula").prop("readonly",false).val("");
+    }
+
+    /**
+     *
+     */
+    function crearHistoriaClinica(){
+
+        var request;
+
+        if (request) {
+            request.abort();
+        }
+       
+        request = $.ajax({
+            url: url+"HistoriaClinica/CrearHistoriaClinica",
+            type: "POST",
+            dataType: "json",
+            data: $("#registro-paciente").serialize()
+        });
+
+        request.done(function (response, textStatus, jqXHR){            
+            
+            alert(response['message']);
+            
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            alert('Error: '+textStatus);
+            alert(response['message']);
+        });
     }
 });
