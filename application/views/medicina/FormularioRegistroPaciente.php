@@ -57,7 +57,7 @@
 								    <div class="col-sm-8">
 								    	<div class="input-group">
 								    		<div class="input-group-btn">
-												<button id="search" class="btn btn-second" data-toggle="tooltip" data-placement="bottom" title="Ingrese una cédula para verificar que el paciente tenga una historia clínica registrada...">
+												<button id="search" class="btn btn-second" data-toggle="tooltip" data-placement="bottom" title="Buscar...">
 													<span class="glyphicon glyphicon-search"></span>
 												</button>	
 											</div>
