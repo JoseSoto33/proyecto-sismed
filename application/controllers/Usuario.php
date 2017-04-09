@@ -26,7 +26,7 @@ class Usuario extends CI_Controller {
        	if (!$this->session->has_userdata('login') && ($this->uri->segment(2, 0) != 'AgregarUsuario' && $this->uri->segment(2, 0) != 'PasswordChange')) {
         	redirect(base_url());
         }
-        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && $this->uri->segment(2, 0) != 'PerfilUsuario' && $this->uri->segment(2, 0) != 'ModificarUsuario' && $this->uri->segment(2, 0) == '0') {
+        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Administrador" && $this->uri->segment(2, 0) != 'PerfilUsuario' && $this->uri->segment(2, 0) != 'ModificarUsuario') {
         	redirect(base_url('Home')); 
         }
     }

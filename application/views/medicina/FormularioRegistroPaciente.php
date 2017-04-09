@@ -56,16 +56,28 @@
 									<label for="cedula" class="col-sm-4 control-label"><span class="red">*</span> Cédula:</label>
 								    <div class="col-sm-8">
 								    	<div class="input-group">
+								    		<div class="input-group-btn">
+												<button id="search" class="btn btn-second" data-toggle="tooltip" data-placement="bottom" title="Ingrese una cédula para verificar que el paciente tenga una historia clínica registrada...">
+													<span class="glyphicon glyphicon-search"></span>
+												</button>	
+											</div>
+											<!--
 								    		<div id="ced-load" class="input-group-addon">
 								    			<span class="glyphicon glyphicon-pencil"></span>
 								    			<img class="loading-2" src="<?php echo base_url(); ?>assets/img/spin2.gif">
-								    		</div>
+								    		</div>-->
 									      	<input type="text" class="form-control" id="cedula" name="cedula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" value="<?php echo (isset($paciente['cedula']))? $paciente['cedula'] : set_value('cedula'); ?>" required="required" title="Sólo números de 6 a 8 dígitos" placeholder="Sólo números de 6 a 8 dígitos" data-pattern-error="La cédula solo debe contener números de 6 a 8 dígitos">
+									      	<!--
 									      	<div class="input-group-addon">
 									      		<a href="#" data-toggle="tooltip" data-placement="bottom" title="Ingrese una cédula para verificar que el paciente tenga una historia clínica registrada...">
 									      			<span class="glyphicon glyphicon-info-sign"></span>
 									      		</a>
-									      	</div>
+									      	</div>-->
+									      	<div class="input-group-btn">								
+												<button id="reset" class="btn btn-second-2" data-toggle="tooltip" data-placement="bottom" title="Limpiar formulario...">
+													<span class="glyphicon glyphicon-refresh"></span>
+												</button>
+											</div>
 									    </div>
 									    <div class="help-block with-errors">
 									    </div>
@@ -73,14 +85,10 @@
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<button id="search" class="btn btn-second">
-									<span class="glyphicon glyphicon-search"></span>
-									Buscar
-								</button>
-								<button id="reset" class="btn btn-second-2">
-									<span class="glyphicon glyphicon-refresh"></span>
-									Restablecer
-								</button>
+								<a id="verHistoria" class="btn btn-primary disabled" href="#">
+									<span class="glyphicon glyphicon-arrow-right"></span>
+									Ver historia
+								</a>
 								<!--<h6 class="instructions">Ingrese una cédula para verificar que el paciente a tenga una historia clínica registrada...</h6>-->
 							</div>
 						</div>

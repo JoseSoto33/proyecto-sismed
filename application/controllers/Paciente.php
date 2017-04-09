@@ -79,11 +79,6 @@ class Paciente extends CI_Controller {
 						if ($id_persona = $this->PacienteModel->AgregarPaciente()) {
             			
             				$cod_historia = strtoupper(substr($_POST['tipo_paciente'], 0, 1)).$_POST['cedula'];
-							
-							//set_cookie("message","El paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue registrado exitosamente!...", time()+15);
-
-							//Si el registro de usuario se realiza desde la vista del login...
-							//header("Location: ".base_url()."HistoriaClinica/CrearHistoriaClinica/".$id_paciente."_".$cod_historia);
 
 							$data['id_persona'] = $id_persona;
 							$data['cod_historia'] = $cod_historia;
@@ -154,7 +149,7 @@ class Paciente extends CI_Controller {
 
     	$cond = array(
     			"distinct" => true,
-    			"select" => "persona.*, paciente.id AS id_paciente, paciente.lugar_nacimiento, paciente.tipo_paciente, paciente.departamento, paciente.trayecto, paciente.pnf, paciente.tipo_sangre, historia.antecedentes_personales, historia.antecedentes_familiares",
+    			"select" => "persona.*, paciente.id AS id_paciente, paciente.lugar_nacimiento, paciente.tipo_paciente, paciente.departamento, paciente.trayecto, paciente.pnf, paciente.tipo_sangre, MD5(concat('sismed',historia.cod_historia)) AS cod_historia, historia.antecedentes_personales, historia.antecedentes_familiares",
     			"from" => "persona",
     			"joins" => array(
     				array(
