@@ -333,7 +333,7 @@
 					<div class="col-sm-12">
 						<div class="col-sm-4 col-sm-offset-4">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<a href="<?php echo base_url(); ?>Usuario/ListarUsuarios" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
+							<a href="<?php echo base_url(); ?>HistoriaClinica/ListarHistorias" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
 				<?php echo form_close(); ?>		

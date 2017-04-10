@@ -361,3 +361,26 @@ table.table > tfoot > tr > td{
 #tabla-info table > tbody > tr > td{
 	border: 1px #00796B solid;
 }
+
+/*----------HISTORIA CLÍNICA----------*/
+
+#sub-historia .nav-tabs > li > a,
+#sub-historia .nav-tabs > li.active > a{
+	color: #00796B;
+}
+
+#sub-historia .nav-tabs > li > a{
+	border-bottom: 1px #00796B solid !important;
+}
+
+#sub-historia .nav-tabs > li.active > a, 
+#sub-historia .nav-tabs > li.active > a:focus, 
+#sub-historia .nav-tabs > li.active > a:hover{
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #00796B #00796B transparent !important;
+}
+

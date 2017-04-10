@@ -72,7 +72,7 @@ class Paciente extends CI_Controller {
             					'id' => $this->input->post('id_persona')
             					)
             			);
-            		//No exiten usuarios con datos idénticos al que se está registrando...
+            		//Si no exiten pacientes con datos idénticos al que se está registrando...
             		if (!$this->PacienteModel->ValidarPaciente($condicion)) {
 
             			//Si se realiza el registro exitosamente en la base de datos...
@@ -88,32 +88,59 @@ class Paciente extends CI_Controller {
 						}else{
 							$data['mensaje'] = $this->db->error();
 						}
-					//Si los datos a registrar coinsiden con los de un usuario existente...
+					//Si los datos a registrar coinsiden con los de un paciente existente...
             		}else{
 
             			$cond = array(
+            					"distinct" => true,
             					"where" => array('id' => $this->input->post('id_paciente'))
             				);
 
-            			switch ($this->session->userdata('especialidad')) {
-            				case 'Medicina':
-            					$cond['from'] = 'historia_medicina';
-            					break;
+            			//Si el paciente posee una historia clínica...
+            			if ($this->HistoriaModel->ValidarHistoria($cond)) {
             				
-            				case 'Odontología':
-            					$cond['from'] = 'historia_odontologia';
-            					break;
+	            			switch ($this->session->userdata('especialidad')) {
+	            				case 'Medicina':
+	            					$cond['from'] = 'historia_medicina';
+	            					break;
+	            				
+	            				case 'Odontología':
+	            					$cond['from'] = 'historia_odontologia';
+	            					break;
 
-            				case 'Laboratorio':
-            					$cond['from'] = 'historia_laboratorio';
-            					break;
+	            				case 'Laboratorio':
+	            					$cond['from'] = 'historia_laboratorio';
+	            					break;
 
-            				case 'Nutrición':
-            					$cond['from'] = 'historia_nutricion';
-            					break;
-            			}
+	            				case 'Nutrición':
+	            					$cond['from'] = 'historia_nutricion';
+	            					break;
+	            			}            				            				
+
+	            			//Si la historia clínica del paciente se creó en una unidad de atención diferente de la actual...
+            				if (!$this->HistoriaModel->ValidarHistoria($cond)) {
+
+            					$historia = $this->HistoriaModel->ExtraerHistoria($cond);
+
+            					$data['id_persona'] = $historia['id_persona'];
+								$data['cod_historia'] = $historia['cod_historia'];
+								$data['info'] = 'Registrando datos - Creando historia clínica...';
+
+							//Si la historia clínica del paciente se creó en una unidad de atención actual...
+            				}else{
+            					$data['mensaje'] = "El paciente ya posee una historia clínica en esta unidad...";
+            				}
+
+            			//Si el paciente no posee una historia clínica...
+            			}else{
+
+            				$cod_historia = strtoupper(substr($_POST['tipo_paciente'], 0, 1)).$_POST['cedula'];
+
+							$data['id_persona'] = $id_persona;
+							$data['cod_historia'] = $cod_historia;
+							$data['info'] = 'Registrando datos - Creando historia clínica...';
+            			}            			
             			
-            			$data['mensaje'] = "Ya existe un paciente registrado con ambos nombres y apellidos.";
             		}
 
         		//Si no, si la fecha de nadimiento es mayor a la fecha actual...
@@ -149,7 +176,7 @@ class Paciente extends CI_Controller {
 
     	$cond = array(
     			"distinct" => true,
-    			"select" => "persona.*, paciente.id AS id_paciente, paciente.lugar_nacimiento, paciente.tipo_paciente, paciente.departamento, paciente.trayecto, paciente.pnf, paciente.tipo_sangre, MD5(concat('sismed',historia.cod_historia)) AS cod_historia, historia.antecedentes_personales, historia.antecedentes_familiares",
+    			"select" => "persona.*, paciente.id AS id_paciente, paciente.lugar_nacimiento, paciente.tipo_paciente, paciente.departamento, paciente.trayecto, paciente.pnf, paciente.tipo_sangre, historia.cod_historia, historia.antecedentes_personales, historia.antecedentes_familiares",
     			"from" => "persona",
     			"joins" => array(
     				array(
@@ -175,6 +202,14 @@ class Paciente extends CI_Controller {
 			
 			$data['result'] = true;
 			$data['paciente'] = $result->row_array();
+
+			if ($data['paciente']['cod_historia'] != null && $data['paciente']['cod_historia'] != "") {
+
+				$data['paciente']['cod_historia'] = md5("sismed".$data['paciente']['cod_historia']);
+			}else{
+				$data['paciente']['cod_historia'] = null;
+			}
+
 		}else{
 			$data['result'] = false;
 			$data['message'] = "El paciente no está registrado...";

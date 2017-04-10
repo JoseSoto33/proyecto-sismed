@@ -154,7 +154,7 @@ $(document).ready(function(){
                        
                         $("#"+index).html(value.trim()).prop("readonly",true);
 
-                    }else if (index == 'cod_historia') {
+                    }else if (index == 'cod_historia' && value != '') {
                         $("#verHistoria").attr("href",url+"HistoriaClinica/ConsultarHistoriaClinica/"+value.trim()).removeClass("disabled");
                     }else{
                         $("#"+index).val(value).prop("readonly",true); 
@@ -180,6 +180,8 @@ $(document).ready(function(){
             $(".form-group select.form-control").prop("checked",false);
 
             $("#cedula").val(cedula);
+
+            $("#verHistoria").attr("href","#").addClass("disabled");
         }        
     }
 
@@ -204,6 +206,7 @@ $(document).ready(function(){
         $(".form-group select.form-control").prop("readonly",true);
 
         $("#cedula").prop("readonly",false).val("");
+        $("#verHistoria").attr("href","#").addClass("disabled");
     }
 
     /**

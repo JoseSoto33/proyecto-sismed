@@ -93,8 +93,9 @@ li{
 }
 
 .center{
-	display: table;
-	margin: 0 auto;
+	display: table !important;
+	margin: 0 auto !important;
+	float: none !important;
 }
 
 hr.divisor-line{
@@ -880,4 +881,43 @@ span.red{
 #tabla-info > h3 > span.glyphicon,
 #sesiones-content > h3 > span.glyphicon{
 	color: #D76519;
+}
+
+
+/*-----------HISTORIA CLÍNICA-----------*/
+
+#hist-content{
+	margin: 30px auto !important;
+	border: 1px #dddddd solid;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	-moz-box-shadow:    0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	box-shadow:         0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+}
+
+#hist-content .hist-header,
+#hist-content .hist-body{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+#hist-content .hist-header{
+	padding-top: 30px;	
+}
+
+#hist-content .hist-header img.logo{
+	height: 70px;
+	width: auto;
+}
+
+#hist-content .hist-body{
+	padding: 15px 0px;
+}
+
+#sub-historia{
+	margin-top: 30px;
+	padding-bottom: 50px;
 }

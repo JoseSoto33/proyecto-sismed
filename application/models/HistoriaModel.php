@@ -61,44 +61,13 @@ class HistoriaModel extends CI_Model {
         }else{
             $this->db->select("*");
         }
-
-        //Dependiendo del tipo de usuario..
-        /*switch ($this->session->userdata('tipo_usuario')) {
-                            
-            //Si el tipo de usuario es "Doctor"...
-            case "Doctor":
-                $this->db->from("historia_medicina AS historia");
-                break;
-
-            //Si el tipo de usuario es "Enfermero"...
-            case "Enfermero":
-                $this->db->from("historia_medicina AS historia");
-                break;*/
-            /*
-            //Si el tipo de usuario es "Odontólogo"...
-            case "Odontólogo":
-                $this->db->from("historia_medicina");
-                break;
-
-            //Si el tipo de usuario es "Bioanalista"...
-            case "Bioanalista":
-                $this->db->from("historia_medicina");
-                break;
-
-            //Si el tipo de usuario es "Nutricionista"...
-            case "Nutricionista":
-                $this->db->from("historia_medicina");
-                break;
-
-            //Si el tipo de usuario es "Asistente"...
-            case "Asistente":
-                $this->db->from("historia_medicina");
-                break;*/
-        //}
-
+        
+        //Si está definida una cláusula 'from'
         if (isset($condicion['from']) && !empty($condicion['from'])) {
             
             $this->db->from($condicion['from']);
+
+        //Si no...
         }else{            
             $this->db->from("historia_clinica AS historia");
         }
