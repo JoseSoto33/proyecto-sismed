@@ -72,8 +72,36 @@ class Consulta extends CI_Controller {
      * 
      */
     public function ListarConsultas()
-    {
-    	
+    {        
+    	//list($cod_historia,$tipo_consulta) = explode("_", $param);
+        $cod_historia = $this->input->post("cod_historia");
+        $tipo_consulta = $this->input->post("tipo_cons");
+
+        $condicion = array();
+
+        switch ($tipo_consulta) {
+            case '1':
+                $condicion['select'] = "consulta.*, patologia.nombre AS patologia";
+                $condicion['from'] = "consulta_curativa AS consulta";
+                $condicion['join'] = array(
+                    "tabla" => "patologia",
+                    "condicion" => "consulta.id_patologia = patologia.id",
+                    "tipo" => "left"
+                    );
+                $condicion['where'] = array(
+                    "consulta.cod_historia" => $cod_historia,
+                    "consulta.tipo" => $tipo_consulta
+                    );
+                break;
+            
+            case '2':
+                
+                break;
+        }
+
+        $result = $this->ConsultaModel->ExtraerConsulta($condicion);
+
+        echo json_encode($result->result());
     }
 
     /**
@@ -83,3 +111,4 @@ class Consulta extends CI_Controller {
     {
 
     }
+}
