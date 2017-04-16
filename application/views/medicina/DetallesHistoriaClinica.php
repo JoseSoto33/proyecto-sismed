@@ -1,5 +1,5 @@
 <?php include('doctor/header.php'); ?>
-<div id="seccion2">
+<div id="seccion4">
 	<div class="container">
 		<div class="row">
 			<div id="hist-content" class="col-sm-7 center">
@@ -156,7 +156,7 @@
 												  	<div class="panel panel-default">
 													    <div class="panel-heading" role="tab" id="headingOne">
 													      	<h4 class="panel-title">
-													      		Consultas curativas
+													      		Curativas
 													        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
 													          		<span class="glyphicon glyphicon-plus"></span>
 													        	</a>
@@ -164,6 +164,22 @@
 													    </div>
 													    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 													      	<div class="panel-body">
+													      		<?php if($this->session->userdata('especialidad') == "Medicina") { ?>
+													      		<div class="col-xs-12 col-sm-3 table-buttons">
+																	<a class="btn btn-success" href="<?php echo base_url(); ?>Consulta/AgregarConsulta/<?php echo md5('sismed'.$historia['cod_historia']); ?>_1"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+																</div>
+																<?php } ?>
+																<div class="col-xs-12 col-sm-9">
+																	<?php if(get_cookie("cura_message") != null) { ?>
+																		<div id="alert-message" class="alert alert-success" role="alert">
+																			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																			<?php 
+																				echo $this->input->cookie('cura_message'); 
+																				delete_cookie('cura_message');
+																			?>
+																		</div>					
+																	<?php } ?>
+																</div>	
 													        	<div class="col-sm-12 table-responsive">
 																	<table id="lista-cons-cur" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0" data-tipo_cons="1">
 																		<thead>
@@ -187,7 +203,7 @@
 												  	<div class="panel panel-default">
 													    <div class="panel-heading" role="tab" id="headingTwo">
 													      	<h4 class="panel-title">
-													      		Consultas preventivas
+													      		Preventivas
 													        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 													          		<span class="glyphicon glyphicon-plus"></span>
 													        	</a>
@@ -195,7 +211,37 @@
 													    </div>
 													    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 													      	<div class="panel-body">
-													        	---
+													      		<?php if($this->session->userdata('especialidad') == "Medicina") { ?>
+													      		<div class="col-xs-12 col-sm-3 table-buttons">
+																	<a class="btn btn-success" href="<?php echo base_url(); ?>Consulta/AgregarConsulta/<?php echo md5('sismed'.$historia['cod_historia']); ?>_2"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+																</div>
+																<?php } ?>
+																<div class="col-xs-12 col-sm-9">
+																	<?php if(get_cookie("prev_message") != null) { ?>
+																		<div id="alert-message" class="alert alert-success" role="alert">
+																			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+																			<?php 
+																				echo $this->input->cookie('prev_message'); 
+																				delete_cookie('prev_message');
+																			?>
+																		</div>					
+																	<?php } ?>
+																</div>	
+													        	<div class="col-sm-12 table-responsive">
+																	<table id="lista-cons-prev" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0" data-tipo_cons="2">
+																		<thead>
+																			<th width="90%">Fecha</th>					
+																			<th width="10%"> </th>
+																		</thead>
+																		<tfoot>
+																			<th width="90%">Fecha</th>
+																			<th width="10%"> </th>						
+																		</tfoot>
+																		<tbody>
+																			
+																		</tbody>
+																	</table>
+																</div>
 													      	</div>
 													    </div>
 												  	</div><!--/ Consultas preventivas -->
@@ -313,103 +359,5 @@
 </div>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-
-		/**
-		 * Genera una sub tabla con los detalles de la consulta preventiva
-		 *
-		 * @param json data Objeto con los datos originales de la fila
-		 *
-		 * @return string
-		 */
-		function detallesConsPrev ( data ) {
-		    return '<table cellpadding="5" class="table table-hover table-bordered" cellspacing="0" border="0" style="padding-left:50px;">'+
-		    	'<tr>'+
-		            '<td class="success" width="30%">Motivo de la consulta:</td>'+
-		            '<td width="70%">'+data.motivo+'</td>'+
-		        '</tr>'+
-		        '<tr>'+
-		            '<td class="success" width="30%">Patología:</td>'+
-		            '<td width="70%">'+data.patologia+'</td>'+
-		        '</tr>'+
-		        '<tr>'+
-		            '<td class="success" width="30%">Digestivo:</td>'+
-		            '<td width="70%">'+data.digestivo+'</td>'+
-		        '</tr>'+
-		        '<tr>'+
-		            '<td class="success" width="30%">Examen médico general:</td>'+
-		            '<td width="70%">'+data.examen_medico_general+'</td>'+
-		        '</tr>'+
-		    '</table>';
-		}
-
-		//Inicializar tabla
-		var table = $('#lista-cons-cur').DataTable({
-	        "ajax": {//Extrae los tados a través de Ajax
-	        	"url": $("#base_url").val()+"Consulta/ListarConsultas",//Ruta del request
-	        	"type": "POST",//Tipo de reques (POST)
-	        	"dataType": "json",//Tipo de datos a obtener (objeto JSON)
-	        	"data": {//Datos que se envían por POST
-	        		"cod_historia": $("#cod_historia").val(),
-	        		"tipo_cons": $('#lista-cons-cur').data('tipo_cons')
-	        	},
-	        	"dataSrc": ""//Posición del arreglo de datos por defecto a procesar
-	        },
-	        "columns": [ //Columnas a mostrar
-	            { "data": "fecha_creacion" },//Promera columna: posición 'fecha_creación'
-	            {//Secunda columna: Botón para desplegar información
-	                "className":      'details-control',
-	                "orderable":      false,
-	                "data":           null,
-	                "defaultContent": '<button class=\'btn btn-success btn-sm pull-right\'><span class=\'glyphicon glyphicon-plus\'></span></button>'
-	            }
-	        ],
-	        "language": {//Configuración de idioma
-            	"sProcessing":     "Procesando...",
-    			"sLengthMenu":     "Mostrar _MENU_ registros",
-    			"sZeroRecords":    "No se encontraron resultados",
-    			"sEmptyTable":     "Ningún dato disponible en esta tabla",
-    			"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-    			"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-    			"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-    			"sInfoPostFix":    "",
-    			"sSearch":         "Buscar:",
-    			"sUrl":            "",
-    			"sInfoThousands":  ",",
-    			"sLoadingRecords": "Cargando...",
-    			"oPaginate": {
-    				"sFirst":    "Primero",
-    				"sLast":     "Último",
-    				"sNext":     "Siguiente",
-    				"sPrevious": "Anterior"
-    			},
-    			"oAria": {
-    				"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-    				"sSortDescending": ": Activar para ordenar la columna de manera descendente"
-    			}
-        	}
-	    });
-     
-	    // Añade un lector de evento para abrir y cerrar detalles
-	    $('#lista-cons-cur tbody').on('click', 'td.details-control', function () {
-	        var tr = $(this).closest('tr');
-	        var row = table.row(tr);
-	 
-	        if (row.child.isShown()) {
-	            // Esta fila ya está abierta - cerrarla
-	            row.child.hide();
-	            tr.removeClass('shown');
-	            $(this).children('.btn').removeClass('btn-danger').addClass('btn-success').children('.glyphicon').removeClass('glyphicon-minus').addClass('glyphicon-plus');
-	        }
-	        else {
-	            // Abrir esta fila
-	            row.child(detallesConsPrev(row.data())).show();
-	            tr.addClass('shown');
-	            $(this).children('.btn').removeClass('btn-success').addClass('btn-danger').children('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
-	        }
-	    });
-
-	});
-</script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/detalles-historia-clinica.js"></script>
 <?php include('doctor/footer.php'); ?>

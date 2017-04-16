@@ -218,6 +218,11 @@ table.table > tfoot > tr > td{
 	background: #B2DFDB !important;
 }
 
+.form-shadow{
+	border: 2px #00796B solid !important;
+	background: #ffffff !important;
+}
+
 .paginate_button.active a{
 	background: #00796B !important;
 }
@@ -381,5 +386,10 @@ table.table > tfoot > tr > td{
     -moz-border-top-colors: none;
     background-color: #fff;
     border-color: #00796B #00796B transparent !important;
+}
+
+.sub-historia-record .panel-group .panel .panel-heading{
+	background: #009688;
+	color: #ffffff;
 }
 

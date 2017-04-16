@@ -118,7 +118,7 @@ class ConsultaModel extends CI_Model {
 
     public function ValidarConsulta($condicion = array())
     {
-        $query = $this->ExtraerHistoria($condicion);
+        $query = $this->ExtraerConsulta($condicion);
 
         if ($query->num_rows() > 0) {
             return true;
