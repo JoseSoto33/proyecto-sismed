@@ -214,6 +214,11 @@ class Consulta extends CI_Controller {
                 break;
         }
 
+        $condicion['order_by'] = array(
+            "campo" => "fecha_creacion",
+            "opcion" => "DESC"
+            );
+
         $result = $this->ConsultaModel->ExtraerConsulta($condicion);
 
         if ($result->num_rows() > 0) {

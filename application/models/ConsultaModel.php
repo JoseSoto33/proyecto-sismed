@@ -110,7 +110,7 @@ class ConsultaModel extends CI_Model {
         //Si se definió un orden para los registros
         if (isset($condicion['order_by']) && !empty($condicion['order_by'])) {
             
-            $this->db->order_by($condicion['order_by']);
+            $this->db->order_by($condicion['order_by']['campo'],$condicion['order_by']['opcion']);
         }
 
         return $this->db->get();
