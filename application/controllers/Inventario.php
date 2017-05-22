@@ -42,9 +42,9 @@ class Inventario extends CI_Controller {
             //Si los datos de registro son correctos...
 			if ($this->ValidarInsumo($data, 0) === false) {
 				//Si la Insumo se agrega exitosamente a la base de datos...
-	        	if ($this->InsumoModel->AgregarInsumo()) {
+	        	if ($this->InventarioModel->AgregarInsumo()) {
 
-    				set_cookie("message","El insumo <strong>'".$this->input->post('insumo')."'</strong> fue registrada exitosamente!...", time()+15);
+    				set_cookie("message","El insumo <strong>'".$this->input->post('insumo')."'</strong> fue registrado exitosamente!...", time()+15);
 					header("Location: ".base_url()."Inventario/ListarInsumos"); //controlador y metododo del controlador que carga la vista
 
 				//Si hay error en la inserción
@@ -69,7 +69,7 @@ class Inventario extends CI_Controller {
 					)
 				);
 
-		$result = $this->InsumoModel->ExtraerInsumo($cond);
+		$result = $this->InventarioModel->ExtraerInsumo($cond);
 		//Si los registros encontrados son más de 0...
 		if ($result->num_rows() > 0) {
 			
@@ -85,19 +85,24 @@ class Inventario extends CI_Controller {
 					$condicion = array(
 						"data" => array(
 							"insumo" => $this->input->post('insumo'),
-			     			"descripcion" => $this->input->post('descripcion'),
-			     			"cantidad" => $this->input->post('cantidad'),
-			     			"almacen" => $this->input->post('almacen'),
-			     			"tipo_insumo" => $this->input->post('tipo_insumo')
+							"tipo_insumo" => $this->input->post('tipo_insumo'),
+							"cantidad" => $this->input->post('cantidad'),
+							"unidad_medida" => $this->input->post('unidad_medida'),
+							"numero" => $this->input->post('numero'),
+							"contenido" => $this->input->post('contenido'),
+							"fecha_elaboracion" => $this->input->post('fecha_elaboracion'),
+							"fecha_vencimiento" => $this->input->post('fecha_vencimiento'),
+			     			"descripcion" => $this->input->post('descripcion')
 							),
 			            	"where" => array("MD5(concat('sismed',id))" => $id_insumo) // codifica y compara el campo id de la tabla Insumo con el id que se envia desde el formulario
 			            );
 					//var_dump($condicion);
 				//Si se realiza la modificación exitosamente...
-					if ($this->InsumoModel->ModificarInsumo($condicion)) {
+					if ($this->InventarioModel->ModificarInsumo($condicion)) {
+
 						
 						set_cookie("message","Datos del insumo <strong>'".$this->input->post('insumo')."'</strong> modificados exitosamente!...", time()+15);
-						header("Location: ".base_url()."Insumo/ListarInsumos");
+						header("Location: ".base_url()."Inventario/ListarInsumos");
 
 					//Si ocurre un error durante la modificación...
 					}else{
@@ -130,7 +135,7 @@ class Inventario extends CI_Controller {
 		}
 
 		//Si la modificación se realiza con éxito...
-		if ($this->InsumoModel->ModificarInsumo($condicion)) {
+		if ($this->InventarioModel->ModificarInsumo($condicion)) {
 			
 			$data['result']  = true;
 			$data['message'] = "Operación exitosa!...";
@@ -151,9 +156,9 @@ class Inventario extends CI_Controller {
 
 		$data = array();
 
-		$result = $this->InsumoModel->ExtraerInsumo($condicion);
+		$result = $this->InventarioModel->ExtraerInsumo($condicion);
 	
-		$data["Insumos"] = $result;
+		$data["insumos"] = $result; // la posicion del $data debe tener el mismo nombre que en el formulario de listar
 
 		$this->load->view('medicina/ListarInsumos', $data);//Cargar vista del listado de Insumos
 	}
@@ -168,63 +173,100 @@ class Inventario extends CI_Controller {
 	* @return void|boolean
 	*/
 	public function ValidarInsumo($data, $operacion)
-	{
-		$validar_insumo = array('required','min_length[8]','max_length[255]','regex_match[/([0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ ])+$/]');
-		$mensaje_insumo = array( 
-	        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
-	            'max_length'    => 'La %s debe tener máximo 255 caracteres.',
-	            'regex_match'  	=> 'La %s no pueden contener caracteres especiales, sólo se permiten caracteres alfanumericos',
-	            'required'   	=> 'Debe insertar un %s.'
-	        );
+	{ //[a-zA-ZñÑáéíóúüÁÉÍÓÚÜ ]+
+		$this->form_validation->set_rules(
+		        'insumo', 'Insumo',
+		        array('required','max_length[60]','min_length[1]'),		        	
+		        array(  
+		        	'required'   	=> 'Debe insertar un %s.',
+	                'max_length'    => 'El nombre del %s debe terner un máximo de 60 caracteres',
+	                'min_length'    => 'El campo no debe estar vacio'
+	                
+		        )
+		);
 
 		//Si la operación es un registro de Insumo...
-		if ($operacion == 0) {
+		/*if ($operacion == 0) {
 
-			$validar_insumo[] = 'is_unique[stock.insumo]'; //tabla y campo de la tabla
-			$mensaje_insumo['is_unique'] = 'La %s ya existe';
+			$validar_insumo[] = 'is_unique[stock.id]'; //tabla y campo de la tabla
+			$mensaje_insumo['is_unique'] = 'Este %s ya existe';
 
 		}elseif ($operacion == 1 && isset($data['insumo']))  {
 
-			//Si la Insumo almacenada es diferente a la ingresada por formulario...
-		 	if (strcmp($data['insumo']['nombre'], $_POST['insumo']) != 0) {
+			//Si el Insumo almacenado es diferente al ingresado por formulario...
+		 	if (strcmp($data['stock']['insumo'], $_POST['insumo']) != 0) {
 				
-				$nombre_validacion[] = 'is_unique[insumo.nombre]';
-				$nombre_respuestas['is_unique'] = 'La %s ya ha sido registrada anteriormente.';
+				$nombre_validacion[] = 'is_unique[stock.insumo]';
+				$nombre_respuestas['is_unique'] = 'El %s ya ha sido registrada anteriormente.';
 			}
 		}
 
 		$this->form_validation->set_rules('insumo', 'Insumo',$validar_insumo,$mensaje_insumo);
-
+		*/
 		$this->form_validation->set_rules(
-		        'descripcion', 'Descripción', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
-		        array('min_length[8]','max_length[255]'),		        	
+		        'tipo_insumo', 'Tipo de insumo', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+		        array('required'),		        	
 		        array( 
-		        	'min_length'    => 'La %s debe tener al menos 8 caracteres.',
-		            'max_length'    => 'La %s debe tener máximo 255 caracteres.'
-		                 
-		        )
+		        	'required'    => 'El campo %s no debe estar vacio.'
+		             )
 		);
 
 		$this->form_validation->set_rules(
 		        'cantidad', 'Cantidad', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
-		        array('is_numeric',	'required'),	        	
+		        array('numeric','required'),	        	
 		        array( 
-		        	'is_numeric'  => 'La $s debe ser númerica',
+		        	'numeric'  => 'El campo %s debe ser númerico',
 		        	'required'    => 'Debe ingresar una %s'          
 		        )
 		);  
 
 		$this->form_validation->set_rules(
-		        'tipo_insumo', 'tipo de insumo', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
-		        array('required','min_length[4]','max_length[30]','regex_match[/([0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ ])+$/]'),	        	
+		        'unidad_medida', 'Unidad de Medida', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+		        array('required'),	        	
 		        array( 
-		        	'required'   => 'Debe ingresar un %s',
-		        	'min_length' => 'El %s debe tener al menos 4 caracteres.',
-		        	'max_length' => 'El %s debe tener máximo 30 caracteres.',
-		        	'regex_match'=> 'El %s no pueden contener caracteres especiales, sólo se permiten caracteres alfanumericos';        
+		        	'required'   => 'Debe ingresar al menos una %s'      
 		        )
-		);     
+		);   
 
+		/*$this->form_validation->set_rules(
+		        'numero', 'numero', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+		        array('is_numeric'),	        	
+		        array( 
+		        	'is_numeric'  => 'El campo %s debe ser númerico'     
+		        )
+		);  
+		$this->form_validation->set_rules(
+		        'contenido', 'contenido', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+		        array('is_numeric'),	        	
+		        array( 
+		        	'is_numeric'  => 'El campo %s debe ser númerico'     
+		        )
+		);
+		*/
+		
+		$this->form_validation->set_rules(
+		        'fecha_elaboracion', 'Fecha de Elaboracion', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+		        array('required'),	        	
+		        array( 
+		        	'required'   => 'Debe ingresar al menos una %s'      
+		        )
+		);
+		$this->form_validation->set_rules(
+		        'fecha_vencimiento', 'Fecha de Vencimiento', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+		        array('required'),	        	
+		        array( 
+		        	'required'   => 'Debe ingresar al menos una %s'      
+		        )
+		);
+		$this->form_validation->set_rules(
+		        'descripcion', 'Descripcion', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+		        array('required','max_length[60]','min_length[12]'),	        	
+		        array( 
+		        	'required'   => 'Debe ingresar al menos una %s',
+		        	'max_length' => 'El campo %s no debe contener más de 60 carácteres',
+		        	'min_length' => 'La %s debe contener al menos 12 carácteres'     
+		        )
+		);
 		//Si algún dato es incorrecto...
 		if ($this->form_validation->run() == FALSE) {
 
@@ -236,4 +278,5 @@ class Inventario extends CI_Controller {
 			return false;
 		}
 	}
+
 }

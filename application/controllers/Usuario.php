@@ -109,8 +109,9 @@ class Usuario extends CI_Controller {
             					'apellido2' => $this->input->post('apellido2')
             					)
             			);
+
             		//No exiten usuarios con datos idénticos al que se está registrando...
-            		if (!$this->UsuarioModel->ValidarUsuario($condicion)) {
+            		if ($this->UsuarioModel->ValidarUsuario($condicion) === false) {
             			
             			//Si se realiza el registro exitosamente en la base de datos...
 						if ($this->UsuarioModel->AgregarUsuario($file_info)) {
