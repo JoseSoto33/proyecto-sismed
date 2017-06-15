@@ -73,23 +73,118 @@ class HistoriaClinica extends CI_Controller {
     /**
      * Muestra el listado de historias clínicas registradas en el sistema
      *
+     * @param string $cod_historia Deberá contener el identificador único de la histoira clínica
+     *
      * @return void
      */
-    public function ConsultarHistoriaClinica()
+    public function ConsultarHistoriaClinica($cod_historia)
     {
-    	
+        $data = array("titulo" => "Historia Clínica");
+
+    	$condicion = array(
+            'where' => array("MD5(concat('sismed',cod_historia))" => $cod_historia)
+            );
+
+        $result = $this->HistoriaModel->ExtraerHistoria($condicion);
+
+        if ($result->num_rows() > 0) {
+            
+            $data['historia'] = $result->row_array();
+            $condicion = array(
+                'where' => array("id" => $data['historia']['id_paciente'])
+                );
+
+            $result = $this->PacienteModel->ExtraerPaciente($condicion);
+
+            if ($result->num_rows() > 0) {
+                
+                $data['paciente'] = $result->row_array();
+
+                $condicion = array(
+                    "where" => array("cod_historia" => $data['historia']['cod_historia'])
+                    );
+
+                $tablas = array("historia_medicina");
+
+                foreach ($tablas as $key => $tabla) {
+                    
+                    $condicion['from'] = $tabla;
+
+                    $result = $this->HistoriaModel->ExtraerHistoria($condicion);
+
+                    $data[$tabla]['rows'] = $result->num_rows();
+                    $data[$tabla]['data'] = $result->row_array();
+                }
+
+                
+
+            }else{
+
+                $data['mensaje'] = "Error. El paciente se ha registrado...";
+            }
+
+        }else{
+
+            $data['mensaje'] = "Error. No se encontró la historia clínica...";
+        }
+
+        $this->load->view('medicina/DetallesHistoriaClinica', $data);
     }
 
     /**
-     * Registra una nueva historia clínica, dependiendo del tipo de usuario
+     * Registra una nueva historia clínica, dependiendo del tipo de usuario     
      *
-     * @param string $data Contiene el código de la historia clínica y el id del paciente
-     * codificado con url_encode
-     *
-     * @return void
+     * @return json
      */
-    public function CrearHistoriaClinica($data = null)
+    public function CrearHistoriaClinica()
     {
-        $cods = explode("_", $data);
+        /**
+         * @var mixed[] $data Contendrá los datos que se almacenarán en la BDD. 
+         *
+         *      mixed[] insert  Arreglo con los datos que seran insertados en la BDD. Dependiendo del tipo de usaurio
+         * los datos que almacena varían. 
+         *
+         *              integer     id_paciente     El identificador único de la persona en la tabla peciente
+         *              string      cod_historia    El que será el identificador único de la historia clínica
+         *
+         *              Si la historia se crea en la unidad de medicina...
+         *              antecedentes_personales     Contiene información referente a los antecedentes del paciente registrado,
+         *                                          enfermedades padecidas actual o previamente, intervenciones quirúrgicas,
+         *                                          ect...
+         *              antecedentes_familiares     Contiene información referente a los antecedentes de familiares del paciente,
+         *                                          enfermedades padecidas actual o previamente, intervenciones quirúrgicas,
+         *                                          ect...
+         *
+         *      string  table   Contiene el nombre de la tabla donde serán almacenados los datos
+         */
+        $data['insert']['id_paciente'] = $this->input->post('id_persona');
+        $data['insert']['cod_historia'] = $this->input->post('cod_historia');
+
+        switch ($this->session->userdata('especialidad')) {
+            case 'Medicina':
+                $data['table'] = "historia_medicina";
+                $data['insert']['antecedentes_personales'] = $this->input->post('antecedentes_personales');
+                $data['insert']['antecedentes_familiares'] = $this->input->post('antecedentes_familiares');
+                break;
+            
+            case 'Odontología':
+                # Code...
+                break;
+
+            case 'Laboratorio':
+                # Code...
+                break;
+
+            case 'Nutrición':
+                # Code...
+                break;
+        }
+
+        if ($this->HistoriaModel->AgregarHistoria($data)) {
+            
+            echo json_encode(array('status' => true, 'message' => "Se ha creado la historia clínica exitosamente"));
+        }else{
+            echo json_encode(array('status' => false, 'message' => $this->db->error())); 
+        }
     }
 }

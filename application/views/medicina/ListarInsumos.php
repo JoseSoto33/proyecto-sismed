@@ -48,25 +48,54 @@
 
 								foreach ($insumos->result_array() as $key => $insumo) {
 									
-									echo "<tr id=\"fila_".md5('sismed'.$insumo["id"])."\">";
+									if($insumo["status"] === 'f')
+									{
+										echo "<tr class=\"danger\" id=\"fila_".md5('sismed'.$insumo["id"])."\">";
+
+									}else{
+										echo "<tr id=\"fila_".md5('sismed'.$insumo["id"])."\">";
+									}
 									echo "<td>".$cont++."</td>";
 									echo "<td>".$insumo["insumo"]."</td>";
 									echo "<td>".$insumo["tipo_insumo"]."</td>";	
-									echo "<td>".$insumo["contenido"]."</td>";	
-									echo "<td>".$insumo["disponibilidad"]."</td>";				
+									echo "<td>".str_replace("-", "", $insumo["contenido"])."</td>";	
+									echo "<td>".$insumo["disponibilidad"]." ".$insumo["unidad_medida"]."</td>";				
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 
+									if($insumo["status"] === 't')
+									{
+
+									//--Boton ver lote//
+										echo "<a class=\"btn btn-sm btn-primary editar-insumo\" href=\"".base_url("Inventario/ModificarInsumo/".md5('sismed'.$insumo["id"]))."\" title=\"Ver lote\">";
+										echo "<span class=\"glyphicon glyphicon-search\"></span>";
+										echo "</a>";
 									//---Boton editar---
-									echo "<a class=\"btn btn-sm btn-success editar-insumo\" href=\"".base_url("Insumo/ModificarInsumo/".md5('sismed'.$insumo["id"]))."\" title=\"Editar insumo\">";
-									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
-									echo "</a>";
+										echo "<a class=\"btn btn-sm btn-success editar-insumo\" href=\"".base_url("Inventario/ModificarInsumo/".md5('sismed'.$insumo["id"]))."_stock\" title=\"Editar insumo\">";
+										echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
+										echo "</a>";
 
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-sm btn-danger eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\">";
-									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
+										echo "<a class=\"btn btn-sm btn-danger eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\">";
+										echo "<span class=\"glyphicon glyphicon-remove\"></span>";
+										echo "</a>";
+								    }else{
+								    	echo "<a class=\"btn btn-sm btn-success eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\">";
+										echo "<span class=\"glyphicon glyphicon-ok\"></span>";
+										echo "</a>";
+								    }
+
+									//---Boton Añadir lote---
+									/*echo "<a class=\"btn btn-sm btn-success añadir-lote\" href=\"".base_url("Inventario/ModificarInsumo/".md5('sismed'.$insumo["id"]))."\" title=\"Añadir lote\">";
+									echo "<span class=\"glyphicon glyphicon-plus-sign\"></span>";
 									echo "</a>";
 
+
+									//---Boton Descontar lote---
+									echo "<a class=\"btn btn-sm btn-danger descontar-lote\" href=\"".base_url("Inventario/ModificarInsumo/".md5('sismed'.$insumo["id"]))."\" title=\"Descontar lote\">";
+									echo "<span class=\"glyphicon glyphicon-minus-sign\"></span>";
+									echo "</a>";
+									*/
 									echo "</div>";
 									echo "</td>";
 									echo "</tr>";

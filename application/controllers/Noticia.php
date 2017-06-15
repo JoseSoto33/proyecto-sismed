@@ -63,7 +63,7 @@ class Noticia extends CI_Controller {
 		        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
 
 		        //Si se cargó el archivo correctamente...
-		        if ($file_info != false) {
+		        if (!isset($_FILES['imagen']) || (isset($_FILES['imagen']) && $file_info != false)) {
 
 					$condicion = array(
 							'where' => array(

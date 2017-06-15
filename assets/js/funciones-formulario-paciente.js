@@ -32,19 +32,30 @@ $(document).ready(function(){
     });
 
     $('#registro-paciente').validator();  
-/*
-    $("#cedula").on("keyup", function(e){
 
-        var cedula = $(this).val();
+
+    $('[data-toggle="tooltip"]').tooltip({
+        delay: { 
+            "show": 50,
+            "hide": 1000 
+        }
+    });
+
+    $("#search").on("click", function(e){
+
+        e.preventDefault();
+        var cedula = $("#cedula").val();
+
+        $("#ced-load span").hide();
+        $("#ced-load .loading-2").show();
 
         validarpaciente(cedula);
-    });*/
+    });
 
-    $("#cedula").on("focusout", function(e){
+    $("#reset").on("click", function(e){
 
-        var cedula = $(this).val();
-
-        validarpaciente(cedula);
+        e.preventDefault();
+        formReset();
     });
 
     $("#registro-paciente").on("submit", function(){
@@ -52,6 +63,10 @@ $(document).ready(function(){
         $(this).attr("disabled","disabled");
         $('#seccion2').animate({scrollTop : 0}, 500);
     });
+
+    if ($("#cod_historia").length > 0) {
+        crearHistoriaClinica();
+    }
 
     /**
      * Validar paciente en la base de datos
@@ -76,18 +91,16 @@ $(document).ready(function(){
                 
                 formActivate(response);
 
-                if (response['result']) {                    
-                    
-
-                }else{
-                    //alert(response['message']);
-                }
+                $("#ced-load span").show();
+                $("#ced-load .loading-2").hide();                
                 
             });
 
             request.fail(function (jqXHR, textStatus, thrown){
                 alert('Error: '+textStatus);
                 //alert(thrown);
+                $("#ced-load span").show();
+                $("#ced-load .loading-2").hide();
             });
         }
     }
@@ -99,7 +112,6 @@ $(document).ready(function(){
 
         if (response['result']) {
 
-            //alert(response['result']);
             $.each(response['paciente'], function(index, value){
                 console.log(index+": "+value);
 
@@ -108,11 +120,7 @@ $(document).ready(function(){
                     if (index == 'sexo') {
                         $("input[type=radio]").prop("checked",false);
                     }else{
-                        $("#"+index).prop("readonly",false);
-                        /*if (index == 'tipo_paciente' || index == 'departamento'){
-
-                            $("#"+index).trigger('chosen:updated');
-                        }*/
+                        $("#"+index).prop("readonly",false);                       
                     }
                 }else{
 
@@ -127,20 +135,16 @@ $(document).ready(function(){
                         $("input[type=radio]").prop("readonly",true);
 
                     }else if (index == 'tipo_paciente' || index == 'departamento') {
-                        
-                        //var selected = false;
+                       
                         $("#"+index+" option").prop("readonly",true)
                         $("#"+index+" option").each(function(i, val){
                             
                             if ($(this).val() == value.substr(0,1).toUpperCase()+$(this).val().substr(1)) {
-                                //$(this).attr("selected","selected"); 
+                                 
                                 $(this).prop("selected",true);
-                            }//else{
-                                //$(this).attr("selected",null);
-                            //}
+                            }
                         });
                                             
-                        //$("#"+index).trigger('chosen:updated');
                         setTimeout( function(){
                             $("#"+index).prop("readonly",true);
                         }, 60);
@@ -150,12 +154,13 @@ $(document).ready(function(){
                        
                         $("#"+index).html(value.trim()).prop("readonly",true);
 
+                    }else if (index == 'cod_historia' && value != '') {
+                        $("#verHistoria").attr("href",url+"HistoriaClinica/ConsultarHistoriaClinica/"+value.trim()).removeClass("disabled");
                     }else{
                         $("#"+index).val(value).prop("readonly",true); 
                     }                
                 }
                 $(".form-group select.form-control").trigger('chosen:updated');
-                $("#cedula").prop("readonly",false);
             });
 
         }else{
@@ -163,24 +168,89 @@ $(document).ready(function(){
             $("input.form-control").prop("readonly",false).val("");
             $("textarea.form-control").prop("readonly",false).html("");
             $("input[type=radio]").prop("readonly",false).prop("checked",false);
-            //$("select.form-control").prop("disabled",false);
-            //$("select.form-control option").removeAttr("selected");
             
             $(".form-group select.form-control option").each(function(i, val){
                 
                 if ($(this).html() == null || $(this).html() == "" || $(this).html() == " ") {
                     $(this).prop("selected",true);
-                }/*else{
-                    $(this).attr("selected",null);
-                }*/
+                }
                 
             });
             $(".form-group select.form-control").trigger('chosen:updated');
             $(".form-group select.form-control").prop("checked",false);
 
             $("#cedula").val(cedula);
-        }
 
+            $("#verHistoria").attr("href","#").addClass("disabled");
+        }        
+    }
+
+    /**
+     * Resetea el formulario
+     */
+    function formReset(){
+
+        $("input.form-control").prop("readonly",true).val("");
+        $("textarea.form-control").prop("readonly",true).html("");
+        $("input[type=radio]").prop("readonly",true).prop("checked",false);
+        //$("select.form-control").prop("disabled",false);
+        //$("select.form-control option").removeAttr("selected");
         
+        $(".form-group select.form-control option").each(function(i, val){
+            
+            if ($(this).html() == null || $(this).html() == "" || $(this).html() == " ") {
+                $(this).prop("selected",true);
+            }            
+        });
+        $(".form-group select.form-control").trigger('chosen:updated');
+        $(".form-group select.form-control").prop("readonly",true);
+
+        $("#cedula").prop("readonly",false).val("");
+        $("#verHistoria").attr("href","#").addClass("disabled");
+    }
+
+    /**
+     *
+     */
+    function crearHistoriaClinica(){
+
+        var request;
+        var html;
+
+        if (request) {
+            request.abort();
+        }
+       
+        request = $.ajax({
+            url: url+"HistoriaClinica/CrearHistoriaClinica",
+            type: "POST",
+            dataType: "json",
+            data: $("#registro-paciente").serialize()
+        });
+
+        request.done(function (response, textStatus, jqXHR){            
+            
+            //alert(response['info']);
+            if (response['status'] === true) {
+
+                html = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>"+response['message'];
+                $(".alert").removeClass('alert-danger').removeClass('alert-warning').addClass('alert-success').html(html);
+
+                setTimeout( function(){                  
+                     window.location.href = url+"HistoriaClinica/ListarHistorias";  
+                }, 5000);
+            }else{
+                html = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>"+response['message'];
+                $(".alert").removeClass('alert-success').removeClass('alert-warning').addClass('alert-danger').html(html);
+            }
+            
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            alert('Error: '+textStatus);
+            
+            html = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>"+response['message'];
+            $(".alert").removeClass('alert-success').removeClass('alert-warning').addClass('alert-danger').html(html);
+        });
     }
 });

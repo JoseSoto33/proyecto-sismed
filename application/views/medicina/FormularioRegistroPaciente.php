@@ -13,6 +13,13 @@
 						<?php echo $mensaje; ?>
 					</div>					
 				<?php } ?>
+
+				<?php if(isset($info) && !empty($info)) { ?>
+					<div class="alert alert-warning" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<?php echo $info; ?>
+					</div>					
+				<?php } ?>
 			</div>		
 			
 			<div class="col-sm-12">
@@ -35,7 +42,12 @@
 						</h2>
 					</div>
 					<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
-					<input type="hidden" name="id_usuario" id="id" value="">
+					<input type="hidden" name="id_persona" id="id" value="<?php echo (isset($id_persona))? $id_persona : ''; ?>">
+					<?php
+						if (isset($cod_historia)) {
+							echo "<input type=\"hidden\" name=\"cod_historia\" id=\"cod_historia\" value=\"$cod_historia\">";
+						}
+					?>
 					<hr class="form-divisor-line">
 					<div class="col-sm-12">	
 						<div class="row">
@@ -43,14 +55,30 @@
 								<div class="form-group">
 									<label for="cedula" class="col-sm-4 control-label"><span class="red">*</span> Cédula:</label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" id="cedula" name="cedula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" value="<?php echo (isset($paciente['cedula']))? $paciente['cedula'] : set_value('cedula'); ?>" required="required" title="Sólo números de 6 a 8 dígitos" placeholder="Sólo números de 6 a 8 dígitos" data-pattern-error="La cédula solo debe contener números de 6 a 8 dígitos"> 
-								      	<div class="help-block with-errors">
-								      	</div>
+								    	<div class="input-group">
+								    		<div class="input-group-btn">
+												<button id="search" class="btn btn-second" data-toggle="tooltip" data-placement="bottom" title="Buscar...">
+													<span class="glyphicon glyphicon-search"></span>
+												</button>	
+											</div>											
+									      	<input type="text" class="form-control" id="cedula" name="cedula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" value="<?php echo (isset($paciente['cedula']))? $paciente['cedula'] : set_value('cedula'); ?>" required="required" title="Sólo números de 6 a 8 dígitos" placeholder="Sólo números de 6 a 8 dígitos" data-pattern-error="La cédula solo debe contener números de 6 a 8 dígitos">	
+									      	<div class="input-group-btn">								
+												<button id="reset" class="btn btn-second-2" data-toggle="tooltip" data-placement="bottom" title="Limpiar formulario...">
+													<span class="glyphicon glyphicon-refresh"></span>
+												</button>
+											</div>
+									    </div>
+									    <div class="help-block with-errors">
+									    </div>
 								    </div>
 								</div>
 							</div>
 							<div class="col-sm-6">
-								<h6 class="instructions">Ingrese una cédula para verificar que el paciente a tenga una historia clínica registrada...</h6>
+								<a id="verHistoria" class="btn btn-primary disabled" href="#">
+									<span class="glyphicon glyphicon-arrow-right"></span>
+									Ver historia
+								</a>
+								<!--<h6 class="instructions">Ingrese una cédula para verificar que el paciente a tenga una historia clínica registrada...</h6>-->
 							</div>
 						</div>
 					</div>
@@ -294,7 +322,7 @@
 					<div class="col-sm-12">
 						<div class="col-sm-4 col-sm-offset-4">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<a href="<?php echo base_url(); ?>Usuario/ListarUsuarios" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
+							<a href="<?php echo base_url(); ?>HistoriaClinica/ListarHistorias" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
 				<?php echo form_close(); ?>		

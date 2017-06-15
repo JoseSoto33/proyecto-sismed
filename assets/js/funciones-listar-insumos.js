@@ -37,9 +37,9 @@ $(document).ready(function(){
     }
 
 
-    $(".table-responsive").on("click", "#lista-patologias tbody tr td .eliminar-insumo", function(e){
+    $(".table-responsive").on("click", "#listar-insumos tbody tr td .eliminar-insumo", function(e){
 
-    	var idinsumo = $(this).data("idinsumo"); 
+    	var idinsumo = $(this).data("idinsumo"); //lo que va en data viene del html data-idinsumo del ListarInsumos
     	var nombre = $(this).data("nombre"); 
 
         $("#delete-message").hide();

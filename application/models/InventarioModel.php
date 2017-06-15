@@ -10,9 +10,9 @@ class InventarioModel extends CI_Model {
 	public function AgregarInsumo()
 	{
 
-        $contenido = $this->input->post('numero').$this->input->post('contenido');
+        $contenido = $this->input->post('numero')."-".$this->input->post('contenido');
         $almacen = 'Salud';
-      
+    
         $var1= 1;
      	$data = array(
      			"insumo" => $this->input->post('insumo'),
@@ -20,7 +20,8 @@ class InventarioModel extends CI_Model {
                 "almacen" => $almacen,
                 "tipo_insumo" => $this->input->post('tipo_insumo'), 
                 "contenido" =>$contenido,
-                "disponibilidad" =>$this->input->post('cantidad')
+                "disponibilidad" =>$this->input->post('cantidad'),
+                "unidad_medida" => $this->input->post('unidad_medida') 
      		);
         //faltan almacen y disponibilidad
 
@@ -28,14 +29,12 @@ class InventarioModel extends CI_Model {
             $id = $this->db->insert_id();
             $data = array();
             $fecha_actual= date("Y-m-d");
-            var_dump($fecha_actual);
             $data = array(
                     "id_insumo" =>$id,
                     "fecha_registro" => $fecha_actual,
                     "fecha_elaboracion" => $this->input->post('fecha_elaboracion'),
                     "fecha_vencimiento" => $this->input->post('fecha_vencimiento'),
-                    "cantidad" => $this->input->post('cantidad'),
-                    "unidad_medida" => $this->input->post('unidad_medida')               
+                    "cantidad" => $this->input->post('cantidad')              
                 );
             if($this->db->insert("lote_insumo", $data)){
                 return true;
@@ -103,6 +102,12 @@ class InventarioModel extends CI_Model {
     	}
     	$this->db->from("stock"); // tabla desde la cual extraer los datos
 
+        //Si está definida una cláusula 'join'
+        if (isset($condicion['join']) && !empty($condicion['join'])) {
+            
+            $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion']);
+        }
+
     	if (isset($condicion['where']) && !empty($condicion['where'])) {
     		
     		$this->db->where($condicion['where']);
@@ -120,4 +125,37 @@ class InventarioModel extends CI_Model {
 
     	return $this->db->get();
 	}
+    public function ExtraerLote($condicion = array())
+    {
+        if (isset($condicion['select']) && !empty($condicion['select'])) {
+            
+            $this->db->select($condicion['select']);
+        }else{
+            $this->db->select("*");
+        }
+        $this->db->from("lote_insumo"); // tabla desde la cual extraer los datos
+
+        //Si está definida una cláusula 'join'
+        if (isset($condicion['join']) && !empty($condicion['join'])) {
+            
+            $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion']);
+        }
+
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
+
+        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
+            
+            $this->db->or_where($condicion['or_where']);
+        }
+
+        if (isset($condicion['order_by']) && !empty($condicion['order_by'])) {
+            
+            $this->db->order_by($condicion['order_by']['campo'],$condicion['order_by']['direccion']);
+        }
+
+        return $this->db->get();
+    }
 }

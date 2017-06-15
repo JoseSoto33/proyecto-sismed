@@ -1,5 +1,4 @@
 /*=============================General=============================*/
-
 hr.divisor-line{
 	border-color: #00796B !important;	
 }
@@ -53,14 +52,14 @@ hr.form-divisor-line{
 .btn-principal-2{
 	background: #ffffff;
 	border-color: #00796B; 
-	color: #00796B;
+	color: #00796B !important;
 }
 
 .btn-principal-2:hover,
 .btn-principal-2:focus,
 .btn-principal-2.focus{
 	background: #00796B;
-	color: #ffffff;
+	color: #ffffff !important;
 }
 
 .btn-second-2{
@@ -219,6 +218,11 @@ table.table > tfoot > tr > td{
 	background: #B2DFDB !important;
 }
 
+.form-shadow{
+	border: 2px #00796B solid !important;
+	background: #ffffff !important;
+}
+
 .paginate_button.active a{
 	background: #00796B !important;
 }
@@ -361,3 +365,31 @@ table.table > tfoot > tr > td{
 #tabla-info table > tbody > tr > td{
 	border: 1px #00796B solid;
 }
+
+/*----------HISTORIA CLÍNICA----------*/
+
+#sub-historia .nav-tabs > li > a,
+#sub-historia .nav-tabs > li.active > a{
+	color: #00796B;
+}
+
+#sub-historia .nav-tabs > li > a{
+	border-bottom: 1px #00796B solid !important;
+}
+
+#sub-historia .nav-tabs > li.active > a, 
+#sub-historia .nav-tabs > li.active > a:focus, 
+#sub-historia .nav-tabs > li.active > a:hover{
+	-moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background-color: #fff;
+    border-color: #00796B #00796B transparent !important;
+}
+
+.sub-historia-record .panel-group .panel .panel-heading{
+	background: #009688;
+	color: #ffffff;
+}
+

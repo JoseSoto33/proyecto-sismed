@@ -93,8 +93,9 @@ li{
 }
 
 .center{
-	display: table;
-	margin: 0 auto;
+	display: table !important;
+	margin: 0 auto !important;
+	float: none !important;
 }
 
 hr.divisor-line{
@@ -208,13 +209,6 @@ a.navbar-brand{
 	color: #ffffff !important;
 }
 
-img.loading{
-	display: none;
-	width: 33px;
-	height: 33px;
-	float: right;
-	position: relative;
-}
 
 /*Portada*/
 #portada{
@@ -244,7 +238,8 @@ img.loading{
  	padding-top: 20px;
  }
 
-.form-basic{
+.form-basic,
+.form-shadow{
 	float: left;
 	position: relative;
 	padding-top: 15px;
@@ -256,8 +251,15 @@ img.loading{
 	border-radius: 10px;
 }
 
+.form-shadow{
+	-webkit-box-shadow: 0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	-moz-box-shadow:    0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	box-shadow:         0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+}
+
 .form-horizontal .mensaje,
-.form-basic .mensaje{
+.form-basic .mensaje,
+.form-shadow .mensaje{
 	width: 100%;	 
 	margin-top: -15px;
 	position: absolute;
@@ -273,12 +275,22 @@ figure.load-content{
 	left: 160px;
 	top: 0;
 }
-img.loading{
+
+img.loading,
+img.loading-2{
 	display: none;
-	width: 33px;
-	height: 33px;
 	float: right;
 	position: relative;
+}
+
+img.loading{	
+	width: 33px;
+	height: 33px;
+}
+
+img.loading-2{	
+	width: 20px;
+	height: 20px;
 }
 
 img.countdown{
@@ -343,6 +355,7 @@ span.red{
 #seccion1,
 #seccion2,
 #seccion3,
+#seccion4,
 #div-noticias,
 #div-eventos,
 #footer,
@@ -417,7 +430,8 @@ span.red{
 
 /*----------SECCION 2----------*/
 
-#seccion2{
+#seccion2,
+#seccion4{
 	padding: 0 !important;
 	min-height: 450px;
 	background: transparent;
@@ -877,4 +891,53 @@ span.red{
 #tabla-info > h3 > span.glyphicon,
 #sesiones-content > h3 > span.glyphicon{
 	color: #D76519;
+}
+
+
+/*-----------HISTORIA CLÍNICA-----------*/
+
+#seccion4{
+	background: #dddddd;
+}
+
+#hist-content{
+	margin: 30px auto !important;
+	border: 1px #dddddd solid;
+	background: #ffffff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: 0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	-moz-box-shadow:    0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	box-shadow:         0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+}
+
+#hist-content .hist-header,
+#hist-content .hist-body{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+#hist-content .hist-header{
+	padding-top: 30px;	
+}
+
+#hist-content .hist-header img.logo,
+img.general-logo{
+	height: 70px;
+	width: auto;
+}
+
+#hist-content .hist-body{
+	padding: 15px 0px;
+}
+
+#sub-historia{
+	margin-top: 30px;
+	padding-bottom: 50px;
+}
+
+#sub-historia .tab-content .tab-pane{
+	padding-top: 30px;
 }

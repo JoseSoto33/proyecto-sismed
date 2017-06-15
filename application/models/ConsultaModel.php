@@ -1,6 +1,6 @@
 <?php
 
-class HistoriaModel extends CI_Model {
+class ConsultaModel extends CI_Model {
 
     public function __construct()
     {
@@ -8,10 +8,10 @@ class HistoriaModel extends CI_Model {
     }
 
     /**
-     * @method boolean AgregarHistoria()
-     * @method boolean ModificarHistoria(mixed[] $condicion)
-     * @method object ExtraerHistoria(mixed[] $condicion)
-     * @method boolean ValidarHistoria(mixed[] $condicion)
+     * @method boolean AgregarConsulta()
+     * @method boolean ModificarConsulta(mixed[] $condicion)
+     * @method object ExtraerConsulta(mixed[] $condicion)
+     * @method boolean ValidarConsulta(mixed[] $condicion)
      */
 
     /**
@@ -25,7 +25,7 @@ class HistoriaModel extends CI_Model {
      *
      * @return boolean
      */
-    public function AgregarHistoria($data = array())
+    public function AgregarConsulta($data = array())
     {
         if($this->db->insert($data['table'], $data['insert'])){
            
@@ -35,12 +35,12 @@ class HistoriaModel extends CI_Model {
         }
     }
 
-    public function ModificarHistoria($condicion = array())
+    public function ModificarConsulta($condicion = array())
     {
 
     }
 
-    public function ExtraerHistoria($condicion = array())
+    public function ExtraerConsulta($condicion = array())
     {
         //Si se declaró una sentencia SQL personalizada...
         if (isset($condicion['query']) && !empty($condicion['query'])) {
@@ -69,13 +69,30 @@ class HistoriaModel extends CI_Model {
 
         //Si no...
         }else{            
-            $this->db->from("historia_clinica AS historia");
+            $this->db->from("consulta");
         }
 
-        //Si está definida una cláusula 'join'
+        //Si está definida una cláusula 'where'
         if (isset($condicion['join']) && !empty($condicion['join'])) {
             
-            $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion']);
+            if (isset($condicion['join']['tipo'])) {
+                $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion'],$condicion['join']['tipo']);
+            }else{
+                $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion']);
+            }
+        }
+
+        //Si están definidas varias cláusula 'where'
+        if (isset($condicion['joins']) && !empty($condicion['joins'])) {
+            
+            foreach ($condicion['joins'] as $key => $join) {
+                
+                if (isset($join['tipo'])) {
+                    $this->db->join($join['tabla'],$join['condicion'],$join['tipo']);
+                }else{
+                    $this->db->join($join['tabla'],$join['condicion']);
+                }
+            }
         }
 
         //Si está definida una cláusula 'where'
@@ -93,15 +110,15 @@ class HistoriaModel extends CI_Model {
         //Si se definió un orden para los registros
         if (isset($condicion['order_by']) && !empty($condicion['order_by'])) {
             
-            $this->db->order_by($condicion['order_by']);
+            $this->db->order_by($condicion['order_by']['campo'],$condicion['order_by']['opcion']);
         }
 
         return $this->db->get();
     }
 
-    public function ValidarHistoria($condicion = array())
+    public function ValidarConsulta($condicion = array())
     {
-        $query = $this->ExtraerHistoria($condicion);
+        $query = $this->ExtraerConsulta($condicion);
 
         if ($query->num_rows() > 0) {
             return true;
