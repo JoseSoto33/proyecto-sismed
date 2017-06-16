@@ -44,6 +44,7 @@ class InventarioModel extends CI_Model {
      	}
         //falta la fecha de registro (hay q almacenar la fecha actual)
 	}
+
 	public function ModificarInsumo($condicion = array())
 	{
 		if (isset($condicion['where']) && !empty($condicion['where'])) {
@@ -62,6 +63,7 @@ class InventarioModel extends CI_Model {
             return false;
         }
 	}
+
 	public function EliminarInsumo($condicion = array())
 	{
 		if (isset($condicion['where']) && !empty($condicion['where'])) {
@@ -125,6 +127,7 @@ class InventarioModel extends CI_Model {
 
     	return $this->db->get();
 	}
+
     public function ExtraerLote($condicion = array())
     {
         if (isset($condicion['select']) && !empty($condicion['select'])) {
@@ -133,6 +136,7 @@ class InventarioModel extends CI_Model {
         }else{
             $this->db->select("*");
         }
+        
         $this->db->from("lote_insumo"); // tabla desde la cual extraer los datos
 
         //Si está definida una cláusula 'join'

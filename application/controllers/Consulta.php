@@ -32,10 +32,10 @@ class Consulta extends CI_Controller {
     }
 
     /**
-     * @method AgregarConsulta()
-     * @method ModificarModificar(integer $id_consulta)
-     * @method ValidarConsulta(mixed[] $data)
-     * @method VerConsulta()
+     * @method void AgregarConsulta()
+     * @method void ModificarModificar(integer $id_consulta)
+     * @method void VerConsulta()
+     * @method void|boolean ValidarConsulta(mixed[] $data)
      */
 
     /**

@@ -67,7 +67,7 @@
 									{
 
 									//--Boton ver lote//
-										echo "<a class=\"btn btn-sm btn-primary editar-insumo\" href=\"".base_url("Inventario/ModificarInsumo/".md5('sismed'.$insumo["id"]))."\" title=\"Ver lote\">";
+										echo "<a class=\"btn btn-sm btn-primary ver-lotes\" data-toggle=\"modal\" data-target=\"#VerLote\" title=\"Ver lotes\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\">";
 										echo "<span class=\"glyphicon glyphicon-search\"></span>";
 										echo "</a>";
 									//---Boton editar---
@@ -75,12 +75,15 @@
 										echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 										echo "</a>";
 
-									//---Boton eliminar---
-										echo "<a class=\"btn btn-sm btn-danger eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\">";
+									//---Boton deshabilitar---
+										echo "<a class=\"btn btn-sm btn-danger eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\" data-action=\"deshabilitar\">";
 										echo "<span class=\"glyphicon glyphicon-remove\"></span>";
 										echo "</a>";
+
 								    }else{
-								    	echo "<a class=\"btn btn-sm btn-success eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\">";
+
+								    //---Boton habilitar---
+								    	echo "<a class=\"btn btn-sm btn-success eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\" data-action=\"habilitar\">";
 										echo "<span class=\"glyphicon glyphicon-ok\"></span>";
 										echo "</a>";
 								    }
@@ -109,7 +112,44 @@
 	</div>
 </div>
 
-
+<!-- Eliminar insumo -->
+<div class="modal fade" id="VerLote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Listado de lotes</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">        	
+        	<div class="col-xs-12 table-responsive">
+        		<h3 id="lote-title">Lotes de <span id="el-lote-insumo"></span></h3>
+        		<table id="insumo-lotes" class="table table-bordered table-hover table-striped">
+        			<thead>
+        				<th>Cantidad</th>
+        				<th>Fecha de elaboración</th>
+        				<th>Fecha de vencimiento</th>
+        				<th></th>
+        			</thead>
+        			<tbody>
+        				
+        			</tbody>
+        			<tfoot>
+        				<th>Cantidad</th>
+        				<th>Fecha de elaboración</th>
+        				<th>Fecha de vencimiento</th>
+        				<th></th>
+        			</tfoot>
+        		</table>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Eliminar insumo -->
 <div class="modal fade" id="EliminarInsumo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -122,13 +162,13 @@
       <div class="modal-body">
         <div class="row">
         	<div class="col-xs-12">
-        		<h3 id="delete-title">¿Está seguro que desea eliminar este insumo "<span id="el-insumo"></span>"?</h3>
+        		<h3 id="delete-title">¿Está seguro que desea <span id="action-title"></span> este insumo "<span id="el-insumo"></span>"?</h3>
         		<div id="delete-message" class="alert"></div>
         	</div>
         </div>
       </div>
       <div class="modal-footer">
-      	<button type="button" id="accion-eliminar-insumo" class="btn btn-principal-2" data-idinsumo="">Eliminar</button>
+      	<button type="button" id="accion-eliminar-insumo" class="btn btn-principal-2" data-idinsumo="" data-accion="">Aceptar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

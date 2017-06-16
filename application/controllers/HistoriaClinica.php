@@ -34,8 +34,8 @@ class HistoriaClinica extends CI_Controller {
     }
 
     /**
-     * @method ListarHistorias()
-     * @method ConsultarHistoriaClinica(integer $id_evento)
+     * @method void ListarHistorias()
+     * @method void ConsultarHistoriaClinica(integer $id_evento)
      */
 
     /**

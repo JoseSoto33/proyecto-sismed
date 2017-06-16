@@ -41,16 +41,20 @@ $(document).ready(function(){
 
     	var idinsumo = $(this).data("idinsumo"); //lo que va en data viene del html data-idinsumo del ListarInsumos
     	var nombre = $(this).data("nombre"); 
+        var action = $(this).data("action");
 
         $("#delete-message").hide();
-
+        
+        $("#action-title").html(action);
     	$("#el-insumo").html(nombre);
     	$("#accion-eliminar-insumo").data('idinsumo', idinsumo);
+        $("#accion-eliminar-insumo").data('action', action);
     });
 
     $(".modal-footer").on("click", "#accion-eliminar-insumo", function(e){
 
-        var idinsumo = $(this).data("idinsumo");        
+        var idinsumo = $(this).data("idinsumo"); 
+        var action = $(this).data("action");       
 
         var request;
         if (request) {
@@ -61,7 +65,7 @@ $(document).ready(function(){
             url: url+"Inventario/EliminarInsumo",
             type: "POST",
             dataType: "json",
-            data: "id="+idinsumo
+            data: "id="+idinsumo+"&action="+action
         });
 
         request.done(function (response, textStatus, jqXHR){            
@@ -70,10 +74,12 @@ $(document).ready(function(){
             	
             	$("#delete-title").hide();
             	$("#delete-message").removeClass('alert-danger').addClass('alert-success').removeClass('hidden').html(response['message']).show();
-            	$("#accion-eliminar-insumo").attr('disabled','disabled');
+            	$("#accion-eliminar-insumo").attr('disabled','disabled');                
 
-                tabla.row($("#fila_"+idinsumo)).remove().draw();           	
-
+                setTimeout( function(){                  
+                     window.location.href = url+"Inventario/ListarInsumos";  
+                }, 5000);
+                
             }else{
             	//alert(response['message']);
             	$("#delete-message").removeClass('alert-success').addClass('alert-danger').removeClass('hidden').html(response['message']).show();
@@ -97,6 +103,73 @@ $(document).ready(function(){
         });
 
         e.preventDefault();
+    });
+
+    $(".table-responsive").on("click", "#listar-insumos tbody tr td .ver-lotes", function(e){
+
+        var idinsumo = $(this).data("idinsumo"); //lo que va en data viene del html data-idinsumo del ListarInsumos
+        var nombre = $(this).data("nombre"); 
+        var html = "<tr><td colspan=\"4\" align=\"center\"><img src=\""+url+"assets/img/default.gif\"></td></tr>";
+
+        $("#insumo-lotes tbody").html(html);
+        $("#el-lote-insumo").html(nombre);
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        request = $.ajax({
+            url: url+"Inventario/ExtraerLotes",
+            type: "POST",
+            dataType: "json",
+            data: "id="+idinsumo
+        });
+
+        request.done(function (response, textStatus, jqXHR){            
+            
+            if (response['result'] == true) {
+                
+                html = "";
+
+                $.each(response['data'], function(index, value){
+
+                    html += "<tr>";
+                    html += "<td>"+value['cantidad']+" "+value['unidad_medida']+"</td>";
+                    html += "<td>"+value['fecha_elaboracion']+"</td>";
+                    html += "<td>"+value['fecha_vencimiento']+"</td>";
+                    html += "<td>";
+                    html += "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
+
+                    //---Boton Añadir lote---
+                    html += "<a class=\"btn btn-sm btn-success añadir-lote\" href=\""+url+"Inventario/ModificarInsumo/"+idinsumo+"\" title=\"Añadir lote\">";
+                    html += "<span class=\"glyphicon glyphicon-plus-sign\"></span>";
+                    html += "</a>";
+
+                    //---Boton Descontar lote---
+                    html += "<a class=\"btn btn-sm btn-danger descontar-lote\" href=\""+url+"Inventario/ModificarInsumo/"+idinsumo+"\" title=\"Descontar lote\">";
+                    html += "<span class=\"glyphicon glyphicon-minus-sign\"></span>";
+                    html += "</a>";
+
+                    html += "</div>";                    
+                    html += "</td>";
+                    html += "</tr>";
+                });
+
+                $("#insumo-lotes tbody").html(html);
+                       
+            }else{
+                //alert(response['message']);
+                $("#delete-message").removeClass('alert-success').addClass('alert-danger').removeClass('hidden').html(response['message']).show();
+            }
+            
+            
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            alert('Error: '+textStatus);
+            alert(thrown);
+        });
     });
 
     function dump(obj) {

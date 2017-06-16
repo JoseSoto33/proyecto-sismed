@@ -32,10 +32,10 @@ class Paciente extends CI_Controller {
     }
 
     /**
-     * @method AgregarPaciente()
-     * @method ModificarPaciente(integer $id_evento)
-     * @method ValidarPaciente(mixed[] $data)
-     * @method VerPaciente()
+     * @method void AgregarPaciente()
+     * @method void ModificarPaciente(integer $id_evento)
+     * @method void VerPaciente()
+     * @method void|boolean ValidarPaciente(mixed[] $data)
      */
 
     /**

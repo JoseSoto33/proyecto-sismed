@@ -32,6 +32,21 @@ class Inventario extends CI_Controller {
         }*/
     }
 
+    /**
+     * @method void AgregarInsumo()
+     * @method void ModificarInsumo(integer $id_insumo)
+     * @method void EliminarInsumo()
+     * @method void ListarInsumos()
+     * @method void ExtraerLotes()
+     * @method void|boolean ValidarInsumo(mixed[] $data, integer $operacion)
+     */
+
+    /**
+     * Muestra la interfaz del formulario para registrar un nuevo insumo, o registra un nuevo 
+     * insumo en la base de datos, si se llama a este método mediante una petición POST.     
+     *
+     * @return void
+     */
   	public function AgregarInsumo()
  	{
  		$data = array("titulo" => "Agregar nuevo Insumo");
@@ -59,6 +74,14 @@ class Inventario extends CI_Controller {
 			$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario de registro de Insumo
 		}
  	}
+
+ 	/**
+	 * Muestra el formulario para modificar los datos de un insumo, o realiza la modificación de los datos si se llama a éste método mediante un POST
+	 *
+	 * @param null|integer $id_insumo Identificador único del insumo
+	 *
+	 * @return void
+	 */
 	public function ModificarInsumo($id_insumo = null)
 	{
 		list($id, $operacion) = explode("_", $id_insumo);
@@ -155,10 +178,14 @@ class Inventario extends CI_Controller {
 
 		}
 		$data["operacion"] = $operacion;
-		$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario para modificar una patolohia...
-
-			
+		$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario para modificar una patolohia...			
 	}
+
+	/**
+	 * Cambia el estatus de un insumo determinado de activo a inactivo y viceversa 
+	 *
+	 * @return void
+	 */
 	public function EliminarInsumo()
 	{
 		$id = $this->input->post('id');
@@ -190,6 +217,12 @@ class Inventario extends CI_Controller {
 		
 		echo json_encode($data);
 	}
+
+	/**
+	 * Muestra un listado de los insumos registrados en el sistema.
+	 *
+	 * @return void
+	 */
 	public function ListarInsumos()
 	{
 		$condicion = array(
@@ -203,6 +236,45 @@ class Inventario extends CI_Controller {
 		$data["insumos"] = $result; // la posicion del $data debe tener el mismo nombre que en el formulario de listar
 
 		$this->load->view('medicina/ListarInsumos', $data);//Cargar vista del listado de Insumos
+	}
+
+	/**
+	 * Extrae de la base de datos la información sobre los lotes de un insumo registrado.
+	 *
+	 * @return void
+	 */
+	public function ExtraerLotes()
+	{
+		$condicion = array(
+			'where' => array("MD5(concat('sismed',id_insumo))" => $this->input->post('id')),
+			"order_by" => array("campo" => "id", "direccion" => "ASC")
+			);
+
+		$data = array();
+
+		$result = $this->InventarioModel->ExtraerLote($condicion);		
+
+		if ($result->num_rows() > 0) {
+            
+            setlocale(LC_TIME,"esp");
+
+            foreach ($result->result() as $key => $row) {
+                $row->id = md5('sismed'.$row->id);
+                $row->fecha_registro = strftime('%d de %B de %Y', strtotime($row->fecha_registro));
+                $row->fecha_elaboracion = strftime('%d de %B de %Y', strtotime($row->fecha_elaboracion));
+                $row->fecha_vencimiento = strftime('%d de %B de %Y', strtotime($row->fecha_vencimiento));
+            }
+
+            $data['result'] = true;
+            $data['data'] = $result->result();
+
+        }else{
+        	$data['result'] = false;
+        }
+
+        
+
+        echo json_encode($data);
 	}
 	
 	/**
