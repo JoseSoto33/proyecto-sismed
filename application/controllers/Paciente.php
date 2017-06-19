@@ -67,11 +67,15 @@ class Paciente extends CI_Controller {
             					'nombre2' => $this->input->post('nombre2'),
             					'apellido1' => $this->input->post('apellido1'),
             					'apellido2' => $this->input->post('apellido2')
-            					),
-            				'or_where' => array(
-            					'id' => $this->input->post('id_persona')
-            					)
+            					)            				
             			);
+
+            		if (isset($_POST['id_persona']) && $_POST['id_persona'] != NULL) {
+            			$condicion['or_where'] = array(
+            					'id' => $this->input->post('id_persona')
+            					);
+            		}
+
             		//Si no exiten pacientes con datos idénticos al que se está registrando...
             		if (!$this->PacienteModel->ValidarPaciente($condicion)) {
 
