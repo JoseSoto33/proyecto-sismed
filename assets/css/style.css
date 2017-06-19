@@ -621,6 +621,10 @@ span.red{
 	padding: 40px 0;
 }
 
+#div-noticias .owl-carousel .owl-dots{
+	display: none !important;
+}
+
 .item-noticia{
 	width: 100%;
 	min-height: 350px;

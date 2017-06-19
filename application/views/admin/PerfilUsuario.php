@@ -202,8 +202,8 @@
 													echo "<tr>";
 													echo "<td>".$cont++."</td>";
 													echo "<td>".$sesion["id"]."</td>";
-													echo "<td>".date('d \d\e F \d\e Y \a \l\a\s h:i:s a', strtotime($sesion["inicio"]))."</td>";
-													echo "<td>".date('d \d\e F \d\e Y \a \l\a\s h:i:s a', strtotime($sesion["fin"]))."</td>";
+													echo "<td>".date('d \d\e F \d\e Y \a \l\a\s h:i:s a', strtotime($sesion["fecha_inicio"]))."</td>";
+													echo "<td>".date('d \d\e F \d\e Y \a \l\a\s h:i:s a', strtotime($sesion["fecha_fin"]))."</td>";
 													echo "<td>";
 													
 													echo "<a class=\"btn btn-sm btn-info detalle-sesion\" href=\"#\" data-toggle=\"modal\" data-target=\"#DetalleSesion\" title=\"Ver detalles\" data-idsesion=\"".md5('sismed'.$sesion["id"])."\">";
