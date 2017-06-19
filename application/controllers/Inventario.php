@@ -207,7 +207,7 @@ class Inventario extends CI_Controller {
 		if ($this->InventarioModel->ModificarInsumo($condicion)) {
 			
 			$data['result']  = true;
-			$data['message'] = "Operación exitosa!...";
+			$data['message'] = "Operación exitosa!... El listado se recargará en breve...";
 
 		//Si ocurre un error durante la modificación...
 		}else{

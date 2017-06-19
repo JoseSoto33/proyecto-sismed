@@ -130,7 +130,7 @@ class Patologia extends CI_Controller {
 		if ($this->PatologiaModel->ModificarPatologia($condicion)) {
 			
 			$data['result']  = true;
-			$data['message'] = "Operación exitosa!...";
+			$data['message'] = "Operación exitosa!... El listado se recargará en breve...";
 
 		//Si ocurre un error durante la modificación...
 		}else{
@@ -140,6 +140,7 @@ class Patologia extends CI_Controller {
 		
 		echo json_encode($data);
 	}
+
 	public function ListarPatologias()
 	{
 		$condicion = array(
@@ -154,6 +155,7 @@ class Patologia extends CI_Controller {
 
 		$this->load->view('medicina/ListarPatologias', $data);//Cargar vista del listado de patologias
 	}
+
 	/**
 	* Verifica que los datos de la Patologia ingresados en el formulario de registro y modificación cumplan con las reglas de integridad
 	*

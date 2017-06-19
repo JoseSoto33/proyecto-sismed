@@ -44,7 +44,13 @@
 
 								foreach ($patologias->result_array() as $key => $patologia) {
 									
-									echo "<tr id=\"fila_".md5('sismed'.$patologia["id"])."\">";
+									if($patologia["status"] === 'f')
+									{
+										echo "<tr class=\"danger\" id=\"fila_".md5('sismed'.$patologia["id"])."\">";
+
+									}else{
+										echo "<tr id=\"fila_".md5('sismed'.$patologia["id"])."\">";
+									}
 									echo "<td>".$cont++."</td>";
 									echo "<td>".$patologia["nombre"]."</td>";
 									echo "<td>";
@@ -54,18 +60,30 @@
 										echo $patologia["descripcion"];
 									}											
 									echo "</td>";
+
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 
+									if($patologia["status"] === 't')
+									{
+
 									//---Boton editar---
-									echo "<a class=\"btn btn-sm btn-success editar-patologia\" href=\"".base_url("Patologia/ModificarPatologia/".md5('sismed'.$patologia["id"]))."\" title=\"Editar patologia\">";
-									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
-									echo "</a>";
+										echo "<a class=\"btn btn-sm btn-success editar-patologia\" href=\"".base_url("Patologia/ModificarPatologia/".md5('sismed'.$patologia["id"]))."\" title=\"Editar patologia\">";
+										echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
+										echo "</a>";
 
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-sm btn-danger eliminar-patologia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPatologia\" title=\"Eliminar patologia\" data-idpatologia=\"".md5('sismed'.$patologia["id"])."\" data-nombre=\"".$patologia["nombre"]."\">";
-									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
-									echo "</a>";
+										echo "<a class=\"btn btn-sm btn-danger eliminar-patologia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPatologia\" title=\"Eliminar patologia\" data-idpatologia=\"".md5('sismed'.$patologia["id"])."\" data-nombre=\"".$patologia["nombre"]."\" data-action=\"deshabilitar\">";
+										echo "<span class=\"glyphicon glyphicon-trash\"></span>";
+										echo "</a>";
+
+								    }else{
+
+								    //---Boton habilitar---
+								    	echo "<a class=\"btn btn-sm btn-success eliminar-patologia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPatologia\" title=\"Eliminar patologia\" data-idpatologia=\"".md5('sismed'.$patologia["id"])."\" data-nombre=\"".$patologia["nombre"]."\" data-action=\"habilitar\">";
+										echo "<span class=\"glyphicon glyphicon-ok\"></span>";
+										echo "</a>";
+								    }
 
 									echo "</div>";
 									echo "</td>";
@@ -93,13 +111,13 @@
       <div class="modal-body">
         <div class="row">
         	<div class="col-xs-12">
-        		<h3 id="delete-title">¿Está seguro que desea eliminar la patologia "<span id="la-patologia"></span>"?</h3>
+        		<h3 id="delete-title">¿Está seguro que desea <span id="action-title"></span> la patologia "<span id="la-patologia"></span>"?</h3>
         		<div id="delete-message" class="alert"></div>
         	</div>
         </div>
       </div>
       <div class="modal-footer">
-      	<button type="button" id="accion-eliminar-patologia" class="btn btn-principal-2" data-idpatologia="">Eliminar</button>
+      	<button type="button" id="accion-eliminar-patologia" class="btn btn-principal-2" data-idpatologia="" data-accion="">Aceptar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

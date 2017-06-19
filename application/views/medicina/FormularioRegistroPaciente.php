@@ -169,7 +169,7 @@
 								<div class="form-group">
 									<label for="telf_emergencia" class="col-sm-4 control-label"><span class="red">*</span> Teléfono emergencia:</label>
 								    <div class="col-sm-8">
-								      <input type="text" class="form-control" name="telef_emergencia" id="telf_emergencia" placeholder="(0212) 555-44-88" value="<?php echo (isset($paciente['telf_emergencia']))? $paciente['telf_emergencia'] : set_value('telf_emergencia'); ?>" readonly="readonly" >
+								      <input type="text" class="form-control" name="telf_emergencia" id="telf_emergencia" placeholder="(0212) 555-44-88" value="<?php echo (isset($paciente['telf_emergencia']))? $paciente['telf_emergencia'] : set_value('telf_emergencia'); ?>" readonly="readonly" >
 								      <div class="help-block with-errors">
 								      </div>
 								    </div>

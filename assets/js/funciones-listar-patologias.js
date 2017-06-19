@@ -41,16 +41,20 @@ $(document).ready(function(){
 
     	var idpatologia = $(this).data("idpatologia"); 
     	var nombre = $(this).data("nombre"); 
+        var action = $(this).data("action");
 
         $("#delete-message").hide();
 
+        $("#action-title").html(action);
     	$("#la-patologia").html(nombre);
     	$("#accion-eliminar-patologia").data('idpatologia', idpatologia);
+        $("#accion-eliminar-patologia").data('action', action);
     });
 
     $(".modal-footer").on("click", "#accion-eliminar-patologia", function(e){
 
-        var idpatologia = $(this).data("idpatologia");        
+        var idpatologia = $(this).data("idpatologia");    
+        var action = $(this).data("action");      
 
         var request;
         if (request) {
@@ -61,7 +65,7 @@ $(document).ready(function(){
             url: url+"Patologia/EliminarPatologia",
             type: "POST",
             dataType: "json",
-            data: "id="+idpatologia
+            data: "id="+idpatologia+"&action="+action
         });
 
         request.done(function (response, textStatus, jqXHR){            
@@ -72,7 +76,10 @@ $(document).ready(function(){
             	$("#delete-message").removeClass('alert-danger').addClass('alert-success').removeClass('hidden').html(response['message']).show();
             	$("#accion-eliminar-patologia").attr('disabled','disabled');
 
-                tabla.row($("#fila_"+idpatologia)).remove().draw();           	
+                //tabla.row($("#fila_"+idpatologia)).remove().draw(); 
+                setTimeout( function(){                  
+                     window.location.href = url+"Patologia/ListarPatologias";  
+                }, 5000);          	
 
             }else{
             	//alert(response['message']);
