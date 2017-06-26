@@ -89,7 +89,7 @@ $(document).ready(function(){
 	    	'<tr>'+
 	    		'<th colspan="2" align="center" class="success">'+
                     'Detalles de la consulta'+
-                    '<a class="btn btn-info pull-right" href="'+$("#base_url").val()+"Consulta/ModificarConsulta/"+data.id+'">'+
+                    '<a class="btn btn-sm btn-info pull-right" href="'+$("#base_url").val()+'Consulta/ModificarConsulta/'+data.id+'_'+data.cod_historia+'_'+data.tipo+'">'+
                         '<span class="glyphicon glyphicon-pencil"></span>'+
                     '</a>'+
                 '</th>'+
@@ -123,7 +123,12 @@ $(document).ready(function(){
     function detallesConsPrev ( data ) {
         return '<table cellpadding="5" class="table table-bordered table-condensed" cellspacing="0" border="0" style="padding-left:50px;">'+
             '<tr>'+
-                '<th colspan="2" class="success">Detalles de la consulta</th>'+
+                '<th colspan="2" class="success">'+
+                    'Detalles de la consulta'+
+                    '<a class="btn btn-sm btn-info pull-right" href="'+$("#base_url").val()+'Consulta/ModificarConsulta/'+data.id+'_'+data.cod_historia+'_'+data.tipo+'">'+
+                        '<span class="glyphicon glyphicon-pencil"></span>'+
+                    '</a>'+
+                '</th>'+
             '</tr>'+
             '<tr>'+
                 '<th width="30%">Motivo de la consulta:</th>'+

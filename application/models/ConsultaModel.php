@@ -37,7 +37,21 @@ class ConsultaModel extends CI_Model {
 
     public function ModificarConsulta($condicion = array())
     {
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
 
+        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
+            
+            $this->db->or_where($condicion['or_where']);
+        }
+
+        if ($this->db->update($condicion['table'], $condicion['data'])) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function ExtraerConsulta($condicion = array())

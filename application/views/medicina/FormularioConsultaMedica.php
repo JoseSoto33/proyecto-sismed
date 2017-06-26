@@ -267,7 +267,7 @@ switch ($this->session->userdata('tipo_usuario')){
 											<label for="ef_resp" class="control-label"><span class="red">*</span>Respiración:</label>
 											<div class="input-group">
 									    		<input type="number" class="form-control" id="ef_resp" name="ef_resp" title="Debe llenar este campo" min="1" value="<?php echo (isset($consulta['ef_resp']))? $consulta['ef_resp'] : set_value('ef_resp'); ?>" required="required" aria-describedby="resp-addon">
-									    		<span class="input-group-addon" id="resp-addon">lpm</span>
+									    		<span class="input-group-addon" id="resp-addon">rpm</span>
 									    	</div>
 									      	<div class="help-block with-errors">
 									      	</div>

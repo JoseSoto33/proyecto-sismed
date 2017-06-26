@@ -33,7 +33,7 @@ class Consulta extends CI_Controller {
 
     /**
      * @method void AgregarConsulta()
-     * @method void ModificarModificar(integer $id_consulta)
+     * @method void ModificarConsulta(integer $id_consulta)
      * @method void VerConsulta()
      * @method void|boolean ValidarConsulta(mixed[] $data)
      */
@@ -142,11 +142,113 @@ class Consulta extends CI_Controller {
     }
 
     /**
-     * 
+     * Muestra el formulario para modificar los datos de una consulta, o realiza la modificación de los datos si se llama a éste método mediante un POST
+     *
+     * @param null|integer $consulta Identificador único de la consulta
+     *
+     * @return void 
      */
-    public function ModificarModificar($id_consulta)
+    public function ModificarConsulta($consulta)
     {
+        $data = array("titulo" => "Modificar datos de consulta");
 
+        list($id_consulta, $cod_historia, $tipo_consulta) = explode("_", $consulta);
+
+        $data = array(
+            'tipo_consulta' => $tipo_consulta,
+            'cod_historia' => $cod_historia
+            );
+
+        $condicion = array(
+            'select' => "id_paciente, cod_historia",
+            'where' => array("MD5(concat('sismed',cod_historia))" => $cod_historia)
+            );
+
+        $result = $this->HistoriaModel->ExtraerHistoria($condicion)->row_array();
+
+        $condicion = array(
+            'where' => array("id" => $result['id_paciente'])
+            );
+
+        $data['paciente'] = $this->PacienteModel->ExtraerPaciente($condicion)->row_array();
+        $data['paciente']['cod_historia'] = $result['cod_historia'];
+
+        $condicion = array();
+
+        switch ($tipo_consulta) {
+            case '1':
+                $data['titulo'] = "Agregar Consulta Médica Curativa";
+                $query['table'] = "consulta_curativa";
+
+                $condicion['select'] = "consulta.*, patologia.nombre AS patologia";
+                $condicion['from'] = "consulta_curativa AS consulta";
+                $condicion['join'] = array(
+                    "tabla" => "patologia",
+                    "condicion" => "consulta.id_patologia = patologia.id",
+                    "tipo" => "left"
+                    );
+                $condicion['where'] = array(
+                    "MD5(concat('sismed',consulta.id))" => $id_consulta,
+                    "consulta.tipo" => $tipo_consulta
+                    );
+                break;
+            case '2':     
+                $data['titulo'] = "Agregar Consulta Médica Preventiva";
+                $query['table'] = "consulta_preventiva";
+
+                $condicion['select'] = "consulta.*, patologia.nombre AS patologia";
+                $condicion['from'] = "consulta_preventiva AS consulta";
+                $condicion['join'] = array(
+                    "tabla" => "patologia",
+                    "condicion" => "consulta.id_patologia = patologia.id",
+                    "tipo" => "left"
+                    );
+                $condicion['where'] = array(
+                    "MD5(concat('sismed',consulta.id))" => $id_consulta,
+                    "consulta.tipo" => $tipo_consulta
+                    );
+                break;
+        }
+
+        $result = $this->ConsultaModel->ExtraerConsulta($condicion);
+
+        //Si los registros encontrados son más de 0...
+        if ($result->num_rows() > 0) {
+
+            $data['consulta'] = $result->row_array();
+
+            if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            
+                if (!$this->ValidarConsulta($data)) {
+                    
+                    $query['data'] = $_POST;                                       
+
+                    $query["where"] = array("MD5(concat('sismed',id))" => $id_consulta);
+
+                    if ($this->ConsultaModel->ModificarConsulta($query)) {
+                        
+                        switch ($tipo_consulta) {
+                            case '1':
+                                set_cookie("cura_message","La modificación de la consulta curativa fue realizada exitosamente!...", time()+25);
+                                break;
+                            
+                            case '2':
+                                set_cookie("prev_message","La modificación de la consulta preventiva fue realizada exitosamente!...", time()+25);
+                                break;
+                        }
+
+                        header("Location: ".base_url()."historiaClinica/ConsultarHistoriaClinica/".$cod_historia); //controlador y metododo del controlador que carga la vista
+                    }else{
+                        $data['mensaje'] = $this->db->error();
+                    }
+                }
+            }
+
+        }else{
+            $data['message'] = $this->db->error();
+        }
+
+        $this->load->view('medicina/FormularioConsultaMedica', $data);
     }
 
     /**
@@ -227,6 +329,7 @@ class Consulta extends CI_Controller {
 
             foreach ($result->result() as $key => $row) {
                 $row->id = md5('sismed'.$row->id);
+                $row->cod_historia = md5('sismed'.$row->cod_historia);
                 $row->fecha_creacion = strftime('%d de %B de %Y', strtotime($row->fecha_creacion));
             }
         }
@@ -235,7 +338,12 @@ class Consulta extends CI_Controller {
     }
 
     /**
+     * Verifica que los datos ingresados de la consulta, en el formulario de registro y modificación 
+     * cumplan con las reglas de integridad
+     *
+     * @param mixed[] $data Arreglo con información que se enviará a la vista
      * 
+     * @return void|boolean 
      */
     public function ValidarConsulta($data)
     {

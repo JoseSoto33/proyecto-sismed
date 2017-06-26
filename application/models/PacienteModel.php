@@ -39,7 +39,7 @@ class PacienteModel extends CI_Model {
                return $data["id"];
             } 
      		return $this->db->insert_id('persona_id_seq');
-     		//return $id_paciente;
+     		
      	}else{
      		return false;
      	}
