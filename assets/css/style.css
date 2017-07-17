@@ -349,6 +349,15 @@ span.red{
 	background: #ffffff !important;
 }
 
+.form-instructions > .istruction-content{
+	margin-top: 15px;
+	margin-bottom: 25px;
+	border: 2px #333333 solid;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
 /*=============================PANTALLA PRINCIPAL=============================*/
 
 #head,

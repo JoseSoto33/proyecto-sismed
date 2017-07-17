@@ -3,9 +3,12 @@
 <div id="seccion2">
 	<div class="container">
 		<div class="row">
+			<!-- Título del formulario -->
 			<div class="col-sm-12">
 				<h1><?php echo $titulo; ?></h1>
-			</div>
+			</div><!--/ Título del formulario -->
+
+			<!-- Mensajes de error -->
 			<div class="col-xs-12">
 				<?php echo validation_errors("<div class=\"alert alert-danger\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>", "</div>"); ?>
 				<?php if(isset($mensaje) && !empty($mensaje)) { ?>
@@ -14,8 +17,123 @@
 						<?php echo $mensaje; ?>
 					</div>					
 				<?php } ?>
-			</div>
-			<div class="col-sm-6 col-sm-offset-3">
+			</div><!--/ Mensajes de error -->
+
+			<!-- Instrucciones para el usuario -->
+			<div id="form-noticia-instruction" class="col-sm-3 form-instructions">
+				<div class="col-sm-12 istruction-content">					
+					<!-- Título -->
+					<div class="title">
+						<h3>Instrucciones</h3>
+					</div><!--/ Título -->
+
+					<!-- Descripción -->
+					<div class="descripcion">
+						<p>
+							Para registrar una nueva noticia deberá llenar los campos de acuerdo a las siguientes indicaciones:
+						</p>
+						<!-- Panel de descripción de campos -->
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			    			<!-- Descripción campo Título -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="headingOne">
+							      	<h4 class="panel-title">
+							      		Título
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Tamaño mínimo:</b> 5 caracteres.</li>
+							      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales).</li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Título -->
+
+						  	<!-- Descripción campo Enlace -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="headingTwo">
+							      	<h4 class="panel-title">
+							      		Enlace
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Formato:</b> Dirección web, URL.</li>
+							      			<li><b>Campo opcional.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Enlace -->
+
+						  	<!-- Descripción campo Descripción -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="headingThree">
+							      	<h4 class="panel-title">
+							      		Descripción
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
+							      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Descripción -->
+
+						  	<!-- Descripción campo Imagen -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="headingFour">
+							      	<h4 class="panel-title">
+							      		Imagen
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Archivo de tipo imagen.</li>
+							      			<li><b>Fromatos permitidos:</b> JPG, PNG y GIF.</li>
+							      			<li><b>Campo opcional.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Imagen -->
+
+						</div><!--/ Panel de descripción de campos -->
+
+						<p>
+							<b>Nota:</b><br>
+							El botón "Guardar" permanecerá desactivado hasta llenar los campos obligatorios del formulario.
+						</p>
+
+					</div><!--/ Descripción -->
+				</div>
+
+			</div><!--/ Instrucciones para el usuario -->
+
+			<!-- Formulario -->
+			<div class="col-sm-6">
 				<?php
 
 					$url =  base_url()."Noticia/".$this->uri->segment(2, 0);
@@ -27,6 +145,7 @@
 	      				$url,
 	      				'class="form-basic" id="registro-noticia"'
 	      				); ?>
+      				<!-- Campo Título -->
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="titulo" class="control-label"><span class="red">*</span> Títitulo</label>
@@ -34,7 +153,9 @@
 						    <div class="help-block with-errors">
 							</div>
 						</div>						
-					</div>
+					</div><!--/ Campo Título -->
+
+					<!-- Campo Enlace -->
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="url" class="control-label">Enlace</label>
@@ -42,7 +163,9 @@
 						    <div class="help-block with-errors">
 							</div>
 						</div>
-					</div>			
+					</div><!--/ Campo Enlace -->
+
+					<!-- Campo Descripción -->
 					<div class="col-sm-12">			
 						<div class="form-group">
 							<label for="descripcion" class="control-label"><span class="red">*</span> Descripción</label>
@@ -50,7 +173,9 @@
 						    <div class="help-block with-errors">
 							</div>
 						</div>
-					</div>
+					</div><!--/ Campo Descripción -->
+
+					<!-- Campo Imagen -->
 					<?php 
 						if (isset($noticia)) {
 					?>
@@ -84,20 +209,24 @@
 					<?php 
 						}
 					?>
+					<!--/ Campo Imagen -->
 					<div class="col-sm-12">						
 						<small> 
 							<span class="red2">Los campos con (*) son obligatorios.</span>
 						</small>
 					</div>
 					<hr class="form-divisor-line">
+
+					<!-- Botones -->
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
 							<a href="<?php echo base_url(); ?>Noticia/ListarNoticias" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div>
+					<!--/ Botones -->
 				<?php echo form_close();?>
-			</div>
+			</div><!--/ Formulario -->
 		</div>
 	</div>
 </div>

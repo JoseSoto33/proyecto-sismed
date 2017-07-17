@@ -108,6 +108,22 @@ table.table > tfoot > tr > td{
 	color: #ffffff !important;
 	background: #00796B !important;
 }
+
+.form-instructions > .istruction-content{
+	border: 2px #00796B solid !important;
+	background: #B2DFDB;
+}
+
+.form-instructions > .istruction-content > .descripcion > .panel-group > .panel{
+	border-color: #00796B !important;
+}
+
+.form-instructions > .istruction-content > .descripcion > .panel-group > .panel > .panel-heading{
+	background-color: #00796B !important;
+    border-color: #00796B !important;
+    color: #ffffff !important;
+}
+
 /*=============================PANTALLA PRINCIPAL=============================*/
 /*Cabecera*/
 
@@ -393,3 +409,21 @@ table.table > tfoot > tr > td{
 	color: #ffffff;
 }
 
+/*----------VACUNAS----------*/
+
+#lista-esquemas{
+	padding: 25px;
+	border: 1px solid #00796B;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.esquema-content{
+	padding: 15px;
+	margin-bottom: 10px;
+	border: 1px solid #00796B;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}

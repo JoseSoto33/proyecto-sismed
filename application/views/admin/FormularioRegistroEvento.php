@@ -3,9 +3,12 @@
 <div id="seccion2">
 	<div class="container">
 		<div class="row">
+			<!-- Título del formulario -->
 			<div class="col-sm-12">
 				<h1><?php echo $titulo; ?></h1>
-			</div>
+			</div><!--/ Título del formulario -->
+
+			<!-- Mensajes de error -->
 			<div class="col-xs-12">
 				<?php echo validation_errors("<div class=\"alert alert-danger\" role=\"alert\"><button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>", "</div>"); ?>
 				<?php if(isset($mensaje) && !empty($mensaje)) { ?>
@@ -14,8 +17,193 @@
 						<?php echo $mensaje; ?>
 					</div>					
 				<?php } ?>
-			</div>
-			<div class="col-sm-6 col-sm-offset-3">
+			</div><!--/ Mensajes de error -->
+
+			<!-- Instrucciones para el usuario -->
+			<div id="form-noticia-instruction" class="col-sm-3 form-instructions">
+				<div class="col-sm-12 istruction-content">					
+					<!-- Título -->
+					<div class="title">
+						<h3>Instrucciones</h3>
+					</div><!--/ Título -->
+
+					<!-- Descripción -->
+					<div class="descripcion">
+						<p>
+							Para registrar un nuevo evento deberá llenar los campos de acuerdo a las siguientes indicaciones:
+						</p>
+						<!-- Panel de descripción de campos -->
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+			    			<!-- Descripción campo Título -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading1">
+							      	<h4 class="panel-title">
+							      		Título
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Tamaño mínimo:</b> 6 caracteres.</li>
+							      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
+							      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales).</li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Título -->
+
+						  	<!-- Descripción campo Fecha inicio -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading2">
+							      	<h4 class="panel-title">
+							      		Fecha inicio
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
+							      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual.</li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Fecha inicio -->
+
+						  	<!-- Descripción campo Hora inicio -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading3">
+							      	<h4 class="panel-title">
+							      		Hora inicio
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
+							      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
+							      			<li><b>Condición:</b> La combinación entre la hora y la fecha de inicio debe ser posterior a la hora y fecha actuales.</li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Hora inicio -->
+
+						  	<!-- Descripción campo Fecha finalización -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading4">
+							      	<h4 class="panel-title">
+							      		Fecha finalización
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
+							      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual ni a la fecha de inicio.</li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Fecha finalización -->
+
+						  	<!-- Descripción campo Hora finalización -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading5">
+							      	<h4 class="panel-title">
+							      		Hora finalización
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
+							      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
+							      			<li><b>Condición:</b> La combinación entre la hora y la fecha de finalización debe ser posterior a la hora y fecha actuales y a la hora y fecha de inicio del evento.</li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Hora finalización -->
+
+						  	<!-- Descripción campo Descripción -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading6">
+							      	<h4 class="panel-title">
+							      		Descripción
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+							      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
+							      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Descripción -->
+
+						  	<!-- Descripción campo Imagen -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading7">
+							      	<h4 class="panel-title">
+							      		Imagen
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Archivo de tipo imagen.</li>
+							      			<li><b>Fromatos permitidos:</b> JPG, PNG y GIF.</li>
+							      			<li><b>Campo opcional.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Imagen -->
+
+						</div><!--/ Panel de descripción de campos -->
+
+						<p>
+							<b>Nota:</b><br>
+							El botón "Guardar" permanecerá desactivado hasta llenar los campos obligatorios del formulario.
+						</p>
+
+					</div><!--/ Descripción -->
+				</div>
+
+			</div><!--/ Instrucciones para el usuario -->
+
+			<!-- Formulario -->
+			<div class="col-sm-6">
 				<?php
 					$url =  base_url()."Evento/".$this->uri->segment(2, 0);
 					if ($this->uri->segment(3, 0) != "0") {
@@ -26,6 +214,8 @@
 	      				$url,
 	      				'class="form-basic" id="registro-evento"'
 	      				); ?>
+
+	      			<!-- Campo Título -->
 					<div class="col-sm-12">
 						<div class="form-group">
 							<label for="titulo" class="control-label"><span class="red">*</span> Títitulo</label>
@@ -33,9 +223,12 @@
 						    <div class="help-block with-errors">
 							</div>	
 						</div>						
-					</div>
+					</div><!--/ Campo Título -->
+
+					<!-- Campo Fecha-hora de inicio -->
 					<div class="col-xs-12">
-						<div class="row">							
+						<div class="row">	
+							<!-- Fecha de inicio -->						
 							<div class="col-xs-12 col-sm-6 col-md-5">
 								<div class="form-group">
 									<label for="fecha_inicio" class="control-label"><span class="red">*</span> Fecha de inicio</label>
@@ -43,7 +236,9 @@
 		                				<div class="help-block with-errors">
 									  </div>
 								</div>
-							</div>	
+							</div><!--/ Fecha de inicio -->	
+
+							<!-- Hora de inicio -->
 							<div class="col-xs-12 col-sm-6 col-md-7">
 								<div class="form-group">
 									<div class="row">
@@ -66,11 +261,14 @@
 										</div>
 									</div>
 								</div>	
-							</div>
+							</div><!--/ Hora de inicio -->
 						</div>
-					</div>
+					</div><!--/ Campo Fecha-hora de inicio -->
+
+					<!-- Campo Fecha-hora de finalización -->
 					<div class="col-xs-12">
-						<div class="row">							
+						<div class="row">	
+							<!-- Fecha de finalización -->						
 							<div class="col-xs-12 col-sm-6 col-md-5">
 								<div class="form-group">
 									<label for="fecha_fin" class="control-label"><span class="red">*</span> Fecha de finalización</label>
@@ -78,7 +276,9 @@
 								    <div class="help-block with-errors">
 									</div>
 								</div>
-							</div>
+							</div><!--/ Fecha de finalización -->
+
+							<!-- Hora de finalización -->
 							<div class="col-xs-12 col-sm-6 col-md-7">
 								<div class="form-group">
 									<div class="row">
@@ -101,9 +301,12 @@
 										</div>
 									</div>
 								</div>
-							</div>
+							</div><!--/ Hora de finalización -->
+
 						</div>
-					</div>
+					</div><!--/ Campo Fecha-hora de finalización -->
+
+					<!-- Campo Descripción -->
 					<div class="col-sm-12">			
 						<div class="form-group">
 							<label for="descripcion" class="control-label"><span class="red">*</span> Descripción</label>
@@ -111,7 +314,9 @@
 						    <div class="help-block with-errors">
 							</div>
 						</div>
-					</div>
+					</div><!--/ Campo Descripción -->
+
+					<!-- Campo Imagen -->
 					<?php 
 						if (isset($evento)) {
 					?>
@@ -145,20 +350,25 @@
 					<?php 
 						}
 					?>
+					<!--/ Campo Imagen -->
+
 					<div class="col-sm-12">						
 						<small> 
 							<span class="red2">Los campos con (*) son obligatorios.</span>
 						</small>
 					</div>				
 					<hr class="form-divisor-line">
+
+					<!-- Botones -->
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
 							<a href="<?php echo base_url(); ?>Evento/ListarEventos" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
-					</div>
+					</div><!--/ Botones -->
+
 				<?php echo form_close();?>			
-			</div>
+			</div><!--/ Formulario -->
 		</div>
 	</div>
 </div>
