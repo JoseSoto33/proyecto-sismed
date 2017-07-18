@@ -46,7 +46,16 @@ class Vacuna extends CI_Controller {
      */
     public function AgregarVacuna()
     {   
-        $data = array("titulo" => "Agregar nueva vacuna");
+        $data = array("titulo" => "Agregar nueva vacuna");        
+
+        $condicion = array(
+            "where" => array("status" => TRUE),
+            "order_by" => array("campo" => "id", "direccion" => "ASC")
+            );
+
+        $result = $this->PatologiaModel->ExtraerPatologia($condicion);
+    
+        $data["patologias"] = $result->result_array();
 
         $this->load->view('medicina/FormularioRegistroVacuna', $data);
     }

@@ -267,6 +267,15 @@ a.navbar-brand{
 	display: block;
 }
 
+.chosen-container > a.chosen-single{
+	height: 34px !important;
+	padding-top: 5px !important;
+}
+
+.chosen-container > a.chosen-single > div{
+	top: 5px !important;
+}
+
 figure.load-content{
 	width: 35px;
 	min-height: 35px;

@@ -109,6 +109,7 @@ class Patologia extends CI_Controller {
 
 			
 	}
+
 	public function EliminarPatologia()
 	{
 		$id = $this->input->post('id');
@@ -214,5 +215,30 @@ class Patologia extends CI_Controller {
 
 			return false;
 		}
+	}
+
+	/**
+	 * 
+	 */
+	public function ExtraerPatologia()
+	{
+		$condicion = array(
+            "where" => array("status" => TRUE),
+            "order_by" => array("campo" => "id", "direccion" => "ASC")
+            );
+
+		$result = $this->PatologiaModel->ExtraerPatologia($condicion);
+/*
+		if (isset($_POST['id']) && !empty($_POST['id'])) {
+			
+			$condicion = array("where" => array('id !=' => $_POST['id']));
+
+			$result = $this->PatologiaModel->ExtraerPatologia($condicion);
+		}else{
+
+			$result = $this->PatologiaModel->ExtraerPatologia(array());
+		}*/
+
+		echo json_encode($result->result());
 	}
 }

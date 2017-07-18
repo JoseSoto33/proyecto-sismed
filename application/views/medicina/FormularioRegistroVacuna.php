@@ -44,11 +44,11 @@ switch ($this->session->userdata('tipo_usuario')){
 						</p>
 						<!-- Panel de descripción de campos -->
 						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-			    			<!-- Descripción campo Título -->
+			    			<!-- Descripción campo Nombre de la vacuna -->
 						  	<div class="panel panel-default">
 							    <div class="panel-heading" role="tab" id="heading1">
 							      	<h4 class="panel-title">
-							      		Título
+							      		Nombre de la vacuna
 							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
 							          		<span class="glyphicon glyphicon-plus"></span>
 							        	</a>
@@ -58,14 +58,14 @@ switch ($this->session->userdata('tipo_usuario')){
 							      	<div class="panel-body">
 							      		<ul>
 							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-							      			<li><b>Tamaño mínimo:</b> 6 caracteres.</li>
+							      			<li><b>Tamaño mínimo:</b> 3 caracteres.</li>
 							      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
 							      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales).</li>
 							      			<li><b>Campo obligatorio.</b></li>
 							      		</ul>
 							      	</div>
 							    </div>
-						  	</div><!--/ Descripción campo Título -->
+						  	</div><!--/ Descripción campo Nombre de la vacuna -->
 
 						  	<!-- Descripción campo Fecha inicio -->
 						  	<div class="panel panel-default">
@@ -224,7 +224,9 @@ switch ($this->session->userdata('tipo_usuario')){
 	      				$url,
 	      				'class="form-basic" id="registro-vacuna"'
 	      				); ?>		
-	        			
+	        		
+	        		<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
+
         			<div class="col-md-12">
         				<h4>
         					Datos de la vacuna
@@ -238,7 +240,9 @@ switch ($this->session->userdata('tipo_usuario')){
 	        			<div class="col-xs-6">
 			        		<div class="form-group">
 			        			<label class="control-label" for="vacuna_nombre"><span class="red">*</span>Nombre de la vacuna:</label>
-			        			<input type="text" id="vacuna_nombre" name="vacuna_nombre" class="form-control">
+			        			<input type="text" id="vacuna_nombre" name="vacuna_nombre" class="form-control" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($vacuna['vacuna_nombre']))? $vacuna['vacuna_nombre'] : set_value('vacuna_nombre'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos"> 
+								    <div class="help-block with-errors">
+								    </div>
 			        		</div>
 	        			</div><!--/ Campo Nombre de la vacuna -->
 
@@ -246,61 +250,69 @@ switch ($this->session->userdata('tipo_usuario')){
 	        			<div class="col-xs-6">
 			        		<div class="form-group">
 			        			<label class="control-label" for="cant_enfermedad"><span class="red">*</span>Cantidad de enfermedades que combate:</label>
-			        			<input type="number" id="cant_enfermedad" name="cant_enfermedad" min="1" value="1" class="form-control" required>
+			        			<input type="number" id="cant_enfermedad" name="cant_enfermedad" min="1" class="form-control" required pattern="[1-9]{1,4}" value="<?php echo (isset($vacuna['cant_enfermedad']))? $vacuna['cant_enfermedad'] : set_value('cant_enfermedad'); ?>" >	
+							    <div class="help-block with-errors">
+								</div>
 			        		</div>
 	        			</div><!--/ Campo Cantidad de enfermedades que combate -->
     				</div> 
     				<div class="col-xs-12" id="list_cant_enfermedades">
+
+    					<!-- Campo Enfermedad -->
 	        			<div class="col-xs-6">
 			        		<div class="form-group">
 			        			<label class="control-label" for="enfermedad1"><span class="red">*</span>Enfermedad 1:</label>
-		        				<select class="form-control chosen-select" id="enfermedad1" name="enfermedad[]" data-nro="1">
-		        					<option value="">Seleccionar enfermedad</option>
-		        					<?php /*
-		        						foreach ($enfermedades as $enfermedad) {
+		        				<select class="form-control chosen-select" id="enfermedad1" name="enfermedad[]" data-nro="1" data-placeholder="Seleccionar enfermedad...">
+		        					<option></option>
+		        					<?php 
+		        						foreach ($patologias as $patologia) {
 											
-										echo "<option value=\"".$enfermedad->id."\">".$enfermedad->descripcion."</option>";											
-										}*/
+										echo "<option value=\"".$patologia["id"]."\">".$patologia["nombre"]."</option>";											
+										}
 		        					?>
 		        				</select>	
 			        		</div>
-	        			</div>
+	        			</div><!--/ Campo Enfermedad -->
 	        		</div>
-        			<div class="col-xs-12">	        					
+        			<div class="col-xs-12">	
+        				<!-- Botón Agregar esquema -->        					
 	        			<div class="col-md-6">
 			        		<div class="form-group">
-			        			<label class="control-label" for="cant_esquemas">Agregar esquema</label>
 		        				<button class="btn btn-info" id="add_esquema">
-		        					<span class="glyphicon glyphicon-plus"></span>
+		        					<span class="glyphicon glyphicon-plus"></span> 
+		        					Agregar esquema
 		        				</button>
 			        		</div>
-	        			</div>
+	        			</div><!-- Botón Agregar esquema -->
+
         				<input type="hidden" id="can-esquemas" name="can-esquemas" value="1">
         				<div id="lista-esquemas" class="col-xs-12">
         					<div class="col-xs-12 esquema-content">
-        						<div class="row">	        						
+        						<div class="row">
+        							<!-- Campo Esquema -->
 	        						<div class="col-xs-6">
 						        		<div class="form-group">
 						        			<label class="control-label" for="esquema1"><span class="red">*</span>Esquema:</label>
-					        				<select class="form-control chosen-select select-esquema" id="esquema1" data-dosis="cant_dosis1" data-intervalo="intervalo1" data-pintervalo="interperiodo1" name="esquema[]">
-					        					<option value="">Seleccionar esquema</option>
-					        					<?php/* 
-					        						foreach ($esquemas as $esquema) {
-														
-													echo "<option value=\"".$esquema->id."\">".$esquema->descripcion."</option>";											
-													}*/
-					        					?>
+					        				<select class="form-control chosen-select select-esquema" id="esquema1" data-dosis="cant_dosis1" data-intervalo="intervalo1" data-pintervalo="interperiodo1" name="esquema[]" data-placeholder="Seleccionar esquema...">
+					        					<option></option>
+					        					<option value="Única" <?php echo (isset($vacuna['esquema']) && $vacuna['esquema'] == 'Única')? "selected=\"selected\"" : set_select('esquema', 'Única'); ?>>Única</option>
+					        					<option value="Dosis" <?php echo (isset($vacuna['esquema']) && $vacuna['esquema'] == 'Dosis')? "selected=\"selected\"" : set_select('esquema', 'Dosis'); ?>>Dosis</option>
+					        					<option value="Refuerzo" <?php echo (isset($vacuna['esquema']) && $vacuna['esquema'] == 'Refuerzo')? "selected=\"selected\"" : set_select('esquema', 'Refuerzo'); ?>>Refuerzo</option>
 					        				</select>
 						        		</div>
-				        			</div>
-			        				<div class="col-xs-5">
+				        			</div><!--/ Campo Esquema -->
+
+				        			<!-- Campo Cantidad de dosis -->
+			        				<div class="col-xs-4">
 						        		<div class="form-group">
 						        			<label class="control-label" for="cant_dosis1"><span class="red">*</span>Cantidad de dosis:</label>
-				        					<input type="number" id="cant_dosis1" name="cant_dosis[]" min="1" class="form-control" required>
+				        					<input type="number" id="cant_dosis1" name="cant_dosis[]" min="1" class="form-control" required pattern="[1-9]{1,4}" value="<?php echo (isset($vacuna['cant_dosis1']))? $vacuna['cant_dosis1'] : set_value('cant_dosis1'); ?>" >
 						        		</div>
-				        			</div>
+				        			</div><!--/ Campo Cantidad de dosis -->
 				        		</div>
 			        			<div class="row">
+
+			        				<!-- Campo Intervalo -->
 				        			<div class="col-xs-6">
 						        		<div class="form-group">
 						        			<div class="row">
@@ -309,35 +321,37 @@ switch ($this->session->userdata('tipo_usuario')){
 							        				<input type="number" id="intervalo1" name="intervalo[]" min="1" class="form-control" required>				        				
 							        			</div>
 							        			<div class="col-xs-6">
-							        				<select class="form-control chosen-select" id="interperiodo1" name="interperiodo[]">
-							        					<option value="">Periodo</option>
-							        					<?php /*
-							        						foreach ($periodos as $periodo) {
-																
-															echo "<option value=\"".$periodo->id."\">".$periodo->descripcion."</option>";											
-															}*/
-							        					?>
+							        				<select class="form-control chosen-select" id="interperiodo1" name="interperiodo[]" data-placeholder="Periodo...">
+							        					<option></option>
+							        					<option value="Hora(s)">Hora(s)</option>
+							        					<option value="Día(s)">Día(s)</option>
+							        					<option value="Semana(s)">Semana(s)</option>
+							        					<option value="Mese(s)">Mese(s)</option>
+							        					<option value="Año(s)">Año(s)</option>
 							        				</select>				        				
 							        			</div>
 							        		</div>
 						        		</div>
-				        			</div>
+				        			</div><!--/ Campo Intervalo -->
+
+				        			<!-- Campo Vía de administración -->
 				        			<div class="col-xs-6">
 						        		<div class="form-group">
 						        			<label class="control-label" for="via_administracion1"><span class="red">*</span>Vía de administración:</label>	
-					        				<select class="form-control chosen-select" id="via_administracion1" name="via_administracion[]">
-					        					<option value="">Administración</option>
-					        					<?php /*
-					        						foreach ($via_administracion as $via) {
-														
-													echo "<option value=\"".$via->id."\">".$via->descripcion."</option>";											
-													}*/
-					        					?>
+					        				<select class="form-control chosen-select" id="via_administracion1" name="via_administracion[]" data-placeholder="Seleccionar...">
+					        					<option></option>
+					        					<option value="Oral">Oral</option>
+					        					<option value="Intramuscular">Intramuscular</option>
+					        					<option value="Subcutánea">Subcutánea</option>
+					        					<option value="Endovenosa">Endovenosa</option>
+					        					<option value="Intradérmica">Intradérmica</option>
 					        				</select>
 						        		</div>
-				        			</div>
+				        			</div><!--/ Campo Vía de administración -->
 				        		</div>
 			        			<div class="row">
+
+			        				<!-- Campo Edad mínima -->
 				        			<div class="col-md-6">
 				        				<div class="form-group">
 				        					<div class="row">
@@ -346,19 +360,20 @@ switch ($this->session->userdata('tipo_usuario')){
 							        				<input type="number" id="eminima1" name="eminima[]" min="1" class="form-control" required>				        				
 							        			</div>
 							        			<div class="col-xs-6">
-							        				<select class="form-control chosen-select" id="eminperiodo1" name="eminperiodo[]">
-							        					<option value="">Periodo</option>
-							        					<?php /*
-							        						foreach ($periodos as $periodo) {
-																
-															echo "<option value=\"".$periodo->id."\">".$periodo->descripcion."</option>";											
-															}*/
-							        					?>
+							        				<select class="form-control chosen-select" id="eminperiodo1" name="eminperiodo[]" data-placeholder="Periodo...">
+							        					<option></option>
+							        					<option value="Hora(s)">Hora(s)</option>
+							        					<option value="Día(s)">Día(s)</option>
+							        					<option value="Semana(s)">Semana(s)</option>
+							        					<option value="Mese(s)">Mese(s)</option>
+							        					<option value="Año(s)">Año(s)</option>	
 							        				</select>				        				
 							        			</div>
 							        		</div>
 						        		</div>
-				        			</div>
+				        			</div><!--/ Campo Edad mínima -->
+
+				        			<!-- Campo Edad máxima -->
 				        			<div class="col-md-6">
 				        				<div class="form-group">
 				        					<div class="row">
@@ -367,19 +382,18 @@ switch ($this->session->userdata('tipo_usuario')){
 							        				<input type="number" id="emaxima1" name="emaxima[]" min="1" class="form-control" required>				        				
 							        			</div>
 							        			<div class="col-xs-6">
-							        				<select class="form-control chosen-select" id="emaxperiodo1" name="emaxperiodo[]">
-							        					<option value="">Periodo</option>
-							        					<?php /*
-							        						foreach ($periodos as $periodo) {
-																
-															echo "<option value=\"".$periodo->id."\">".$periodo->descripcion."</option>";											
-															}*/
-							        					?>
+							        				<select class="form-control chosen-select" id="emaxperiodo1" name="emaxperiodo[]" data-placeholder="Periodo...">
+							        					<option></option>
+							        					<option value="Hora(s)">Hora(s)</option>
+							        					<option value="Día(s)">Día(s)</option>
+							        					<option value="Semana(s)">Semana(s)</option>
+							        					<option value="Mese(s)">Mese(s)</option>
+							        					<option value="Año(s)">Año(s)</option>
 							        				</select>				        				
 							        			</div>
 							        		</div>
 						        		</div>
-				        			</div>
+				        			</div><!--/ Campo Edad máxima -->
 				        		</div>
         					</div>
         					
@@ -392,19 +406,22 @@ switch ($this->session->userdata('tipo_usuario')){
 						</small>
 					</div>				
 					<hr class="form-divisor-line">
+
+					<!-- Botones -->
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
 							<a href="<?php echo base_url(); ?>Patologia/ListarPatologias" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
-					</div>
+					</div><!--/ Botones -->
+
 				<?php echo form_close();?>			
 			</div><!--/ Formulario -->
 		</div>
 	</div>
 </div>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/fileinput.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-formulario-vacuna.js"></script>
 
