@@ -56,6 +56,37 @@ class Vacuna extends CI_Controller {
         $result = $this->PatologiaModel->ExtraerPatologia($condicion);
     
         $data["patologias"] = $result->result_array();
+        $data["cant_patologias"] = $result->num_rows();
+
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            
+            //var_dump($_POST);
+
+
+                //Si la vacuna se agrega exitosamente a la base de datos...
+                if ($id_vacuna = $this->VacunaModel->AgregarVacuna()) {
+
+                    
+                    $RelacionVacunaPatologia = array(
+                        "vacuna" => $id_vacuna,
+                        "patologias" => $_POST["enfermedad"]
+                        );
+
+                    if ($this->VacunaModel->AgregarRelacionVacunaPatologia($RelacionVacunaPatologia) && $this->VacunaModel->AgregarEsquema($id_vacuna)) {
+                       
+                        set_cookie("message","La Vacuna <strong>'".$this->input->post('vacuna_nombre')."'</strong> fue registrada exitosamente!...", time()+15);
+                        header("Location: ".base_url()."Vacuna/ListarVacunas"); //controlador y metododo del controlador que carga la vista                       
+
+                    }else{
+                        $data['mensaje'] = $this->db->error();
+                    }
+
+                //Si hay error en la inserción
+                }else{
+
+                    $data['mensaje'] = $this->db->error();
+                }
+        }
 
         $this->load->view('medicina/FormularioRegistroVacuna', $data);
     }

@@ -67,11 +67,11 @@ switch ($this->session->userdata('tipo_usuario')){
 							    </div>
 						  	</div><!--/ Descripción campo Nombre de la vacuna -->
 
-						  	<!-- Descripción campo Fecha inicio -->
+						  	<!-- Descripción campo Cantidad de enfermedades -->
 						  	<div class="panel panel-default">
 							    <div class="panel-heading" role="tab" id="heading2">
 							      	<h4 class="panel-title">
-							      		Fecha inicio
+							      		C. enfermedades
 							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
 							          		<span class="glyphicon glyphicon-plus"></span>
 							        	</a>
@@ -80,20 +80,19 @@ switch ($this->session->userdata('tipo_usuario')){
 							    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
 							      	<div class="panel-body">
 							      		<ul>
-							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-							      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-							      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual.</li>
+							      			<li><b>Tipo de dato:</b> Número entero.</li>
+							      			<li><b>Condición:</b> El valor mínimo debe ser 1 y el máximo será el mismo que la cantidad de enfermedades registradas.</li>
 							      			<li><b>Campo obligatorio.</b></li>
 							      		</ul>
 							      	</div>
 							    </div>
-						  	</div><!--/ Descripción campo Fecha inicio -->
+						  	</div><!--/ Descripción campo Cantidad de enfermedades -->
 
-						  	<!-- Descripción campo Hora inicio -->
+						  	<!-- Descripción campo Enfermedad -->
 						  	<div class="panel panel-default">
 							    <div class="panel-heading" role="tab" id="heading3">
 							      	<h4 class="panel-title">
-							      		Hora inicio
+							      		Enfermedad
 							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
 							          		<span class="glyphicon glyphicon-plus"></span>
 							        	</a>
@@ -102,21 +101,19 @@ switch ($this->session->userdata('tipo_usuario')){
 							    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
 							      	<div class="panel-body">
 							      		<ul>
-							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-							      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
-							      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
-							      			<li><b>Condición:</b> La combinación entre la hora y la fecha de inicio debe ser posterior a la hora y fecha actuales.</li>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres - Lista desplegable.</li>
+							      			<li><b>Condición:</b> No se deben elegir dos o más patologías idénticas. La cantidad de enfermedades para elegir depende del número ingresado en el campo anterior.</li>
 							      			<li><b>Campo obligatorio.</b></li>
 							      		</ul>
 							      	</div>
 							    </div>
-						  	</div><!--/ Descripción campo Hora inicio -->
+						  	</div><!--/ Descripción campo Enfermedad -->
 
-						  	<!-- Descripción campo Fecha finalización -->
+						  	<!-- Descripción campo Esquema -->
 						  	<div class="panel panel-default">
 							    <div class="panel-heading" role="tab" id="heading4">
 							      	<h4 class="panel-title">
-							      		Fecha finalización
+							      		Esquema
 							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
 							          		<span class="glyphicon glyphicon-plus"></span>
 							        	</a>
@@ -125,20 +122,19 @@ switch ($this->session->userdata('tipo_usuario')){
 							    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
 							      	<div class="panel-body">
 							      		<ul>
-							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-							      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-							      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual ni a la fecha de inicio.</li>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres - Lista desplegable.</li>
+							      			<li><b>Condición:</b> Los esquemas "Unica" y "Refuerzo" tienen una sola dosis.</li>
 							      			<li><b>Campo obligatorio.</b></li>
 							      		</ul>
 							      	</div>
 							    </div>
-						  	</div><!--/ Descripción campo Fecha finalización -->
+						  	</div><!--/ Descripción campo Esquema -->
 
-						  	<!-- Descripción campo Hora finalización -->
+						  	<!-- Descripción campo Cantidad de dosis -->
 						  	<div class="panel panel-default">
 							    <div class="panel-heading" role="tab" id="heading5">
 							      	<h4 class="panel-title">
-							      		Hora finalización
+							      		Cantidad de dosis
 							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
 							          		<span class="glyphicon glyphicon-plus"></span>
 							        	</a>
@@ -147,21 +143,20 @@ switch ($this->session->userdata('tipo_usuario')){
 							    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
 							      	<div class="panel-body">
 							      		<ul>
-							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-							      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
-							      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
-							      			<li><b>Condición:</b> La combinación entre la hora y la fecha de finalización debe ser posterior a la hora y fecha actuales y a la hora y fecha de inicio del evento.</li>
+							      			<li><b>Tipo de dato:</b> Número entero.</li>
+							      			<li><b>Valor mínimo:</b> 1.</li>
+							      			<li><b>Condición:</b> Si el esquema es "Unica" o "Refuerzo", se elegirá automáticamente la cantidad 1.</li>
 							      			<li><b>Campo obligatorio.</b></li>
 							      		</ul>
 							      	</div>
 							    </div>
-						  	</div><!--/ Descripción campo Hora finalización -->
+						  	</div><!--/ Descripción campo Cantidad de dosis -->
 
-						  	<!-- Descripción campo Descripción -->
+						  	<!-- Descripción campo Intervalo -->
 						  	<div class="panel panel-default">
 							    <div class="panel-heading" role="tab" id="heading6">
 							      	<h4 class="panel-title">
-							      		Descripción
+							      		Intervalo
 							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
 							          		<span class="glyphicon glyphicon-plus"></span>
 							        	</a>
@@ -170,20 +165,20 @@ switch ($this->session->userdata('tipo_usuario')){
 							    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
 							      	<div class="panel-body">
 							      		<ul>
-							      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-							      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
-							      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
+							      			<li><b>Tipo de dato:</b> Número entero.</li>
+							      			<li><b>Valor mínimo:</b> 1.</li>
+							      			<li><b>Período:</b> Hora(s), Día(s), Semana(s), Mes(es) o Año(s), obligatorio.</b></li>
 							      			<li><b>Campo obligatorio.</b></li>
 							      		</ul>
 							      	</div>
 							    </div>
-						  	</div><!--/ Descripción campo Descripción -->
+						  	</div><!--/ Descripción campo Intervalo -->
 
-						  	<!-- Descripción campo Imagen -->
+						  	<!-- Descripción campo Vía de Administración -->
 						  	<div class="panel panel-default">
 							    <div class="panel-heading" role="tab" id="heading7">
 							      	<h4 class="panel-title">
-							      		Imagen
+							      		Vía de Administración
 							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
 							          		<span class="glyphicon glyphicon-plus"></span>
 							        	</a>
@@ -192,13 +187,56 @@ switch ($this->session->userdata('tipo_usuario')){
 							    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
 							      	<div class="panel-body">
 							      		<ul>
-							      			<li><b>Tipo de dato:</b> Archivo de tipo imagen.</li>
-							      			<li><b>Fromatos permitidos:</b> JPG, PNG y GIF.</li>
-							      			<li><b>Campo opcional.</b></li>
+							      			<li><b>Tipo de dato:</b> Cadena de caracteres - Lista desplegable.</li>
+							      			<li><b>Campo obligatorio.</b></li>
 							      		</ul>
 							      	</div>
 							    </div>
-						  	</div><!--/ Descripción campo Imagen -->
+						  	</div><!--/ Descripción campo Vía de Administración -->
+
+						  	<!-- Descripción campo Edad mínima -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading8">
+							      	<h4 class="panel-title">
+							      		Edad mínima
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Número entero.</li>
+							      			<li><b>Valor mínimo:</b> 1.</li>
+							      			<li><b>Período:</b> Hora(s), Día(s), Semana(s), Mes(es) o Año(s), obligatorio.</b></li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Edad mínima -->
+
+						  	<!-- Descripción campo Edad máxima -->
+						  	<div class="panel panel-default">
+							    <div class="panel-heading" role="tab" id="heading9">
+							      	<h4 class="panel-title">
+							      		Edad máxima
+							        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+							          		<span class="glyphicon glyphicon-plus"></span>
+							        	</a>
+							      	</h4>
+							    </div>
+							    <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading9">
+							      	<div class="panel-body">
+							      		<ul>
+							      			<li><b>Tipo de dato:</b> Número entero.</li>
+							      			<li><b>Valor mínimo:</b> 1.</li>
+							      			<li><b>Período:</b> Hora(s), Día(s), Semana(s), Mes(es) o Año(s), obligatorio.</b></li>
+							      			<li><b>Campo obligatorio.</b></li>
+							      		</ul>
+							      	</div>
+							    </div>
+						  	</div><!--/ Descripción campo Edad máxima -->
 
 						</div><!--/ Panel de descripción de campos -->
 
@@ -239,8 +277,8 @@ switch ($this->session->userdata('tipo_usuario')){
     					<!-- Campo Nombre de la vacuna -->        					
 	        			<div class="col-xs-6">
 			        		<div class="form-group">
-			        			<label class="control-label" for="vacuna_nombre"><span class="red">*</span>Nombre de la vacuna:</label>
-			        			<input type="text" id="vacuna_nombre" name="vacuna_nombre" class="form-control" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($vacuna['vacuna_nombre']))? $vacuna['vacuna_nombre'] : set_value('vacuna_nombre'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos"> 
+			        			<label class="control-label" for="nombre_vacuna"><span class="red">*</span>Nombre de la vacuna:</label>
+			        			<input type="text" id="nombre_vacuna" name="nombre_vacuna" class="form-control" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ-_ ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($vacuna['nombre_vacuna']))? $vacuna['nombre_vacuna'] : set_value('nombre_vacuna'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos"> 
 								    <div class="help-block with-errors">
 								    </div>
 			        		</div>
@@ -250,7 +288,7 @@ switch ($this->session->userdata('tipo_usuario')){
 	        			<div class="col-xs-6">
 			        		<div class="form-group">
 			        			<label class="control-label" for="cant_enfermedad"><span class="red">*</span>Cantidad de enfermedades que combate:</label>
-			        			<input type="number" id="cant_enfermedad" name="cant_enfermedad" min="1" class="form-control" required pattern="[1-9]{1,4}" value="<?php echo (isset($vacuna['cant_enfermedad']))? $vacuna['cant_enfermedad'] : set_value('cant_enfermedad'); ?>" >	
+			        			<input type="number" id="cant_enfermedad" name="cant_enfermedad" min="1" max="<?php echo $cant_patologias; ?>" class="form-control" required pattern="[1-9]{1,4}" value="<?php echo (isset($vacuna['cant_enfermedad']))? $vacuna['cant_enfermedad'] : set_value('cant_enfermedad'); ?>" >	
 							    <div class="help-block with-errors">
 								</div>
 			        		</div>
@@ -411,7 +449,7 @@ switch ($this->session->userdata('tipo_usuario')){
 					<div class="col-sm-12">
 						<div class="col-sm-6 col-sm-offset-3">
 							<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-							<a href="<?php echo base_url(); ?>Patologia/ListarPatologias" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
+							<a href="<?php echo base_url(); ?>Vacuna/ListarVacunas" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
 						</div>						
 					</div><!--/ Botones -->
 
