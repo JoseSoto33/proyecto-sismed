@@ -1,50 +1,40 @@
 <?php
 
-class VacunaModel extends CI_Model {
+class EsquemaModel extends CI_Model {
 
     public function __construct()
     {
             parent::__construct();
-    }
+    }	
 
-	public function AgregarVacuna()
-	{
-
-     	$data = array(
-     			"nombre_vacuna" => $this->input->post('nombre_vacuna')
-     		);
-
-     	if($this->db->insert("vacuna", $data)){     		
-
-            return $this->db->insert_id();
-
-     	}else{
-     		return false;
-     	}
-
-	}
-
-    public function AgregarRelacionVacunaPatologia($data)
+    public function AgregarEsquema($id_vacuna)
     {
 
-        foreach ($data["patologias"] as $key => $patologia) {
+        foreach ($_POST["esquema"] as $key => $esquema) {
             
             $insert = array(
-                        "id_vacuna" => $data["vacuna"],
-                        "id_patologia" => $patologia
-                        );
+                "id_vacuna" => $id_vacuna,
+                "esquema" => $esquema,
+                "min_edad_aplicacion" => $_POST["eminima"][$key],
+                "min_edad_periodo" => $_POST["eminperiodo"][$key],
+                "max_edad_aplicacion" => $_POST["emaxima"][$key],
+                "max_edad_periodo" => $_POST["emaxperiodo"][$key],
+                "via_administracion" => $_POST["via_administracion"][$key],
+                "cant_dosis" => $_POST["cant_dosis"][$key],
+                "intervalo" => $_POST["intervalo"][$key],
+                "intervalo_periodo" => $_POST["interperiodo"][$key]
+                );
 
-            if(!$this->db->insert("vacuna_patologia", $insert)){             
+            if(!$this->db->insert("esquema", $insert)){             
 
                 return false;
             }
         }
 
         return true;
-
     }
 
-	public function ModificarVacuna($condicion = array())
+	public function ModificarEsquema($condicion = array())
 	{
 		if (isset($condicion['where']) && !empty($condicion['where'])) {
             
@@ -63,7 +53,7 @@ class VacunaModel extends CI_Model {
         }
 	}
 
-	public function EliminarVacuna($condicion = array())
+	public function EliminarEsquema($condicion = array())
 	{
 		if (isset($condicion['where']) && !empty($condicion['where'])) {
             
@@ -82,7 +72,7 @@ class VacunaModel extends CI_Model {
         }
 	}
 	
-	public function ValidarVacuna($condicion = array())
+	public function ValidarEsquema($condicion = array())
 	{
 	 	$query = $this->ExtraerVacuna($condicion);
 
@@ -93,7 +83,7 @@ class VacunaModel extends CI_Model {
     	}
 	}
 
-	public function ExtraerVacuna($condicion = array())
+	public function ExtraerEsquema($condicion = array())
 	{
 	 	if (isset($condicion['select']) && !empty($condicion['select'])) {
     		
@@ -102,7 +92,7 @@ class VacunaModel extends CI_Model {
     		$this->db->select("*");
     	}
 
-    	$this->db->from("vacuna");
+    	$this->db->from("esquema");
 
     	if (isset($condicion['where']) && !empty($condicion['where'])) {
     		
@@ -135,7 +125,7 @@ class VacunaModel extends CI_Model {
 
         $this->db->join("patologia", "patologia.id = vacuna_patologia.id_patologia");
 
-        $this->db->where("MD5(concat('sismed',vacuna_patologia.id_vacuna))", $id_vacuna);
+        $this->db->where("vacuna_patologia.id_vacuna", $id_vacuna);
 
         return $this->db->get();
     }

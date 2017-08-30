@@ -61,8 +61,6 @@ class Vacuna extends CI_Controller {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             //var_dump($_POST);
-
-
                 //Si la vacuna se agrega exitosamente a la base de datos...
                 if ($id_vacuna = $this->VacunaModel->AgregarVacuna()) {
 
@@ -72,7 +70,7 @@ class Vacuna extends CI_Controller {
                         "patologias" => $_POST["enfermedad"]
                         );
 
-                    if ($this->VacunaModel->AgregarRelacionVacunaPatologia($RelacionVacunaPatologia) && $this->VacunaModel->AgregarEsquema($id_vacuna)) {
+                    if ($this->VacunaModel->AgregarRelacionVacunaPatologia($RelacionVacunaPatologia) && $this->EsquemaModel->AgregarEsquema($id_vacuna)) {
                        
                         set_cookie("message","La Vacuna <strong>'".$this->input->post('vacuna_nombre')."'</strong> fue registrada exitosamente!...", time()+15);
                         header("Location: ".base_url()."Vacuna/ListarVacunas"); //controlador y metododo del controlador que carga la vista                       
@@ -100,19 +98,63 @@ class Vacuna extends CI_Controller {
     }
 
     /**
-     * 
+     * Extrae información sobre una vacuna en específico de la base de datos
+     *
+     * @return void
      */
     public function VerVacuna()
     {
+        $id_vacuna = $this->input->post("id");
 
+        $condicion = array(
+            "order_by" => array("campo" => "id", "direccion" => "ASC")
+            );
+
+        $patologias = $this->VacunaModel->ExtraerVacunaPatologia($id_vacuna,$condicion)->result_array();
+
+        $condicion["where"] = array("MD5(concat('sismed',id_vacuna))" => $id_vacuna);
+
+        $esquemas = $this->EsquemaModel->ExtraerEsquema($condicion)->result_array();
+
+        $data = array(
+            "patologias" => $patologias,
+            "esquemas" => $esquemas
+            );
+
+        echo json_encode($data);
     }
 
     /**
      * Extrae de la base de datos el listado de las vacunas registradas en la base de datos
+     *
+     * @return void
      */
     public function ListarVacunas()
     {
-    	$this->load->view('medicina/ListarVacunas');
+        $condicion = array(
+            "order_by" => array("campo" => "id", "direccion" => "ASC")
+            );
+
+        $data = array();
+
+        $result = $this->VacunaModel->ExtraerVacuna($condicion);
+        
+        $data["num_rows"] = $result->num_rows();
+        $vacunas = $result->result_array();
+
+        $condicion["select"] = "patologia.nombre";
+
+        foreach ($vacunas as $key => $vacuna) {
+            
+            $patologias = $this->VacunaModel->ExtraerVacunaPatologia(md5("sismed".$vacuna["id"]),$condicion);
+            $vacuna["patologias"] = $patologias->result_array();
+            $items[] = $vacuna;
+        }
+        $data["patologias"] = $patologias;
+        $data["vacunas"] = $items;
+        //$data["items"] = $items;
+
+    	$this->load->view('medicina/ListarVacunas', $data);
     }
     
     /**

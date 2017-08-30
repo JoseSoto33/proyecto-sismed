@@ -22,7 +22,7 @@
 			</div>	
 			<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
 			<div class="col-xs-12 table-responsive">
-				<table id="lista-patologias" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
+				<table id="lista-vacunas" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<th>Nº</th>
 						<th>vacuna</th>
@@ -32,38 +32,48 @@
 					<tfoot>
 						<th>Nº</th>
 						<th>vacuna</th>
-						<th>Edad de aplicación</th>
+						<th>Enfermedades que combate</th>
 						<th> </th>						
 					</tfoot>
 					<tbody>
 						<?php 
-							/*$cont = 1;
-							if ($patologias->num_rows() > 0) {
+							$cont = 1;
+							if ($num_rows > 0) {
 								
 								setlocale(LC_TIME,"esp"); 
 
-								foreach ($patologias->result_array() as $key => $patologia) {
+								foreach ($vacunas as $key => $vacuna) {
 									
-									echo "<tr id=\"fila_".md5('sismed'.$patologia["id"])."\">";
+									echo "<tr id=\"fila_".md5('sismed'.$vacuna["id"])."\">";
 									echo "<td>".$cont++."</td>";
-									echo "<td>".$patologia["nombre"]."</td>";
+									echo "<td>".$vacuna["nombre_vacuna"]."</td>";
 									echo "<td>";
-									if (strlen($patologia["descripcion"]) > 75) {
-										echo substr($patologia["descripcion"], 0, 75)."...";
-									}else{
-										echo $patologia["descripcion"];
-									}											
+									
+									$str = "";
+									for ($i=0; $i < count($vacuna["patologias"]); $i++) { 
+
+										$str .= $vacuna["patologias"][$i]["nombre"];
+
+										if ($i == count($vacuna["patologias"]) - 1) {
+											$str .= ".";
+										}else{
+											$str .= ", ";
+										}
+									}
+
+									echo $str;
+																			
 									echo "</td>";
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 
-									//---Boton editar---
-									echo "<a class=\"btn btn-sm btn-success editar-patologia\" href=\"".base_url("Patologia/ModificarPatologia/".md5('sismed'.$patologia["id"]))."\" title=\"Editar patologia\">";
-									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
+									//---Boton ver detalles---
+									echo "<a class=\"btn btn-xs btn-info ver-vacuna\" href=\"#\" data-toggle=\"modal\" data-target=\"#DetallesPatologia\" title=\"Ver vacuna\" data-idvacuna=\"".md5('sismed'.$vacuna["id"])."\" data-nombre=\"".$vacuna["nombre_vacuna"]."\">";
+									echo "<span class=\"glyphicon glyphicon-search\"></span>";
 									echo "</a>";
 
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-sm btn-danger eliminar-patologia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPatologia\" title=\"Eliminar patologia\" data-idpatologia=\"".md5('sismed'.$patologia["id"])."\" data-nombre=\"".$patologia["nombre"]."\">";
+									echo "<a class=\"btn btn-xs btn-danger eliminar-vacuna\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarVacuna\" title=\"Eliminar vacuna\" data-idvacuna=\"".md5('sismed'.$vacuna["id"])."\" data-nombre=\"".$vacuna["nombre_vacuna"]."\">";
 									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 									echo "</a>";
 
@@ -71,7 +81,7 @@
 									echo "</td>";
 									echo "</tr>";
 								}
-							}*/
+							}
 						?>
 					</tbody>
 				</table>
@@ -81,6 +91,223 @@
 </div>
 
 
+<!-- Detalles de vacuna -->
+<div class="modal fade" id="DetallesPatologia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Detalles de vacuna</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+        	<div class="col-xs-12">
+
+        		<div class="row">
+        			<div class="col-xs-12">
+        				<!-- Panel de información - Nombre de la vacuna -->
+		        		<div class="panel panel-default">
+
+		        			<!-- Título del panel -->
+						  	<div class="panel-heading">
+						  		<h3 class="panel-title">
+						  			Nombre de la vacuna
+						  			<button id="editar-vacuna" class="btn btn-xs btn-success pull-right">
+						  				<span class="glyphicon glyphicon-pencil"></span>
+						  			</button>
+						  		</h3>
+						  	</div><!--/ Título del panel -->
+
+						  	<!-- Contenido del panel -->
+						  	<div class="panel-body" id="form-editar-nombre">
+						  		<div class="form-group">
+							      	<input type="text" name="vac_nombre" id="vac_nombre" class="form-control" readonly="readonly">
+							    </div>
+							    <div id="fen-buttons" class="form-group hidden">	    	
+						        	<button class="btn btn-principal-2" type="button" id="s_vac_nombre" disabled="disabled">
+						        		Guardar
+						        	</button>
+						        	<button class="btn btn-default" type="button" id="c_vac_nombre" disabled="disabled">
+						        		Cancelar
+						        	</button>
+							    </div>
+						  	</div><!--/ Contenido del panel -->
+						</div><!--/ Panel de información - Nombre de la vacuna -->
+
+						<!-- Panel de información - Patologías que combate la vacuna -->
+						<div class="panel panel-default">
+
+							<!-- Título del panel -->
+						  	<div class="panel-heading">
+						    	<h3 class="panel-title">
+						    		Enfermedades que combate
+						    		<button id="editar-vacuna-patologias" class="btn btn-xs btn-success pull-right">
+						  				<span class="glyphicon glyphicon-pencil"></span>
+						  			</button>
+						    	</h3>
+						  	</div><!--/ Título del panel -->
+
+						  	<!-- Contenido del panel -->
+						  	<div class="panel-body">
+						    	<ul id="lista-patologias" class="list-group">
+								</ul>
+								<div id="lista-buttons" class="form-group hidden">	    	
+						        	<button class="btn btn-principal-2" type="button" id="s_lista" disabled="disabled">
+						        		Guardar
+						        	</button>
+						        	<button class="btn btn-default" type="button" id="c_lista" disabled="disabled">
+						        		Cancelar
+						        	</button>
+							    </div>
+						  	</div><!--/ Contenido del panel -->
+						</div><!--/ Panel de información - Patologías que combate la vacuna -->
+        			
+        				<!-- Panel de información - Esquemas de la vacuna -->
+						<div class="panel panel-default">
+
+							<!-- Título del panel -->
+						  	<div class="panel-heading">
+						    	<h3 class="panel-title">
+						    		Esquemas de la vacuna
+						    		<button id="agregar-esquema" class="btn btn-xs btn-success pull-right">
+						  				<span class="glyphicon glyphicon-plus"></span>
+						  			</button>
+						    	</h3>
+						  	</div><!--/ Título del panel -->
+
+						  	<!-- Contenido del panel -->
+						  	<div class="panel-body">
+						  		<!-- Panel de listado de esquemas -->
+								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+					    			
+					    			<!-- Listado de esquemas dinámico -->
+
+								</div><!--/ Panel de listado de esquemas -->
+
+								<div id="lista-esquemas" class="col-xs-12 hidden">
+	        						<div class="row">
+	        							<!-- Campo Esquema -->
+		        						<div class="col-xs-6">
+							        		<div class="form-group">
+							        			<label class="control-label" for="esquema1"><span class="red">*</span>Esquema:</label>
+						        				<select class="form-control chosen-select select-esquema" id="esquema1" data-dosis="cant_dosis1" data-intervalo="intervalo1" data-pintervalo="interperiodo1" name="esquema[]" data-placeholder="Seleccionar esquema...">
+						        					<option></option>
+						        					<option value="Única">Única</option>
+						        					<option value="Dosis">Dosis</option>
+						        					<option value="Refuerzo">Refuerzo</option>
+						        				</select>
+							        		</div>
+					        			</div><!--/ Campo Esquema -->
+
+					        			<!-- Campo Cantidad de dosis -->
+				        				<div class="col-xs-6">
+							        		<div class="form-group">
+							        			<label class="control-label" for="cant_dosis1"><span class="red">*</span>Cantidad de dosis:</label>
+					        					<input type="number" id="cant_dosis1" name="cant_dosis[]" min="1" class="form-control" required pattern="[1-9]{1,4}" value="" >
+							        		</div>
+					        			</div><!--/ Campo Cantidad de dosis -->
+
+				        				<!-- Campo Intervalo -->
+					        			<div class="col-xs-12">
+							        		<div class="form-group">
+							        			<div class="row">
+								        			<label class="col-xs-12 control-label" for="intervalo1"><span class="red">*</span>Intervalo:</label>
+								        			<div class="col-xs-6">
+								        				<input type="number" id="intervalo1" name="intervalo[]" min="1" class="form-control" required>				        				
+								        			</div>
+								        			<div class="col-xs-6">
+								        				<select class="form-control chosen-select" id="interperiodo1" name="interperiodo[]" data-placeholder="Periodo...">
+								        					<option></option>
+								        					<option value="Hora(s)">Hora(s)</option>
+								        					<option value="Día(s)">Día(s)</option>
+								        					<option value="Semana(s)">Semana(s)</option>
+								        					<option value="Mese(s)">Mese(s)</option>
+								        					<option value="Año(s)">Año(s)</option>
+								        				</select>				        				
+								        			</div>
+								        		</div>
+							        		</div>
+					        			</div><!--/ Campo Intervalo -->
+
+					        			<!-- Campo Vía de administración -->
+					        			<div class="col-xs-12">
+							        		<div class="form-group">
+							        			<label class="control-label" for="via_administracion1"><span class="red">*</span>Vía de administración:</label>	
+						        				<select class="form-control chosen-select" id="via_administracion1" name="via_administracion[]" data-placeholder="Seleccionar...">
+						        					<option></option>
+						        					<option value="Oral">Oral</option>
+						        					<option value="Intramuscular">Intramuscular</option>
+						        					<option value="Subcutánea">Subcutánea</option>
+						        					<option value="Endovenosa">Endovenosa</option>
+						        					<option value="Intradérmica">Intradérmica</option>
+						        				</select>
+							        		</div>
+					        			</div><!--/ Campo Vía de administración -->
+					        		
+
+				        				<!-- Campo Edad mínima -->
+					        			<div class="col-md-12">
+					        				<div class="form-group">
+					        					<div class="row">
+								        			<label class="col-xs-12 control-label" for="eminima1"><span class="red">*</span>Edad mínima:</label>
+								        			<div class="col-xs-6">
+								        				<input type="number" id="eminima1" name="eminima[]" min="1" class="form-control" required>				        				
+								        			</div>
+								        			<div class="col-xs-6">
+								        				<select class="form-control chosen-select" id="eminperiodo1" name="eminperiodo[]" data-placeholder="Periodo...">
+								        					<option></option>
+								        					<option value="Hora(s)">Hora(s)</option>
+								        					<option value="Día(s)">Día(s)</option>
+								        					<option value="Semana(s)">Semana(s)</option>
+								        					<option value="Mese(s)">Mese(s)</option>
+								        					<option value="Año(s)">Año(s)</option>	
+								        				</select>				        				
+								        			</div>
+								        		</div>
+							        		</div>
+					        			</div><!--/ Campo Edad mínima -->
+
+					        			<!-- Campo Edad máxima -->
+					        			<div class="col-md-12">
+					        				<div class="form-group">
+					        					<div class="row">
+								        			<label class="col-xs-12 control-label" for="emaxima1"><span class="red">*</span>Edad máxima:</label>
+								        			<div class="col-xs-6">
+								        				<input type="number" id="emaxima1" name="emaxima[]" min="1" class="form-control" required>				        				
+								        			</div>
+								        			<div class="col-xs-6">
+								        				<select class="form-control chosen-select" id="emaxperiodo1" name="emaxperiodo[]" data-placeholder="Periodo...">
+								        					<option></option>
+								        					<option value="Hora(s)">Hora(s)</option>
+								        					<option value="Día(s)">Día(s)</option>
+								        					<option value="Semana(s)">Semana(s)</option>
+								        					<option value="Mese(s)">Mese(s)</option>
+								        					<option value="Año(s)">Año(s)</option>
+								        				</select>				        				
+								        			</div>
+								        		</div>
+							        		</div>
+					        			</div><!--/ Campo Edad máxima -->
+					        		</div>
+		        							        					
+		        				</div>
+
+						  	</div><!--/ Contenido del panel -->
+						</div><!--/ Panel de información - Patologías que combate la vacuna -->
+        			</div>
+        			<div class="col-xs-12">
+        				
+        			</div>
+        		</div>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Eliminar patologia -->
 <div class="modal fade" id="EliminarPatologia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -108,5 +335,5 @@
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-patologias.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-vacunas.js"></script>
 <?php include('doctor/footer.php') ?>

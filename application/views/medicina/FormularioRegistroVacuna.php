@@ -463,6 +463,8 @@ switch ($this->session->userdata('tipo_usuario')){
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/fileinput.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-formulario-vacuna.js"></script>
 
+
+
 <?php
 switch ($this->session->userdata('tipo_usuario')){
 	
