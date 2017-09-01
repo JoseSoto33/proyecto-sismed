@@ -120,17 +120,32 @@
 
 						  	<!-- Contenido del panel -->
 						  	<div class="panel-body" id="form-editar-nombre">
-						  		<div class="form-group">
-							      	<input type="text" name="vac_nombre" id="vac_nombre" class="form-control" readonly="readonly">
-							    </div>
-							    <div id="fen-buttons" class="form-group hidden">	    	
-						        	<button class="btn btn-principal-2" type="button" id="s_vac_nombre" disabled="disabled">
-						        		Guardar
-						        	</button>
-						        	<button class="btn btn-default" type="button" id="c_vac_nombre" disabled="disabled">
-						        		Cancelar
-						        	</button>
-							    </div>
+
+						  		<div id="edit-message" class="alert" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<span id="ename-message"></span>
+								</div>	
+
+						  		<?php        							
+
+									echo form_open('#', 'class="" id="edicion-nombre"'); 
+					      		?>
+							  		<div class="form-group">
+								      	<input type="text" name="vac_nombre" id="vac_nombre" class="form-control" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" pattern="[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ\s]{3,30}" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="readonly"> 
+									    <div class="help-block with-errors">
+									    </div>
+								    </div>
+								    <div id="fen-buttons" class="form-group hidden">	    	
+							        	<button class="btn btn-principal-2" type="submit" id="s_vac_nombre" disabled="disabled">
+							        		Guardar
+							        	</button>
+							        	<button class="btn btn-default" type="button" id="c_vac_nombre" disabled="disabled">
+							        		Cancelar
+							        	</button>
+								    </div>
+
+								<?php echo form_close();?>	
+
 						  	</div><!--/ Contenido del panel -->
 						</div><!--/ Panel de información - Nombre de la vacuna -->
 
@@ -149,16 +164,38 @@
 
 						  	<!-- Contenido del panel -->
 						  	<div class="panel-body">
-						    	<ul id="lista-patologias" class="list-group">
-								</ul>
-								<div id="lista-buttons" class="form-group hidden">	    	
-						        	<button class="btn btn-principal-2" type="button" id="s_lista" disabled="disabled">
-						        		Guardar
-						        	</button>
-						        	<button class="btn btn-default" type="button" id="c_lista" disabled="disabled">
-						        		Cancelar
-						        	</button>
-							    </div>
+						  		<div class="row">						  			
+							  		<div class="col-xs-12 hidden" id="select-parologias">
+							  			<div class="row">
+							  				<div class="col-xs-12">
+							  					<div id="select-message" class="alert" role="alert">
+													<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+													<span id="pat-message"></span>
+												</div>	
+							  				</div>
+							  				<div class="col-xs-12 col-sm-5">
+							  					<button id="a_lista" class="btn btn-sm btn-success">Agregar</button>
+							  				</div>
+							  				<div class="col-xs-12 col-sm-7">
+							  					<div class="form-group">
+							  						<select id="list-patologias" name="list-patologias" class="form-control chosen-select"></select>
+							  					</div>						  					
+							  				</div>
+							  			</div>							  			
+							  		</div>
+							  		<div class="col-xs-12">
+							  			<input type="hidden" id="cant_patologias" name="cant_patologias" value="">
+								    	<ul id="lista-patologias" class="list-group">
+										</ul>
+							  		</div>
+							  		<div class="col-xs-12">							  			
+										<div id="lista-buttons" class="form-group hidden">
+								        	<button class="btn btn-default" type="button" id="c_lista" disabled="disabled">
+								        		Cerrar
+								        	</button>
+									    </div>
+							  		</div>
+						  		</div>
 						  	</div><!--/ Contenido del panel -->
 						</div><!--/ Panel de información - Patologías que combate la vacuna -->
         			
@@ -186,108 +223,126 @@
 
 								<div id="lista-esquemas" class="col-xs-12 hidden">
 	        						<div class="row">
-	        							<!-- Campo Esquema -->
-		        						<div class="col-xs-6">
-							        		<div class="form-group">
-							        			<label class="control-label" for="esquema1"><span class="red">*</span>Esquema:</label>
-						        				<select class="form-control chosen-select select-esquema" id="esquema1" data-dosis="cant_dosis1" data-intervalo="intervalo1" data-pintervalo="interperiodo1" name="esquema[]" data-placeholder="Seleccionar esquema...">
-						        					<option></option>
-						        					<option value="Única">Única</option>
-						        					<option value="Dosis">Dosis</option>
-						        					<option value="Refuerzo">Refuerzo</option>
-						        				</select>
-							        		</div>
-					        			</div><!--/ Campo Esquema -->
 
-					        			<!-- Campo Cantidad de dosis -->
-				        				<div class="col-xs-6">
-							        		<div class="form-group">
-							        			<label class="control-label" for="cant_dosis1"><span class="red">*</span>Cantidad de dosis:</label>
-					        					<input type="number" id="cant_dosis1" name="cant_dosis[]" min="1" class="form-control" required pattern="[1-9]{1,4}" value="" >
-							        		</div>
-					        			</div><!--/ Campo Cantidad de dosis -->
+	        						<?php        							
 
-				        				<!-- Campo Intervalo -->
-					        			<div class="col-xs-12">
-							        		<div class="form-group">
-							        			<div class="row">
-								        			<label class="col-xs-12 control-label" for="intervalo1"><span class="red">*</span>Intervalo:</label>
-								        			<div class="col-xs-6">
-								        				<input type="number" id="intervalo1" name="intervalo[]" min="1" class="form-control" required>				        				
-								        			</div>
-								        			<div class="col-xs-6">
-								        				<select class="form-control chosen-select" id="interperiodo1" name="interperiodo[]" data-placeholder="Periodo...">
-								        					<option></option>
-								        					<option value="Hora(s)">Hora(s)</option>
-								        					<option value="Día(s)">Día(s)</option>
-								        					<option value="Semana(s)">Semana(s)</option>
-								        					<option value="Mese(s)">Mese(s)</option>
-								        					<option value="Año(s)">Año(s)</option>
-								        				</select>				        				
-								        			</div>
+										echo form_open('#', 'class="" id="edicion-esquema"'); 
+						      		?>
+		        							<!-- Campo oculto que definirá la función del formulario -->
+		        							<input type="hidden" id="accion" name="accion" value="">
+
+		        							<!-- Campo Esquema -->
+			        						<div class="col-xs-6">
+								        		<div class="form-group">
+								        			<label class="control-label" for="esquema"><span class="red">*</span>Esquema:</label>
+							        				<select class="form-control chosen-select select-esquema" id="esquema" data-dosis="cant_dosis" data-intervalo="intervalo" data-pintervalo="interperiodo" name="esquema" data-placeholder="Seleccionar esquema...">
+							        					<option></option>
+							        					<option value="Única">Única</option>
+							        					<option value="Dosis">Dosis</option>
+							        					<option value="Refuerzo">Refuerzo</option>
+							        				</select>
 								        		</div>
-							        		</div>
-					        			</div><!--/ Campo Intervalo -->
+						        			</div><!--/ Campo Esquema -->
 
-					        			<!-- Campo Vía de administración -->
-					        			<div class="col-xs-12">
-							        		<div class="form-group">
-							        			<label class="control-label" for="via_administracion1"><span class="red">*</span>Vía de administración:</label>	
-						        				<select class="form-control chosen-select" id="via_administracion1" name="via_administracion[]" data-placeholder="Seleccionar...">
-						        					<option></option>
-						        					<option value="Oral">Oral</option>
-						        					<option value="Intramuscular">Intramuscular</option>
-						        					<option value="Subcutánea">Subcutánea</option>
-						        					<option value="Endovenosa">Endovenosa</option>
-						        					<option value="Intradérmica">Intradérmica</option>
-						        				</select>
-							        		</div>
-					        			</div><!--/ Campo Vía de administración -->
-					        		
-
-				        				<!-- Campo Edad mínima -->
-					        			<div class="col-md-12">
-					        				<div class="form-group">
-					        					<div class="row">
-								        			<label class="col-xs-12 control-label" for="eminima1"><span class="red">*</span>Edad mínima:</label>
-								        			<div class="col-xs-6">
-								        				<input type="number" id="eminima1" name="eminima[]" min="1" class="form-control" required>				        				
-								        			</div>
-								        			<div class="col-xs-6">
-								        				<select class="form-control chosen-select" id="eminperiodo1" name="eminperiodo[]" data-placeholder="Periodo...">
-								        					<option></option>
-								        					<option value="Hora(s)">Hora(s)</option>
-								        					<option value="Día(s)">Día(s)</option>
-								        					<option value="Semana(s)">Semana(s)</option>
-								        					<option value="Mese(s)">Mese(s)</option>
-								        					<option value="Año(s)">Año(s)</option>	
-								        				</select>				        				
-								        			</div>
+						        			<!-- Campo Cantidad de dosis -->
+					        				<div class="col-xs-6">
+								        		<div class="form-group">
+								        			<label class="control-label" for="cant_dosis"><span class="red">*</span>Cantidad de dosis:</label>
+						        					<input type="number" id="cant_dosis" name="cant_dosis" min="1" class="form-control" required pattern="[1-9]{1,4}" value="" >
 								        		</div>
-							        		</div>
-					        			</div><!--/ Campo Edad mínima -->
+						        			</div><!--/ Campo Cantidad de dosis -->
 
-					        			<!-- Campo Edad máxima -->
-					        			<div class="col-md-12">
-					        				<div class="form-group">
-					        					<div class="row">
-								        			<label class="col-xs-12 control-label" for="emaxima1"><span class="red">*</span>Edad máxima:</label>
-								        			<div class="col-xs-6">
-								        				<input type="number" id="emaxima1" name="emaxima[]" min="1" class="form-control" required>				        				
-								        			</div>
-								        			<div class="col-xs-6">
-								        				<select class="form-control chosen-select" id="emaxperiodo1" name="emaxperiodo[]" data-placeholder="Periodo...">
-								        					<option></option>
-								        					<option value="Hora(s)">Hora(s)</option>
-								        					<option value="Día(s)">Día(s)</option>
-								        					<option value="Semana(s)">Semana(s)</option>
-								        					<option value="Mese(s)">Mese(s)</option>
-								        					<option value="Año(s)">Año(s)</option>
-								        				</select>				        				
-								        			</div>
+					        				<!-- Campo Intervalo -->
+						        			<div class="col-xs-12">
+								        		<div class="form-group">
+								        			<div class="row">
+									        			<label class="col-xs-12 control-label" for="intervalo"><span class="red">*</span>Intervalo:</label>
+									        			<div class="col-xs-6">
+									        				<input type="number" id="intervalo" name="intervalo" min="1" class="form-control" required>				        				
+									        			</div>
+									        			<div class="col-xs-6">
+									        				<select class="form-control chosen-select" id="interperiodo" name="interperiodo" data-placeholder="Periodo...">
+									        					<option></option>
+									        					<option value="Hora(s)">Hora(s)</option>
+									        					<option value="Día(s)">Día(s)</option>
+									        					<option value="Semana(s)">Semana(s)</option>
+									        					<option value="Mese(s)">Mese(s)</option>
+									        					<option value="Año(s)">Año(s)</option>
+									        				</select>				        				
+									        			</div>
+									        		</div>
 								        		</div>
-							        		</div>
-					        			</div><!--/ Campo Edad máxima -->
+						        			</div><!--/ Campo Intervalo -->
+
+						        			<!-- Campo Vía de administración -->
+						        			<div class="col-xs-12">
+								        		<div class="form-group">
+								        			<label class="control-label" for="via_administracion"><span class="red">*</span>Vía de administración:</label>	
+							        				<select class="form-control chosen-select" id="via_administracion" name="via_administracion" data-placeholder="Seleccionar...">
+							        					<option></option>
+							        					<option value="Oral">Oral</option>
+							        					<option value="Intramuscular">Intramuscular</option>
+							        					<option value="Subcutánea">Subcutánea</option>
+							        					<option value="Endovenosa">Endovenosa</option>
+							        					<option value="Intradérmica">Intradérmica</option>
+							        				</select>
+								        		</div>
+						        			</div><!--/ Campo Vía de administración -->					        		
+
+					        				<!-- Campo Edad mínima -->
+						        			<div class="col-md-12">
+						        				<div class="form-group">
+						        					<div class="row">
+									        			<label class="col-xs-12 control-label" for="eminima"><span class="red">*</span>Edad mínima:</label>
+									        			<div class="col-xs-6">
+									        				<input type="number" id="eminima" name="eminima" min="1" class="form-control" required>				        				
+									        			</div>
+									        			<div class="col-xs-6">
+									        				<select class="form-control chosen-select" id="eminperiodo" name="eminperiodo" data-placeholder="Periodo...">
+									        					<option></option>
+									        					<option value="Hora(s)">Hora(s)</option>
+									        					<option value="Día(s)">Día(s)</option>
+									        					<option value="Semana(s)">Semana(s)</option>
+									        					<option value="Mese(s)">Mese(s)</option>
+									        					<option value="Año(s)">Año(s)</option>	
+									        				</select>				        				
+									        			</div>
+									        		</div>
+								        		</div>
+						        			</div><!--/ Campo Edad mínima -->
+
+						        			<!-- Campo Edad máxima -->
+						        			<div class="col-md-12">
+						        				<div class="form-group">
+						        					<div class="row">
+									        			<label class="col-xs-12 control-label" for="emaxima"><span class="red">*</span>Edad máxima:</label>
+									        			<div class="col-xs-6">
+									        				<input type="number" id="emaxima" name="emaxima" min="1" class="form-control" required>				        				
+									        			</div>
+									        			<div class="col-xs-6">
+									        				<select class="form-control chosen-select" id="emaxperiodo" name="emaxperiodo" data-placeholder="Periodo...">
+									        					<option></option>
+									        					<option value="Hora(s)">Hora(s)</option>
+									        					<option value="Día(s)">Día(s)</option>
+									        					<option value="Semana(s)">Semana(s)</option>
+									        					<option value="Mese(s)">Mese(s)</option>
+									        					<option value="Año(s)">Año(s)</option>
+									        				</select>				        				
+									        			</div>
+									        		</div>
+								        		</div>
+						        			</div><!--/ Campo Edad máxima -->
+
+						        			<!-- Botones -->
+						        			<div class=" col-xs-12">
+						        				<div class="form-group">
+						        					<button class="btn btn-principal-2" type="submit">Guardar</button>
+						        					<button class="btn btn-default">Cancelar</button>
+						        				</div>
+						        			</div><!--/ Botones -->
+
+						        	<?php echo form_close();?>
+
 					        		</div>
 		        							        					
 		        				</div>
@@ -335,5 +390,7 @@
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-vacunas.js"></script>
 <?php include('doctor/footer.php') ?>

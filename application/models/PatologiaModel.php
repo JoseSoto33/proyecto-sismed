@@ -78,17 +78,54 @@ class PatologiaModel extends CI_Model {
     	}else{
     		$this->db->select("*");
     	}
+
     	$this->db->from("patologia");
+
+        //Si está definida una cláusula 'join'
+        if (isset($condicion['join']) && !empty($condicion['join'])) {
+            
+            if (isset($condicion['join']['tipo'])) {
+                $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion'],$condicion['join']['tipo']);
+            }else{
+                $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion']);
+            }
+        }
+
+        //Si están definidas varias cláusula 'join'
+        if (isset($condicion['joins']) && !empty($condicion['joins'])) {
+            
+            foreach ($condicion['joins'] as $key => $join) {
+                
+                if (isset($join['tipo'])) {
+                    $this->db->join($join['tabla'],$join['condicion'],$join['tipo']);
+                }else{
+                    $this->db->join($join['tabla'],$join['condicion']);
+                }
+            }
+        }
 
     	if (isset($condicion['where']) && !empty($condicion['where'])) {
     		
     		$this->db->where($condicion['where']);
     	}
 
+        if (isset($condicion['wheres']) && !empty($condicion['wheres'])) {
+            
+            foreach ($condicion['wheres'] as $key => $where) {
+                
+                $this->db->where($where);
+            }
+        }
+
     	if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
     		
     		$this->db->or_where($condicion['or_where']);
     	}
+
+        if (isset($condicion['where_not_in']) && !empty($condicion['where_not_in'])) {
+            
+            $this->db->where_not_in($condicion['where_not_in']['campo'],$condicion['where_not_in']['data']);
+        }
 
         if (isset($condicion['order_by']) && !empty($condicion['order_by'])) {
             

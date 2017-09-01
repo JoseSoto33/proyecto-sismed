@@ -26,22 +26,12 @@ class VacunaModel extends CI_Model {
 
     public function AgregarRelacionVacunaPatologia($data)
     {
+        if(!$this->db->insert("vacuna_patologia", $data)){             
 
-        foreach ($data["patologias"] as $key => $patologia) {
-            
-            $insert = array(
-                        "id_vacuna" => $data["vacuna"],
-                        "id_patologia" => $patologia
-                        );
-
-            if(!$this->db->insert("vacuna_patologia", $insert)){             
-
-                return false;
-            }
+            return false;
         }
 
         return true;
-
     }
 
 	public function ModificarVacuna($condicion = array())
@@ -81,6 +71,25 @@ class VacunaModel extends CI_Model {
             return false;
         }
 	}
+
+    public function EliminarPatologiaVacuna($condicion = array())
+    {
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
+
+        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
+            
+            $this->db->or_where($condicion['or_where']);
+        }
+
+        if ($this->db->delete('vacuna_patologia')) {
+            return true;
+        }else{
+            return false;
+        }
+    }
 	
 	public function ValidarVacuna($condicion = array())
 	{

@@ -278,7 +278,7 @@ switch ($this->session->userdata('tipo_usuario')){
 	        			<div class="col-xs-6">
 			        		<div class="form-group">
 			        			<label class="control-label" for="nombre_vacuna"><span class="red">*</span>Nombre de la vacuna:</label>
-			        			<input type="text" id="nombre_vacuna" name="nombre_vacuna" class="form-control" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ-_ ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($vacuna['nombre_vacuna']))? $vacuna['nombre_vacuna'] : set_value('nombre_vacuna'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos"> 
+			        			<input type="text" id="nombre_vacuna" name="nombre_vacuna" class="form-control" pattern="[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ\s]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($vacuna['nombre_vacuna']))? $vacuna['nombre_vacuna'] : set_value('nombre_vacuna'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos"> 
 								    <div class="help-block with-errors">
 								    </div>
 			        		</div>

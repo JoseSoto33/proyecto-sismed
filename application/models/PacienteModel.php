@@ -111,7 +111,7 @@ class PacienteModel extends CI_Model {
     		$this->db->from("paciente");
     	}    	
 
-    	//Si está definida una cláusula 'where'
+    	//Si está definida una cláusula 'join'
         if (isset($condicion['join']) && !empty($condicion['join'])) {
             
             if (isset($condicion['join']['tipo'])) {
@@ -121,7 +121,7 @@ class PacienteModel extends CI_Model {
             }
         }
 
-        //Si están definidas varias cláusula 'where'
+        //Si están definidas varias cláusula 'join'
         if (isset($condicion['joins']) && !empty($condicion['joins'])) {
             
             foreach ($condicion['joins'] as $key => $join) {

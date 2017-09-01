@@ -218,17 +218,70 @@ class Patologia extends CI_Controller {
 	}
 
 	/**
-	 * 
+	 * Extrae de la base de datos las patologías registradas y las devuelve en un objeto JSON
+	 *
+	 * @return void
 	 */
 	public function ExtraerPatologia()
-	{
-		$condicion = array(
-            "where" => array("status" => TRUE),
-            "order_by" => array("campo" => "id", "direccion" => "ASC")
-            );
+	{	
+		
+		/*
+		if (isset($_POST["edit"]) && !empty($_POST["edit"])) {
+			
+			$condicion = array(
+	            "where" => array("status" => TRUE),
+	            "order_by" => array("campo" => "id", "direccion" => "ASC")
+	            );
+
+			$data = json_decode(stripslashes($_POST['edit']));			
+
+			foreach ($data->selected as $key => $patologia) {
+				
+				$condicion["wheres"][] = array("id !=" => $patologia->id);
+			}
+		}else*/
+		if (isset($_POST["id_vacuna"]) && !empty($_POST["id_vacuna"])) {
+			
+			$condicion = array(
+				"select" => "patologia.id",
+	            "where" => array("patologia.status" => TRUE, "MD5(concat('sismed',vacuna_patologia.id_vacuna))" => $_POST["id_vacuna"]),
+	            "order_by" => array("campo" => "patologia.id", "direccion" => "ASC")
+	            );
+
+			$condicion["join"] = array(
+				"tabla" => "vacuna_patologia",
+				"condicion" => "patologia.id = vacuna_patologia.id_patologia"
+				);
+
+			$result = $this->PatologiaModel->ExtraerPatologia($condicion);
+
+			$condicion = array(
+				"where" => array("status" => TRUE),
+	            "order_by" => array("campo" => "id", "direccion" => "ASC")
+	            );
+
+			if ($result->num_rows() > 0) {
+				
+				foreach ($result->result_array() as $key => $row) {
+				
+					$where_not_in[] = $row["id"];
+				}
+
+				$condicion["where_not_in"] = array("campo" => "id", "data" => $where_not_in);
+			}
+
+		}else{
+
+			$condicion = array(
+	            "where" => array("status" => TRUE),
+	            "order_by" => array("campo" => "id", "direccion" => "ASC")
+	            );
+		}
 
 		$result = $this->PatologiaModel->ExtraerPatologia($condicion);
-/*
+
+		echo json_encode($result->result());
+		/*
 		if (isset($_POST['id']) && !empty($_POST['id'])) {
 			
 			$condicion = array("where" => array('id !=' => $_POST['id']));
@@ -239,6 +292,6 @@ class Patologia extends CI_Controller {
 			$result = $this->PatologiaModel->ExtraerPatologia(array());
 		}*/
 
-		echo json_encode($result->result());
+		//echo json_encode($result->result());
 	}
 }

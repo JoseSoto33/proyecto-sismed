@@ -90,11 +90,89 @@ class Vacuna extends CI_Controller {
     }
 
     /**
-     * 
+     * Recibe un post desde Ajax y modifica el nombre de una vacuna específica
+     *
+     * @return void
      */
-    public function ModificarVacuna($id_vacuna)
+    public function ModificarNombreVacuna()
     {
 
+        $condicion = array(
+                "data" => array(
+                    "nombre_vacuna"=> $this->input->post("nuevo_nombre")
+                    ),
+                "where" => array(
+                    "MD5(concat('sismed',id))" => $this->input->post("id")
+                    )
+            );
+
+        if ($this->VacunaModel->ModificarVacuna($condicion)) {
+            
+            echo json_encode(array("status"=> true, "message" => "Modificación exitosa..."));
+        }else{
+            echo json_encode(array("status"=> false, "message" => "Ha ocurrido un error..."));
+        }
+    }
+
+    /**
+     * Añade un registro en la tabla vacuna_patologia para asociar una patologia con una vacuna específica
+     *
+     * @return void
+     */
+    public function AgregarPatologiaVacuna()
+    {
+        $id_patologia = $this->input->post("id_patologia");
+        $id_vacuna = $this->input->post("id_vacuna");
+
+        $condicion = array(
+            "where" => array("MD5(concat('sismed',id))" => $id_vacuna)
+            ); 
+
+        $vacuna = $this->VacunaModel->ExtraerVacuna($condicion)->row_array();
+
+        $insert = array(
+            "id_vacuna" => $vacuna["id"],
+            "id_patologia" => $id_patologia
+            );
+
+        if ($this->VacunaModel->AgregarRelacionVacunaPatologia($insert)) {
+
+            $condicion = array(
+            "order_by" => array("campo" => "id", "direccion" => "ASC")
+            );
+
+            $patologias = $this->VacunaModel->ExtraerVacunaPatologia($id_vacuna,$condicion)->result_array();
+
+            echo json_encode(array("status"=>true, "message" => "Asociación de vacuna y patología exitosa...", "patologias" => $patologias));
+        }else{
+            echo json_encode(array("status"=>false, "message" => "Error al asociar la patología..."));
+        }
+    }
+
+    /**
+     * Elimina una relación entre una vacuna y una patología específicas
+     *
+     * @return void
+     */
+    public function EliminarPatologiaVacuna()
+    {
+        $id_patologia = $this->input->post("id_patologia");
+        $id_vacuna = $this->input->post("id_vacuna");
+
+        $condicion = array(
+            "where" => array(
+                "MD5(concat('sismed',id_vacuna))" => $id_vacuna,
+                "id_patologia" => $id_patologia
+                )
+            ); 
+
+        if ($this->VacunaModel->EliminarPatologiaVacuna($condicion)) {
+            $patologias = $this->VacunaModel->ExtraerVacunaPatologia($id_vacuna,$condicion)->result_array();
+
+            echo json_encode(array("status"=>true, "message" => "Eliminación exitosa...", "patologias" => $patologias));
+        }else{
+            echo json_encode(array("status"=>false, "message" => "Error al asociar la patología..."));
+        }
     }
 
     /**
@@ -122,6 +200,25 @@ class Vacuna extends CI_Controller {
             );
 
         echo json_encode($data);
+    }
+
+    /**
+     * Extrae información sobre un esquema en específico de la base de datos
+     *
+     * @return void
+     */
+    public function VerEsquema()
+    {
+        $id_esquema = $this->input->post("id");
+
+        $condicion = array(
+            "where" => array("id" => $id_esquema),
+            "order_by" => array("campo" => "id", "direccion" => "ASC")
+            );
+
+        $esquema = $this->EsquemaModel->ExtraerEsquema($condicion)->row_array();        
+
+        echo json_encode($esquema);
     }
 
     /**
