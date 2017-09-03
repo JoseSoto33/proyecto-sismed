@@ -166,8 +166,6 @@ $(document).ready(function(){
         var intervalo = $(this).data('intervalo');
         var pintervalo = $(this).data('pintervalo');
 
-        console.log("Input dosis: "+dosis+" -- Input intervalo: "+intervalo+" -- Input pintervalo: "+pintervalo);
-
         if (valor == "Única") {
             $("#"+dosis).val(1).attr("readonly","readonly");
             $("#"+intervalo).val(1).attr("readonly","readonly");

@@ -203,25 +203,6 @@ class Vacuna extends CI_Controller {
     }
 
     /**
-     * Extrae información sobre un esquema en específico de la base de datos
-     *
-     * @return void
-     */
-    public function VerEsquema()
-    {
-        $id_esquema = $this->input->post("id");
-
-        $condicion = array(
-            "where" => array("id" => $id_esquema),
-            "order_by" => array("campo" => "id", "direccion" => "ASC")
-            );
-
-        $esquema = $this->EsquemaModel->ExtraerEsquema($condicion)->row_array();        
-
-        echo json_encode($esquema);
-    }
-
-    /**
      * Extrae de la base de datos el listado de las vacunas registradas en la base de datos
      *
      * @return void
@@ -252,6 +233,43 @@ class Vacuna extends CI_Controller {
         //$data["items"] = $items;
 
     	$this->load->view('medicina/ListarVacunas', $data);
+    }
+
+    /**
+     * Cambia el estado de una vacuna determinada de 'activa'a 'inactiva' y viceversa
+     *
+     * @return void
+     */
+    public function EliminarVacuna()
+    {
+        $id = $this->input->post('id');
+        $action = $this->input->post('action');
+        $condicion = array(
+            'where' => array("MD5(concat('sismed',id))" => $id)
+            );
+
+        //Si la acción a realizar es 'habilitar'...
+        if ($action == "habilitar") {
+            $condicion['data'] = array('status' => true);
+
+        //Si la acción a realizar es 'inhabilitar'...
+        }else if ($action == "inhabilitar"){
+            $condicion['data'] = array('status' => false);
+        }
+
+        //Si la modificación se realiza con éxito...
+        if ($this->VacunaModel->ModificarVacuna($condicion)) {
+            
+            $data['result']  = true;
+            $data['message'] = "Operación exitosa!... El listado se recargará en breve...";
+
+        //Si ocurre un error durante la modificación...
+        }else{
+            $data['result']  = false;
+            $data['message'] = "Error: Ha ocurrido un problema durante la eliminación.\n".$this->db->error();
+        }
+        
+        echo json_encode($data);
     }
     
     /**

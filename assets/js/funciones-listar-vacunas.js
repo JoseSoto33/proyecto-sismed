@@ -63,12 +63,24 @@ $(document).ready(function(){
      if ($("#alert-message").length) {
 
         setTimeout( function(){                  
-            $("#alert-message").hide('fast');  
+            $("#alert-message").slideUp('fast');  
         }, 10000);
     }else{
 
         $(".alert").hide();
     }
+
+    $("#lista-esquemas").hide();
+
+    /** Cuando el modal de detalles de vacuna **/
+
+    $('#DetallesVacuna').on('hide.bs.modal', function (e) {
+      
+      cerrarEdicion();
+    });
+
+    /** --Cuando el modal de detalles de vacuna-- **/
+
 
     /** Ver detalles de vacuna **/
 
@@ -158,14 +170,14 @@ $(document).ready(function(){
             vacuna_nombre = $("#vac_nombre").val();
 
             if (response['status'] == true) {
-                $("#edit-message").addClass("alert-success").show().children("span").html(response["message"]);
+                $("#edit-message").addClass("alert-success").slideDown(250).children("span").html(response["message"]);
 
                 setTimeout( function(){                  
-                    $("#edit-message").hide('fast');  
+                    $("#edit-message").slideUp('fast');  
                 }, 10000);
 
             }else{
-                $("#edit-message").addClass("alert-danger").show().children("span").html(response["message"]);
+                $("#edit-message").addClass("alert-danger").slideDown(250).children("span").html(response["message"]);
             }
         });
 
@@ -173,15 +185,14 @@ $(document).ready(function(){
             alert('Error: '+textStatus);
             alert(thrown);
         });
-
-        $(this).attr("disabled","disabled");
-        $('#seccion2').animate({scrollTop : 0}, 500);
     });
 
     /** --Ver-Editar nombre vacuna-- **/
 
 
     /** Ver-Editar patologías **/
+
+    $("#list-patologias").chosen({width: "100%"});
 
     $("#editar-vacuna-patologias").on("click", function(e){
 
@@ -201,7 +212,7 @@ $(document).ready(function(){
 
         request.done(function (response, textStatus, jqXHR){ 
 
-            str_options += "<option value=\"\">Seleccionar patología</option>";
+            str_options += "<option></option>";
 
             $.each(response, function(i, v){
 
@@ -209,6 +220,8 @@ $(document).ready(function(){
             });
 
             $("#list-patologias").html(str_options);
+            $("#list-patologias").chosen({width: "100%"});
+            $("#list-patologias").trigger("chosen:updated");
         });
 
         request.fail(function (jqXHR, textStatus, thrown){
@@ -238,9 +251,9 @@ $(document).ready(function(){
             $("#lista-patologias .list-group-item .eliminar-patologia").addClass("hidden");
             $("#select-parologias").addClass("hidden");
             $("#lista-buttons").addClass("hidden").children("button").attr("disabled");
-            $("#select-message").removeClass("alert-danger").hide().children("span").html("");
+            $("#select-message").removeClass("alert-danger").slideUp(250).children("span").html("");
         }else{
-            $("#select-message").addClass("alert-danger").show().children("span").html("Debe haber al menos una patología asociada a esta vacuna...");
+            $("#select-message").addClass("alert-danger").slideDown(250).children("span").html("Debe haber al menos una patología asociada a esta vacuna...");
         }
     });
 
@@ -268,11 +281,18 @@ $(document).ready(function(){
 
                 $("#lista-patologias").html(listarPatologias(response['patologias'], ""));
 
+                $("#fila_"+idvacuna+" .cel-patologias").html(mostrarPatologias(response['patologias']));
+
                 $("#editar-vacuna-patologias").trigger("click");
 
+                $("#select-message").removeClass("alert-danger").slideUp(250).children("span").html("");
+
             }else{
-                $("#edit-message").addClass("alert-danger").show().children("span").html(response["message"]);
+                $("#edit-message").addClass("alert-danger").slideDown(250).children("span").html(response["message"]);
             }
+
+            $("#list-patologias").chosen({width: "100%"});
+            $("#list-patologias").trigger("chosen:updated");
         });
 
         request.fail(function (jqXHR, textStatus, thrown){
@@ -309,11 +329,16 @@ $(document).ready(function(){
 
                 $("#lista-patologias").html(listarPatologias(response['patologias'], ""));
 
+                $("#fila_"+idvacuna+" .cel-patologias").html(mostrarPatologias(response['patologias']));
+
                 $("#editar-vacuna-patologias").trigger("click");
 
             }else{
-                $("#edit-message").addClass("alert-danger").show().children("span").html(response["message"]);
+                $("#edit-message").addClass("alert-danger").slideDown(250).children("span").html(response["message"]);
             }
+
+            $("#list-patologias").chosen({width: "100%"});
+            $("#list-patologias").trigger("chosen:updated");
         });
 
         request.fail(function (jqXHR, textStatus, thrown){
@@ -336,15 +361,92 @@ $(document).ready(function(){
 
         e.preventDefault();
 
-        $(this).attr("disabled","disabled");
-        $('#seccion2').animate({scrollTop : 0}, 500);
+        //alert($("#s_esquema").hasClass("disabled"));
+
+        if (!$("#s_esquema").hasClass("disabled")) {
+
+            var sub_url;
+            var data = "";
+
+            var idesquema = $("#s_esquema").data("idesquema");
+
+            var accion = $("#accion").val();
+
+            if (accion == "e") {
+
+                sub_url = "Esquema/EditarEsquema";
+
+            }else if (accion == "a"){
+
+                sub_url = "Esquema/AgregarEsquema";
+            }        
+
+            if (idesquema != "") {
+                data += "id_esquema="+idesquema+"&";   
+            }
+
+            data += "id_vacuna="+idvacuna+"&"+$("#edicion-esquema").serialize();
+
+            var request;
+            if (request) {
+                request.abort();
+            }
+
+            request = $.ajax({
+                url: url+sub_url,
+                type: "POST",
+                dataType: "json",
+                data: data
+            });
+
+            request.done(function (response, textStatus, jqXHR){            
+                            
+                if (response['status'] == true) { 
+
+                    $("#accordion").html(listarEsquemas(response['esquemas'], ""));
+
+                    //$("#esquema-message").addClass("alert-success").show(500).children("span").html(response["message"]);
+                    $("#esquema-message").addClass("alert-success").slideDown(250).children("span").html(response["message"]);
+                    $("#panel_"+idesquema).removeClass("panel-default").addClass("panel-success");
+
+                    setTimeout( function(){
+                        //$("#esquema-message").removeClass("alert-success").hide(500).children("span").html("");
+                        $("#esquema-message").removeClass("alert-success").slideUp(250).children("span").html("");
+                        $("#panel_"+idesquema).removeClass("panel-success").addClass("panel-default");
+                    }, 6000);  
+
+
+                    $("#c_esquema").trigger("click");
+
+                }else{
+                    $("#esquema-message").addClass("alert-danger").slideDown(250).children("span").html(response["message"]);
+                }
+
+            });
+
+            request.fail(function (jqXHR, textStatus, thrown){
+                alert('Error: '+textStatus);
+                alert(thrown);
+            });            
+
+        }
+    });
+
+    $("#accordion").on("click", ".panel .panel-heading .panel-title .btn-group .collapsed", function(e){
+        $(this).addClass("btn-warning").removeClass("btn-info").children("span").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    });
+
+    $("#accordion").on("click", ".panel .panel-heading .panel-title .btn-group .btn-warning", function(e){
+        $(this).removeClass("btn-warning").addClass("btn-info").children("span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
     });
 
     $("#accordion").on("click", ".panel .panel-heading .panel-title .btn-group .editar-esquema", function(e){
 
         var idesquema = $(this).data("idesquema");
+        $("#s_esquema").data("idesquema",idesquema);
 
         $("#accion").val("e");
+        $("#e_title").html("Editar esquema");
 
         var request;
         if (request) {
@@ -352,7 +454,7 @@ $(document).ready(function(){
         }
 
         request = $.ajax({
-            url: url+"Vacuna/VerEsquema",
+            url: url+"Esquema/VerEsquema",
             type: "POST",
             dataType: "json",
             data: "id="+idesquema
@@ -367,6 +469,8 @@ $(document).ready(function(){
 
             /** Carga datos en el campo Cantidad de dosis **/
             $("#cant_dosis").val(response["cant_dosis"]);
+
+            validarSelectEsquema();
 
             /** Carga datos en el campo intervalo de la dosis **/
             $("#intervalo").val(response["intervalo"]);
@@ -389,9 +493,6 @@ $(document).ready(function(){
             /** Carga datos en el campo período de Edad máxima **/
             activarSelect($("#emaxperiodo option"),response["max_edad_periodo"]);
 
-            //$("#edicion-esquemas .chosen-select").chosen({width: "100%"});
-            //$("#edicion-esquemas .chosen-select").trigger("chosen:updated");
-
         });
 
         request.fail(function (jqXHR, textStatus, thrown){
@@ -402,13 +503,18 @@ $(document).ready(function(){
         e.preventDefault();
 
 
-        $("#accordion").hide();
-        $("#lista-esquemas").removeClass("hidden");
+        $("#accordion").slideUp(250);
+
+        setTimeout( function(){
+            $("#lista-esquemas").slideDown(350);
+        }, 270);
     });
 
     $("#lista-esquemas").on("click", ".form-group .btn-default", function(e){
 
         e.preventDefault();
+
+        $("#s_esquema").data("idesquema","");
 
         $("#lista-esquemas input").each(function(i, v){            
             this.value = "";
@@ -418,8 +524,14 @@ $(document).ready(function(){
             this.value = "";
         });
 
-        $("#lista-esquemas").addClass("hidden");
-        $("#accordion").show();
+        validarSelectEsquema();
+
+        $("#lista-esquemas").slideUp(500);
+
+        setTimeout( function(){            
+            $("#accordion").slideDown(250);
+        }, 270);
+
     });
 
     $("#agregar-esquema").on("click", function(e){
@@ -432,9 +544,66 @@ $(document).ready(function(){
             this.value = "";
         });
 
-        $("#accion").val("a");
-        $("#accordion").hide();
-        $("#lista-esquemas").removeClass("hidden");
+        validarSelectEsquema();
+
+        $("#accion").val("a");        
+        $("#e_title").html("Agregar nuevo esquema");
+        $("#accordion").slideUp(250);
+
+        setTimeout( function(){    
+            $("#lista-esquemas").slideDown(350);
+        }, 270);
+
+    });
+
+    $("#accordion").on("click", ".panel .panel-heading .panel-title .btn-group .eliminar-esquema", function(e){
+
+        $("#accordion .panel .panel-heading .panel-title .btn-group .eliminar-esquema").addClass("disabled");
+
+        var id_esquema = $(this).data("idesquema");
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        request = $.ajax({
+            url: url+"Esquema/EliminarEsquema",
+            type: "POST",
+            dataType: "json",
+            data: "id_vacuna="+idvacuna+"&id_esquema="+id_esquema
+        });
+
+        request.done(function (response, textStatus, jqXHR){ 
+            
+
+            if (response['status'] == true) { 
+
+                    $("#esquema-message").addClass("alert-success").show(500).children("span").html(response["message"]);
+
+                    setTimeout( function(){
+                        $("#esquema-message").removeClass("alert-success").hide(500).children("span").html("");
+                    }, 6000);  
+
+                    $("#accordion").html(listarEsquemas(response['esquemas'], ""));
+
+                }else{
+                    $("#esquema-message").addClass("alert-danger").show(500).children("span").html(response["message"]);
+                }
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            alert('Error: '+textStatus);
+            alert(thrown);
+        }); 
+
+        $("#accordion .panel .panel-heading .panel-title .btn-group .eliminar-esquema").removeClass("disabled");
+
+    });
+
+    $("#esquema").on("change", function(){
+
+        validarSelectEsquema();        
     });
 
     /** --Ver-Editar esquemas-- **/
@@ -447,15 +616,15 @@ $(document).ready(function(){
     	var nombre = $(this).data("nombre"); 
         var action = $(this).data("action");
 
-        $("#delete-message").hide();
+        $("#delete-message").slideUp(250);
 
         $("#action-title").html(action);
-    	$("#la-vauna").html(nombre);
-    	$("#accion-eliminar-vauna").data('idvacuna', idvacuna);
-        $("#accion-eliminar-vauna").data('action', action);
+    	$("#la-vacuna").html(nombre);
+    	$("#accion-eliminar-vacuna").data('idvacuna', idvacuna);
+        $("#accion-eliminar-vacuna").data('action', action);
     });    
 
-    $(".modal-footer").on("click", "#accion-eliminar-vauna", function(e){
+    $("#accion-eliminar-vacuna").on("click", function(e){
 
         var idvacuna = $(this).data("idvacuna");    
         var action = $(this).data("action");      
@@ -476,8 +645,8 @@ $(document).ready(function(){
             
             if (response['result'] == true) {
             	
-            	$("#delete-title").hide();
-            	$("#delete-message").removeClass('alert-danger').addClass('alert-success').removeClass('hidden').html(response['message']).show();
+            	$("#delete-title").slideUp(250);
+            	$("#delete-message").removeClass('alert-danger').addClass('alert-success').removeClass('hidden').html(response['message']).slideDown(250);
             	$("#accion-eliminar-vacuna").attr('disabled','disabled');
 
                 //tabla.row($("#fila_"+idpatologia)).remove().draw(); 
@@ -487,7 +656,7 @@ $(document).ready(function(){
 
             }else{
             	//alert(response['message']);
-            	$("#delete-message").removeClass('alert-success').addClass('alert-danger').removeClass('hidden').html(response['message']).show();
+            	$("#delete-message").removeClass('alert-success').addClass('alert-danger').removeClass('hidden').html(response['message']).slideDown(250);
             }
             
             setTimeout( function(){
@@ -496,8 +665,8 @@ $(document).ready(function(){
             }, 5000);
 
             setTimeout( function(){
-                $("#delete-message").hide();
-                $("#delete-title").show();
+                $("#delete-message").slideUp(250);
+                $("#delete-title").slideDown(250);
                 $("#accion-eliminar-vacuna").removeAttr('disabled');
             }, 6000);
         });
@@ -514,6 +683,28 @@ $(document).ready(function(){
 
 
     /** Funciones **/
+
+    function cerrarEdicion() {
+
+        $("#c_vac_nombre").trigger("click");
+        $("#c_lista").trigger("click");
+        $("#c_esquema").trigger("click");
+    }
+
+    function validarSelectEsquema() {
+
+        if ($("#esquema").val() == "Única") {
+            $("#cant_dosis").val(1).attr("readonly","readonly");
+            $("#intervalo").val(1).attr("readonly","readonly");
+            $("#interperiodo").val("Día(s)").hide();
+            $("#sub_interperiodo").removeClass("hidden").val($("#interperiodo").val());
+        }else{
+            $("#cant_dosis").removeAttr("readonly");
+            $("#intervalo").removeAttr("readonly");
+            $("#sub_interperiodo").addClass("hidden").val($("#interperiodo").val());
+            $("#interperiodo").show();
+        }
+    }
 
     function activarSelect(element, value) {
 
@@ -534,7 +725,7 @@ $(document).ready(function(){
 
         $.each(elements, function(index, value){
 
-                str += "<div class=\"panel panel-default\">";
+                str += "<div id=\"panel_"+value["id"]+"\" class=\"panel panel-default\">";
                 str += "<div class=\"panel-heading\" role=\"tab\" id=\"heading"+index+"\">";
                 str += "<h4 class=\"panel-title\">";
                 str += value["esquema"];
@@ -568,6 +759,7 @@ $(document).ready(function(){
 
         return str;
     }
+
     function listarPatologias(elements, str) {
 
         $.each(elements, function(index, value){
@@ -581,6 +773,24 @@ $(document).ready(function(){
             });
 
         return str;
+    }
+
+    function mostrarPatologias(element) {
+
+        var p = "";
+
+        $.each(element, function(i, patologia){
+
+            p += patologia["nombre"];
+
+            if (i == (element.length - 1)) {
+                p += ".";
+            }else{
+                p += ", ";
+            }
+        });
+
+        return p;
     }
 
     function dump(obj) {

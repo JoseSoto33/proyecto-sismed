@@ -59,6 +59,7 @@ class Patologia extends CI_Controller {
 			$this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario de registro de patologia
 		}
  	}
+ 	
 	public function ModificarPatologia($id_patologia = null)
 	{
 		$data = array("titulo" => "Modificar datos de la Patologia");
@@ -105,9 +106,7 @@ class Patologia extends CI_Controller {
 			}
 		}
 
-		$this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario para modificar una patolohia...
-
-			
+		$this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario para modificar una patolohia...			
 	}
 
 	public function EliminarPatologia()

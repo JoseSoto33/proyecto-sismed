@@ -44,10 +44,16 @@
 
 								foreach ($vacunas as $key => $vacuna) {
 									
-									echo "<tr id=\"fila_".md5('sismed'.$vacuna["id"])."\">";
+									if($vacuna["status"] === 'f')
+									{
+										echo "<tr class=\"danger\" id=\"fila_".md5('sismed'.$vacuna["id"])."\">";
+
+									}else{										
+										echo "<tr id=\"fila_".md5('sismed'.$vacuna["id"])."\">";
+									}
 									echo "<td>".$cont++."</td>";
 									echo "<td>".$vacuna["nombre_vacuna"]."</td>";
-									echo "<td>";
+									echo "<td class=\"cel-patologias\">";
 									
 									$str = "";
 									for ($i=0; $i < count($vacuna["patologias"]); $i++) { 
@@ -68,13 +74,21 @@
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 
 									//---Boton ver detalles---
-									echo "<a class=\"btn btn-xs btn-info ver-vacuna\" href=\"#\" data-toggle=\"modal\" data-target=\"#DetallesPatologia\" title=\"Ver vacuna\" data-idvacuna=\"".md5('sismed'.$vacuna["id"])."\" data-nombre=\"".$vacuna["nombre_vacuna"]."\">";
+									echo "<a class=\"btn btn-xs btn-info ver-vacuna\" href=\"#\" data-toggle=\"modal\" data-target=\"#DetallesVacuna\" title=\"Ver vacuna\" data-idvacuna=\"".md5('sismed'.$vacuna["id"])."\" data-nombre=\"".$vacuna["nombre_vacuna"]."\">";
 									echo "<span class=\"glyphicon glyphicon-search\"></span>";
 									echo "</a>";
 
-									//---Boton eliminar---
-									echo "<a class=\"btn btn-xs btn-danger eliminar-vacuna\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarVacuna\" title=\"Eliminar vacuna\" data-idvacuna=\"".md5('sismed'.$vacuna["id"])."\" data-nombre=\"".$vacuna["nombre_vacuna"]."\">";
-									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
+									if ($vacuna['status'] === "t") {
+										
+									//---Boton inhabilitar---
+									echo "<a class=\"btn btn-xs btn-danger eliminar-vacuna\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarVacuna\" title=\"Eliminar vacuna\" data-idvacuna=\"".md5('sismed'.$vacuna["id"])."\" data-nombre=\"".$vacuna["nombre_vacuna"]."\" data-action=\"inhabilitar\">";
+									echo "<span class=\"glyphicon glyphicon-remove\"></span>";
+									}else{
+
+									//---Boton habilitar---
+									echo "<a class=\"btn btn-xs btn-success eliminar-vacuna\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarVacuna\" title=\"Eliminar vacuna\" data-idvacuna=\"".md5('sismed'.$vacuna["id"])."\" data-nombre=\"".$vacuna["nombre_vacuna"]."\" data-action=\"habilitar\">";
+									echo "<span class=\"glyphicon glyphicon-ok\"></span>";
+									}
 									echo "</a>";
 
 									echo "</div>";
@@ -92,7 +106,7 @@
 
 
 <!-- Detalles de vacuna -->
-<div class="modal fade" id="DetallesPatologia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="DetallesVacuna" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -178,7 +192,7 @@
 							  				</div>
 							  				<div class="col-xs-12 col-sm-7">
 							  					<div class="form-group">
-							  						<select id="list-patologias" name="list-patologias" class="form-control chosen-select"></select>
+							  						<select id="list-patologias" name="list-patologias" class="form-control chosen-select" data-placeholder="Seleccionar patología..."></select>
 							  					</div>						  					
 							  				</div>
 							  			</div>							  			
@@ -214,6 +228,12 @@
 
 						  	<!-- Contenido del panel -->
 						  	<div class="panel-body">
+
+						  		<div id="esquema-message" class="alert" role="alert">
+									<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<span id="pat-message"></span>
+								</div>
+
 						  		<!-- Panel de listado de esquemas -->
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 					    			
@@ -221,9 +241,18 @@
 
 								</div><!--/ Panel de listado de esquemas -->
 
-								<div id="lista-esquemas" class="col-xs-12 hidden">
+								<div id="lista-esquemas" class="col-xs-12">
+
 	        						<div class="row">
 
+	        							<div class="col-md-12">
+					        				<h4>
+					        					<span id="e_title"></span>
+					        					<figure class="load-content">
+								        			<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">
+								        		</figure>
+					        				</h4>
+					        			</div>	
 	        						<?php        							
 
 										echo form_open('#', 'class="" id="edicion-esquema"'); 
@@ -236,7 +265,6 @@
 								        		<div class="form-group">
 								        			<label class="control-label" for="esquema"><span class="red">*</span>Esquema:</label>
 							        				<select class="form-control chosen-select select-esquema" id="esquema" data-dosis="cant_dosis" data-intervalo="intervalo" data-pintervalo="interperiodo" name="esquema" data-placeholder="Seleccionar esquema...">
-							        					<option></option>
 							        					<option value="Única">Única</option>
 							        					<option value="Dosis">Dosis</option>
 							        					<option value="Refuerzo">Refuerzo</option>
@@ -261,8 +289,8 @@
 									        				<input type="number" id="intervalo" name="intervalo" min="1" class="form-control" required>				        				
 									        			</div>
 									        			<div class="col-xs-6">
+									        				<input type="text" id="sub_interperiodo" class="form-control hidden" name="sub_interperiodo" readonly="readonly" value="">
 									        				<select class="form-control chosen-select" id="interperiodo" name="interperiodo" data-placeholder="Periodo...">
-									        					<option></option>
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>
@@ -279,7 +307,6 @@
 								        		<div class="form-group">
 								        			<label class="control-label" for="via_administracion"><span class="red">*</span>Vía de administración:</label>	
 							        				<select class="form-control chosen-select" id="via_administracion" name="via_administracion" data-placeholder="Seleccionar...">
-							        					<option></option>
 							        					<option value="Oral">Oral</option>
 							        					<option value="Intramuscular">Intramuscular</option>
 							        					<option value="Subcutánea">Subcutánea</option>
@@ -299,7 +326,6 @@
 									        			</div>
 									        			<div class="col-xs-6">
 									        				<select class="form-control chosen-select" id="eminperiodo" name="eminperiodo" data-placeholder="Periodo...">
-									        					<option></option>
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>
@@ -321,7 +347,6 @@
 									        			</div>
 									        			<div class="col-xs-6">
 									        				<select class="form-control chosen-select" id="emaxperiodo" name="emaxperiodo" data-placeholder="Periodo...">
-									        					<option></option>
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>
@@ -336,8 +361,8 @@
 						        			<!-- Botones -->
 						        			<div class=" col-xs-12">
 						        				<div class="form-group">
-						        					<button class="btn btn-principal-2" type="submit">Guardar</button>
-						        					<button class="btn btn-default">Cancelar</button>
+						        					<button id="s_esquema" class="btn btn-principal-2" type="submit" data-idesquema="">Guardar</button>
+						        					<button id="c_esquema" class="btn btn-default">Cancelar</button>
 						        				</div>
 						        			</div><!--/ Botones -->
 
@@ -358,30 +383,30 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button id="modal-close" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Eliminar patologia -->
-<div class="modal fade" id="EliminarPatologia" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- Eliminar vacuna -->
+<div class="modal fade" id="EliminarVacuna" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Eliminar patologia</h4>
+        <h4 class="modal-title" id="myModalLabel">Eliminar vacuna</h4>
       </div>
       <div class="modal-body">
         <div class="row">
         	<div class="col-xs-12">
-        		<h3 id="delete-title">¿Está seguro que desea eliminar la patologia "<span id="la-patologia"></span>"?</h3>
+        		<h3 id="delete-title">¿Está seguro que desea <span id="action-title"></span> la vacuna "<span id="la-vacuna"></span>"?</h3>
         		<div id="delete-message" class="alert"></div>
         	</div>
         </div>
       </div>
       <div class="modal-footer">
-      	<button type="button" id="accion-eliminar-patologia" class="btn btn-principal-2" data-idpatologia="">Eliminar</button>
+      	<button type="button" id="accion-eliminar-vacuna" class="btn btn-principal-2" data-idpatologia="" data-accion="">Aceptar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>

@@ -9,20 +9,41 @@ class EsquemaModel extends CI_Model {
 
     public function AgregarEsquema($id_vacuna)
     {
-
-        foreach ($_POST["esquema"] as $key => $esquema) {
+        if (is_array($_POST["esquema"])) {
             
+            foreach ($_POST["esquema"] as $key => $esquema) {
+                
+                $insert = array(
+                    "id_vacuna" => $id_vacuna,
+                    "esquema" => $esquema,
+                    "min_edad_aplicacion" => $_POST["eminima"][$key],
+                    "min_edad_periodo" => $_POST["eminperiodo"][$key],
+                    "max_edad_aplicacion" => $_POST["emaxima"][$key],
+                    "max_edad_periodo" => $_POST["emaxperiodo"][$key],
+                    "via_administracion" => $_POST["via_administracion"][$key],
+                    "cant_dosis" => $_POST["cant_dosis"][$key],
+                    "intervalo" => $_POST["intervalo"][$key],
+                    "intervalo_periodo" => $_POST["interperiodo"][$key]
+                    );
+
+                if(!$this->db->insert("esquema", $insert)){             
+
+                    return false;
+                }
+            }
+        }else{
+
             $insert = array(
                 "id_vacuna" => $id_vacuna,
-                "esquema" => $esquema,
-                "min_edad_aplicacion" => $_POST["eminima"][$key],
-                "min_edad_periodo" => $_POST["eminperiodo"][$key],
-                "max_edad_aplicacion" => $_POST["emaxima"][$key],
-                "max_edad_periodo" => $_POST["emaxperiodo"][$key],
-                "via_administracion" => $_POST["via_administracion"][$key],
-                "cant_dosis" => $_POST["cant_dosis"][$key],
-                "intervalo" => $_POST["intervalo"][$key],
-                "intervalo_periodo" => $_POST["interperiodo"][$key]
+                "esquema" => $this->input->post("esquema"),
+                "min_edad_aplicacion" => $this->input->post("eminima"),
+                "min_edad_periodo" => $this->input->post("eminperiodo"),
+                "max_edad_aplicacion" => $this->input->post("emaxima"),
+                "max_edad_periodo" => $this->input->post("emaxperiodo"),
+                "via_administracion" => $this->input->post("via_administracion"),
+                "cant_dosis" => $this->input->post("cant_dosis"),
+                "intervalo" => $this->input->post("intervalo"),
+                "intervalo_periodo" => $this->input->post("interperiodo")
                 );
 
             if(!$this->db->insert("esquema", $insert)){             
@@ -46,7 +67,7 @@ class EsquemaModel extends CI_Model {
             $this->db->or_where($condicion['or_where']);
         }
 
-        if ($this->db->update('vacuna', $condicion['data'])) {
+        if ($this->db->update('esquema', $condicion['data'])) {
             return true;
         }else{
             return false;
@@ -65,7 +86,7 @@ class EsquemaModel extends CI_Model {
             $this->db->or_where($condicion['or_where']);
         }
 
-        if ($this->db->delete('vacuna')) {
+        if ($this->db->delete('esquema')) {
             return true;
         }else{
             return false;

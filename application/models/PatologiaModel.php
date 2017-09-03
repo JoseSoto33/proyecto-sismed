@@ -109,14 +109,6 @@ class PatologiaModel extends CI_Model {
     		$this->db->where($condicion['where']);
     	}
 
-        if (isset($condicion['wheres']) && !empty($condicion['wheres'])) {
-            
-            foreach ($condicion['wheres'] as $key => $where) {
-                
-                $this->db->where($where);
-            }
-        }
-
     	if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
     		
     		$this->db->or_where($condicion['or_where']);
