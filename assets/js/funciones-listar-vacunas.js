@@ -92,6 +92,8 @@ $(document).ready(function(){
         var nombre = $(this).data("nombre");
 
         $("#vac_nombre").val(nombre);
+        $("#lista-patologias").html("");
+        $("#accordion").html("");
 
         var request;
         if (request) {
@@ -417,8 +419,7 @@ $(document).ready(function(){
                         //$("#esquema-message").removeClass("alert-success").hide(500).children("span").html("");
                         $("#esquema-message").removeClass("alert-success").slideUp(250).children("span").html("");
                         $("#panel_"+idesquema).removeClass("panel-success").addClass("panel-default");
-                    }, 6000);  
-
+                    }, 6000);
 
                     $("#c_esquema").trigger("click");
 

@@ -26,9 +26,21 @@ class VacunaModel extends CI_Model {
 
     public function AgregarRelacionVacunaPatologia($data)
     {
-        if(!$this->db->insert("vacuna_patologia", $data)){             
+        if (is_array($data["id_patologia"])) {
+            
+            foreach ($data["id_patologia"] as $key => $patologia) {
+                
 
-            return false;
+                if(!$this->db->insert("vacuna_patologia", array("id_vacuna" => $data["id_vacuna"],"id_patologia" => $patologia))){           
+                    return false;
+                }
+            }
+        }else{
+
+            if(!$this->db->insert("vacuna_patologia", $data)){             
+
+                return false;
+            }
         }
 
         return true;

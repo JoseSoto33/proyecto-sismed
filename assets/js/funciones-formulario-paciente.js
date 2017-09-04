@@ -10,10 +10,25 @@ $(document).ready(function(){
         //$("#fecha_inicio").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
 
         $("#fecha_nacimiento").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
-    } 
+    }
+
+    $("#accordion").on("show.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    });
+
+    $("#accordion").on("hide.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
+    });
 
     $("#telf_personal").mask("(9999) 999-99-99");
     $("#telf_emergencia").mask("(9999) 999-99-99");
+
+    $.mask.definitions["~"] = "[+-]";
+    $.mask.definitions["#"] = "[B ]";
+    $.mask.definitions["A"] = "[ABO]";
+    $("#tipo_sangre").mask("A#RH ~");
 
     $("#departamento").chosen({
         no_results_text: "Sin resultados por:",

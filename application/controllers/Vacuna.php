@@ -69,13 +69,13 @@ class Vacuna extends CI_Controller {
                 if ($id_vacuna = $this->VacunaModel->AgregarVacuna()) {
                     
                     $RelacionVacunaPatologia = array(
-                        "vacuna" => $id_vacuna,
-                        "patologias" => $_POST["enfermedad"]
+                        "id_vacuna" => $id_vacuna,
+                        "id_patologia" => $_POST["enfermedad"]
                         );
 
                     if ($this->VacunaModel->AgregarRelacionVacunaPatologia($RelacionVacunaPatologia) && $this->EsquemaModel->AgregarEsquema($id_vacuna)) {
                        
-                        set_cookie("message","La Vacuna <strong>'".$this->input->post('vacuna_nombre')."'</strong> fue registrada exitosamente!...", time()+15);
+                        set_cookie("message","La Vacuna <strong>'".$_POST["nombre_vacuna"]."'</strong> fue registrada exitosamente!...", time()+15);
                         header("Location: ".base_url()."Vacuna/ListarVacunas"); //controlador y metododo del controlador que carga la vista                       
 
                     }else{
@@ -330,11 +330,12 @@ class Vacuna extends CI_Controller {
     {
         $this->form_validation->set_rules(
                 'nombre_vacuna', 'Nombre de la vacuna',
-                array('required','min_length[3]','max_length[30]','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),                   
+                array('required','is_unique[vacuna.nombre_vacuna]','min_length[3]','max_length[30]','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),                   
                 array(
                     'min_length'    => 'El %s debe tener al menos 3 caracteres.',
                     'max_length'    => 'El %s debe tener máximo 30 caracteres.', 
                     'regex_match'   => 'El %s sólo puede contener letras y espacios.',
+                    'is_unique'     => 'El %s ya existe en la base de datos.',
                     'required'      => 'Debe ingresar un %s.'
                 )
         );

@@ -308,7 +308,9 @@ switch ($this->session->userdata('tipo_usuario')){
 										echo "<option value=\"".$patologia["id"]."\">".$patologia["nombre"]."</option>";											
 										}
 		        					?>
-		        				</select>	
+		        				</select>
+		        				<div class="help-block with-errors">
+								</div>	
 			        		</div>
 	        			</div><!--/ Campo Enfermedad -->
 	        		</div>
@@ -337,6 +339,8 @@ switch ($this->session->userdata('tipo_usuario')){
 					        					<option value="Dosis" <?php echo set_select('esquema[]', 'Dosis'); ?>>Dosis</option>
 					        					<option value="Refuerzo" <?php echo set_select('esquema[]', 'Refuerzo'); ?>>Refuerzo</option>
 					        				</select>
+					        				<div class="help-block with-errors">
+											</div>	
 						        		</div>
 				        			</div><!--/ Campo Esquema -->
 
@@ -345,6 +349,8 @@ switch ($this->session->userdata('tipo_usuario')){
 						        		<div class="form-group">
 						        			<label class="control-label" for="cant_dosis1"><span class="red">*</span>Cantidad de dosis:</label>
 				        					<input type="number" id="cant_dosis1" name="cant_dosis[]" min="1" class="form-control" required pattern="[1-9]{1,4}" value="<?php echo set_value('cant_dosis[]'); ?>" >
+				        					<div class="help-block with-errors">
+											</div>
 						        		</div>
 				        			</div><!--/ Campo Cantidad de dosis -->
 				        		</div>
@@ -356,7 +362,9 @@ switch ($this->session->userdata('tipo_usuario')){
 						        			<div class="row">
 							        			<label class="col-xs-12 control-label" for="intervalo1"><span class="red">*</span>Intervalo:</label>
 							        			<div class="col-xs-6">
-							        				<input type="number" id="intervalo1" name="intervalo[]" min="1" class="form-control" value="<?php echo set_value('intervalo[]'); ?>" required>				        				
+							        				<input type="number" id="intervalo1" name="intervalo[]" min="1" class="form-control" value="<?php echo set_value('intervalo[]'); ?>" required>
+							        				<div class="help-block with-errors">
+													</div>				        				
 							        			</div>
 							        			<div class="col-xs-6">
 							        				<select class="form-control chosen-select" id="interperiodo1" name="interperiodo[]" data-placeholder="Periodo..." required="required">
@@ -366,7 +374,9 @@ switch ($this->session->userdata('tipo_usuario')){
 							        					<option value="Semana(s)" <?php echo set_select('interperiodo[]', 'Semana(s)'); ?>>Semana(s)</option>
 							        					<option value="Mese(s)" <?php echo set_select('interperiodo[]', 'Mese(s)'); ?>>Mese(s)</option>
 							        					<option value="Año(s)" <?php echo set_select('interperiodo[]', 'Año(s)'); ?>>Año(s)</option>
-							        				</select>				        				
+							        				</select>
+							        				<div class="help-block with-errors">
+													</div>				        				
 							        			</div>
 							        		</div>
 						        		</div>
@@ -384,6 +394,8 @@ switch ($this->session->userdata('tipo_usuario')){
 					        					<option value="Endovenosa" <?php echo set_select('via_administracion[]', 'Endovenosa'); ?>>Endovenosa</option>
 					        					<option value="Intradérmica" <?php echo set_select('via_administracion[]', 'Intradérmica'); ?>>Intradérmica</option>
 					        				</select>
+					        				<div class="help-block with-errors">
+											</div>
 						        		</div>
 				        			</div><!--/ Campo Vía de administración -->
 				        		</div>
@@ -405,7 +417,9 @@ switch ($this->session->userdata('tipo_usuario')){
 							        					<option value="Semana(s)" <?php echo set_select('eminperiodo[]', 'Semana(s)'); ?>>Semana(s)</option>
 							        					<option value="Mese(s)" <?php echo set_select('eminperiodo[]', 'Mese(s)'); ?>>Mese(s)</option>
 							        					<option value="Año(s)" <?php echo set_select('eminperiodo[]', 'Año(s)'); ?>>Año(s)</option>	
-							        				</select>				        				
+							        				</select>
+							        				<div class="help-block with-errors">
+													</div>				        				
 							        			</div>
 							        		</div>
 						        		</div>
@@ -427,7 +441,9 @@ switch ($this->session->userdata('tipo_usuario')){
 							        					<option value="Semana(s)" <?php echo set_select('emaxperiodo[]', 'Semana(s)'); ?>>Semana(s)</option>
 							        					<option value="Mese(s)" <?php echo set_select('emaxperiodo[]', 'Mese(s)'); ?>>Mese(s)</option>
 							        					<option value="Año(s)" <?php echo set_select('emaxperiodo[]', 'Año(s)'); ?>>Año(s)</option>
-							        				</select>				        				
+							        				</select>
+							        				<div class="help-block with-errors">
+													</div>				        				
 							        			</div>
 							        		</div>
 						        		</div>

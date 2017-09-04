@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	var url = $("#base_url").val();
 
-	$('#registro-vacuna').validator();
+	//$('#registro-vacuna').validator();
 
 	$('#registro-vacuna .chosen-select').chosen({width: "100%",no_results_text: "Sin resultados para: "});
 
@@ -19,7 +19,7 @@ $(document).ready(function(){
 
 	$("#registro-vacuna").on("submit", function(){
 
-        $(this).attr("disabled","disabled");
+        //$(this).attr("disabled","disabled");
         $('#seccion2').animate({scrollTop : 0}, 500);
     });
 
@@ -56,7 +56,9 @@ $(document).ready(function(){
         str += "<option value=\"Única\">Única</option>";
 		str += "<option value=\"Dosis\">Dosis</option>";
 		str += "<option value=\"Refuerzo\">Refuerzo</option>";
-        str += "</select>"; 
+        str += "</select>";
+        str += "<div class=\"help-block with-errors\">";
+        str += "</div>"; 
         str += "</div>";
         str += "</div>";
         str += "<div class=\"col-xs-4\">";
@@ -77,7 +79,9 @@ $(document).ready(function(){
         str += "<div class=\"row\">";
         str += "<label class=\"col-xs-12 control-label\" for=\"intervalo"+cantidad+"\"><span class=\"red\">*</span>Intervalo:</label>";
         str += "<div class=\"col-xs-6\">";
-        str += "<input type=\"number\" id=\"intervalo"+cantidad+"\" name=\"intervalo[]\" min=\"1\" class=\"form-control\" required>";                                      
+        str += "<input type=\"number\" id=\"intervalo"+cantidad+"\" name=\"intervalo[]\" min=\"1\" class=\"form-control\" required>";
+        str += "<div class=\"help-block with-errors\">";
+        str += "</div>";
         str += "</div>";
         str += "<div class=\"col-xs-6\">";
         str += "<select class=\"form-control chosen-select\" id=\"interperiodo"+cantidad+"\" name=\"interperiodo[]\" data-placeholder=\"Periodo...\">";
@@ -87,7 +91,9 @@ $(document).ready(function(){
 		str += "<option value=\"Semana(s)\">Semana(s)</option>";
 		str += "<option value=\"Mese(s)\">Mese(s)</option>";
 		str += "<option value=\"Año(s)\">Año(s)</option>";
-        str += "</select>";                                       
+        str += "</select>";
+        str += "<div class=\"help-block with-errors\">";
+        str += "</div>";                                       
         str += "</div>";
         str += "</div>";
         str += "</div>";
@@ -103,6 +109,8 @@ $(document).ready(function(){
 		str += "<option value=\"Endovenosa\">Endovenosa</option>";
 		str += "<option value=\"Intradérmica\">Intradérmica</option>";
         str += "</select>"; 
+        str += "<div class=\"help-block with-errors\">";
+        str += "</div>";
         str += "</div>";
         str += "</div>";
         str += "</div>";
@@ -112,7 +120,9 @@ $(document).ready(function(){
         str += "<div class=\"row\">";
         str += "<label class=\"col-xs-12 control-label\" for=\"eminima"+cantidad+"\"><span class=\"red\">*</span>Edad mínima:</label>";
         str += "<div class=\"col-xs-6\">";
-        str += "<input type=\"number\" id=\"eminima"+cantidad+"\" name=\"eminima[]\" min=\"1\" class=\"form-control\" required>";                                      
+        str += "<input type=\"number\" id=\"eminima"+cantidad+"\" name=\"eminima[]\" min=\"1\" class=\"form-control\" required>";
+        str += "<div class=\"help-block with-errors\">";
+        str += "</div>";
         str += "</div>";
         str += "<div class=\"col-xs-6\">";
         str += "<select class=\"form-control chosen-select\" id=\"eminperiodo"+cantidad+"\" name=\"eminperiodo[]\" data-placeholder=\"Periodo...\">";
@@ -122,7 +132,9 @@ $(document).ready(function(){
 		str += "<option value=\"Semana(s)\">Semana(s)</option>";
 		str += "<option value=\"Mese(s)\">Mese(s)</option>";
 		str += "<option value=\"Año(s)\">Año(s)</option>";
-        str += "</select>";                                       
+        str += "</select>";
+        str += "<div class=\"help-block with-errors\">";
+        str += "</div>";
         str += "</div>";
         str += "</div>";
         str += "</div>";
@@ -132,7 +144,9 @@ $(document).ready(function(){
         str += "<div class=\"row\">";
         str += "<label class=\"col-xs-12 control-label\" for=\"emaxima"+cantidad+"\"><span class=\"red\">*</span>Edad máxima:</label>";
         str += "<div class=\"col-xs-6\">";
-        str += "<input type=\"number\" id=\"emaxima"+cantidad+"\" name=\"emaxima[]\" min=\"1\" class=\"form-control\" required>";                                      
+        str += "<input type=\"number\" id=\"emaxima"+cantidad+"\" name=\"emaxima[]\" min=\"1\" class=\"form-control\" required>";
+        str += "<div class=\"help-block with-errors\">";
+        str += "</div>";
         str += "</div>";
         str += "<div class=\"col-xs-6\">";
         str += "<select class=\"form-control chosen-select\" id=\"emaxperiodo"+cantidad+"\" name=\"emaxperiodo[]\" data-placeholder=\"Periodo...\">";
@@ -142,7 +156,9 @@ $(document).ready(function(){
 		str += "<option value=\"Semana(s)\">Semana(s)</option>";
 		str += "<option value=\"Mese(s)\">Mese(s)</option>";
 		str += "<option value=\"Año(s)\">Año(s)</option>";
-        str += "</select>";                                       
+        str += "</select>";
+        str += "<div class=\"help-block with-errors\">";
+        str += "</div>";
         str += "</div>";
         str += "</div>";
         str += "</div>";
