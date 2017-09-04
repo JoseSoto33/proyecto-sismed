@@ -10,6 +10,16 @@ $(document).ready(function(){
     $("#telef_personal").mask("(9999) 999-99-99");
     $("#telef_emergencia").mask("(9999) 999-99-99");
 
+    $("#accordion").on("show.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    });
+
+    $("#accordion").on("hide.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
+    });
+    
     $("#especialidad").chosen({
     		no_results_text: "Sin resultados por:",
     		allow_single_deselect: true

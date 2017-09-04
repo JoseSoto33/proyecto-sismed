@@ -144,8 +144,25 @@ class VacunaModel extends CI_Model {
 
         $this->db->join("patologia", "patologia.id = vacuna_patologia.id_patologia");
 
+        if (isset($condicion['where']) && !empty($condicion['where'])) {
+            
+            $this->db->where($condicion['where']);
+        }
+
         $this->db->where("MD5(concat('sismed',vacuna_patologia.id_vacuna))", $id_vacuna);
 
         return $this->db->get();
     }
+
+    public function ValidarVacunaPatologia($id_vacuna, $condicion = array())
+    {
+        $query = $this->ExtraerVacunaPatologia($id_vacuna, $condicion);
+
+        if ($query->num_rows() > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

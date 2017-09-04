@@ -9,6 +9,16 @@ $(document).ready(function(){
         $("#fecha_fin").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
     }	
 
+    $("#accordion").on("show.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    });
+
+    $("#accordion").on("hide.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
+    });
+    
     $("#hora_inicio").mask("99:99",{placeholder:"00:00"});
 	$("#hora_fin").mask("99:99",{placeholder:"00:00"});    
 

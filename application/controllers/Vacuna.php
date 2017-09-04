@@ -33,9 +33,12 @@ class Vacuna extends CI_Controller {
 
     /**
      * @method void AgregarVacuna()
-     * @method void ModificarVacuna(integer $id_vacuna)
+     * @method void ModificarNombreVacuna()
+     * @method void AgregarPatologiaVacuna()
+     * @method void EliminarPatologiaVacuna()
      * @method void VerVacuna()
      * @method void ListarVacunas()
+     * @method void EliminarVacuna()
      * @method void|boolean ValidarVacuna(mixed[] $data)
      */
 
@@ -60,10 +63,10 @@ class Vacuna extends CI_Controller {
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
-            //var_dump($_POST);
+            if ($this->ValidarVacuna($data) === false) {
+                # code...
                 //Si la vacuna se agrega exitosamente a la base de datos...
                 if ($id_vacuna = $this->VacunaModel->AgregarVacuna()) {
-
                     
                     $RelacionVacunaPatologia = array(
                         "vacuna" => $id_vacuna,
@@ -77,16 +80,22 @@ class Vacuna extends CI_Controller {
 
                     }else{
                         $data['mensaje'] = $this->db->error();
+                        $this->load->view('medicina/FormularioRegistroVacuna', $data);
                     }
 
                 //Si hay error en la inserción
                 }else{
 
                     $data['mensaje'] = $this->db->error();
+                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
                 }
-        }
 
-        $this->load->view('medicina/FormularioRegistroVacuna', $data);
+            }
+
+        }else{
+
+            $this->load->view('medicina/FormularioRegistroVacuna', $data);
+        }
     }
 
     /**
@@ -96,21 +105,48 @@ class Vacuna extends CI_Controller {
      */
     public function ModificarNombreVacuna()
     {
-
+        $nuevo_nombre = $this->input->post("nuevo_nombre");
         $condicion = array(
-                "data" => array(
-                    "nombre_vacuna"=> $this->input->post("nuevo_nombre")
-                    ),
-                "where" => array(
-                    "MD5(concat('sismed',id))" => $this->input->post("id")
-                    )
+            "where" => array(
+                "MD5(concat('sismed',id))" => $this->input->post("id")
+                )
             );
 
-        if ($this->VacunaModel->ModificarVacuna($condicion)) {
+        $vacuna = $this->VacunaModel->ExtraerVacuna($condicion)->row_array();
+
+        if (strcmp($vacuna["nombre_vacuna"], $nuevo_nombre)!=0) {
             
-            echo json_encode(array("status"=> true, "message" => "Modificación exitosa..."));
+            $condicion = array(
+            "where" => array(
+                "MD5(concat('sismed',id)) !=" => $this->input->post("id"),
+                "nombre_vacuna" => $nuevo_nombre
+                )
+            );
+
+            if (!$this->VacunaModel->ValidarVacuna($condicion)) {                
+
+                $condicion = array(
+                        "data" => array(
+                            "nombre_vacuna"=> $nuevo_nombre
+                            ),
+                        "where" => array(
+                            "MD5(concat('sismed',id))" => $this->input->post("id")
+                            )
+                    );
+
+                if ($this->VacunaModel->ModificarVacuna($condicion)) {
+                    
+                    echo json_encode(array("status"=> true, "message" => "Modificación exitosa..."));
+                }else{
+                    echo json_encode(array("status"=> false, "message" => "Ha ocurrido un error..."));
+                }
+            }else{
+
+                echo json_encode(array("status"=> false, "message" => "El nombre que ingresó le pertenece a otra vacuna, verifique e intente nuevamente..."));
+            }
+
         }else{
-            echo json_encode(array("status"=> false, "message" => "Ha ocurrido un error..."));
+            echo json_encode(array("status"=> false, "message" => "Ha ingresado el nombre actual, debe ingresar un nombre diferente..."));
         }
     }
 
@@ -125,27 +161,36 @@ class Vacuna extends CI_Controller {
         $id_vacuna = $this->input->post("id_vacuna");
 
         $condicion = array(
-            "where" => array("MD5(concat('sismed',id))" => $id_vacuna)
-            ); 
+                "where" => array("id_patologia" => $id_patologia)
+                ); 
 
-        $vacuna = $this->VacunaModel->ExtraerVacuna($condicion)->row_array();
-
-        $insert = array(
-            "id_vacuna" => $vacuna["id"],
-            "id_patologia" => $id_patologia
-            );
-
-        if ($this->VacunaModel->AgregarRelacionVacunaPatologia($insert)) {
-
+        if (!$this->VacunaModel->ValidarVacunaPatologia($id_vacuna, $condicion)) {
+            
             $condicion = array(
-            "order_by" => array("campo" => "id", "direccion" => "ASC")
-            );
+                "where" => array("MD5(concat('sismed',id))" => $id_vacuna)
+                ); 
 
-            $patologias = $this->VacunaModel->ExtraerVacunaPatologia($id_vacuna,$condicion)->result_array();
+            $vacuna = $this->VacunaModel->ExtraerVacuna($condicion)->row_array();
 
-            echo json_encode(array("status"=>true, "message" => "Asociación de vacuna y patología exitosa...", "patologias" => $patologias));
+            $insert = array(
+                "id_vacuna" => $vacuna["id"],
+                "id_patologia" => $id_patologia
+                );
+
+            if ($this->VacunaModel->AgregarRelacionVacunaPatologia($insert)) {
+
+                $condicion = array(
+                "order_by" => array("campo" => "id", "direccion" => "ASC")
+                );
+
+                $patologias = $this->VacunaModel->ExtraerVacunaPatologia($id_vacuna,$condicion)->result_array();
+
+                echo json_encode(array("status"=>true, "message" => "Asociación de vacuna y patología exitosa...", "patologias" => $patologias));
+            }else{
+                echo json_encode(array("status"=>false, "message" => "Error al asociar la patología..."));
+            }
         }else{
-            echo json_encode(array("status"=>false, "message" => "Error al asociar la patología..."));
+            echo json_encode(array("status"=>false, "message" => "La patología seleccionada ya se encuentra asociada a ésta vacuna..."));
         }
     }
 
@@ -167,7 +212,8 @@ class Vacuna extends CI_Controller {
             ); 
 
         if ($this->VacunaModel->EliminarPatologiaVacuna($condicion)) {
-            $patologias = $this->VacunaModel->ExtraerVacunaPatologia($id_vacuna,$condicion)->result_array();
+
+            $patologias = $this->VacunaModel->ExtraerVacunaPatologia($id_vacuna)->result_array();
 
             echo json_encode(array("status"=>true, "message" => "Eliminación exitosa...", "patologias" => $patologias));
         }else{
@@ -273,11 +319,135 @@ class Vacuna extends CI_Controller {
     }
     
     /**
-     * 
+     * Verifica si los datos ingresados por formulario son correctos.
+     * Valida la integridad de los datos
+     *
+     * @param mixed[] $data Arreglo que almacena los datos que se enviarán a la vista
+     *
+     * @return void|boolean
      */
     public function ValidarVacuna($data)
     {
+        $this->form_validation->set_rules(
+                'nombre_vacuna', 'Nombre de la vacuna',
+                array('required','min_length[3]','max_length[30]','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),                   
+                array(
+                    'min_length'    => 'El %s debe tener al menos 3 caracteres.',
+                    'max_length'    => 'El %s debe tener máximo 30 caracteres.', 
+                    'regex_match'   => 'El %s sólo puede contener letras y espacios.',
+                    'required'      => 'Debe ingresar un %s.'
+                )
+        );
 
+        $this->form_validation->set_rules(
+                'cant_enfermedad', 'Cantidad de enfermedades que combate', 
+                array('numeric','greater_than_equal_to[1]','required'),
+                array(
+                    'greater_than_equal_to' => 'La %s debe tener un valor de al menos 1.',
+                    'numeric'               => 'La %s sólo debe contener sólo números.',
+                    'required'              => 'Debe insertar su %s.'
+                    )                   
+        );
+
+        $this->form_validation->set_rules(
+                'enfermedad[]', 'Enfermedad(es)', 
+                array('required'),                      
+                array(
+                    'required'  => 'Debe especificar una(s) %s.'
+                    )                   
+        );
+
+        $this->form_validation->set_rules(
+                'esquema[]', 'Esquema', 
+                array('required'),                      
+                array(
+                    'required'  => 'Debe elegir un %s.'
+                    )                   
+        );
+
+        $this->form_validation->set_rules(
+                'cant_dosis[]', 'Cantidad de dosis', 
+                array('numeric','greater_than_equal_to[1]','required'),
+                array(
+                    'greater_than_equal_to' => 'La %s debe tener un valor de al menos 1.',
+                    'numeric'               => 'La %s sólo debe contener sólo números.',
+                    'required'              => 'Debe insertar su %s.'
+                    )                     
+        );
+
+        $this->form_validation->set_rules(
+                'intervalo[]', 'Intervalo', 
+                array('numeric','greater_than_equal_to[1]','required'),
+                array(
+                    'greater_than_equal_to' => 'La %s debe tener un valor de al menos 1.',
+                    'numeric'               => 'La %s sólo debe contener sólo números.',
+                    'required'              => 'Debe insertar su %s.'
+                    )                     
+        );
+
+
+        $this->form_validation->set_rules(
+                'interperiodo[]', 'Período del intervalo', 
+                array('required'),                      
+                array(
+                    'required'  => 'Debe especificar un %s.'
+                    )                   
+        );
+
+        $this->form_validation->set_rules(
+                'via_administracion[]', 'Via de administracion', 
+                array('required'),                      
+                array(
+                    'required'  => 'Debe especificar una %s.'
+                    )                   
+        );
+
+        $this->form_validation->set_rules(
+                'eminima[]', 'Edad mínima', 
+                array('numeric','greater_than_equal_to[1]','required'),
+                array(
+                    'greater_than_equal_to' => 'La %s debe tener un valor de al menos 1.',
+                    'numeric'               => 'La %s sólo debe contener sólo números.',
+                    'required'              => 'Debe insertar su %s.'
+                    )                     
+        );
+
+        $this->form_validation->set_rules(
+                'eminperiodo[]', 'Período de edad mínima', 
+                array('required'),                      
+                array(
+                    'required'  => 'Debe especificar un %s.'
+                    )                   
+        );
+
+        $this->form_validation->set_rules(
+                'emaxima[]', 'Edad máxima', 
+                array('numeric','greater_than_equal_to[1]','required'),
+                array(
+                    'greater_than_equal_to' => 'La %s debe tener un valor de al menos 1.',
+                    'numeric'               => 'La %s sólo debe contener sólo números.',
+                    'required'              => 'Debe insertar su %s.'
+                    )                     
+        );
+
+        $this->form_validation->set_rules(
+                'emaxperiodo[]', 'Período de edad máxima', 
+                array('required'),                      
+                array(
+                    'required'  => 'Debe especificar un %s.'
+                    )                   
+        );
+
+        //Si hay datos inválidos...
+        if ($this->form_validation->run() == FALSE) {
+            
+            $this->load->view('medicina/FormularioRegistroVacuna', $data);
+
+        //Si no hay datos inválidos...
+        }else{
+
+            return false;
+        }
     }
     
 }

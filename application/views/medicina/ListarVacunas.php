@@ -52,7 +52,7 @@
 										echo "<tr id=\"fila_".md5('sismed'.$vacuna["id"])."\">";
 									}
 									echo "<td>".$cont++."</td>";
-									echo "<td>".$vacuna["nombre_vacuna"]."</td>";
+									echo "<td class=\"cel-nombre-vacuna\">".$vacuna["nombre_vacuna"]."</td>";
 									echo "<td class=\"cel-patologias\">";
 									
 									$str = "";
@@ -264,7 +264,8 @@
 			        						<div class="col-xs-6">
 								        		<div class="form-group">
 								        			<label class="control-label" for="esquema"><span class="red">*</span>Esquema:</label>
-							        				<select class="form-control chosen-select select-esquema" id="esquema" data-dosis="cant_dosis" data-intervalo="intervalo" data-pintervalo="interperiodo" name="esquema" data-placeholder="Seleccionar esquema...">
+							        				<select class="form-control chosen-select select-esquema" id="esquema" data-dosis="cant_dosis" data-intervalo="intervalo" data-pintervalo="interperiodo" name="esquema" data-placeholder="Seleccionar esquema..." required="required">
+							        					<option></option>
 							        					<option value="Única">Única</option>
 							        					<option value="Dosis">Dosis</option>
 							        					<option value="Refuerzo">Refuerzo</option>
@@ -289,8 +290,9 @@
 									        				<input type="number" id="intervalo" name="intervalo" min="1" class="form-control" required>				        				
 									        			</div>
 									        			<div class="col-xs-6">
-									        				<input type="text" id="sub_interperiodo" class="form-control hidden" name="sub_interperiodo" readonly="readonly" value="">
-									        				<select class="form-control chosen-select" id="interperiodo" name="interperiodo" data-placeholder="Periodo...">
+									        				<!--<input type="text" id="sub_interperiodo" class="form-control hidden" name="sub_interperiodo" readonly="readonly" value="">-->
+									        				<select class="form-control chosen-select" id="interperiodo" name="interperiodo" data-placeholder="Periodo..." required="required">
+									        					<option></option>
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>
@@ -306,7 +308,8 @@
 						        			<div class="col-xs-12">
 								        		<div class="form-group">
 								        			<label class="control-label" for="via_administracion"><span class="red">*</span>Vía de administración:</label>	
-							        				<select class="form-control chosen-select" id="via_administracion" name="via_administracion" data-placeholder="Seleccionar...">
+							        				<select class="form-control chosen-select" id="via_administracion" name="via_administracion" data-placeholder="Seleccionar..." required="required">
+							        					<option></option>
 							        					<option value="Oral">Oral</option>
 							        					<option value="Intramuscular">Intramuscular</option>
 							        					<option value="Subcutánea">Subcutánea</option>
@@ -325,7 +328,8 @@
 									        				<input type="number" id="eminima" name="eminima" min="1" class="form-control" required>				        				
 									        			</div>
 									        			<div class="col-xs-6">
-									        				<select class="form-control chosen-select" id="eminperiodo" name="eminperiodo" data-placeholder="Periodo...">
+									        				<select class="form-control chosen-select" id="eminperiodo" name="eminperiodo" data-placeholder="Periodo..." required="required">
+									        					<option></option>
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>
@@ -346,7 +350,8 @@
 									        				<input type="number" id="emaxima" name="emaxima" min="1" class="form-control" required>				        				
 									        			</div>
 									        			<div class="col-xs-6">
-									        				<select class="form-control chosen-select" id="emaxperiodo" name="emaxperiodo" data-placeholder="Periodo...">
+									        				<select class="form-control chosen-select" id="emaxperiodo" name="emaxperiodo" data-placeholder="Periodo..." required="required">
+									        					<option></option>
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>

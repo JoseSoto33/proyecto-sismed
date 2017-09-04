@@ -238,6 +238,16 @@ $(document).ready(function(){
             $(this).removeClass('btn-success').addClass('btn-danger').children('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
         }
     });
+
+    $("#accordion").on("show.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    });
+
+    $("#accordion").on("hide.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
+    });
     
 
 });

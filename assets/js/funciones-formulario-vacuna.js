@@ -4,7 +4,18 @@ $(document).ready(function(){
 
 	$('#registro-vacuna').validator();
 
-	$('#registro-vacuna .chosen-select').chosen();
+	$('#registro-vacuna .chosen-select').chosen({width: "100%",no_results_text: "Sin resultados para: "});
+
+    $("#accordion").on("show.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").removeClass("glyphicon-plus").addClass("glyphicon-minus");
+    });
+
+    $("#accordion").on("hide.bs.collapse", ".collapse", function(e){
+        
+        $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
+    });
+
 
 	$("#registro-vacuna").on("submit", function(){
 
@@ -141,7 +152,7 @@ $(document).ready(function(){
         
 
         $("#lista-esquemas").append(str);
-        $("#lista-esquemas .chosen-select").chosen();
+        $("#lista-esquemas .chosen-select").chosen({width: "100%",no_results_text: "Sin resultados para: "});
         $("#lista-esquemas .chosen-select").trigger("chosen:updated");
         $("#can-esquemas").val(cantidad);
 
@@ -169,11 +180,24 @@ $(document).ready(function(){
         if (valor == "Única") {
             $("#"+dosis).val(1).attr("readonly","readonly");
             $("#"+intervalo).val(1).attr("readonly","readonly");
-            $("#"+pintervalo).val("Día(s)").attr("readonly","readonly").addClass("disabled");
+            //$("#"+pintervalo).val("Día(s)").attr("readonly","readonly").addClass("disabled");
+            $("#"+pintervalo+" option").each(function(index, val){                
+
+                if (this.value === "Día(s)") {
+                    this.selected = true;
+                    //this.defaultSelected = true;
+                    this.setAttribute("selected", "selected");
+                    //element.val(value);
+                    //return false;
+                }
+            });
+            $("#lista-esquemas .chosen-select").chosen({width: "100%",no_results_text: "Sin resultados para: "});
+            $("#lista-esquemas .chosen-select").trigger("chosen:updated");
+
         }else{
-            $("#"+dosis).val(1).removeAttr("readonly");
-            $("#"+intervalo).val(1).removeAttr("readonly");
-            $("#"+pintervalo).val("Día(s)").removeAttr("readonly").removeClass("disabled");
+            $("#"+dosis).removeAttr("readonly");
+            $("#"+intervalo).removeAttr("readonly");
+            //$("#"+pintervalo).val("Día(s)").removeAttr("readonly").removeClass("disabled");
         }
     });
 
@@ -211,7 +235,7 @@ $(document).ready(function(){
             }
 
             $("#list_cant_enfermedades").html(str);
-            $("#list_cant_enfermedades .chosen-select").chosen();
+            $("#list_cant_enfermedades .chosen-select").chosen({width: "100%",no_results_text: "Sin resultados para: "});
             $("#list_cant_enfermedades .chosen-select").trigger("chosen:updated");
             
         });
@@ -220,5 +244,21 @@ $(document).ready(function(){
             alert('Error: '+textStatus);
         });
         
+    }
+
+    function dump(obj) {
+
+        var out = "";
+        for (var i in obj) {
+            out += i + ": " + obj[i] + "\n";
+        }
+
+        alert(out);
+
+        // or, if you wanted to avoid alerts...
+
+        /*var pre = document.createElement("pre");
+        pre.innerHTML = out;
+        document.body.appendChild(pre)*/
     }
 });

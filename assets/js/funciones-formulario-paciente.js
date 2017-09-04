@@ -10,7 +10,7 @@ $(document).ready(function(){
         //$("#fecha_inicio").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
 
         $("#fecha_nacimiento").mask("9999-99-99",{placeholder:"AAAA-MM-DD"}); //Se inicializa el campo fecha con el plugIn de maskedInput
-    }   
+    } 
 
     $("#telf_personal").mask("(9999) 999-99-99");
     $("#telf_emergencia").mask("(9999) 999-99-99");
