@@ -5,11 +5,12 @@ $(document).ready(function(){
 	 */
 	var columns = [ //Columnas a mostrar
             { "data": "fecha_creacion" },//Promera columna: posición 'fecha_creación'
+            { "data": "nombre1" },
             {//Secunda columna: Botón para desplegar información
                 "className":      'details-control',
                 "orderable":      false,
                 "data":           null,
-                "defaultContent": '<button class=\'btn btn-success btn-sm pull-right\'><span class=\'glyphicon glyphicon-plus\'></span></button>'
+                "defaultContent": '<button class=\'btn btn-success btn-xs pull-right\'><span class=\'glyphicon glyphicon-plus\'></span></button>'
             }
         ];
 
@@ -89,7 +90,7 @@ $(document).ready(function(){
 	    	'<tr>'+
 	    		'<th colspan="2" align="center" class="success">'+
                     'Detalles de la consulta'+
-                    '<a class="btn btn-sm btn-info pull-right" href="'+$("#base_url").val()+'Consulta/ModificarConsulta/'+data.id+'_'+data.cod_historia+'_'+data.tipo+'">'+
+                    '<a class="btn btn-xs btn-info pull-right" href="'+$("#base_url").val()+'Consulta/ModificarConsulta/'+data.id+'_'+data.cod_historia+'_'+data.tipo+'">'+
                         '<span class="glyphicon glyphicon-pencil"></span>'+
                     '</a>'+
                 '</th>'+
@@ -125,7 +126,7 @@ $(document).ready(function(){
             '<tr>'+
                 '<th colspan="2" class="success">'+
                     'Detalles de la consulta'+
-                    '<a class="btn btn-sm btn-info pull-right" href="'+$("#base_url").val()+'Consulta/ModificarConsulta/'+data.id+'_'+data.cod_historia+'_'+data.tipo+'">'+
+                    '<a class="btn btn-xs btn-info pull-right" href="'+$("#base_url").val()+'Consulta/ModificarConsulta/'+data.id+'_'+data.cod_historia+'_'+data.tipo+'">'+
                         '<span class="glyphicon glyphicon-pencil"></span>'+
                     '</a>'+
                 '</th>'+

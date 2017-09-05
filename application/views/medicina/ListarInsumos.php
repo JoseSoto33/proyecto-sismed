@@ -67,23 +67,23 @@
 									{
 
 									//--Boton ver lote//
-										echo "<a class=\"btn btn-sm btn-primary ver-lotes\" data-toggle=\"modal\" data-target=\"#VerLote\" title=\"Ver lotes\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\">";
+										echo "<a class=\"btn btn-xs btn-primary ver-lotes\" data-toggle=\"modal\" data-target=\"#VerLote\" title=\"Ver lotes\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\">";
 										echo "<span class=\"glyphicon glyphicon-search\"></span>";
 										echo "</a>";
 									//---Boton editar---
-										echo "<a class=\"btn btn-sm btn-success editar-insumo\" href=\"".base_url("Inventario/ModificarInsumo/".md5('sismed'.$insumo["id"]))."_stock\" title=\"Editar insumo\">";
+										echo "<a class=\"btn btn-xs btn-success editar-insumo\" href=\"".base_url("Inventario/ModificarInsumo/".md5('sismed'.$insumo["id"]))."_stock\" title=\"Editar insumo\">";
 										echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 										echo "</a>";
 
 									//---Boton deshabilitar---
-										echo "<a class=\"btn btn-sm btn-danger eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\" data-action=\"deshabilitar\">";
+										echo "<a class=\"btn btn-xs btn-danger eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\" data-action=\"deshabilitar\">";
 										echo "<span class=\"glyphicon glyphicon-remove\"></span>";
 										echo "</a>";
 
 								    }else{
 
 								    //---Boton habilitar---
-								    	echo "<a class=\"btn btn-sm btn-success eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\" data-action=\"habilitar\">";
+								    	echo "<a class=\"btn btn-xs btn-success eliminar-insumo\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarInsumo\" title=\"Eliminar insumo\" data-idinsumo=\"".md5('sismed'.$insumo["id"])."\" data-nombre=\"".$insumo["insumo"]."\" data-action=\"habilitar\">";
 										echo "<span class=\"glyphicon glyphicon-ok\"></span>";
 										echo "</a>";
 								    }

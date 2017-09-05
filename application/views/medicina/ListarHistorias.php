@@ -63,7 +63,7 @@ case "Enfermero":
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 									//---Boton ver detalles---
-									echo "<a class=\"btn btn-sm btn-success detalle-historia\" href=\"".base_url("HistoriaClinica/ConsultarHistoriaClinica/".md5('sismed'.$historia["cod_historia"]))."\" title=\"Editar evento\">";
+									echo "<a class=\"btn btn-xs btn-success detalle-historia\" href=\"".base_url("HistoriaClinica/ConsultarHistoriaClinica/".md5('sismed'.$historia["cod_historia"]))."\" title=\"Editar evento\">";
 									echo "<span class=\"glyphicon glyphicon-search\"></span>";
 									echo "</a>";
 

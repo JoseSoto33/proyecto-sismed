@@ -289,12 +289,19 @@ class Consulta extends CI_Controller {
 
         switch ($tipo_consulta) {
             case '1':
-                $condicion['select'] = "consulta.*, patologia.nombre AS patologia";
+                $condicion['select'] = "consulta.*, patologia.nombre AS patologia, usuario.nombre1, usuario.nombre2, usuario.apellido1, usuario.apellido2";
                 $condicion['from'] = "consulta_curativa AS consulta";
-                $condicion['join'] = array(
-                    "tabla" => "patologia",
-                    "condicion" => "consulta.id_patologia = patologia.id",
-                    "tipo" => "left"
+                $condicion['joins'] = array(
+                    array(
+                        "tabla" => "patologia",
+                        "condicion" => "consulta.id_patologia = patologia.id",
+                        "tipo" => "left"
+                        ),
+                    array(
+                        "tabla" => "usuario",
+                        "condicion" => "consulta.id_usuario = usuario.id",
+                        "tipo" => "left"
+                        )
                     );
                 $condicion['where'] = array(
                     "consulta.cod_historia" => $cod_historia,
@@ -302,12 +309,19 @@ class Consulta extends CI_Controller {
                     );
                 break;
             case '2':                
-                $condicion['select'] = "consulta.*, patologia.nombre AS patologia";
+                $condicion['select'] = "consulta.*, patologia.nombre AS patologia, usuario.nombre1, usuario.nombre2, usuario.apellido1, usuario.apellido2";
                 $condicion['from'] = "consulta_preventiva AS consulta";
-                $condicion['join'] = array(
-                    "tabla" => "patologia",
-                    "condicion" => "consulta.id_patologia = patologia.id",
-                    "tipo" => "left"
+                $condicion['joins'] = array(
+                    array(
+                        "tabla" => "patologia",
+                        "condicion" => "consulta.id_patologia = patologia.id",
+                        "tipo" => "left"
+                        ),
+                    array(
+                        "tabla" => "usuario",
+                        "condicion" => "consulta.id_usuario = usuario.id",
+                        "tipo" => "left"
+                        )
                     );
                 $condicion['where'] = array(
                     "consulta.cod_historia" => $cod_historia,
@@ -331,6 +345,18 @@ class Consulta extends CI_Controller {
                 $row->id = md5('sismed'.$row->id);
                 $row->cod_historia = md5('sismed'.$row->cod_historia);
                 $row->fecha_creacion = strftime('%d de %B de %Y', strtotime($row->fecha_creacion));
+
+                //$nombre = $row->nombre1;
+
+                if (isset($row->nombre2) && !empty($row->nombre2)) 
+                    {$row->nombre1 .= " ".$row->nombre2;}
+
+                $row->nombre1 .= " ".$row->apellido1;
+
+                if (isset($row->apellido2) && !empty($row->apellido2)) 
+                    {$row->nombre1 .= " ".$row->apellido2;}
+
+                //$row->nombre1 = $nombre;
             }
         }
 

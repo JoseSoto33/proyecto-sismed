@@ -41,7 +41,7 @@
 									echo "<td>".strftime('%d de %B de %Y', strtotime($sesion["fin"]))." a las ".date('h:i:s a', strtotime($sesion["fin"]))."</td>";
 									echo "<td>";
 									
-									echo "<a class=\"btn btn-sm btn-info detalle-sesion\" href=\"#\" data-toggle=\"modal\" data-target=\"#DetalleSesion\" title=\"Ver detalles\" data-idsesion=\"".md5('sismed'.$sesion["id"])."\">";
+									echo "<a class=\"btn btn-xs btn-info detalle-sesion\" href=\"#\" data-toggle=\"modal\" data-target=\"#DetalleSesion\" title=\"Ver detalles\" data-idsesion=\"".md5('sismed'.$sesion["id"])."\">";
 									echo "<span class=\"glyphicon glyphicon-search\"></span>";
 									echo "</a>";
 

@@ -68,17 +68,17 @@
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 									
 									//---Boton ver detalles---
-									echo "<a class=\"btn btn-sm btn-info detalle-noticia\" href=\"#\" data-toggle=\"modal\" data-target=\"#VerNoticia\" title=\"Ver detalles\" data-idnoticia=\"".md5('sismed'.$noticia["id"])."\">";
+									echo "<a class=\"btn btn-xs btn-info detalle-noticia\" href=\"#\" data-toggle=\"modal\" data-target=\"#VerNoticia\" title=\"Ver detalles\" data-idnoticia=\"".md5('sismed'.$noticia["id"])."\">";
 									echo "<span class=\"glyphicon glyphicon-search\"></span>";
 									echo "</a>";
 
 									//---Boton editar---
-									echo "<a class=\"btn btn-sm btn-success editar-noticia\" href=\"".base_url("Noticia/ModificarNoticia/".md5('sismed'.$noticia["id"]))."\" title=\"Editar noticia\">";
+									echo "<a class=\"btn btn-xs btn-success editar-noticia\" href=\"".base_url("Noticia/ModificarNoticia/".md5('sismed'.$noticia["id"]))."\" title=\"Editar noticia\">";
 									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 									echo "</a>";
 
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-sm btn-danger eliminar-noticia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarNoticia\" title=\"Eliminar noticia\" data-idnoticia=\"".md5('sismed'.$noticia["id"])."\" data-titulo=\"".$noticia["titulo"]."\">";
+									echo "<a class=\"btn btn-xs btn-danger eliminar-noticia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarNoticia\" title=\"Eliminar noticia\" data-idnoticia=\"".md5('sismed'.$noticia["id"])."\" data-titulo=\"".$noticia["titulo"]."\">";
 									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 									echo "</a>";
 

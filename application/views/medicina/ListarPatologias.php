@@ -68,19 +68,19 @@
 									{
 
 									//---Boton editar---
-										echo "<a class=\"btn btn-sm btn-success editar-patologia\" href=\"".base_url("Patologia/ModificarPatologia/".md5('sismed'.$patologia["id"]))."\" title=\"Editar patologia\">";
+										echo "<a class=\"btn btn-xs btn-success editar-patologia\" href=\"".base_url("Patologia/ModificarPatologia/".md5('sismed'.$patologia["id"]))."\" title=\"Editar patologia\">";
 										echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 										echo "</a>";
 
 									//---Boton eliminar---
-										echo "<a class=\"btn btn-sm btn-danger eliminar-patologia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPatologia\" title=\"Eliminar patologia\" data-idpatologia=\"".md5('sismed'.$patologia["id"])."\" data-nombre=\"".$patologia["nombre"]."\" data-action=\"deshabilitar\">";
+										echo "<a class=\"btn btn-xs btn-danger eliminar-patologia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPatologia\" title=\"Eliminar patologia\" data-idpatologia=\"".md5('sismed'.$patologia["id"])."\" data-nombre=\"".$patologia["nombre"]."\" data-action=\"deshabilitar\">";
 										echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 										echo "</a>";
 
 								    }else{
 
 								    //---Boton habilitar---
-								    	echo "<a class=\"btn btn-sm btn-success eliminar-patologia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPatologia\" title=\"Eliminar patologia\" data-idpatologia=\"".md5('sismed'.$patologia["id"])."\" data-nombre=\"".$patologia["nombre"]."\" data-action=\"habilitar\">";
+								    	echo "<a class=\"btn btn-xs btn-success eliminar-patologia\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPatologia\" title=\"Eliminar patologia\" data-idpatologia=\"".md5('sismed'.$patologia["id"])."\" data-nombre=\"".$patologia["nombre"]."\" data-action=\"habilitar\">";
 										echo "<span class=\"glyphicon glyphicon-ok\"></span>";
 										echo "</a>";
 								    }

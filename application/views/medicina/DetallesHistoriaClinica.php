@@ -183,11 +183,13 @@
 													        	<div class="col-sm-12 table-responsive">
 																	<table id="lista-cons-cur" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0" data-tipo_cons="1">
 																		<thead>
-																			<th width="90%">Fecha</th>					
+																			<th width="30%">Fecha</th>
+																			<th width="60%">Atendido por:</th>					
 																			<th width="10%"> </th>
 																		</thead>
 																		<tfoot>
-																			<th width="90%">Fecha</th>
+																			<th width="30%">Fecha</th>
+																			<th width="60%">Atendido por:</th>
 																			<th width="10%"> </th>						
 																		</tfoot>
 																		<tbody>
@@ -230,11 +232,13 @@
 													        	<div class="col-sm-12 table-responsive">
 																	<table id="lista-cons-prev" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0" data-tipo_cons="2">
 																		<thead>
-																			<th width="90%">Fecha</th>					
+																			<th width="30%">Fecha</th>
+																			<th width="60%">Atendido por:</th>					
 																			<th width="10%"> </th>
 																		</thead>
 																		<tfoot>
-																			<th width="90%">Fecha</th>
+																			<th width="30%">Fecha</th>
+																			<th width="60%">Atendido por:</th>					
 																			<th width="10%"> </th>						
 																		</tfoot>
 																		<tbody>

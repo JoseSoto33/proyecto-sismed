@@ -60,17 +60,17 @@
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 									//---Boton ver detalles---
-									echo "<a class=\"btn btn-sm btn-info detalle-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#VerEvento\" title=\"Ver detalles\" data-idevento=\"".md5('sismed'.$evento["id"])."\">";
+									echo "<a class=\"btn btn-xs btn-info detalle-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#VerEvento\" title=\"Ver detalles\" data-idevento=\"".md5('sismed'.$evento["id"])."\">";
 									echo "<span class=\"glyphicon glyphicon-search\"></span>";
 									echo "</a>";
 
 									//---Boton editar---
-									echo "<a class=\"btn btn-sm btn-success editar-evento\" href=\"".base_url("Evento/ModificarEvento/".md5('sismed'.$evento["id"]))."\" title=\"Editar evento\">";
+									echo "<a class=\"btn btn-xs btn-success editar-evento\" href=\"".base_url("Evento/ModificarEvento/".md5('sismed'.$evento["id"]))."\" title=\"Editar evento\">";
 									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 									echo "</a>";
 
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-sm btn-danger eliminar-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarEvento\" title=\"Eliminar evento\" data-idevento=\"".md5('sismed'.$evento["id"])."\" data-titulo=\"".$evento["titulo"]."\">";
+									echo "<a class=\"btn btn-xs btn-danger eliminar-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarEvento\" title=\"Eliminar evento\" data-idevento=\"".md5('sismed'.$evento["id"])."\" data-titulo=\"".$evento["titulo"]."\">";
 									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 									echo "</a>";
 
