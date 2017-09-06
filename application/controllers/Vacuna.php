@@ -330,10 +330,10 @@ class Vacuna extends CI_Controller {
     {
         $this->form_validation->set_rules(
                 'nombre_vacuna', 'Nombre de la vacuna',
-                array('required','is_unique[vacuna.nombre_vacuna]','min_length[3]','max_length[30]','regex_match[/^[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),                   
+                array('required','is_unique[vacuna.nombre_vacuna]','min_length[3]','max_length[50]','regex_match[/^[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ_\s]+$/]'),                   
                 array(
                     'min_length'    => 'El %s debe tener al menos 3 caracteres.',
-                    'max_length'    => 'El %s debe tener máximo 30 caracteres.', 
+                    'max_length'    => 'El %s debe tener máximo 50 caracteres.', 
                     'regex_match'   => 'El %s sólo puede contener letras y espacios.',
                     'is_unique'     => 'El %s ya existe en la base de datos.',
                     'required'      => 'Debe ingresar un %s.'
@@ -433,6 +433,25 @@ class Vacuna extends CI_Controller {
 
         $this->form_validation->set_rules(
                 'emaxperiodo[]', 'Período de edad máxima', 
+                array('required'),                      
+                array(
+                    'required'  => 'Debe especificar un %s.'
+                    )                   
+        );
+
+        $this->form_validation->set_rules(
+                'dosificacion[]', 'Dosificación',
+                array('required','decimal[vacuna.nombre_vacuna]','min_length[1]','regex_match[/^[-+]?([0-9]*.[0-9]+|[0-9]+)/]'),                   
+                array(
+                    'min_length'    => 'La %s debe tener al menos 1 caracter.',
+                    'regex_match'   => 'La %s sólo puede contener números enteros o decimales.',
+                    'decimal'       => 'La %s debe ser representada en números enteros o decimales.',
+                    'required'      => 'Debe ingresar un %s.'
+                )
+        );
+
+        $this->form_validation->set_rules(
+                'tipo_dosificacion[]', 'Tipo de dosificación', 
                 array('required'),                      
                 array(
                     'required'  => 'Debe especificar un %s.'

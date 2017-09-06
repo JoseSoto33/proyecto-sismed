@@ -60,7 +60,7 @@ $(document).ready(function(){
             }
         });
 
-     if ($("#alert-message").length) {
+     if ($("#alert-message").length) {        
 
         setTimeout( function(){                  
             $("#alert-message").slideUp('fast');  
@@ -70,6 +70,10 @@ $(document).ready(function(){
         $(".alert").hide();
     }
 
+    $("#edit-message").hide();
+    $("#select-message").hide();
+    $("#esquema-message").hide();
+    
     $("#lista-esquemas").hide();
     $("#lista-esquemas .chosen-select").chosen({width: "100%",no_results_text: "Sin resultados para: "});
     $("#lista-esquemas .chosen-select").trigger("chosen:updated");
@@ -498,6 +502,21 @@ $(document).ready(function(){
             /** Carga datos en el campo período de Edad máxima **/
             activarSelect($("#emaxperiodo option"),response["max_edad_periodo"]);
 
+            /** Carga datos en el campo Dosificación **/
+            $("#dosificacion").val(response["dosificacion"]);
+
+            /** Carga datos en el campo período de Tipo de dosificación **/
+            activarSelect($("#tipo_dosificacion option"),response["tipo_dosificacion"]);
+
+            /** Carga datos en el campo Observaciones **/
+            if (response["observaciones"] != "") {
+
+                $("#observaciones").val(response["observaciones"].trim());
+            }else{
+                $("#observaciones").val("");
+                $("#observaciones").html("");
+            }
+
             $("#lista-esquemas .chosen-select").chosen({width: "100%",no_results_text: "Sin resultados para: "});
             $("#lista-esquemas .chosen-select").trigger("chosen:updated");
 
@@ -765,6 +784,13 @@ $(document).ready(function(){
                 str += "<li><b>Edad mínima:</b> "+value["min_edad_aplicacion"]+" "+value["min_edad_periodo"]+".</li>";
                 str += "<li><b>Edad máxima:</b> "+value["max_edad_aplicacion"]+" "+value["max_edad_periodo"]+".</li>";
                 str += "<li><b>Intervalo de aplicación:</b> "+value["intervalo"]+" "+value["intervalo_periodo"]+".</b></li>";
+                str += "<li><b>Dosificación:</b> "+value["dosificacion"]+" "+value["tipo_dosificacion"]+".</b></li>";
+
+                if (value["observaciones"] != null && value["observaciones"] != "" && value["observaciones"] != undefined) {
+
+                str += "<li><b>Observaciones:</b> "+value["observaciones"]+".</b></li>";
+                }
+
                 str += "</ul>";
                 str += "</div>";
                 str += "</div>";

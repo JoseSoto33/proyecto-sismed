@@ -363,6 +363,36 @@
 								        		</div>
 						        			</div><!--/ Campo Edad máxima -->
 
+						        			<!-- Campo Dosificacion -->
+						        			<div class="col-md-12">
+						        				<div class="form-group">
+						        					<div class="row">
+									        			<label class="col-xs-12 control-label" for="emaxima"><span class="red">*</span>Dosificacion:</label>
+									        			<div class="col-xs-6">
+									        				<input type="text" id="dosificacion" pattern="[-+]?([0-9]*.[0-9]+|[0-9]+)" name="dosificacion" class="form-control" value="" required>				        				
+									        			</div>
+									        			<div class="col-xs-6">
+									        				<select class="form-control chosen-select" id="tipo_dosificacion" name="tipo_dosificacion" data-placeholder="Periodo..." required="required">
+									        					<option></option>
+									        					<option value="cc">cc</option>
+									        					<option value="ml">ml</option>
+									        					<option value="mg">mg</option>
+									        					<option value="Onz">Onz</option>
+									        					<option value="gotas">gotas</option>
+									        				</select>				        				
+									        			</div>
+									        		</div>
+								        		</div>
+						        			</div><!--/ Campo Dosificacion -->
+
+						        			<!-- Campo Observaciones -->
+						        			<div class="col-xs-12">
+								        		<div class="form-group">
+								        			<label class="control-label" for="via_administracion"><span class="red">*</span>Observaciones:</label>	
+							        				<textarea class="form-control" name="observaciones" id="observaciones" ></textarea>
+								        		</div>
+						        			</div><!--/ Campo Observaciones -->	
+
 						        			<!-- Botones -->
 						        			<div class=" col-xs-12">
 						        				<div class="form-group">

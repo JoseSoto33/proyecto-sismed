@@ -106,7 +106,10 @@ class Esquema extends CI_Controller {
                 "via_administracion" => $this->input->post("via_administracion"),
                 "cant_dosis" => $this->input->post("cant_dosis"),
                 "intervalo" => $this->input->post("intervalo"),
-                "intervalo_periodo" => $this->input->post("interperiodo")
+                "intervalo_periodo" => $this->input->post("interperiodo"),
+                "dosificacion" => $this->input->post("dosificacion"),
+                "tipo_dosificacion" => $this->input->post("tipo_dosificacion"),
+                "observaciones" => $this->input->post("observaciones")
                 ),
             "where" => array(
                 "id" => $this->input->post("id_esquema"),

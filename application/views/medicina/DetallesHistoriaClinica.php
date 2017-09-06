@@ -2,7 +2,7 @@
 <div id="seccion4">
 	<div class="container">
 		<div class="row">
-			<div id="hist-content" class="col-sm-7 center">
+			<div id="hist-content" class="col-sm-9 center">
 
 				<!-- Cabecera de la historia clínica -->
 				<div class="hist-header">					
@@ -184,12 +184,12 @@
 																	<table id="lista-cons-cur" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0" data-tipo_cons="1">
 																		<thead>
 																			<th width="30%">Fecha</th>
-																			<th width="60%">Atendido por:</th>					
+																			<th width="60%">Especialista</th>					
 																			<th width="10%"> </th>
 																		</thead>
 																		<tfoot>
 																			<th width="30%">Fecha</th>
-																			<th width="60%">Atendido por:</th>
+																			<th width="60%">Especialista</th>
 																			<th width="10%"> </th>						
 																		</tfoot>
 																		<tbody>
@@ -197,7 +197,7 @@
 																		</tbody>
 																	</table>
 																</div>
-													      	</div>
+													      	</div>													      	
 													    </div>
 												  	</div><!--/ Consultas curativas -->
 
@@ -233,12 +233,12 @@
 																	<table id="lista-cons-prev" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0" data-tipo_cons="2">
 																		<thead>
 																			<th width="30%">Fecha</th>
-																			<th width="60%">Atendido por:</th>					
+																			<th width="60%">Especialista</th>					
 																			<th width="10%"> </th>
 																		</thead>
 																		<tfoot>
 																			<th width="30%">Fecha</th>
-																			<th width="60%">Atendido por:</th>					
+																			<th width="60%">Especialista</th>					
 																			<th width="10%"> </th>						
 																		</tfoot>
 																		<tbody>
@@ -250,6 +250,75 @@
 													    </div>
 												  	</div><!--/ Consultas preventivas -->
 												</div>
+							    			</div>
+							    			<div class="col-sm-12">
+							    				<h3>Vacunas</h3>
+							    			</div>
+							    			<div class="col-xs-12">
+							    				
+							    				<!-- Panel de vacunaciones -->
+							    				<div class="row">
+							    					<div class="col-xs-12 col-sm-6">
+							    						<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
+											    			<!-- Esquema de vacunas -->
+														  	<div class="panel panel-default">
+															    <div class="panel-heading" role="tab" id="heading1">
+															      	<h4 class="panel-title">
+															      		Esquema de vacunas
+															        	<a class="pull-right" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
+															          		<span class="glyphicon glyphicon-plus"></span>
+															        	</a>
+															      	</h4>
+															    </div>
+															    <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+															      	<div class="panel-body">
+															      		Panel content
+															      	</div>													      	
+															    </div>
+														  	</div><!--/ Esquema de vacunas -->
+														</div>
+							    					</div>
+							    					<div class="col-xs-12 col-sm-6">
+							    						<div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
+											    			<!-- Aplicar vacuna -->
+														  	<div class="panel panel-default">
+															    <div class="panel-heading" role="tab" id="heading2">
+															      	<h4 class="panel-title">
+															      		Aplicar vacuna
+															        	<a class="pull-right" role="button" data-toggle="collapse" data-parent="#accordion3" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
+															          		<span class="glyphicon glyphicon-plus"></span>
+															        	</a>
+															      	</h4>
+															    </div>
+															    <div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
+															      	<div class="panel-body">
+															      		Panel content
+															      	</div>													      	
+															    </div>
+														  	</div><!--/ Aplicar vacuna -->
+														</div>
+							    					</div>
+							    					<div class="col-xs-12">
+							    						<div class="panel-group" id="accordion3" role="tablist" aria-multiselectable="true">
+											    			<!-- Listado de vacunas aplicadas -->
+														  	<div class="panel panel-default">
+															    <div class="panel-heading" role="tab" id="heading3">
+															      	<h4 class="panel-title">
+															      		Listado de vacunas aplicadas
+															        	<a class="pull-right" role="button" data-toggle="collapse" data-parent="#accordion3" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+															          		<span class="glyphicon glyphicon-plus"></span>
+															        	</a>
+															      	</h4>
+															    </div>
+															    <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
+															      	<div class="panel-body">
+															      		Panel content
+															      	</div>													      	
+															    </div>
+														  	</div><!--/ Listado de vacunas aplicadas -->
+														</div>
+							    					</div>
+							    				</div><!--/ Panel de vacunaciones -->
 							    			</div>
 							    		</div>
 							    	</div><!--/ Consultas médicas -->

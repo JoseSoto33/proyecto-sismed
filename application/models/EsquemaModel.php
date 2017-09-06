@@ -23,7 +23,10 @@ class EsquemaModel extends CI_Model {
                     "via_administracion" => $_POST["via_administracion"][$key],
                     "cant_dosis" => $_POST["cant_dosis"][$key],
                     "intervalo" => $_POST["intervalo"][$key],
-                    "intervalo_periodo" => $_POST["interperiodo"][$key]
+                    "intervalo_periodo" => $_POST["interperiodo"][$key],
+                    "dosificacion" => $_POST["dosificacion"][$key],
+                    "tipo_dosificacion" => $_POST["tipo_dosificacion"][$key],
+                    "observaciones" => $_POST["observaciones"][$key]
                     );
 
                 if(!$this->db->insert("esquema", $insert)){             
@@ -43,7 +46,10 @@ class EsquemaModel extends CI_Model {
                 "via_administracion" => $this->input->post("via_administracion"),
                 "cant_dosis" => $this->input->post("cant_dosis"),
                 "intervalo" => $this->input->post("intervalo"),
-                "intervalo_periodo" => $this->input->post("interperiodo")
+                "intervalo_periodo" => $this->input->post("interperiodo"),
+                "dosificacion" => $this->input->post("dosificacion"),
+                "tipo_dosificacion" => $this->input->post("tipo_dosificacion"),
+                "observaciones" => $this->input->post("observaciones")
                 );
 
             if(!$this->db->insert("esquema", $insert)){             

@@ -275,17 +275,17 @@ switch ($this->session->userdata('tipo_usuario')){
         			</div>	
     				<div class="col-xs-12">	
     					<!-- Campo Nombre de la vacuna -->        					
-	        			<div class="col-xs-6">
+	        			<div class="col-xs-12 col-sm-6">
 			        		<div class="form-group">
 			        			<label class="control-label" for="nombre_vacuna"><span class="red">*</span>Nombre de la vacuna:</label>
-			        			<input type="text" id="nombre_vacuna" name="nombre_vacuna" class="form-control" pattern="[a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ\s]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo set_value('nombre_vacuna'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos"> 
+			        			<input type="text" id="nombre_vacuna" name="nombre_vacuna" class="form-control" pattern="[0-9a-zA-ZáéíóúàèìòùÀÈÌÒÙÁÉÍÓÚñÑüÜ\s]{3,50}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="50" value="<?php echo set_value('nombre_vacuna'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos"> 
 								    <div class="help-block with-errors">
 								    </div>
 			        		</div>
 	        			</div><!--/ Campo Nombre de la vacuna -->
 
 	        			<!-- Campo Cantidad de enfermedades que combate -->
-	        			<div class="col-xs-6">
+	        			<div class="col-xs-12 col-sm-6">
 			        		<div class="form-group">
 			        			<label class="control-label" for="cant_enfermedad"><span class="red">*</span>Cantidad de enfermedades que combate:</label>
 			        			<input type="number" id="cant_enfermedad" name="cant_enfermedad" min="1" max="<?php echo $cant_patologias; ?>" class="form-control" required pattern="[1-9]{1,4}" value="<?php echo set_value('cant_enfermedad'); ?>" >	
@@ -297,7 +297,7 @@ switch ($this->session->userdata('tipo_usuario')){
     				<div class="col-xs-12" id="list_cant_enfermedades">
 
     					<!-- Campo Enfermedad -->
-	        			<div class="col-xs-6">
+	        			<div class="col-xs-12 col-sm-6">
 			        		<div class="form-group">
 			        			<label class="control-label" for="enfermedad1"><span class="red">*</span>Enfermedad 1:</label>
 		        				<select class="form-control chosen-select" id="enfermedad1" name="enfermedad[]" data-nro="1" data-placeholder="Seleccionar enfermedad..." required="required">
@@ -316,7 +316,7 @@ switch ($this->session->userdata('tipo_usuario')){
 	        		</div>
         			<div class="col-xs-12">	
         				<!-- Botón Agregar esquema -->        					
-	        			<div class="col-md-6">
+	        			<div class="col-xs-12 col-sm-6">
 			        		<div class="form-group">
 		        				<button class="btn btn-info" id="add_esquema">
 		        					<span class="glyphicon glyphicon-plus"></span> 
@@ -330,7 +330,7 @@ switch ($this->session->userdata('tipo_usuario')){
         					<div class="col-xs-12 esquema-content">
         						<div class="row">
         							<!-- Campo Esquema -->
-	        						<div class="col-xs-6">
+	        						<div class="col-xs-12 col-sm-6">
 						        		<div class="form-group">
 						        			<label class="control-label" for="esquema1"><span class="red">*</span>Esquema:</label>
 					        				<select class="form-control chosen-select select-esquema" id="esquema1" data-dosis="cant_dosis1" data-intervalo="intervalo1" data-pintervalo="interperiodo1" name="esquema[]" data-placeholder="Seleccionar esquema..." required="required">
@@ -357,7 +357,7 @@ switch ($this->session->userdata('tipo_usuario')){
 			        			<div class="row">
 
 			        				<!-- Campo Intervalo -->
-				        			<div class="col-xs-6">
+				        			<div class="col-xs-12 col-sm-6">
 						        		<div class="form-group">
 						        			<div class="row">
 							        			<label class="col-xs-12 control-label" for="intervalo1"><span class="red">*</span>Intervalo:</label>
@@ -383,7 +383,7 @@ switch ($this->session->userdata('tipo_usuario')){
 				        			</div><!--/ Campo Intervalo -->
 
 				        			<!-- Campo Vía de administración -->
-				        			<div class="col-xs-6">
+				        			<div class="col-xs-12 col-sm-6">
 						        		<div class="form-group">
 						        			<label class="control-label" for="via_administracion1"><span class="red">*</span>Vía de administración:</label>	
 					        				<select class="form-control chosen-select" id="via_administracion1" name="via_administracion[]" data-placeholder="Seleccionar..." required="required">
@@ -402,7 +402,7 @@ switch ($this->session->userdata('tipo_usuario')){
 			        			<div class="row">
 
 			        				<!-- Campo Edad mínima -->
-				        			<div class="col-md-6">
+				        			<div class="col-xs-12 col-sm-6">
 				        				<div class="form-group">
 				        					<div class="row">
 							        			<label class="col-xs-12 control-label" for="eminima1"><span class="red">*</span>Edad mínima:</label>
@@ -426,7 +426,7 @@ switch ($this->session->userdata('tipo_usuario')){
 				        			</div><!--/ Campo Edad mínima -->
 
 				        			<!-- Campo Edad máxima -->
-				        			<div class="col-md-6">
+				        			<div class="col-xs-12 col-sm-6">
 				        				<div class="form-group">
 				        					<div class="row">
 							        			<label class="col-xs-12 control-label" for="emaxima1"><span class="red">*</span>Edad máxima:</label>
@@ -448,6 +448,44 @@ switch ($this->session->userdata('tipo_usuario')){
 							        		</div>
 						        		</div>
 				        			</div><!--/ Campo Edad máxima -->
+				        		</div>
+				        		<div class="row">
+				        			
+				        			<!-- Campo Dosificación -->
+				        			<div class="col-xs-12 col-sm-6">
+						        		<div class="form-group">
+						        			<div class="row">
+							        			<label class="col-xs-12 control-label" for="intervalo1"><span class="red">*</span>Dosificación:</label>
+							        			<div class="col-xs-6">
+							        				<input type="text" id="dosificacion1" pattern="[-+]?([0-9]*.[0-9]+|[0-9]+)" name="dosificacion[]" class="form-control" value="<?php echo set_value('dosificacion[]'); ?>" required>
+							        				<div class="help-block with-errors">
+													</div>				        				
+							        			</div>
+							        			<div class="col-xs-6">
+							        				<select class="form-control chosen-select" id="tipo_dosificacion1" name="tipo_dosificacion[]" data-placeholder="Periodo..." required="required">
+							        					<option></option>
+							        					<option value="cc" <?php echo set_select('tipo_dosificacion[]', 'cc'); ?>>cc</option>
+							        					<option value="ml" <?php echo set_select('tipo_dosificacion[]', 'ml'); ?>>ml</option>
+							        					<option value="mg" <?php echo set_select('tipo_dosificacion[]', 'mg'); ?>>mg</option>
+							        					<option value="Onz" <?php echo set_select('tipo_dosificacion[]', 'Onz'); ?>>Onz</option>
+							        					<option value="gotas" <?php echo set_select('tipo_dosificacion[]', 'gotas'); ?>>gotas</option>
+							        				</select>
+							        				<div class="help-block with-errors">
+													</div>				        				
+							        			</div>
+							        		</div>
+						        		</div>
+				        			</div><!--/ Campo Dosificación -->
+
+				        			<!-- Campo Observaciones -->
+				        			<div class="col-xs-12 col-sm-6">
+						        		<div class="form-group">
+						        			<label class="control-label" for="via_administracion1"><span class="red">*</span>Observaciones:</label>	
+					        				<textarea class="form-control" name="observaciones[]" id="observaciones1" ><?php echo  (isset($paciente['observaciones[]']))? trim($paciente['observaciones[]']) : trim(set_value('observaciones[]')); ?></textarea>
+					        				<div class="help-block with-errors">
+											</div>
+						        		</div>
+				        			</div><!--/ Campo Observaciones -->
 				        		</div>
         					</div>
         					
