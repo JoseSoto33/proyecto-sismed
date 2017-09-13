@@ -368,4 +368,3 @@
 		
 	});
 </script>
-<?php include('footer.php') ?>
