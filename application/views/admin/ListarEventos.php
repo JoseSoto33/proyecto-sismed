@@ -12,7 +12,7 @@
 <!-- Main content -->
 <section class="content container-fluid">
 	<div class="col-xs-12">
-		<div class="box box-default">
+		<div class="box box-primary">
 			<div class="box-header">
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">

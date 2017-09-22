@@ -1,36 +1,4 @@
-<?php 
-	include('header.php');
-	/*if($this->session->userdata("first_session") === true) { 
-		include('header.php');
-	}else{
 
-		$ruta 		= '../';
-    	$espec = $this->session->userdata("especialidad");
-
-    	switch ($espec) {
-    		case 'Administrador':
-    			$ruta .="admin/";
-    			break;  
-
-    		case 'Medicina':
-    			$ruta .="medicina/";
-    			break; 
-
-    		case 'Odontología':
-    			$ruta .="odontologia/";
-    			break; 
-
-    		case 'Laboratorio':
-    			$ruta .="laboratorio/";
-    			break; 
-
-    		case 'Nutrición':
-    			$ruta .="nuttricion/";
-    			break; 
-    	}
-    	include($ruta.'header.php');
-	}*/
-?>
 
 <div id="seccion2">
 	<div class="container">
@@ -119,40 +87,7 @@
 	</div>
 </div>
 
-<?php 
-	include('footer.php');
-/*
-	if($this->session->userdata("first_session")) { 
-		include('footer.php');
-	}else{
 
-		$ruta 		= '../';
-    	$espec = $this->session->userdata("especialidad");
-
-    	switch ($espec) {
-    		case 'Administrador':
-    			$ruta .="admin/";
-    			break;  
-
-    		case 'Medicina':
-    			$ruta .="medicina/";
-    			break; 
-
-    		case 'Odontología':
-    			$ruta .="odontologia/";
-    			break; 
-
-    		case 'Laboratorio':
-    			$ruta .="laboratorio/";
-    			break; 
-
-    		case 'Nutrición':
-    			$ruta .="nuttricion/";
-    			break; 
-    	}
-    	include($ruta.'footer.php');
-	}*/
-?>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript">
 	$(window).ready(function(){

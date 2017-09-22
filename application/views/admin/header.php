@@ -33,7 +33,7 @@
 		<script src="<?php echo base_url(); ?>assets/js/owl.carousel.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/locale/es.js"></script>
 	</head>
-	<body class="hold-transition skin-black sidebar-mini">
+	<body class="hold-transition skin-blue sidebar-mini">
 		<div class="cintillo">
 			<div class="container-fluid">
 				<figure class="pull-left">
@@ -126,6 +126,7 @@
 					        			?>
 			              			</span>
 			            		</a>
+			            		<?php if($this->session->has_userdata("login")) { ?>
 			            		<ul class="dropdown-menu">
 			              		<!-- The user image in the menu -->
 			              			<li class="user-header">
@@ -153,12 +154,13 @@
 						                </div>
 			              			</li>
 			            		</ul>
+			            		<?php } ?>
 			          		</li>
 			        	</ul>
 			      	</div>
 			    </nav>
 			</header>
-
+			<?php if($this->session->has_userdata("login")) { ?>
 			<!-- Left side column. contains the logo and sidebar -->
   			<aside class="main-sidebar">
 
@@ -185,13 +187,13 @@
 			      	<ul class="sidebar-menu" data-widget="tree">
 				        <li class="header">MENU</li>
 				        <!-- Optionally, you can add icons to the links -->
-				        <li class="active">
+				        <li class="<?php if($this->uri->segment(1) == 'Home') echo 'active'; ?>">
 				        	<a href="<?php echo base_url(); ?>Home">
 				        		<i class="fa fa-home"></i> 
 				        		<span>Inicio</span>
 				        	</a>
 				        </li>
-				        <li class="treeview">
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Usuario') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-users"></i> 
 				          		<span>Usuarios</span>
@@ -214,13 +216,13 @@
 				            	</li>
 				          	</ul>
 				        </li>
-				        <li>
+				        <li class="<?php if($this->uri->segment(1) == 'Sesion') echo 'active'; ?>">
 				        	<a href="<?php echo base_url(); ?>Sesion/ListarSesiones">
 					        	<i class="fa fa-laptop"></i> 
 					        	<span>Sesiones</span>
 					        </a>
 					    </li>
-				        <li class="treeview">
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Noticia') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-files-o"></i> 
 				          		<span>Noticias</span>
@@ -243,7 +245,7 @@
 				            	</li>
 				          	</ul>
 				        </li>
-				        <li class="treeview">
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Evento') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-calendar"></i> 
 				          		<span>Eventos</span>
@@ -266,7 +268,7 @@
 				            	</li>
 				          	</ul>
 				        </li>
-				        <li class="treeview">
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Reportes') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-table"></i> 
 				          		<span>Reportes</span>
@@ -288,6 +290,7 @@
 			    </section>
 			    <!-- /.sidebar -->
   			</aside>
+  			<?php } ?>
   			<!-- Content Wrapper. Contains page content -->
   			<div class="content-wrapper">
 		

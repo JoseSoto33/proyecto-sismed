@@ -15,7 +15,7 @@
 	<div class="row">		
 
 		<div class="col-xs-12 col-sm-4">
-			<div class="box box-solid box-default">
+			<div class="box box-solid box-primary">
 	        	<div class="box-header with-border">
 		          <h3 class="box-title">Instrucciones</h3>
 		        </div><!-- /.box-header -->
@@ -130,7 +130,7 @@
 		</div>
 
 		<div class="col-xs-12 col-sm-8">
-			<div class="box box-default">
+			<div class="box box-primary">
 		        <div class="box-body">
 		        	<div class="row">
 		        		<!-- Mensajes de error -->
@@ -149,7 +149,7 @@
 						if ($this->uri->segment(3, 0) != "0") {
 							$url .= "/".$this->uri->segment(3, 0);
 						}
-
+						
 						echo form_open_multipart(
 		      				$url,
 		      				'id="registro-noticia"'

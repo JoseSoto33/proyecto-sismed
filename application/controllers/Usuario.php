@@ -415,12 +415,14 @@ class Usuario extends CI_Controller {
 						$data['mensaje'] = $this->db->error();
 					}
 				}
-
-				$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
+				$this->load->view('admin/header');
+				$this->load->view('admin/FormularioCambioClave0', $data);//Cargar vista de formulario de modificación de contraseña
+				$this->load->view('admin/footer');
 			}
 		}else{
-
-			$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
+			$this->load->view('admin/header');
+			$this->load->view('admin/FormularioCambioClave0', $data);//Cargar vista de formulario de modificación de contraseña
+			$this->load->view('admin/footer');
 		}
 
 	}

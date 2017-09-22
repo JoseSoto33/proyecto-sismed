@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="col-xs-12">
-          <div class="box box-default">
+          <div class="box box-primary">
             <div class="box-body">
               <div id="img-carousel" class="carousel slide" data-ride="carousel">     
                 <!-- Indicators -->
@@ -80,7 +80,7 @@
       </div>
     </div>
     <div class="col-xs-12 col-sm-6">
-      <div class="box box-solid box-default">
+      <div class="box box-solid box-primary">
         <div class="box-header with-border">
           <h3 class="box-title">Eventos</h3>
         </div><!-- /.box-header -->
@@ -90,7 +90,7 @@
       </div><!-- /.box -->
     </div>
     <div class="col-xs-12">
-      <div class="box box-solid box-default">
+      <div class="box box-solid box-primary">
         <div class="box-header with-border">
           <h3 class="box-title">Noticias</h3>
         </div><!-- /.box-header -->

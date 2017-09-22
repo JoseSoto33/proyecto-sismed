@@ -12,7 +12,7 @@
 <!-- Main content -->
 <section class="content container-fluid">
 	<div class="col-xs-12">
-		<div class="box box-default">			
+		<div class="box box-primary">			
 			<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
 			<div class="box-body table-responsive">
 				<table class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">

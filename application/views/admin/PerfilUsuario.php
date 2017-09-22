@@ -107,7 +107,7 @@
 											<?php if ($this->session->userdata('idUsuario') == $usuario["id"]) { ?>
 											<div class="btn-group pull-right" role="group" aria-label="...">
 												<a href="<?php echo base_url('Usuario/ModificarUsuario'); ?>" class="btn btn-second-2">Editar</a>
-												<a href="<?php echo base_url('Usuario/ListarUsuarios'); ?>" class="btn btn-second-2">Seguridad</a>
+												<a href="<?php echo base_url('Usuario/PasswordChange/') . $usuario['id']; ?>" class="btn btn-second-2">Seguridad</a>
 											</div>	
 											<?php } ?>											
 										</h3>
