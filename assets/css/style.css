@@ -88,6 +88,10 @@ li{
 	font-family: "fira_sansregular" !important;
 }
 
+.content-wrapper{
+	padding-top: 50px;
+}
+
 .container{
 	max-width: 1200px !important;
 }
@@ -168,8 +172,7 @@ hr.form-divisor-line{
 header,
 footer
 .fondo-opaco,
-#inicio-content,
-.cintillo{
+#inicio-content{
 	width: 100%;
 	float: left;
 	position: relative;
@@ -185,7 +188,7 @@ header{
 	background: #ffffff;
 }
 
-.cintillo .container{
+.cintillo .container-fluid{
 	border-bottom: 2px #B21624 solid;
 	padding-top: 5px; 
 	padding-bottom: 5px;
@@ -457,7 +460,8 @@ span.red{
 
 #img-carousel{
 	width: 100%;
-	min-height: 550px;
+	/*min-height: 550px;*/
+	min-height: 300px;
 }
 
 #img-carousel .carousel-control{
@@ -468,6 +472,10 @@ span.red{
 	font-family: oswaldregular;
 	font-size: 40px;
 	color: #F8FCFA;
+}
+
+#img-carousel .carousel-indicators{
+	bottom: 0px !important;
 }
 
 #img-carousel .carousel-inner .item .item-text{	
@@ -481,7 +489,8 @@ span.red{
 }	
 
 #img-carousel > .carousel-inner > .item{
-	height: 550px;		
+	/*height: 550px;*/
+	height: 300px;
 }
 
 .table-buttons{
@@ -675,6 +684,12 @@ span.red{
 	bottom: 15px;
 	left: 15px;
 }
+
+.item-noticia .btn-primary{
+	position: absolute;
+	bottom: 15px;
+	left: 15px;
+}
 /*----------Eventos----------*/
 #div-eventos{
 	/*min-height: 450px;*/
@@ -703,14 +718,14 @@ span.red{
 	-moz-box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
 	box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
 }
-
+/*
 #calendar{
 	padding: 15px;
 	background: #ffffff;
 	-webkit-box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
 	-moz-box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
 	box-shadow: 2px 11px 41px -11px rgba(0,0,0,0.75);
-}
+}*/
 
 .fc-event-container a:hover{ 
 	cursor: pointer !important;

@@ -44,6 +44,7 @@ class Home extends CI_Controller {
      */
 	public function index()
 	{
+
 		//Si existe una sesión iniciada...
 		if ($this->session->userdata('login')) {
 
@@ -54,7 +55,9 @@ class Home extends CI_Controller {
 			switch ($this->session->userdata('tipo_usuario')) {
 				//Si el tipo de usuario es "Administrador"...
 				case "Administrador":
+					$this->load->view('admin/header');
 					$this->load->view('admin/index',$data);
+					$this->load->view('admin/footer');
 					break;
 				
 				//Si el tipo de usuario es "Doctor"...
@@ -87,6 +90,7 @@ class Home extends CI_Controller {
 					$this->load->view('nutricion/index',$data);
 					break;
 			}
+			
 		//Si no existe una sesión iniciada...
 		}else{
 			header('Location: '.base_url());
@@ -100,6 +104,8 @@ class Home extends CI_Controller {
 	 */
 	public function ExtraerEventos()
 	{
+		$this->load->model('EventoModel');
+
 		$condicion = array(
 			"select" => "id as id, titulo as title, descripcion, fecha_hora_inicio as fecha_inicio, fecha_hora_inicio as hora_inicio, fecha_hora_fin as fecha_fin, fecha_hora_fin as hora_fin, fecha_hora_inicio as start, fecha_hora_fin as end, img"
 			);
@@ -127,6 +133,8 @@ class Home extends CI_Controller {
 	 */
 	public function ExtraerNoticias()
 	{
+		$this->load->model('NoticiaModel');
+		
 		$condicion = array(
 			"where" => array(
 				"Extract(month from created_at) <=" => date("m"),

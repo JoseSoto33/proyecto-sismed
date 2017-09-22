@@ -53,6 +53,9 @@ class Usuario extends CI_Controller {
      */
 	public function AgregarUsuario()
 	{
+		$this->load->model('UsuarioModel');
+		$this->load->model('EventoModel');
+		$this->load->model('ImagenModel');
 		$data = array("titulo" => "Agregar nuevo usuario");
 
 		//Si se envió una petición POST...
@@ -158,16 +161,18 @@ class Usuario extends CI_Controller {
 					$this->load->view('login/index', $data);//Se carga la vista del login
 
 				//Si se está registrando un usuario desde una sesión de administración...
-				}else{
-					
+				}else{					
+					$this->load->view('admin/header');
 					$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario de registro de usuario
+					$this->load->view('admin/footer');
 				}
 			}
 
 		//Si no se hizo POST...
 		}else{
-
+			$this->load->view('admin/header');
 			$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario de registro de usuario
+			$this->load->view('admin/footer');
 		}
 	}
 
@@ -180,6 +185,10 @@ class Usuario extends CI_Controller {
 	 */
 	public function ModificarUsuario($id_usuario = null)
 	{
+		$this->load->model('UsuarioModel');
+		$this->load->model('EventoModel');
+		$this->load->model('ImagenModel');
+
 		$data = array("titulo" => "Modificar datos de usuario");
 
 		if ($id_usuario == null) {
@@ -337,7 +346,9 @@ class Usuario extends CI_Controller {
 			$data['message'] = $this->db->error();
 		}
 		
+		$this->load->view('admin/header');
 		$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario para modificar un usuario...
+		$this->load->view('admin/footer');
 	}
 
 	/**
@@ -347,6 +358,8 @@ class Usuario extends CI_Controller {
 	 */
 	public function PasswordChange($id_usuario)
 	{
+		$this->load->model('UsuarioModel');
+
 		$data = array("titulo" => "Cambio de contraseña");
 		$update = true;
 
@@ -419,6 +432,8 @@ class Usuario extends CI_Controller {
 	 */
 	public function EliminarUsuario()
 	{
+		$this->load->model('UsuarioModel');
+
 		$id = $this->input->post('id');
 		$action = $this->input->post('action');
 		$condicion = array(
@@ -458,6 +473,9 @@ class Usuario extends CI_Controller {
 	 */
 	public function PerfilUsuario($id = null)
 	{
+		$this->load->model('UsuarioModel');
+		$this->load->model('SesionModel');
+
 		//Si no se envió un id por parámetro...
 		if ($id == null) {
 			$id = md5('sismed'.$this->session->userdata('idUsuario'));
@@ -500,6 +518,8 @@ class Usuario extends CI_Controller {
 	 */
 	public function ListarUsuarios()
 	{
+		$this->load->model('UsuarioModel');
+
 		$condicion = array(
 			"select" => "id, cedula, username, nombre1, nombre2, apellido1, apellido2, especialidad, status",
 			"where" => array("id !=" => $this->session->userdata('idUsuario')),
@@ -512,7 +532,9 @@ class Usuario extends CI_Controller {
 	
 		$data["usuarios"] = $result;
 
-		$this->load->view('admin/ListarUsuarios', $data);//Cargar vista del listado de usuarios		
+		$this->load->view('admin/header');
+		$this->load->view('admin/ListarUsuarios', $data);//Cargar vista del listado de usuarios
+		$this->load->view('admin/footer');		
 	}
 
 	/**

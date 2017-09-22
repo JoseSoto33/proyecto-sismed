@@ -50,6 +50,9 @@ class Noticia extends CI_Controller {
 
 	public function AgregarNoticia()
 	{
+		$this->load->model('NoticiaModel');
+		$this->load->model('ImagenModel');
+
 		$data = array("titulo" => "Agregar nueva noticia");
 
 		//Si se envió una petición POST...
@@ -107,7 +110,9 @@ class Noticia extends CI_Controller {
 			}
 		}
 		//Cargar vista del formulario de registro de noticia
+		$this->load->view('admin/header');
 		$this->load->view('admin/FormularioRegistroNoticia', $data);
+		$this->load->view('admin/footer');
 	}
 
 	/**
@@ -120,6 +125,9 @@ class Noticia extends CI_Controller {
 	 */
 	public function ModificarNoticia($id_noticia)
 	{
+		$this->load->model('NoticiaModel');
+		$this->load->model('ImagenModel');
+
 		$data = array("titulo" => "Modificar noticia");
 
 		$cond = array(
@@ -217,7 +225,9 @@ class Noticia extends CI_Controller {
 		}
 
 		//Se carga la vista del formulario para modificar noticia
+		$this->load->view('admin/header');
 		$this->load->view('admin/FormularioRegistroNoticia', $data);
+		$this->load->view('admin/footer');
 	}
 
 	/**
@@ -228,6 +238,8 @@ class Noticia extends CI_Controller {
 	 */
 	public function EliminarNoticia()
 	{
+		$this->load->model('NoticiaModel');
+
 		$id = $this->input->post('id');
 		$condicion = array(
 			'where' => array("MD5(concat('sismed',id))" => $id)
@@ -255,6 +267,8 @@ class Noticia extends CI_Controller {
 	 */
 	public function VerNoticia()
 	{
+		$this->load->model('NoticiaModel');
+
 		$id = $this->input->post('id');
 		$condicion = array(
 			"where" => array("MD5(concat('sismed',id))" => $id)
@@ -285,6 +299,8 @@ class Noticia extends CI_Controller {
 	 */
 	public function ListarNoticias()
 	{
+		$this->load->model('NoticiaModel');
+		
 		$condicion = array(
 			"select" => "id, titulo, descripcion, url",
 			"where" => array("id_usuario" => $this->session->userdata('idUsuario'))
@@ -295,7 +311,9 @@ class Noticia extends CI_Controller {
 		$result = $this->NoticiaModel->ExtraerNoticia($condicion);
 
 		$data["noticias"] = $result;
-		$this->load->view('admin/ListarNoticias', $data);		
+		$this->load->view('admin/header');
+		$this->load->view('admin/ListarNoticias', $data);
+		$this->load->view('admin/footer');		
 	}
 
 	/**
