@@ -261,7 +261,7 @@ class Sesion extends CI_Controller {
 
 		//Carga la vista de listar sesiones
 		$this->load->view('admin/header');
-		$this->load->view('admin/ListarSesiones0', $data);
+		$this->load->view('admin/ListarSesiones', $data);
 		$this->load->view('admin/footer');		
 	}
 }
