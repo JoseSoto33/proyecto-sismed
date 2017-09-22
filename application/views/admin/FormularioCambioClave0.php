@@ -89,14 +89,7 @@
 								<small> 
 									<span class="red2">Los campos con (*) son obligatorios.</span>
 								</small>
-							</div>	<!--			
-							<hr class="form-divisor-line">
-							<div class="col-sm-12">
-								<div class="col-sm-6 col-sm-offset-3">
-									<button id="guardar" type="submit" class="btn btn-form btn-lg btn-block">Guardar</button>
-									<a href="<?php echo base_url(); ?>" class="btn btn-second-2 btn-lg btn-block">Cancelar</a>
-								</div>						
-							</div>-->
+							</div>	
 						<?php echo form_close();?>	
 						</div>
 		        	</div>		        	
@@ -109,3 +102,10 @@
 		</div>
 	</div>
 </section>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
+<script type="text/javascript">
+	$(window).ready(function(){
+
+		$("#cambio-clave").validator();
+	});
+</script>
