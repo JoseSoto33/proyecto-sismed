@@ -12,8 +12,7 @@
 
 <!-- Main content -->
 <section class="content container-fluid">
-	<div class="row">		
-
+	<div class="row">
 		<div class="col-xs-12 col-sm-4">
 			<div class="box box-solid box-primary">
 	        	<div class="box-header with-border">

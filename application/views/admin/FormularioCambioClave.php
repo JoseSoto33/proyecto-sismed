@@ -42,7 +42,7 @@
 							<?php if(isset($_COOKIE["message"]) && !empty($_COOKIE["message"])) { ?>
 								<div class="alert alert-danger" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<?php echo $_COOKIE("message"); ?>
+									<?php echo $_COOKIE["message"]; ?>
 								</div>					
 							<?php } ?>
 						</div><!--/ Mensajes de error -->
