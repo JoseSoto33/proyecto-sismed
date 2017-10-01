@@ -1,27 +1,38 @@
-<?php include('doctor/header.php') ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Listado de Patologías
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active">Patologías</li>
+  </ol>
+</section>
 
-<div id="seccion2">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<h1>Listado de Patologías</h1>
+<!-- Main content -->
+<section class="content container-fluid">
+	<div class="col-xs-12">
+		<div class="box box-success">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12 col-sm-3">
+						<a class="btn btn-success" href="<?php echo base_url(); ?>patologia/Agregarpatologia"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
+					</div>
+					<div class="col-xs-12 col-sm-9">
+						<?php if(get_cookie("message") != null) { ?>
+							<div id="alert-message" class="alert alert-success" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<?php 
+									echo $this->input->cookie('message'); 
+									delete_cookie('message');
+								?>
+							</div>					
+						<?php } ?>
+					</div>	
+				</div>				
 			</div>
-			<div class="col-xs-12 col-sm-3 table-buttons">
-				<a class="btn btn-success" href="<?php echo base_url(); ?>patologia/Agregarpatologia"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
-			</div>
-			<div class="col-xs-12 col-sm-9">
-				<?php if(get_cookie("message") != null) { ?>
-					<div id="alert-message" class="alert alert-success" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<?php 
-							echo $this->input->cookie('message'); 
-							delete_cookie('message');
-						?>
-					</div>					
-				<?php } ?>
-			</div>	
 			<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
-			<div class="col-sm-12 table-responsive">
+			<div class="box-body table-responsive">
 				<table id="lista-patologias" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<th>Nº</th>
@@ -96,7 +107,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 
 
 
@@ -127,4 +138,3 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-patologias.js"></script>
-<?php include('doctor/footer.php') ?>

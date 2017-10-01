@@ -6,8 +6,6 @@
     	<title>SISMED</title>
 
     	<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
-
-
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/dataTables.bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/chosen.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/fullcalendar.min.css">
@@ -24,7 +22,6 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>dist/css/AdminLTE.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>dist/css/skins/_all-skins.min.css">
 		<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.3.min.js"></script>
-		<!--<script src="<?php echo base_url(); ?>bower_components/jquery/dist/jquery.min.js"></script>-->
 		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
 		<!-- AdminLTE App -->
 		<script src="<?php echo base_url(); ?>dist/js/adminlte.min.js"></script>
@@ -270,7 +267,7 @@
 				        </li>
 				        <li class="treeview <?php if($this->uri->segment(1) == 'Reportes') echo 'active'; ?>">
 				          	<a href="#">
-				          		<i class="fa fa-table"></i> 
+				          		<i class="fa fa-bar-chart"></i> 
 				          		<span>Reportes</span>
 				            	<span class="pull-right-container">
 				                	<i class="fa fa-angle-left pull-right"></i>

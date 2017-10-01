@@ -66,12 +66,85 @@ class Inventario extends CI_Controller {
 				}else{
 
 					$data['mensaje'] = $this->db->error();
+					switch ($this->session->userdata('tipo_usuario')) {				
+				
+						//Si el tipo de usuario es "Doctor"...
+						case "Doctor":
+							//$this->load->view('admin/header');					
+							$this->load->view('medicina/doctor/header');
+							$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario de registro de Insumo
+							$this->load->view('medicina/doctor/footer');						
+							break;
+
+						//Si el tipo de usuario es "Enfermero"...
+						case "Enfermero":
+							$this->load->view('medicina/enfermero/header');				
+							$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario de registro de Insumo
+							$this->load->view('medicina/enfermero/footer');					
+							break;
+
+						//Si el tipo de usuario es "Odontólogo"...
+						case "Odontólogo":
+							$this->load->view('odontologia/index',$data);
+							break;
+
+						//Si el tipo de usuario es "Bioanalista"...
+						case "Bioanalista":
+							$this->load->view('laboratorio/index',$data);
+							break;
+
+						//Si el tipo de usuario es "Nutricionista"...
+						case "Nutricionista":
+							$this->load->view('nutricion/index',$data);
+							break;
+
+						//Si el tipo de usuario es "Asistente"...
+						case "Asistente":
+							$this->load->view('nutricion/index',$data);
+							break;
+					}
 				}
 			}
 
 		}else{
+			switch ($this->session->userdata('tipo_usuario')) {				
+				
+				//Si el tipo de usuario es "Doctor"...
+				case "Doctor":
+					//$this->load->view('admin/header');					
+					$this->load->view('medicina/doctor/header');
+					$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario de registro de Insumo
+					$this->load->view('medicina/doctor/footer');						
+					break;
 
-			$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario de registro de Insumo
+				//Si el tipo de usuario es "Enfermero"...
+				case "Enfermero":
+					$this->load->view('medicina/enfermero/header');				
+					$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario de registro de Insumo
+					$this->load->view('medicina/enfermero/footer');					
+					break;
+
+				//Si el tipo de usuario es "Odontólogo"...
+				case "Odontólogo":
+					$this->load->view('odontologia/index',$data);
+					break;
+
+				//Si el tipo de usuario es "Bioanalista"...
+				case "Bioanalista":
+					$this->load->view('laboratorio/index',$data);
+					break;
+
+				//Si el tipo de usuario es "Nutricionista"...
+				case "Nutricionista":
+					$this->load->view('nutricion/index',$data);
+					break;
+
+				//Si el tipo de usuario es "Asistente"...
+				case "Asistente":
+					$this->load->view('nutricion/index',$data);
+					break;
+			}
+			
 		}
  	}
 
@@ -178,7 +251,44 @@ class Inventario extends CI_Controller {
 
 		}
 		$data["operacion"] = $operacion;
-		$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario para modificar una patolohia...			
+
+		switch ($this->session->userdata('tipo_usuario')) {				
+				
+			//Si el tipo de usuario es "Doctor"...
+			case "Doctor":
+				//$this->load->view('admin/header');					
+				$this->load->view('medicina/doctor/header');
+				$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario de registro de Insumo
+				$this->load->view('medicina/doctor/footer');						
+				break;
+
+			//Si el tipo de usuario es "Enfermero"...
+			case "Enfermero":
+				$this->load->view('medicina/enfermero/header');				
+				$this->load->view('medicina/FormularioRegistroInsumo', $data);//Se carga la vista del formulario de registro de Insumo
+				$this->load->view('medicina/enfermero/footer');					
+				break;
+
+			//Si el tipo de usuario es "Odontólogo"...
+			case "Odontólogo":
+				$this->load->view('odontologia/index',$data);
+				break;
+
+			//Si el tipo de usuario es "Bioanalista"...
+			case "Bioanalista":
+				$this->load->view('laboratorio/index',$data);
+				break;
+
+			//Si el tipo de usuario es "Nutricionista"...
+			case "Nutricionista":
+				$this->load->view('nutricion/index',$data);
+				break;
+
+			//Si el tipo de usuario es "Asistente"...
+			case "Asistente":
+				$this->load->view('nutricion/index',$data);
+				break;
+		}
 	}
 
 	/**
@@ -235,7 +345,44 @@ class Inventario extends CI_Controller {
 	
 		$data["insumos"] = $result; // la posicion del $data debe tener el mismo nombre que en el formulario de listar
 
-		$this->load->view('medicina/ListarInsumos', $data);//Cargar vista del listado de Insumos
+		switch ($this->session->userdata('tipo_usuario')) {				
+				
+			//Si el tipo de usuario es "Doctor"...
+			case "Doctor":
+				//$this->load->view('admin/header');					
+				$this->load->view('medicina/doctor/header');
+				$this->load->view('medicina/ListarInsumos', $data);//Cargar vista del listado de Insumos
+				$this->load->view('medicina/doctor/footer');						
+				break;
+
+			//Si el tipo de usuario es "Enfermero"...
+			case "Enfermero":
+				$this->load->view('medicina/enfermero/header');				
+				$this->load->view('medicina/ListarInsumos', $data);//Cargar vista del listado de Insumos
+				$this->load->view('medicina/enfermero/footer');					
+				break;
+
+			//Si el tipo de usuario es "Odontólogo"...
+			case "Odontólogo":
+				$this->load->view('odontologia/index',$data);
+				break;
+
+			//Si el tipo de usuario es "Bioanalista"...
+			case "Bioanalista":
+				$this->load->view('laboratorio/index',$data);
+				break;
+
+			//Si el tipo de usuario es "Nutricionista"...
+			case "Nutricionista":
+				$this->load->view('nutricion/index',$data);
+				break;
+
+			//Si el tipo de usuario es "Asistente"...
+			case "Asistente":
+				$this->load->view('nutricion/index',$data);
+				break;
+		}
+		
 	}
 
 	/**
@@ -381,7 +528,43 @@ class Inventario extends CI_Controller {
 		//Si algún dato es incorrecto...
 		if ($this->form_validation->run() == FALSE) {
 
-			$this->load->view('medicina/FormularioRegistroInsumo', $data);
+			switch ($this->session->userdata('tipo_usuario')) {				
+				
+				//Si el tipo de usuario es "Doctor"...
+				case "Doctor":
+					//$this->load->view('admin/header');					
+					$this->load->view('medicina/doctor/header');
+					$this->load->view('medicina/FormularioRegistroInsumo', $data);
+					$this->load->view('medicina/doctor/footer');						
+					break;
+
+				//Si el tipo de usuario es "Enfermero"...
+				case "Enfermero":
+					$this->load->view('medicina/enfermero/header');				
+					$this->load->view('medicina/FormularioRegistroInsumo', $data);
+					$this->load->view('medicina/enfermero/footer');					
+					break;
+
+				//Si el tipo de usuario es "Odontólogo"...
+				case "Odontólogo":
+					$this->load->view('odontologia/index',$data);
+					break;
+
+				//Si el tipo de usuario es "Bioanalista"...
+				case "Bioanalista":
+					$this->load->view('laboratorio/index',$data);
+					break;
+
+				//Si el tipo de usuario es "Nutricionista"...
+				case "Nutricionista":
+					$this->load->view('nutricion/index',$data);
+					break;
+
+				//Si el tipo de usuario es "Asistente"...
+				case "Asistente":
+					$this->load->view('nutricion/index',$data);
+					break;
+			}			
 			
 		//Si los datos son correctos...		
 		}else{

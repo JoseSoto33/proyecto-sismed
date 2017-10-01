@@ -62,12 +62,17 @@ class Home extends CI_Controller {
 				
 				//Si el tipo de usuario es "Doctor"...
 				case "Doctor":
+					//$this->load->view('admin/header');					
+					$this->load->view('medicina/doctor/header');
 					$this->load->view('medicina/index',$data);
+					$this->load->view('medicina/doctor/footer');						
 					break;
 
 				//Si el tipo de usuario es "Enfermero"...
 				case "Enfermero":
+					$this->load->view('medicina/enfermero/header');				
 					$this->load->view('medicina/index',$data);
+					$this->load->view('medicina/enfermero/footer');					
 					break;
 
 				//Si el tipo de usuario es "Odontólogo"...

@@ -80,21 +80,58 @@ class Vacuna extends CI_Controller {
 
                     }else{
                         $data['mensaje'] = $this->db->error();
-                        $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                        switch ($this->session->userdata('tipo_usuario')) {
+                            case "Doctor":                  
+                                $this->load->view('medicina/doctor/header'); 
+                                $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                                $this->load->view('medicina/doctor/footer'); 
+                                break;
+
+                            case "Enfermero":                   
+                                $this->load->view('medicina/enfermero/header'); 
+                                $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                                $this->load->view('medicina/enfermero/footer'); 
+                                break;
+                        }                        
                     }
 
                 //Si hay error en la inserción
                 }else{
 
                     $data['mensaje'] = $this->db->error();
-                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                    switch ($this->session->userdata('tipo_usuario')) {
+                        case "Doctor":                  
+                            $this->load->view('medicina/doctor/header'); 
+                            $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                            $this->load->view('medicina/doctor/footer'); 
+                            break;
+
+                        case "Enfermero":                   
+                            $this->load->view('medicina/enfermero/header'); 
+                            $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                            $this->load->view('medicina/enfermero/footer'); 
+                            break;
+                    }
+                    
                 }
 
             }
 
         }else{
 
-            $this->load->view('medicina/FormularioRegistroVacuna', $data);
+            switch ($this->session->userdata('tipo_usuario')) {
+                case "Doctor":                  
+                    $this->load->view('medicina/doctor/header'); 
+                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                    $this->load->view('medicina/doctor/footer'); 
+                    break;
+
+                case "Enfermero":                   
+                    $this->load->view('medicina/enfermero/header'); 
+                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                    $this->load->view('medicina/enfermero/footer'); 
+                    break;
+            }            
         }
     }
 
@@ -278,7 +315,20 @@ class Vacuna extends CI_Controller {
         $data["vacunas"] = $items;
         //$data["items"] = $items;
 
-    	$this->load->view('medicina/ListarVacunas', $data);
+        switch ($this->session->userdata('tipo_usuario')) {
+            case "Doctor":                  
+                $this->load->view('medicina/doctor/header'); 
+                $this->load->view('medicina/ListarVacunas', $data);
+                $this->load->view('medicina/doctor/footer'); 
+                break;
+
+            case "Enfermero":                   
+                $this->load->view('medicina/enfermero/header'); 
+                $this->load->view('medicina/ListarVacunas', $data);
+                $this->load->view('medicina/enfermero/footer'); 
+                break;
+        }
+    	
     }
 
     /**
@@ -460,8 +510,20 @@ class Vacuna extends CI_Controller {
 
         //Si hay datos inválidos...
         if ($this->form_validation->run() == FALSE) {
-            
-            $this->load->view('medicina/FormularioRegistroVacuna', $data);
+
+             switch ($this->session->userdata('tipo_usuario')) {
+                case "Doctor":                  
+                    $this->load->view('medicina/doctor/header'); 
+                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                    $this->load->view('medicina/doctor/footer'); 
+                    break;
+
+                case "Enfermero":                   
+                    $this->load->view('medicina/enfermero/header'); 
+                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
+                    $this->load->view('medicina/enfermero/footer'); 
+                    break;
+            }             
 
         //Si no hay datos inválidos...
         }else{

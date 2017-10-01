@@ -445,9 +445,9 @@ class Evento extends CI_Controller {
 
         //Si no hay datos inválidos...
 		if ($this->form_validation->run() == FALSE) {
-        	
+			$this->load->view('admin/header');        	
 			$this->load->view('admin/FormularioRegistroEvento', $data);
-
+			$this->load->view('admin/footer');
 		//Si hay datos inválidos...
         }else{
 			return false;

@@ -67,7 +67,20 @@ class HistoriaClinica extends CI_Controller {
 		$result = $this->HistoriaModel->ExtraerHistoria($condicion);
 
 		$data["historias"] = $result;
-		$this->load->view('medicina/ListarHistorias', $data);
+         switch ($this->session->userdata('tipo_usuario')) {
+        case "Doctor":                  
+            $this->load->view('medicina/doctor/header'); 
+            $this->load->view('medicina/ListarHistorias', $data);
+            $this->load->view('medicina/doctor/footer'); 
+            break;
+
+        case "Enfermero":                   
+            $this->load->view('medicina/enfermero/header'); 
+            $this->load->view('medicina/ListarHistorias', $data);
+            $this->load->view('medicina/enfermero/footer'); 
+            break;
+        }
+		
     }
 
     /**
@@ -128,7 +141,20 @@ class HistoriaClinica extends CI_Controller {
             $data['mensaje'] = "Error. No se encontró la historia clínica...";
         }
 
-        $this->load->view('medicina/DetallesHistoriaClinica', $data);
+        switch ($this->session->userdata('tipo_usuario')) {
+        case "Doctor":                  
+            $this->load->view('medicina/doctor/header'); 
+            $this->load->view('medicina/DetallesHistoriaClinica', $data);
+            $this->load->view('medicina/doctor/footer'); 
+            break;
+
+        case "Enfermero":                   
+            $this->load->view('medicina/enfermero/header'); 
+            $this->load->view('medicina/DetallesHistoriaClinica', $data);
+            $this->load->view('medicina/enfermero/footer'); 
+            break;
+        }
+
     }
 
     /**
