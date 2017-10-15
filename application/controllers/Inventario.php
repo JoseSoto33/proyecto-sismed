@@ -49,6 +49,8 @@ class Inventario extends CI_Controller {
      */
   	public function AgregarInsumo()
  	{
+ 		$this->load->model('InventarioModel');
+
  		$data = array("titulo" => "Agregar nuevo Insumo");
 
 		//Si se envió una petición POST...
@@ -157,6 +159,8 @@ class Inventario extends CI_Controller {
 	 */
 	public function ModificarInsumo($id_insumo = null)
 	{
+		$this->load->model('InventarioModel');
+
 		list($id, $operacion) = explode("_", $id_insumo);
 		$data = array("titulo" => "Modificar datos del insumo");
 
@@ -298,6 +302,8 @@ class Inventario extends CI_Controller {
 	 */
 	public function EliminarInsumo()
 	{
+		$this->load->model('InventarioModel');
+
 		$id = $this->input->post('id');
 		$action = $this->input->post('action');
 		$condicion = array(
@@ -335,6 +341,8 @@ class Inventario extends CI_Controller {
 	 */
 	public function ListarInsumos()
 	{
+		$this->load->model('InventarioModel');
+
 		$condicion = array(
 			"order_by" => array("campo" => "id", "direccion" => "ASC")
 			);
@@ -392,6 +400,8 @@ class Inventario extends CI_Controller {
 	 */
 	public function ExtraerLotes()
 	{
+		$this->load->model('InventarioModel');
+		
 		$condicion = array(
 			'where' => array("MD5(concat('sismed',id_insumo))" => $this->input->post('id')),
 			"order_by" => array("campo" => "id", "direccion" => "ASC")
