@@ -1,5 +1,5 @@
-		<?php if($this->session->has_userdata("login")) { ?>
-		<div id="footer">
+<?php if($this->session->has_userdata("login")) { ?>
+		<!--<div id="footer">
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
@@ -59,12 +59,28 @@
 					</div>
 				</div>			
 			</div>
-		</div>
+		</div>-->
 		<?php } ?>
+		<!--
 		<div id="footer2">
 			<div class="container">	
 				<label class="col-xs-12">IUT "Dr. Federico Rivero Palacio" | Iformática Trayecto 3 | 2017</label>	
 			</div>
+		</div>-->
+			</div>
+  			<!-- /.content-wrapper -->
+
+  			<!-- Main Footer -->
+  			<footer class="main-footer">
+    			<!-- To the right -->
+    			<div class="pull-right hidden-xs">
+      				IUT "Dr. Federico Rivero Palacio"
+    			</div>
+    			<!-- Default to the left -->
+    			<strong>Copyright &copy; 2017 <a href="#">Informática Trayecto 4</a>.</strong> Dpto. Bienestar Estudiantil.
+  			</footer>
 		</div>
+		<!-- ./wrapper -->
+
 	</body>
 </html>

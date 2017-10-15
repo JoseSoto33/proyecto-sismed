@@ -1,11 +1,22 @@
-<?php include('doctor/header.php'); ?>
-<div id="seccion4">
-	<div class="container">
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Detalles de historia clínica
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li>Historias clínicas</li>
+    <li class="active">Detalles de historia cínica</li>
+  </ol>
+</section>
+<!-- Main content -->
+<section class="content container-fluid">
+	<div class="col-xs-12 col-sm-8 col-sm-offset-2">
 		<div class="row">
-			<div id="hist-content" class="col-sm-9 center">
+			<div id="hist-content" class="box box-success">
 
 				<!-- Cabecera de la historia clínica -->
-				<div class="hist-header">					
+				<div class="box-header">					
 					<div class="row">
 						<div class="col-sm-9">
 							<h2>Servicio de Atención Médica Integral</h2>
@@ -17,7 +28,7 @@
 				</div><!--/ Cabecera de la historia clínica -->
 
 				<!-- Cuerpo de la historia clínica -->
-				<div class="hist-body">
+				<div class="box-body">
 
 					<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
 					<input type="hidden" name="cod_historia" id="cod_historia" value="<?php echo $historia['cod_historia']; ?>">
@@ -429,8 +440,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/detalles-historia-clinica.js"></script>
-<?php include('doctor/footer.php'); ?>

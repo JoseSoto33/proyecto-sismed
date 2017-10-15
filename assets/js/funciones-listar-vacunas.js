@@ -60,7 +60,7 @@ $(document).ready(function(){
             }
         });
 
-     if ($("#alert-message").length) {        
+    if ($("#alert-message").length) {        
 
         setTimeout( function(){                  
             $("#alert-message").slideUp('fast');  

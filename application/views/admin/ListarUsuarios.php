@@ -1,27 +1,38 @@
-<?php include('header.php') ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Listado de usuarios
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active">Usuarios</li>
+  </ol>
+</section>
 
-<div id="seccion2">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<h1>Listado de usuarios</h1>
+<!-- Main content -->
+<section class="content container-fluid">
+	<div class="col-xs-12">
+		<div class="box box-primary">
+			<div class="box-header">
+				<div class="row">
+					<div class="col-xs-12 col-sm-3">
+						<a class="btn btn-success" href="<?php echo base_url(); ?>Usuario/AgregarUsuario"><span class="glyphicon glyphicon-plus"></span>Nuevo usuario</a>
+					</div>
+					<div class="col-xs-12 col-sm-9">
+						<?php if(get_cookie("message") != null) { ?>
+							<div id="alert-message" class="alert alert-success" role="alert">
+								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<?php 
+									echo $this->input->cookie('message'); 
+									delete_cookie('message');
+								?>
+							</div>					
+						<?php } ?>
+					</div>	
+				</div>				
 			</div>
-			<div class="col-xs-12 col-sm-3 table-buttons">
-				<a class="btn btn-success" href="<?php echo base_url(); ?>Usuario/AgregarUsuario"><span class="glyphicon glyphicon-plus"></span> Agregar</a>
-			</div>
-			<div class="col-xs-12 col-sm-9">
-				<?php if(get_cookie("message") != null) { ?>
-					<div id="alert-message" class="alert alert-success" role="alert">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<?php 
-							echo $this->input->cookie('message'); 
-							delete_cookie('message');
-						?>
-					</div>					
-				<?php } ?>
-			</div>	
 			<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
-			<div class="col-sm-12 table-responsive">
+			<div class="box-body table-responsive">
 				<table id="lista_usuarios" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<th>Nº</th>
@@ -61,26 +72,26 @@
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 									//---Boton ver detalles---
-									echo "<a class=\"btn btn-sm btn-info detalle-usuario\" href=\"".base_url("Usuario/PerfilUsuario/".md5('sismed'.$usuario["id"]))."\" data-toggle=\"modal\" title=\"Ver detalles\">";
+									echo "<a class=\"btn btn-xs btn-info detalle-usuario\" href=\"".base_url("Usuario/PerfilUsuario/".md5('sismed'.$usuario["id"]))."\" data-toggle=\"modal\" title=\"Ver detalles\">";
 									echo "<span class=\"glyphicon glyphicon-search\"></span>";
 									echo "</a>";
 
 									//---Boton editar---
-									echo "<a class=\"btn btn-sm btn-success editar-usuario\" href=\"".base_url("Usuario/ModificarUsuario/".md5('sismed'.$usuario["id"]))."\" title=\"Editar usuario\">";
+									echo "<a class=\"btn btn-xs btn-success editar-usuario\" href=\"".base_url("Usuario/ModificarUsuario/".md5('sismed'.$usuario["id"]))."\" title=\"Editar usuario\">";
 									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 									echo "</a>";
 
 									if ($usuario["status"] === "t") {
 										
 									//---Boton Inhabilitar---
-									echo "<a class=\"btn btn-sm btn-danger in-hab-usuario\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarUsuario\" title=\"Inhabilitar usuario\" data-idusuario=\"".md5('sismed'.$usuario["id"])."\" data-username=\"".$usuario["username"]."\" data-action=\"inhabilitar\">";
+									echo "<a class=\"btn btn-xs btn-danger in-hab-usuario\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarUsuario\" title=\"Inhabilitar usuario\" data-idusuario=\"".md5('sismed'.$usuario["id"])."\" data-username=\"".$usuario["username"]."\" data-action=\"inhabilitar\">";
 									echo "<span class=\"glyphicon glyphicon-remove\"></span>";
 									echo "</a>";
 
 									}elseif ($usuario["status"] === "f"){
 
 									//---Boton habilitar---
-									echo "<a class=\"btn btn-sm btn-primary in-hab-usuario\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarUsuario\" title=\"Hanbilitar usuario\" data-idusuario=\"".md5('sismed'.$usuario["id"])."\" data-username=\"".$usuario["username"]."\" data-action=\"habilitar\">";
+									echo "<a class=\"btn btn-xs btn-primary in-hab-usuario\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarUsuario\" title=\"Hanbilitar usuario\" data-idusuario=\"".md5('sismed'.$usuario["id"])."\" data-username=\"".$usuario["username"]."\" data-action=\"habilitar\">";
 									echo "<span class=\"glyphicon glyphicon-ok\"></span>";
 									echo "</a>";
 									}
@@ -96,9 +107,8 @@
 			</div>
 		</div>
 	</div>
-</div>
-
-<!-- Eliminar Evento -->
+</section>
+<!-- Eliminar Usuario -->
 <div class="modal fade" id="EliminarUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -125,4 +135,3 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-usuarios.js"></script>
-<?php include('footer.php') ?>

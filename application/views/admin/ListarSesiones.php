@@ -1,14 +1,20 @@
-<?php include('header.php') ?>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <h1>
+    Listado de sesiones
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active">Sesiones</li>
+  </ol>
+</section>
 
-<div id="seccion2">
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12">
-				<h1>Listado de sesiones</h1>
-			</div>
-			<div class="col-sm-12 table-buttons">				
-			</div>
-			<div class="col-sm-12 table-responsive">
+<!-- Main content -->
+<section class="content container-fluid">
+	<div class="col-xs-12">
+		<div class="box box-primary">			
+			<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
+			<div class="box-body table-responsive">
 				<table class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<th>Nº</th>
@@ -55,7 +61,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</section>
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
@@ -89,4 +95,3 @@
         });
 	});
 </script>
-<?php include('footer.php') ?>

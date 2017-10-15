@@ -47,6 +47,9 @@ class Evento extends CI_Controller {
      */
 	public function AgregarEvento()
 	{
+		$this->load->model('EventoModel');
+		$this->load->model('ImagenModel');
+
 		$data = array("titulo" => "Agregar nuevo evento");
 
 		//Si se envió una petición POST...
@@ -112,7 +115,9 @@ class Evento extends CI_Controller {
 			}
 		}
 		//Cargar vista del formulario de registro de evento
+		$this->load->view('admin/header');
 		$this->load->view('admin/FormularioRegistroEvento', $data);
+		$this->load->view('admin/footer');
 	}
 
 	/**
@@ -125,6 +130,9 @@ class Evento extends CI_Controller {
 	 */
 	public function ModificarEvento($id_evento)
 	{
+		$this->load->model('EventoModel');
+		$this->load->model('ImagenModel');
+
 		$data = array("titulo" => "Modificar datos de evento");
 
 		$cond = array(
@@ -241,7 +249,9 @@ class Evento extends CI_Controller {
 		}
 
 		//Se carga la vista del formulario para modificar eventos
+		$this->load->view('admin/header');
 		$this->load->view('admin/FormularioRegistroEvento', $data);
+		$this->load->view('admin/footer');
 	}
 
 	/**
@@ -252,6 +262,8 @@ class Evento extends CI_Controller {
 	 */
 	public function EliminarEvento()
 	{
+		$this->load->model('EventoModel');
+
 		$id = $this->input->post('id');
 		$condicion = array(
 			'where' => array("MD5(concat('sismed',id))" => $id)
@@ -279,6 +291,8 @@ class Evento extends CI_Controller {
 	 */
 	public function VerEvento()
 	{
+		$this->load->model('EventoModel');
+
 		$id = $this->input->post('id');
 		$condicion = array(
 			"where" => array("MD5(concat('sismed',id))" => $id)
@@ -321,6 +335,8 @@ class Evento extends CI_Controller {
 	 */
 	public function ListarEventos()
 	{
+		$this->load->model('EventoModel');
+		
 		$condicion = array(
 			"select" => "id, titulo, descripcion, fecha_hora_inicio",
 			"where" => array("id_usuario" => $this->session->userdata('idUsuario')),
@@ -334,7 +350,9 @@ class Evento extends CI_Controller {
 		///if ($result->num_rows() > 0) {
 			
 		$data["eventos"] = $result;
+		$this->load->view('admin/header');
 		$this->load->view('admin/ListarEventos', $data);
+		$this->load->view('admin/footer');
 		//}
 	}
 
@@ -427,9 +445,9 @@ class Evento extends CI_Controller {
 
         //Si no hay datos inválidos...
 		if ($this->form_validation->run() == FALSE) {
-        	
+			$this->load->view('admin/header');        	
 			$this->load->view('admin/FormularioRegistroEvento', $data);
-
+			$this->load->view('admin/footer');
 		//Si hay datos inválidos...
         }else{
 			return false;

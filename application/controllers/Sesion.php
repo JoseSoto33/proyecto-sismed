@@ -45,7 +45,8 @@ class Sesion extends CI_Controller {
 	 * @return void
      */
 	public function index()
-	{	
+	{
+		$this->load->model('UsuarioModel');
         $data = array();
 
         $data['existe_usuario'] = $this->UsuarioModel->ValidarUsuario(array());
@@ -118,6 +119,8 @@ class Sesion extends CI_Controller {
 	 */
 	public function Login($id_usuario)
 	{
+		$this->load->model('SesionModel');
+		$this->load->model('UsuarioModel');
 		$condicion = array(
 			"where" => array("MD5(concat('sismed',id))" => $id_usuario)
 			);
@@ -167,7 +170,8 @@ class Sesion extends CI_Controller {
 	 * @return void
 	 */
 	public function Logout()
-	{		
+	{
+		$this->load->model('SesionModel');
 		$data = array(
 			"campos" => array(
 				"fecha_fin" => date('Y-m-d h:i:s a')
@@ -240,6 +244,7 @@ class Sesion extends CI_Controller {
 	 */
 	public function ListarSesiones()
 	{
+		$this->load->model('SesionModel');
 		$condicion = array(
 			'select' => 'sesion.id as id, usuario.id as id_usuario, usuario.nombre1 as nombre1, usuario.nombre2 as nombre2, usuario.apellido1 as apellido1, usuario.apellido2 as apellido2, sesion.fecha_inicio as inicio, sesion.fecha_fin as fin',
 			'join' => array(
@@ -255,6 +260,8 @@ class Sesion extends CI_Controller {
 		$data["sesiones"] = $result;
 
 		//Carga la vista de listar sesiones
-		$this->load->view('admin/ListarSesiones', $data);		
+		$this->load->view('admin/header');
+		$this->load->view('admin/ListarSesiones', $data);
+		$this->load->view('admin/footer');		
 	}
 }

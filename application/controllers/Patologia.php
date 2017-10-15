@@ -54,10 +54,23 @@ class Patologia extends CI_Controller {
 				}
 			}
 
-		}else{
-
-			$this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario de registro de patologia
 		}
+
+		switch ($this->session->userdata('tipo_usuario')) {
+        case "Doctor":                  
+            $this->load->view('medicina/doctor/header'); 
+            $this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario de registro de patologia
+            $this->load->view('medicina/doctor/footer'); 
+            break;
+
+        case "Enfermero":                   
+            $this->load->view('medicina/enfermero/header'); 
+            $this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario de registro de patologia
+            $this->load->view('medicina/enfermero/footer'); 
+            break;
+        }
+
+		
  	}
  	
 	public function ModificarPatologia($id_patologia = null)
@@ -106,7 +119,19 @@ class Patologia extends CI_Controller {
 			}
 		}
 
-		$this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario para modificar una patolohia...			
+		switch ($this->session->userdata('tipo_usuario')) {
+        case "Doctor":                  
+            $this->load->view('medicina/doctor/header'); 
+            $this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario de registro de patologia
+            $this->load->view('medicina/doctor/footer'); 
+            break;
+
+        case "Enfermero":                   
+            $this->load->view('medicina/enfermero/header'); 
+            $this->load->view('medicina/FormularioRegistroPatologia', $data);//Se carga la vista del formulario de registro de patologia
+            $this->load->view('medicina/enfermero/footer'); 
+            break;
+        }		
 	}
 
 	public function EliminarPatologia()
@@ -153,7 +178,19 @@ class Patologia extends CI_Controller {
 	
 		$data["patologias"] = $result;
 
-		$this->load->view('medicina/ListarPatologias', $data);//Cargar vista del listado de patologias
+		switch ($this->session->userdata('tipo_usuario')) {
+	        case "Doctor":                  
+	            $this->load->view('medicina/doctor/header'); 
+	            $this->load->view('medicina/ListarPatologias', $data);//Cargar vista del listado de patologias
+	            $this->load->view('medicina/doctor/footer'); 
+	            break;
+
+	        case "Enfermero":                   
+	            $this->load->view('medicina/enfermero/header'); 
+	            $this->load->view('medicina/ListarPatologias', $data);//Cargar vista del listado de patologias
+	            $this->load->view('medicina/enfermero/footer'); 
+	            break;
+        }
 	}
 
 	/**
@@ -207,7 +244,20 @@ class Patologia extends CI_Controller {
 		//Si algún dato es incorrecto...
 		if ($this->form_validation->run() == FALSE) {
 
-			$this->load->view('medicina/FormularioRegistroPatologia', $data);
+			switch ($this->session->userdata('tipo_usuario')) {
+		        case "Doctor":                  
+		            $this->load->view('medicina/doctor/header'); 
+		            $this->load->view('medicina/FormularioRegistroPatologia', $data);
+		            $this->load->view('medicina/doctor/footer'); 
+		            break;
+
+		        case "Enfermero":                   
+		            $this->load->view('medicina/enfermero/header'); 
+		            $this->load->view('medicina/FormularioRegistroPatologia', $data);
+		            $this->load->view('medicina/enfermero/footer'); 
+		            break;
+	        }
+			
 			
 		//Si los datos son correctos...		
 		}else{

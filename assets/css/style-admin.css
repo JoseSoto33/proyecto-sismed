@@ -101,14 +101,14 @@ hr.form-divisor-line{
 	border-color: #0097A7;
 	color: #ffffff;
 }
-
+/*
 table.table > thead > tr > th,
 table.table > thead > tr > td,
 table.table > tfoot > tr > th, 
 table.table > tfoot > tr > td{
 	color: #ffffff !important;
 	background: #0097A7 !important;
-}
+}*/
 
 .form-instructions > .istruction-content{
 	border: 2px #0097A7 solid !important;
@@ -223,23 +223,23 @@ table.table > tfoot > tr > td{
 	background: url("../img/administrador/iut3.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;
 }
-
+/*
 #img-carousel > .carousel-indicators > li{
 	border-color: #0097A7;
 }
 #img-carousel > .carousel-indicators > li.active{
 	border-color: #0097A7;
 	background: #0097A7;
-}
+}*/
 
 .form-basic{
 	border: 2px #0097A7 solid !important;
 	background: #B2EBF2 !important;
 }
-
+/*
 .paginate_button.active a{
 	background: #0097A7 !important;
-}
+}*/
 /*----------SECCION 3----------*/
 
 #seccion3{
@@ -364,6 +364,7 @@ table.table > tfoot > tr > td{
 }
 
 /*-----------MODAL-----------*/
+/*
 .modal .modal-header{
 	background-color: #0097A7 !important;
 	color: #ffffff !important;
@@ -371,7 +372,7 @@ table.table > tfoot > tr > td{
 
 .modal .modal-content{
 	background-color: #F9F9F9 !important;
-}
+}*/
 
 /*----------PERFIL----------*/
 #tabla-info table,

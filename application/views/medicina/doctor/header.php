@@ -14,16 +14,25 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/owl.theme.default.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style-med.css">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>bower_components/font-awesome/css/font-awesome.min.css">
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>bower_components/Ionicons/css/ionicons.min.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>dist/css/skins/_all-skins.min.css">
 		<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.3.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="<?php echo base_url(); ?>dist/js/adminlte.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/moment.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/fullcalendar.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/owl.carousel.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/locale/es.js"></script>
 	</head>
-	<body>
-		<div class="cintillo">					
-			<div class="container">
+	<body class="hold-transition skin-green sidebar-mini">
+		<div class="cintillo">
+			<div class="container-fluid">
 				<figure class="pull-left">
 					<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/gbv-logo.png">
 				</figure>
@@ -39,213 +48,275 @@
 				</figure>
 			</div>
 		</div>
+		<div class="wrapper">
 
-		<div id="seccion1">	
-			<div class="container">					
-			<?php if($this->session->userdata("first_session")) { ?>	
-				<label class="nav-titulo hidden-xs"><span class="glyphicon glyphicon-asterisk"></span> Unidad de Medicina</label>
-				<nav class="navbar navbar-default navbar-right navbar-collapse" id="nav-menu-principal">
-				  	<div class="container-fluid">
-					    <div class="navbar-header">
-					    	<div class="col-xs-8">
-					    		<label class="nav-titulo visible-xs-block">
-					    			<span class="glyphicon glyphicon-asterisk"></span> Unidad de Medicina
-					    		</label>
-					    	</div>
-						    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#principal-menu" aria-expanded="false">
-						        <span class="sr-only">Toggle navigation</span>
-						        <span class="icon-bar"></span>
-						        <span class="icon-bar"></span>
-						    	<span class="icon-bar"></span>
-						    </button>
-					    </div>
+			<!-- Main Header -->
+			<header class="main-header">
 
-					    <div class="collapse navbar-collapse" id="principal-menu">
-						    <ul class="nav navbar-nav">
-						        <li>
-						        	<a href="<?php echo base_url(); ?>Home">Inicio</a>
-						        </li>
-						        <li class="dropdown" id="historias">
-						          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Historias clínicas <span class="caret"></span></a>
-							        <ul class="dropdown-menu">									            
-							            <li>
-							            	<a href="<?php echo base_url(); ?>Paciente/AgregarPaciente">
-							            		<span class="glyphicon glyphicon-arrow-right"></span> Crear historia clínica
-							            	</a>
-							            </li>
-							            <li role="separator" class="divider"></li>									            
-							            <li>
-							            	<a href="<?php echo base_url(); ?>HistoriaClinica/ListarHistorias">
-							            		<span class="glyphicon glyphicon-arrow-right"></span> Listado de Historias clínicas
-							            	</a>
-							            </li>				            
-							        </ul>
-						        </li>	
-						        
-						        <li class="menu-item dropdown" id="miscelaneos">
-				                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Miscelaneos <span class="caret"></span></a>
-				                    <ul class="dropdown-menu">
+			    <!-- Logo -->
+			    <a href="<?php echo base_url(); ?>Home" class="logo">
+			      	<!-- mini logo for sidebar mini 50x50 pixels -->
+			      	<span class="logo-mini"><b>IUT</b></span>
+			      	<!-- logo for regular state and mobile devices -->
+			      	<span class="logo-lg"><b>IUT</b>Sismed</span>
+			    </a>
 
-				                        <li class="menu-item dropdown dropdown-submenu"  id="patologias">
-				                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-				                            	<span class="glyphicon glyphicon-arrow-right"></span> Patologías
-				                            </a>
-				                            <ul class="dropdown-menu">
-			                                	
-			                                	<li>
-									            	<a href="<?php echo base_url(); ?>Patologia/AgregarPatologia">
-									            		<span class="glyphicon glyphicon-arrow-right"></span> Agregar patología
-									            	</a>
-									            </li>
-									            <li role="separator" class="divider"></li>									            
-									            <li>
-									            	<a href="<?php echo base_url(); ?>Patologia/ListarPatologias">
-									            		<span class="glyphicon glyphicon-arrow-right"></span> Listado de patologías
-									            	</a>
-									            </li>
+			    <!-- Header Navbar -->
+			    <nav class="navbar navbar-static-top" role="navigation">
+			      	<!-- Sidebar toggle button-->
+			      	<a class="sidebar-toggle" href="#" data-toggle="push-menu" role="button">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+			      	<!-- Navbar Right Menu -->
+			      	<div class="navbar-custom-menu">
+			        	<ul class="nav navbar-nav">			          		
+			          		<!-- User Account Menu -->
+			          		<li class="dropdown user user-menu">
+			            		<!-- Menu Toggle Button -->
+			            		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			              			<!-- The user image in the navbar-->
+			              			<?php												
+										if ($this->session->has_userdata('img') && $this->session->userdata('img') != null && $this->session->userdata('img') != '') {
 
-				                            </ul>
-				                        </li>
+											$ruta = base_url()."assets/img/usuarios/";
 
-				                        <li role="separator" class="divider"></li>
+							            	switch ($usuario["especialidad"]) {
+							            		case 'Administrador':
+							            			$ruta .= "admin/";
+							            			break;  
 
-				                        <li class="menu-item dropdown dropdown-submenu"  id="vacunas">
-				                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-				                            	<span class="glyphicon glyphicon-arrow-right"></span> Vacunas
-				                            </a>
-				                            <ul class="dropdown-menu">
-			                                	
-			                                	<li>
-									            	<a href="<?php echo base_url(); ?>Vacuna/AgregarVacuna">
-									            		<span class="glyphicon glyphicon-arrow-right"></span> Agregar vacuna
-									            	</a>
-									            </li>
-									            <li role="separator" class="divider"></li>									            
-									            <li>
-									            	<a href="<?php echo base_url(); ?>Vacuna/ListarVacunas">
-									            		<span class="glyphicon glyphicon-arrow-right"></span> Listado de vacunas
-									            	</a>
-									            </li>
+							            		case 'Medicina':
+							            			$ruta .= "med/";
+							            			break; 
 
-				                            </ul>
-				                        </li>
+							            		case 'Odontología':
+							            			$ruta .= "odon/";
+							            			break; 
 
-				                        <li role="separator" class="divider"></li>
+							            		case 'Laboratorio':
+							            			$ruta .= "lab/";
+							            			break; 
 
-				                        <li class="menu-item dropdown dropdown-submenu"  id="patologias">
-				                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-				                            	<span class="glyphicon glyphicon-arrow-right"></span> Inventario
-				                            </a>
-				                            <ul class="dropdown-menu">
-			                                	
-			                                	<li>
-									            	<a href="<?php echo base_url(); ?>Inventario/AgregarInsumo">
-									            		<span class="glyphicon glyphicon-arrow-right"></span> Agregar insumo
-									            	</a>
-									            </li>
-									            <li role="separator" class="divider"></li>									            
-									            <li>
-									            	<a href="<?php echo base_url(); ?>Inventario/ListarInsumos">
-									            		<span class="glyphicon glyphicon-arrow-right"></span> Ver inventario
-									            	</a>
-									            </li>
+							            		case 'Nutrición':
+							            			$ruta .= "nut/";
+							            			break; 
+							            	}
+							            	$ruta .= $usuario["img"];
 
-				                            </ul>
-				                        </li>
+										}elseif ($this->session->userdata('sexo') == 'm') {
+																							
+											$ruta = base_url()."assets/img/usuarios/user-male-alt-icon.png";	
+										}elseif ($this->session->userdata('sexo') == 'f') {
+																							
+											$ruta = base_url()."assets/img/usuarios/user-female-alt-icon.png";	
+										}
+									?>
+			              			<img src="<?php echo $ruta; ?>" class="user-image" alt="User Image">
+			              			<!-- hidden-xs hides the username on small devices so only the image appears. -->
+			              			<span class="hidden-xs">
+			              				<?php 
+					        				echo $this->session->userdata('nombre')." ".$this->session->userdata('apellido');
+					        			?>
+			              			</span>
+			            		</a>
+			            		<?php if($this->session->has_userdata("login")) { ?>
+			            		<ul class="dropdown-menu">
+			              		<!-- The user image in the menu -->
+			              			<li class="user-header">
+				                		<img src="<?php echo $ruta; ?>" class="img-circle" alt="User Image">
 
-				                    </ul>
-				                </li>
-						       
-						        <li class="dropdown" id="reportes">
-						          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reportes <span class="caret"></span></a>
-							        <ul class="dropdown-menu">
-							            <li>
-							            	<a href="#">
-							            		<span class="glyphicon glyphicon-arrow-right"></span> Pacientes atendidos
-							            	</a>
-							            </li>
-							            <li role="separator" class="divider"></li>
-							            <li>
-							            	<a href="#">
-							            		<span class="glyphicon glyphicon-arrow-right"></span> Morbilidad
-							            	</a>
-							            </li>
-							            <li role="separator" class="divider"></li>
-							            <li>
-							            	<a href="#">
-							            		<span class="glyphicon glyphicon-arrow-right"></span> Insumos
-							            	</a>
-							            </li>				            
-							        </ul>
-						        </li>
-						        <li class="dropdown" id="usuario">
-						          	<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user"></span> <?php echo $this->session->userdata('username'); ?> <span class="caret"></span></a>
-							        <ul class="dropdown-menu">
-							        	<li class="header-info">
-							        		<?php												
-												if ($this->session->has_userdata('img') && $this->session->userdata('img') != null && $this->session->userdata('img') != '') {
+						                <p>
+						                <?php 
+					        				echo $this->session->userdata('nombre')." ".$this->session->userdata('apellido');
+					        			?>
+						                  <small>
+						                  	<?php 
+					        					setlocale(LC_TIME,"esp"); 
+					        					echo "Miembro desde ".strftime('%B de %Y', strtotime($this->session->userdata('fecha_creado')));
+					        				?>
+						                  </small>
+						                </p>
+			              			</li>
+			              			<!-- Menu Footer-->
+			              			<li class="user-footer">
+						                <div class="pull-left">
+						                  <a href="<?php echo base_url('Usuario/PerfilUsuario/'); ?>" class="btn btn-default btn-flat">Perfil</a>
+						                </div>
+						                <div class="pull-right">
+						                  <a href="<?php echo base_url(); ?>Sesion/Logout" class="btn btn-default btn-flat">Salir</a>
+						                </div>
+			              			</li>
+			            		</ul>
+			            		<?php } ?>
+			          		</li>
+			        	</ul>
+			      	</div>
+			    </nav>
+			</header>
+			<?php if($this->session->has_userdata("login")) { ?>
+			<!-- Left side column. contains the logo and sidebar -->
+  			<aside class="main-sidebar">
 
-													$ruta = base_url()."assets/img/usuarios/";
+			    <!-- sidebar: style can be found in sidebar.less -->
+			    <section class="sidebar">
 
-									            	switch ($usuario["especialidad"]) {
-									            		case 'Administrador':
-									            			$ruta .= "admin/";
-									            			break;  
+			      	<!-- Sidebar user panel (optional) -->
+			      	<div class="user-panel">
+				        <div class="pull-left image">
+				          	<img src="<?php echo $ruta; ?>" class="img-circle" alt="User Image">
+				        </div>
+				        <div class="pull-left info">
+				          	<p>
+			          		<?php 
+		        				echo $this->session->userdata('nombre')." ".$this->session->userdata('apellido');
+		        			?>
+				          	</p>
+				          	<!-- Status -->
+				          	<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+				        </div>
+			      	</div>
 
-									            		case 'Medicina':
-									            			$ruta .= "med/";
-									            			break; 
+			      	<!-- Sidebar Menu -->
+			      	<ul class="sidebar-menu" data-widget="tree">
+				        <li class="header">MENU</li>
+				        <!-- Optionally, you can add icons to the links -->
+				        <li class="<?php if($this->uri->segment(1) == 'Home') echo 'active'; ?>">
+				        	<a href="<?php echo base_url(); ?>Home">
+				        		<i class="fa fa-home"></i> 
+				        		<span>Inicio</span>
+				        	</a>
+				        </li>
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Paciente') echo 'active'; ?>">
+				          	<a href="#">
+				          		<i class="fa fa-file-text-o"></i>
+				          		<span>Historias clínicas</span>
+				          		<span class="pull-right-container">
+				                	<i class="fa fa-angle-left pull-right"></i>
+				              	</span>
+				          	</a>
+					        <ul class="treeview-menu">									            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>Paciente/AgregarPaciente">
+					            		<i class="fa fa-circle-o"></i>
+					            		<span>Crear historia clínica</span>
+					            	</a>
+					            </li>								            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>HistoriaClinica/ListarHistorias">
+					            		<i class="fa fa-circle-o"></i>
+					            		<span>Listado de Historias clínicas</span>
+					            	</a>
+					            </li>				            
+					        </ul>
+				        </li>
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Patologia') echo 'active'; ?>">
+				          	<a href="#">
+				          		<i class="fa fa-bug"></i>
+				          		<span>Patologías </span>
+				          		<span class="pull-right-container">
+				                	<i class="fa fa-angle-left pull-right"></i>
+				              	</span>
+				          	</a>
+					        <ul class="treeview-menu">									            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>Patologia/AgregarPatologia">
+					            		<i class="fa fa-circle-o"></i>
+					            		<span>Agregar patología</span>
+					            	</a>
+					            </li>								            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>Patologia/ListarPatologias">
+					            		<i class="fa fa-circle-o"></i>
+					            		<span>Listado de patologías</span>
+					            	</a>
+					            </li>				            
+					        </ul>
+				        </li>
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Vacuna') echo 'active'; ?>">
+				          	<a href="#">
+				          		<i class="fa fa-medkit"></i>
+				          		<span>Vacunas </span>
+				          		<span class="pull-right-container">
+				                	<i class="fa fa-angle-left pull-right"></i>
+				              	</span>
+				          	</a>
+					        <ul class="treeview-menu">									            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>Vacuna/AgregarVacuna">
+					            		<i class="fa fa-circle-o"></i>
+										<span>Agregar vacuna</span>
+					            	</a>
+					            </li>								            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>Vacuna/ListarVacunas">
+					            		<i class="fa fa-circle-o"></i>					            		
+										<span>Listado de vacunas</span>
+					            	</a>
+					            </li>				            
+					        </ul>
+				        </li>
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Inventario') echo 'active'; ?>">
+				          	<a href="#">
+				          		<i class="fa fa-cubes"></i>
+				          		<span>Inventario </span>
+				          		<span class="pull-right-container">
+				                	<i class="fa fa-angle-left pull-right"></i>
+				              	</span>
+				          	</a>
+					        <ul class="treeview-menu">									            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>Inventario/AgregarInsumo">
+					            		<i class="fa fa-circle-o"></i>
+										<span>Agregar insumo</span>
+					            	</a>
+					            </li>								            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>Inventario/ListarInsumos">
+					            		<i class="fa fa-circle-o"></i>					            		
+										<span>Ver inventario</span>
+					            	</a>
+					            </li>				            
+					        </ul>
+				        </li>	
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Reportes') echo 'active'; ?>">
+				          	<a href="#">
+				          		<i class="fa fa-bar-chart"></i> 
+				          		<span>Reportes</span>
+				            	<span class="pull-right-container">
+				                	<i class="fa fa-angle-left pull-right"></i>
+				              	</span>
+				          	</a>
+				          	<ul class="treeview-menu">
+				            	<li>
+				            		<a href="#">
+				            			<i class="fa fa-circle-o"></i>
+				            			<span>Pacientes atendidos</span>
+				            		</a>
+				            	</li>
+				            	<li>
+				            		<a href="#">
+				            			<i class="fa fa-circle-o"></i>
+				            			<span>Morbilidad</span>
+				            		</a>
+				            	</li>
+				            	<li>
+				            		<a href="#">
+				            			<i class="fa fa-circle-o"></i>
+				            			<span>Insumos</span>
+				            		</a>
+				            	</li>
+				          	</ul>
+				        </li>
+			      	</ul>
+			      	<!-- /.sidebar-menu -->
+			    </section>
+			    <!-- /.sidebar -->
+  			</aside>
+  			<?php } ?>
+  			<!-- Content Wrapper. Contains page content -->
+  			<div class="content-wrapper">
 
-									            		case 'Odontología':
-									            			$ruta .= "odon/";
-									            			break; 
-
-									            		case 'Laboratorio':
-									            			$ruta .= "lab/";
-									            			break; 
-
-									            		case 'Nutrición':
-									            			$ruta .= "nut/";
-									            			break; 
-									            	}
-									            	$ruta .= $usuario["img"];
-
-												}elseif ($this->session->userdata('sexo') == 'm') {
-																									
-													$ruta = base_url()."assets/img/usuarios/user-male-alt-icon.png";	
-												}elseif ($this->session->userdata('sexo') == 'f') {
-																									
-													$ruta = base_url()."assets/img/usuarios/user-female-alt-icon.png";	
-												}
-											?>
-							        		<img src="<?php echo $ruta; ?>" class="img-circle">
-							        		<p>
-							        			<?php 
-							        				echo $this->session->userdata('nombre')." ".$this->session->userdata('apellido');
-							        			?>
-							        			<small>
-							        				<?php 
-							        					setlocale(LC_TIME,"esp"); 
-							        					echo "Miembro desde ".strftime('%B de %Y', strtotime($this->session->userdata('fecha_creado')));
-							        				?>
-							        			</small>
-							        		</p>
-							        	</li>
-							        	<li class="footer-info">
-							        		<div class="pull-left">
-							        			<a href="#" class="btn btn-principal-2"><span class="glyphicon glyphicon-user"></span> Perfil</a>
-							        		</div>
-							        		<div class="pull-right">
-							        			<a href="<?php echo base_url(); ?>Sesion/Logout" class="btn btn-principal-2"> <span class="glyphicon glyphicon-off"></span> Salir</a>
-							        		</div>	
-							        	</li>	            
-							        </ul>
-						        </li>
-						    </ul>				     
-					    </div><!-- /.navbar-collapse -->
-				  	</div><!-- /.container-fluid -->
-				</nav>
-			<?php } ?>	
-			</div>
-			
-		</div>
+	
