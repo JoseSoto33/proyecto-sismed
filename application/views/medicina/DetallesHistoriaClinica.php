@@ -47,11 +47,7 @@
 							{$nombre .= " ".$paciente["nombre2"];}
 						$nombre .= " ".$paciente["apellido1"];
 						if (isset($paciente["apellido2"]) && !empty($paciente["apellido2"])) 
-							{$nombre .= " ".$paciente["apellido2"];}
-
-						$hoy = date('Y-m-d');
-						$diff = abs(strtotime($hoy) - strtotime($paciente["fecha_nacimiento"]));
-						$edad = floor($diff / (365*60*60*24));
+							{$nombre .= " ".$paciente["apellido2"];}						
 					?>
 					
 					<div class="row">
@@ -74,7 +70,7 @@
 
 					<div class="row">
 						<div class="col-sm-5">
-							<p><strong>Edad: </strong><?php echo $edad; ?></p>
+							<p><strong>Edad: </strong><?php echo $paciente["edad"]; ?></p>
 						</div>						
 						<div class="col-sm-7">
 							<p><strong>Ocupación: </strong><?php echo $paciente["tipo_paciente"]; ?></p>
@@ -277,7 +273,7 @@
 															      	<h4 class="panel-title">
 															      		Esquema de vacunas
 															        	<a class="pull-right" role="button" data-toggle="collapse" data-parent="#accordion2" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
-															          		<span class="glyphicon glyphicon-plus"></span>
+															          		<span class="glyphicon glyphicon-minus"></span>
 															        	</a>
 															      	</h4>
 															    </div>
@@ -297,7 +293,7 @@
 															      	<h4 class="panel-title">
 															      		Aplicar vacuna
 															        	<a class="pull-right" role="button" data-toggle="collapse" data-parent="#accordion3" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
-															          		<span class="glyphicon glyphicon-plus"></span>
+															          		<span class="glyphicon glyphicon-minus"></span>
 															        	</a>
 															      	</h4>
 															    </div>
@@ -317,7 +313,7 @@
 															      	<h4 class="panel-title">
 															      		Listado de vacunas aplicadas
 															        	<a class="pull-right" role="button" data-toggle="collapse" data-parent="#accordion3" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
-															          		<span class="glyphicon glyphicon-plus"></span>
+															          		<span class="glyphicon glyphicon-minus"></span>
 															        	</a>
 															      	</h4>
 															    </div>

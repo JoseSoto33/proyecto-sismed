@@ -49,6 +49,9 @@ class Vacuna extends CI_Controller {
      */
     public function AgregarVacuna()
     {   
+        $this->load->model('PatologiaModel');
+        $this->load->model('VacunaModel');
+
         $data = array("titulo" => "Agregar nueva vacuna");        
 
         $condicion = array(
@@ -142,6 +145,8 @@ class Vacuna extends CI_Controller {
      */
     public function ModificarNombreVacuna()
     {
+        $this->load->model('VacunaModel');
+
         $nuevo_nombre = $this->input->post("nuevo_nombre");
         $condicion = array(
             "where" => array(
@@ -194,6 +199,8 @@ class Vacuna extends CI_Controller {
      */
     public function AgregarPatologiaVacuna()
     {
+        $this->load->model('VacunaModel');
+
         $id_patologia = $this->input->post("id_patologia");
         $id_vacuna = $this->input->post("id_vacuna");
 
@@ -238,6 +245,8 @@ class Vacuna extends CI_Controller {
      */
     public function EliminarPatologiaVacuna()
     {
+        $this->load->model('VacunaModel');
+
         $id_patologia = $this->input->post("id_patologia");
         $id_vacuna = $this->input->post("id_vacuna");
 
@@ -265,6 +274,9 @@ class Vacuna extends CI_Controller {
      */
     public function VerVacuna()
     {
+        $this->load->model('VacunaModel');
+        $this->load->model('EsquemaModel');
+
         $id_vacuna = $this->input->post("id");
 
         $condicion = array(
@@ -291,7 +303,9 @@ class Vacuna extends CI_Controller {
      * @return void
      */
     public function ListarVacunas()
-    {
+    {        
+        $this->load->model('VacunaModel');
+        
         $condicion = array(
             "order_by" => array("campo" => "id", "direccion" => "ASC")
             );
@@ -338,6 +352,8 @@ class Vacuna extends CI_Controller {
      */
     public function EliminarVacuna()
     {
+        $this->load->model('VacunaModel');
+
         $id = $this->input->post('id');
         $action = $this->input->post('action');
         $condicion = array(

@@ -34,6 +34,8 @@ class Patologia extends CI_Controller {
 
   	public function AgregarPatologia()
  	{
+		$this->load->model('PatologiaModel');
+
  		$data = array("titulo" => "Agregar nueva patologia");
 
 		//Si se envió una petición POST...
@@ -75,6 +77,8 @@ class Patologia extends CI_Controller {
  	
 	public function ModificarPatologia($id_patologia = null)
 	{
+		$this->load->model('PatologiaModel');
+
 		$data = array("titulo" => "Modificar datos de la Patologia");
 
 		$cond = array(
@@ -136,6 +140,8 @@ class Patologia extends CI_Controller {
 
 	public function EliminarPatologia()
 	{
+		$this->load->model('PatologiaModel');
+
 		$id = $this->input->post('id');
 		$action = $this->input->post('action');
 		$condicion = array(
@@ -168,6 +174,8 @@ class Patologia extends CI_Controller {
 
 	public function ListarPatologias()
 	{
+		$this->load->model('PatologiaModel');
+
 		$condicion = array(
 			"order_by" => array("campo" => "id", "direccion" => "ASC")
 			);
@@ -272,7 +280,8 @@ class Patologia extends CI_Controller {
 	 * @return void
 	 */
 	public function ExtraerPatologia()
-	{	
+	{
+		$this->load->model('PatologiaModel');
 		
 		/*
 		if (isset($_POST["edit"]) && !empty($_POST["edit"])) {

@@ -45,7 +45,7 @@ class HistoriaClinica extends CI_Controller {
      */
     public function ListarHistorias()
     {
-
+        $this->load->model('HistoriaModel');
     	$condicion = array(
             "distinct" => true,
 			"select" => "historia.cod_historia, historia.fecha_creada, paciente.id, paciente.nombre1, paciente.nombre2, paciente.apellido1, paciente.apellido2",
@@ -92,6 +92,11 @@ class HistoriaClinica extends CI_Controller {
      */
     public function ConsultarHistoriaClinica($cod_historia)
     {
+        $this->load->model('HistoriaModel');
+        $this->load->model('PacienteModel');
+        $this->load->model('VacunaModel');
+        $this->load->model('EsquemaModel');
+
         $data = array("titulo" => "Historia Clínica");
 
     	$condicion = array(
@@ -113,6 +118,10 @@ class HistoriaClinica extends CI_Controller {
                 
                 $data['paciente'] = $result->row_array();
 
+                $hoy = date('Y-m-d');
+                $diff = abs(strtotime($hoy) - strtotime($data['paciente']["fecha_nacimiento"]));
+                $data['paciente']['edad'] = floor($diff / (365*60*60*24));
+
                 $condicion = array(
                     "where" => array("cod_historia" => $data['historia']['cod_historia'])
                     );
@@ -129,7 +138,26 @@ class HistoriaClinica extends CI_Controller {
                     $data[$tabla]['data'] = $result->row_array();
                 }
 
-                
+                $cond_vacunas = array(
+                    'select' => 'esquema.*, vacuna.nombre_vacuna',
+                    'join' => array(
+                        'tabla' => 'vacuna',
+                        'condicion' => 'esquema.id_vacuna = vacuna.id'
+                    ),
+                    'where' => array(
+                        'esquema.min_edad_aplicacion <' => $data['paciente']['edad'],
+                        'esquema.min_edad_periodo' => 'Año(s)',
+                        'esquema.max_edad_aplicacion >' => $data['paciente']['edad'],
+                        'esquema.max_edad_periodo' => 'Año(s)',
+                        'vacuna.status' => true
+                    )
+                );
+
+                $esquemas = $this->EsquemaModel->ExtraerEsquema($cond_vacunas);
+
+                if ($esquemas->num_rows > 0) {
+                    $lista_esquemas = $esquemas->result_array();
+                }
 
             }else{
 
@@ -164,6 +192,7 @@ class HistoriaClinica extends CI_Controller {
      */
     public function CrearHistoriaClinica()
     {
+        $this->load->model('HistoriaModel');
         /**
          * @var mixed[] $data Contendrá los datos que se almacenarán en la BDD. 
          *

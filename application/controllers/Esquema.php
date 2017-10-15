@@ -46,6 +46,7 @@ class Esquema extends CI_Controller {
      */
     public function VerEsquema()
     {
+        $this->load->model('EsquemaModel');
         $id_esquema = $this->input->post("id");
 
         $condicion = array(
@@ -65,6 +66,9 @@ class Esquema extends CI_Controller {
      */
     public function AgregarEsquema()
     {
+        $this->load->model('VacunaModel');
+        $this->load->model('EsquemaModel');
+
         $id_vacuna = $this->input->post("id_vacuna");
 
         $condicion = array(
@@ -95,6 +99,8 @@ class Esquema extends CI_Controller {
      */
     public function EditarEsquema()
     {
+        $this->load->model('EsquemaModel');
+
         $id_vacuna = $this->input->post("id_vacuna");
 
         $condicion = array(
@@ -139,6 +145,8 @@ class Esquema extends CI_Controller {
      */
     public function EliminarEsquema()
     {
+        $this->load->model('EsquemaModel');
+
         $id_esquema = $this->input->post("id_esquema");
         $id_vacuna = $this->input->post("id_vacuna");
 
