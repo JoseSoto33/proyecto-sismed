@@ -166,6 +166,23 @@ class VacunaModel extends CI_Model {
         return $this->db->get();
     }
 
+    public function extraerVacunasAplicadas($edad,$cod_historia) {
+        $where = array(
+            'vacuna.status' => true,
+            'esquema.min_edad_aplicacion <' => $edad,
+            'esquema.min_edad_periodo' => 'Año(s)',
+            'esquema.max_edad_aplicacion >' => $edad,
+            'esquema.max_edad_periodo' => 'Año(s)',
+            "MD5(concat('sismed',vacuna_aplicada.cod_historia))" => $cod_historia
+        );
+        $this->db->select('vacuna.nombre_vacuna, esquema.*, vacuna_aplicada.id as va_id, vacuna_aplicada.*');
+        $this->db->from('vacuna');
+        $this->db->join('esquema','esquema.id_vacuna = vacuna.id');
+        $this->db->join('vacuna_aplicada','esquema.id = vacuna_aplicada.id_esquema');
+        $this->db->where($where);
+        $esquemas = $this->db->get()->result_array();
+    }
+
     public function ValidarVacunaPatologia($id_vacuna, $condicion = array())
     {
         $query = $this->ExtraerVacunaPatologia($id_vacuna, $condicion);

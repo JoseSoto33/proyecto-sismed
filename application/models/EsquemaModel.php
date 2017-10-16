@@ -121,6 +121,29 @@ class EsquemaModel extends CI_Model {
 
     	$this->db->from("esquema");
 
+        //Si está definida una cláusula 'join'
+        if (isset($condicion['join']) && !empty($condicion['join'])) {
+            
+            if (isset($condicion['join']['tipo'])) {
+                $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion'],$condicion['join']['tipo']);
+            }else{
+                $this->db->join($condicion['join']['tabla'],$condicion['join']['condicion']);
+            }
+        }
+
+        //Si están definidas varias cláusula 'join'
+        if (isset($condicion['joins']) && !empty($condicion['joins'])) {
+            
+            foreach ($condicion['joins'] as $key => $join) {
+                
+                if (isset($join['tipo'])) {
+                    $this->db->join($join['tabla'],$join['condicion'],$join['tipo']);
+                }else{
+                    $this->db->join($join['tabla'],$join['condicion']);
+                }
+            }
+        }
+
     	if (isset($condicion['where']) && !empty($condicion['where'])) {
     		
     		$this->db->where($condicion['where']);
@@ -139,21 +162,67 @@ class EsquemaModel extends CI_Model {
     	return $this->db->get();
 	}
 
-    public function ExtraerVacunaPatologia($id_vacuna, $condicion = array())
-    {
-        if (isset($condicion['select']) && !empty($condicion['select'])) {
-            
-            $this->db->select($condicion['select']);
-        }else{
-            $this->db->select("*");
+    public function obtenerEsquemasDisponibles($edad,$cod_historia) {
+
+        $where = array(
+            'esquema.min_edad_aplicacion <' => $edad,
+            'esquema.min_edad_periodo' => 'Año(s)',
+            'esquema.max_edad_aplicacion >' => $edad,
+            'esquema.max_edad_periodo' => 'Año(s)',
+            'vacuna.status' => true
+        );
+        $this->db->select('esquema.*, vacuna.nombre_vacuna');
+        $this->db->from('esquema');
+        $this->db->join('vacuna','esquema.id_vacuna = vacuna.id');
+        $this->db->where($where);
+        $esquemas = $this->db->get()->result_array();
+
+        foreach ($esquemas as $key => $esquema) {
+
+            if (!isset($output[$esquema['id_vacuna']]['nombre_vacuna'])) {                
+                $output[$esquema['id_vacuna']]['nombre_vacuna'] = $esquema['nombre_vacuna'];
+            }
+
+            $this->db->where(array('id_esquema' => $esquema['id'], "MD5(concat('sismed',cod_historia))" => $cod_historia));
+            $this->db->order_by('nro_dosis', 'DESC');
+            $result = $this->db->get('vacuna_aplicada');
+            $found = $result->num_rows();
+
+            if ($esquema['esquema'] == "Única") {
+                $esquema['nombre_esquema'] = $esquema['esquema'];
+                if ($found > 0) {
+                    $esquema['aplicada'] = true;
+                }
+                $output[$esquema['id_vacuna']]['esquemas']['unica'] = $esquema;
+            }else{
+
+                if ($found > 0) {
+                    $aplicada = $result->row_array();           
+                    $esquema['nombre_esquema'] = $esquema['esquema']." #".($found+1);
+                    $esquema['restante'] = $esquema['cant_dosis'] - $aplicada['nro_dosis'];
+                    if ($esquema['restante'] > 0 && $aplicada['nro_dosis'] > 1) {
+                        $esquema['aplicable'] = true;
+                        $esquema['fecha_prox'] = $aplicada['prox_fecha_vacunacion'];
+                    }else if ($esquema['restante'] == 0){
+                        $esquema['aplicada'] = true;
+                        $esquema['fecha_prox'] = null;
+                    }
+                }else{
+                    $esquema['nombre_esquema'] = $esquema['esquema']." #1";
+                    $esquema['restante'] = $esquema['cant_dosis'];
+                }                
+
+                if ($esquema['esquema'] == "Dosis") {                    
+                    $output[$esquema['id_vacuna']]['esquemas']['dosis'] = $esquema;
+                }else if ($esquema['esquema'] == "Refuerzo") {
+                    $output[$esquema['id_vacuna']]['esquemas']['refuerzo'] = $esquema;
+                }
+            }
+
+
         }
 
-        $this->db->from("vacuna_patologia");
+        return $output;
 
-        $this->db->join("patologia", "patologia.id = vacuna_patologia.id_patologia");
-
-        $this->db->where("vacuna_patologia.id_vacuna", $id_vacuna);
-
-        return $this->db->get();
     }
 }

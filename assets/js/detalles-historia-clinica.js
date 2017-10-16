@@ -78,6 +78,13 @@ $(document).ready(function(){
         "language": language
     });
 
+    /**
+     * @var DataTable tablaVacunasAplicadas Tabla de las vacuans aplicadas al paciente
+     */
+    var tablaVacunasAplicadas = $('#lista-vacunas-aplicadas').DataTable({        
+        "language": language
+    });
+
 	/**
 	 * Genera una sub tabla con los detalles de la consulta curativa
 	 *

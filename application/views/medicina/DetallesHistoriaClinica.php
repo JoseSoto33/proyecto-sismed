@@ -279,7 +279,40 @@
 															    </div>
 															    <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 															      	<div class="panel-body">
-															      		Panel content
+															      		<ul>
+															      		<?php foreach ($esquemas_vacunacion as $key => $item) { ?>
+															      			<li>
+															      				<b><?php echo $item['nombre_vacuna']; ?></b>
+															      				<ul>
+															      					<?php if (isset($item['esquemas']['unica'])) { ?>
+																					<li>
+																						<?php echo $item['esquemas']['unica']['nombre_esquema']; ?>	
+																					</li>
+																					<?php } ?>
+
+																					<?php if (isset($item['esquemas']['dosis'])) { ?>
+																					<li>
+																						<?php echo $item['esquemas']['dosis']['nombre_esquema']; ?>
+																						<ul>
+																							<li><b>Dosis faltantes:</b> <?php echo $item['esquemas']['dosis']['restante']; ?></li>
+																							<li><b>Intervalo:</b> Cada <?php echo $item['esquemas']['dosis']['intervalo']." ".$item['esquemas']['dosis']['intervalo_periodo']; ?> </li>
+																						</ul>
+																					</li>
+																					<?php } ?>
+
+																					<?php if (isset($item['esquemas']['refuerzo'])) { ?>
+																					<li>
+																						<?php echo $item['esquemas']['refuerzo']['nombre_esquema']; ?>
+																						<ul>
+																							<li><b>Dosis faltantes:</b> <?php echo $item['esquemas']['refuerzo']['restante']; ?></li>
+																							<li><b>Intervalo:</b> Cada <?php echo $item['esquemas']['refuerzo']['intervalo']." ".$item['esquemas']['refuerzo']['intervalo_periodo']; ?> </li>
+																						</ul>
+																					</li>
+																					<?php } ?>	      					
+															      				</ul>
+															      			</li>      		
+															      		<?php } ?>
+															      		</ul>
 															      	</div>													      	
 															    </div>
 														  	</div><!--/ Esquema de vacunas -->
@@ -319,7 +352,39 @@
 															    </div>
 															    <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 															      	<div class="panel-body">
-															      		Panel content
+															      		<div class="table-responsive">
+															      			<table id="lista-vacunas-aplicadas" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
+															      				<thead>
+															      					<th>Nº</th>
+															      					<th>Vacuna</th>
+															      					<th>Esquema</th>
+															      					<th>Fecha de aplicación</th>
+															      					<th>Fecha de próxima aplicación</th>
+															      				</thead>
+															      				<tbody>
+															      					<?php if(count($vacunas_aplicadas) > 0) {
+															      						$cont = 1;
+															      						foreach ($vacunas_aplicadas as $key => $v_aplic) {?>
+															      						<tr>
+															      							<td><?php echo $cont++; ?></td>
+															      							<td><?php echo $v_aplic['nombre_vacuna']; ?></td>
+															      							<td><?php echo $v_aplic['esquema']." #".$v_aplic['nro_dosis']; ?></td>
+															      							<td><?php echo strftime('%d de %B de %Y', strtotime($v_aplic['fecha_aplicacion'])); ?></td>
+															      							<td><?php echo strftime('%d de %B de %Y', strtotime($v_aplic['prox_fecha_aplicacion'])); ?></td>
+															      						</tr>
+															      						<?php } ?>
+
+															      					<?php }?>
+															      				</tbody>	      				
+															      				<tfoot>
+															      					<th>Nº</th>
+															      					<th>Vacuna</th>
+															      					<th>Esquema</th>
+															      					<th>Fecha de aplicación</th>
+															      					<th>Fecha de próxima aplicación</th>
+															      				</tfoot>
+															      			</table>
+															      		</div>
 															      	</div>													      	
 															    </div>
 														  	</div><!--/ Listado de vacunas aplicadas -->

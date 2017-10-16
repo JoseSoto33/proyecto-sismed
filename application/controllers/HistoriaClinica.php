@@ -136,28 +136,12 @@ class HistoriaClinica extends CI_Controller {
 
                     $data[$tabla]['rows'] = $result->num_rows();
                     $data[$tabla]['data'] = $result->row_array();
-                }
+                }  
+                $esquemas = $this->EsquemaModel->obtenerEsquemasDisponibles($data['paciente']['edad'],$cod_historia);
+                $data['esquemas_vacunacion'] = $esquemas;
 
-                $cond_vacunas = array(
-                    'select' => 'esquema.*, vacuna.nombre_vacuna',
-                    'join' => array(
-                        'tabla' => 'vacuna',
-                        'condicion' => 'esquema.id_vacuna = vacuna.id'
-                    ),
-                    'where' => array(
-                        'esquema.min_edad_aplicacion <' => $data['paciente']['edad'],
-                        'esquema.min_edad_periodo' => 'Año(s)',
-                        'esquema.max_edad_aplicacion >' => $data['paciente']['edad'],
-                        'esquema.max_edad_periodo' => 'Año(s)',
-                        'vacuna.status' => true
-                    )
-                );
-
-                $esquemas = $this->EsquemaModel->ExtraerEsquema($cond_vacunas);
-
-                if ($esquemas->num_rows > 0) {
-                    $lista_esquemas = $esquemas->result_array();
-                }
+                $vacunas = $this->VacunaModel->extraerVacunasAplicadas($data['paciente']['edad'],$cod_historia);
+                $data['vacunas_aplicadas'] = $vacunas;                
 
             }else{
 
