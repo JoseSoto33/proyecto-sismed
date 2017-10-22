@@ -1,54 +1,81 @@
 <?php include('header.php'); ?>
-	<div id="portada">
-		<div class="fondo-opaco">
-			<div class="container">
-				<div class="row">					
-					<div class="col-xs-12">						
-						<h2>¡Bienvenido!</h2>		
-					</div>
-					<div class="col-md-8">
-						<p>La Medicina debe aspirar a ser honorable y dirigir su propia vida profesional; ser moderada y prudente; ser asequible y económicamente sostenible; ser justa y equitativa; y a respetar las opciones y la dignidad de las personas. Los valores elementales de la Medicina contribuyen a preservar su integridad frente a las presiones políticas y sociales que defienden unos fines ajenos o anacrónicos.</p>
-					</div>
-					<div class="col-md-4">
-						<?php //if($existe_usuario === false){ ?>							
-						<input type="hidden" name="url" id="base_url" value="<?php echo base_url(); ?>">
-						<button type="button" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#myModal">Regístrate</button>
-						<?php// } ?>						
-					</div>
-					<div class="col-xs-12">	
-						<?php echo validation_errors("<div class=\"alert alert-danger\" role=\"alert\">", "</div>"); ?>	
-						<?php if(isset($mensaje) && !empty($mensaje)) { ?>
-							<div class="alert alert-danger" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<?php echo $mensaje; ?>
-							</div>					
-						<?php } ?>
+<div id="portada">
+	<!-- Fondo opaco -->
+	<div class="fondo-opaco">
+		<!-- Contenedor -->		
+		<div class="container">
+			<!-- Área de mensajes del sistema -->
+			<div class="col-xs-12">	
+				<?php echo validation_errors("<div class=\"alert alert-danger\" role=\"alert\">", "</div>"); ?>	
+				<?php if(isset($mensaje) && !empty($mensaje)) { ?>
+					<div class="alert alert-danger" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<?php echo $mensaje; ?>
+					</div>					
+				<?php } ?>
 
-						<?php if(isset($_COOKIE["message"]) && !empty($_COOKIE["message"])) { ?>
-							<div class="alert alert-danger" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<?php echo $_COOKIE("message"); ?>
-							</div>					
-						<?php } ?>
+				<?php if(isset($_COOKIE["message"]) && !empty($_COOKIE["message"])) { ?>
+					<div class="alert alert-danger" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<?php echo $_COOKIE("message"); ?>
+					</div>					
+				<?php } ?>
 
-						<?php if(isset($_COOKIE["message2"]) && !empty($_COOKIE["message2"])) { ?>
-							<div class="alert alert-success" role="alert">
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<?php echo $_COOKIE("message2"); ?>
-							</div>					
-						<?php } ?>
-					</div>
-				</div>
-			</div>
-		</div>
+				<?php if(isset($_COOKIE["message2"]) && !empty($_COOKIE["message2"])) { ?>
+					<div class="alert alert-success" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<?php echo $_COOKIE("message2"); ?>
+					</div>					
+				<?php } ?>
+			</div><!--/ Área de mensajes del sistema -->
+		</div><!--/ Contenedor -->
+
+		<!-- Caja del formulario de login -->
+		<div class="login-box">
+			<!-- Título del formulario -->
+			<div class="login-logo">
+				<a href="<?php echo base_url(); ?>">
+					<b>IUT</b>Sismed
+				</a>
+			</div><!--/ Título del formulario -->
+			<!-- Cuerpo para el formulario -->
+			<div class="login-box-body">
+				<p class="login-box-msg">Ingresar para iniciar tu sesión</p>
+				<!-- Formulario -->
+				<?php echo form_open(
+					base_url(), 
+					'id="form-login"'
+					); ?>
+					<div class="form-group has-feedback">
+			          	<input type="text" class="form-control" name="log_cedula" placeholder="Cédula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" value="<?php echo set_value('log_cedula'); ?>" required="required" title="Sólo números de 6 a 8 dígitos" data-pattern-error="La cédula solo debe contener números de 6 a 8 dígitos"> 
+			          	<span class="glyphicon glyphicon-credit-card form-control-feedback"></span>
+						<div class="help-block with-errors"></div>
+			        </div>
+			        <div class="form-group has-feedback">
+			          	<input type="password" class="form-control" name="log_password" placeholder="Contraseña" minlength="8" maxlength="16" value="<?php echo set_value('log_password'); ?>" required="required">
+			          	<span class="glyphicon glyphicon-lock form-control-feedback"></span>
+			          	<div class="help-block with-errors"></div>
+			        </div>
+			        <button type="submit" class="btn btn-primary">Iniciar sessión</button>
+			    <?php echo form_close(); ?>
+			    <!--/ Formulario -->
+
+			    <?php if($existe_usuario === false){ ?>
+			    <div class="col-xs-12 text-center">
+			    	<p>- Ó -</p>
+			    </div>
+			    <a href="#" data-toggle="modal" data-target="#myModal">Registrar un nuevo administrador</a>
+			    <?php } ?>
+
+			</div><!--/ Cuerpo para el formulario -->
+		</div><!--/ Caja del formulario de login -->
 	</div>
-</div>		
-<!-- Modal -->
+</div><!--/ Fondo opaco -->
+
 <?php 
-	//if($existe_usuario === false){ 
+	if($existe_usuario === false){ 
 ?>
 <!-- Modal -->
-
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   	<div class="modal-dialog modal-lg" role="document">
 	    <div class="modal-content">
@@ -253,7 +280,7 @@
 	      	</div>
 	    </div>
   	</div>
-</div>
-<?php //}
+</div><!--/ Modal -->
+<?php }
 	include('footer.php'); 
 ?>	

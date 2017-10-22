@@ -166,6 +166,13 @@ hr.form-divisor-line{
 	position: absolute !important;
 	bottom: 0;
 }
+
+.navbar-nav > .user-menu .user-image,
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > img,
+.user-panel > .image > img{
+	background: #ffffff !important;
+}
+
 /*=============================LOGIN=============================*/
 /*=====Estilos del Index=====*/
 /*Cabecera*/
@@ -334,16 +341,17 @@ span.red{
 	font-weight: bold;
 }
 
-.fondo-opaco h2,
-.fondo-opaco p{
+.fondo-opaco > h2,
+.fondo-opaco > p,
+.fondo-opaco > .login-box > .login-logo > a{
 	color: #ffffff;
 }
 
-.fondo-opaco p{
+.fondo-opaco > p{
 	text-align: justify;
 }
 
-.fondo-opaco button{
+.fondo-opaco > button{
 	display: table;
 	margin: 30px auto;
 }

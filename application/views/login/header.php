@@ -22,45 +22,27 @@
 		<script src="<?php echo base_url(); ?>assets/js/moment.min.js"></script>
 	</head>
 	<body>
-		<div id="contenedor">
-			<header>
-				<nav id="navbar-login" class="navbar navbar-default navbar-fixed-top">
-					<div class="cintillo">					
-						<div class="container">
-							<figure class="pull-left">
-								<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/gbv-logo.png">
-							</figure>
-							<figure class="pull-right">
-								<div class="row">
-									<div class="col-xs-6">
-										<img src="<?php echo base_url(); ?>assets/img/victorioso-logo.png">
-									</div>
-									<div class="col-xs-6">
-										<img src="<?php echo base_url(); ?>assets/img/iut-logo3.png">
-									</div>
-								</div>									
-							</figure>
-						</div>
+		<header>
+			<nav id="navbar-login" class="navbar navbar-default navbar-fixed-top">
+				<div class="cintillo">					
+					<div class="container-fluid">
+						<figure class="pull-left">
+							<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/gbv-logo.png">
+						</figure>
+						<figure class="pull-right">
+							<div class="row">
+								<div class="col-xs-6">
+									<img src="<?php echo base_url(); ?>assets/img/victorioso-logo.png">
+								</div>
+								<div class="col-xs-6">
+									<img src="<?php echo base_url(); ?>assets/img/iut-logo3.png">
+								</div>
+							</div>									
+						</figure>
 					</div>
-					<div class="container">
-						<a class="navbar-brand" href="#">Unidad de Servicio Médico Integral</a>
-						
-						<?php echo form_open(
-									base_url(), 
-									'class="navbar-form navbar-right" id="form-login"'
-									); ?>
-							<div class="form-group">
-								<img src="<?php echo base_url();?>assets/img/loading_spinner.gif" class="loading form-loading">
-							</div>
-					        <div class="form-group">
-					          	<input type="text" class="form-control" name="log_cedula" placeholder="Cédula" minlength="6" maxlength="8" value="<?php echo set_value('log_cedula'); ?>" requered>
-					        </div>
-					        <div class="form-group">
-					          	<input type="password" class="form-control" name="log_password" placeholder="Password" minlength="8" maxlength="16" value="<?php echo set_value('log_password'); ?>" requered>
-					        </div>
-					        <button type="submit" class="btn btn-default">Iniciar sessión</button>
-					      
-					      <?php echo form_close(); ?>
-					</div>
-				</nav>
-			</header>
+				</div>
+				<div class="container-fluid">
+					<a class="navbar-brand" href="#">Unidad de Servicio Médico Integral</a>					
+				</div>
+			</nav>
+		</header>

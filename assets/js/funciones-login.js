@@ -11,22 +11,23 @@ $(document).ready(function(){
     $("#telef_emergencia").mask("(9999) 999-99-99");
 
     $("#especialidad").chosen({
-    		no_results_text: "Sin resultados por:",
-    		allow_single_deselect: true,
-    		width: "100%"
-    	});
+		no_results_text: "Sin resultados por:",
+		allow_single_deselect: true,
+		width: "100%"
+	});
 
     $("#tipo_usuario").chosen({
-    		no_results_text: "Sin resultados por:",
-    		allow_single_deselect: true,
-    		width: "100%"
-    	});
+		no_results_text: "Sin resultados por:",
+		allow_single_deselect: true,
+		width: "100%"
+	});
 
 
     $("#grado_instruccion").chosen({
-    		no_results_text: "Sin resultados por:",
-    		allow_single_deselect: true,
-    		width: "100%"
-    	});
-    $('#form-admin').validator();
+		no_results_text: "Sin resultados por:",
+		allow_single_deselect: true,
+		width: "100%"
+	});
+    
+    $('#form-login').validator();
 });
