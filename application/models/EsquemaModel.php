@@ -192,6 +192,8 @@ class EsquemaModel extends CI_Model {
                 $esquema['nombre_esquema'] = $esquema['esquema'];
                 if ($found > 0) {
                     $esquema['aplicada'] = true;
+                }else{
+                    $esquema['aplicable'] = true;
                 }
                 $output[$esquema['id_vacuna']]['esquemas']['unica'] = $esquema;
             }else{
@@ -210,6 +212,7 @@ class EsquemaModel extends CI_Model {
                 }else{
                     $esquema['nombre_esquema'] = $esquema['esquema']." #1";
                     $esquema['restante'] = $esquema['cant_dosis'];
+                    $esquema['aplicable'] = true;
                 }                
 
                 if ($esquema['esquema'] == "Dosis") {                    

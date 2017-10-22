@@ -284,28 +284,55 @@
 															      			<li>
 															      				<b><?php echo $item['nombre_vacuna']; ?></b>
 															      				<ul>
-															      					<?php if (isset($item['esquemas']['unica'])) { ?>
+															      					<?php if (isset($item['esquemas']['unica'])) {
+															      					 ?>
 																					<li>
-																						<?php echo $item['esquemas']['unica']['nombre_esquema']; ?>	
+																						<?php if(isset($item['esquemas']['unica']['aplicable'])) { ?>
+																						<span class="label label-info">Aplicable</span>
+																						<input type="radio" name="esquema_aplica" class="esquema_aplica">
+																						<?php } 
+																						if(isset($item['esquemas']['unica']['aplicada'])) { ?>
+																						<span class="label label-success">Aplicada</span>
+																						<?php } ?>
+																						<?php echo $item['esquemas']['unica']['nombre_esquema']; ?>
+																						<ul>
+																							<li><b>Administración: </b><?php echo $item['esquemas']['unica']['via_administracion']; ?></li>
+																						</ul>
 																					</li>
 																					<?php } ?>
 
-																					<?php if (isset($item['esquemas']['dosis'])) { ?>
+																					<?php if (isset($item['esquemas']['dosis'])) {?>
 																					<li>
+																						<?php if(isset($item['esquemas']['dosis']['aplicable'])) { ?>
+																						<span class="label label-info">Aplicable</span>
+																						<input type="radio" name="esquema_aplica" class="esquema_aplica">
+																						<?php }  
+																						if(isset($item['esquemas']['dosis']['aplicada'])) { ?>
+																						<span class="label label-success">Aplicada</span>
+																						<?php } ?>
 																						<?php echo $item['esquemas']['dosis']['nombre_esquema']; ?>
 																						<ul>
 																							<li><b>Dosis faltantes:</b> <?php echo $item['esquemas']['dosis']['restante']; ?></li>
 																							<li><b>Intervalo:</b> Cada <?php echo $item['esquemas']['dosis']['intervalo']." ".$item['esquemas']['dosis']['intervalo_periodo']; ?> </li>
+																							<li><b>Administración: </b><?php echo $item['esquemas']['dosis']['via_administracion']; ?></li>
 																						</ul>
 																					</li>
 																					<?php } ?>
 
 																					<?php if (isset($item['esquemas']['refuerzo'])) { ?>
 																					<li>
+																						<?php if(isset($item['esquemas']['refuerzo']['aplicable'])) { ?>
+																						<span class="label label-info">Aplicable</span>
+																						<input type="radio" name="esquema_aplica" class="esquema_aplica">
+																						<?php }  
+																						if(isset($item['esquemas']['refuerzo']['aplicada'])) { ?>
+																						<span class="label label-success">Aplicada</span>
+																						<?php } ?>
 																						<?php echo $item['esquemas']['refuerzo']['nombre_esquema']; ?>
 																						<ul>
 																							<li><b>Dosis faltantes:</b> <?php echo $item['esquemas']['refuerzo']['restante']; ?></li>
 																							<li><b>Intervalo:</b> Cada <?php echo $item['esquemas']['refuerzo']['intervalo']." ".$item['esquemas']['refuerzo']['intervalo_periodo']; ?> </li>
+																							<li><b>Administración: </b><?php echo $item['esquemas']['refuerzo']['via_administracion']; ?></li>
 																						</ul>
 																					</li>
 																					<?php } ?>	      					
@@ -332,7 +359,7 @@
 															    </div>
 															    <div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 															      	<div class="panel-body">
-															      		Panel content
+															      		
 															      	</div>													      	
 															    </div>
 														  	</div><!--/ Aplicar vacuna -->

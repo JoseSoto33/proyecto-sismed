@@ -8,8 +8,18 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/chosen.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style-login.css">
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>bower_components/font-awesome/css/font-awesome.min.css">
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>bower_components/Ionicons/css/ionicons.min.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>dist/css/skins/_all-skins.min.css">
 		<script src="<?php echo base_url(); ?>assets/js/jquery-1.12.3.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+		<!-- AdminLTE App -->
+		<script src="<?php echo base_url(); ?>dist/js/adminlte.min.js"></script>
+		<script src="<?php echo base_url(); ?>assets/js/moment.min.js"></script>
 	</head>
 	<body>
 		<div id="contenedor">
