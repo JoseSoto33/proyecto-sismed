@@ -180,7 +180,16 @@ class VacunaModel extends CI_Model {
         $this->db->join('esquema','esquema.id_vacuna = vacuna.id');
         $this->db->join('vacuna_aplicada','esquema.id = vacuna_aplicada.id_esquema');
         $this->db->where($where);
-        $esquemas = $this->db->get()->result_array();
+        return $this->db->get()->result_array();
+    }
+
+    public function AplicarVacunaEsquema($data)
+    {
+        if($this->db->insert("vacuna_aplicada", $data)){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function ValidarVacunaPatologia($id_vacuna, $condicion = array())

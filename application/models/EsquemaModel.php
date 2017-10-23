@@ -162,7 +162,7 @@ class EsquemaModel extends CI_Model {
     	return $this->db->get();
 	}
 
-    public function obtenerEsquemasDisponibles($edad,$cod_historia) {
+    public function extraerEsquemasDisponibles($edad,$cod_historia) {
 
         $where = array(
             'esquema.min_edad_aplicacion <' => $edad,
@@ -222,10 +222,36 @@ class EsquemaModel extends CI_Model {
                 }
             }
 
-
         }
-
         return $output;
+    }
 
+    public function extraerEsquemaAplicable($idesquema,$cod_historia) {
+       
+        $this->db->select('esquema.*, vacuna.nombre_vacuna');
+        $this->db->from('esquema');
+        $this->db->join('vacuna','esquema.id_vacuna = vacuna.id');
+        $this->db->where('esquema.id',$idesquema);
+        $esquema = $this->db->get()->row_array();
+
+        $this->db->where(array('id_esquema' => $idesquema, "MD5(concat('sismed',cod_historia))" => $cod_historia));
+        $this->db->order_by('nro_dosis', 'DESC');
+        $result = $this->db->get('vacuna_aplicada');
+        $found = $result->num_rows();
+
+        if ($esquema['esquema'] == "Única") {
+            $esquema['nro_dosis'] = 1;
+        }else{
+
+            if ($found > 0) {
+                $aplicada = $result->row_array();           
+                $esquema['esquema'] = $esquema['esquema']." #".($found+1);
+                $esquema['nro_dosis'] = $aplicada['nro_dosis']+1;
+            }else{
+                $esquema['esquema'] = $esquema['esquema']." #1";
+                $esquema['nro_dosis'] = 1;
+            }  
+        }
+        return $esquema;
     }
 }

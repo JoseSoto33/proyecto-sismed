@@ -279,67 +279,14 @@
 															    </div>
 															    <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
 															      	<div class="panel-body">
-															      		<ul>
-															      		<?php foreach ($esquemas_vacunacion as $key => $item) { ?>
-															      			<li>
-															      				<b><?php echo $item['nombre_vacuna']; ?></b>
-															      				<ul>
-															      					<?php if (isset($item['esquemas']['unica'])) {
-															      					 ?>
-																					<li>
-																						<?php if(isset($item['esquemas']['unica']['aplicable'])) { ?>
-																						<span class="label label-info">Aplicable</span>
-																						<input type="radio" name="esquema_aplica" class="esquema_aplica">
-																						<?php } 
-																						if(isset($item['esquemas']['unica']['aplicada'])) { ?>
-																						<span class="label label-success">Aplicada</span>
-																						<?php } ?>
-																						<?php echo $item['esquemas']['unica']['nombre_esquema']; ?>
-																						<ul>
-																							<li><b>Administración: </b><?php echo $item['esquemas']['unica']['via_administracion']; ?></li>
-																						</ul>
-																					</li>
-																					<?php } ?>
-
-																					<?php if (isset($item['esquemas']['dosis'])) {?>
-																					<li>
-																						<?php if(isset($item['esquemas']['dosis']['aplicable'])) { ?>
-																						<span class="label label-info">Aplicable</span>
-																						<input type="radio" name="esquema_aplica" class="esquema_aplica">
-																						<?php }  
-																						if(isset($item['esquemas']['dosis']['aplicada'])) { ?>
-																						<span class="label label-success">Aplicada</span>
-																						<?php } ?>
-																						<?php echo $item['esquemas']['dosis']['nombre_esquema']; ?>
-																						<ul>
-																							<li><b>Dosis faltantes:</b> <?php echo $item['esquemas']['dosis']['restante']; ?></li>
-																							<li><b>Intervalo:</b> Cada <?php echo $item['esquemas']['dosis']['intervalo']." ".$item['esquemas']['dosis']['intervalo_periodo']; ?> </li>
-																							<li><b>Administración: </b><?php echo $item['esquemas']['dosis']['via_administracion']; ?></li>
-																						</ul>
-																					</li>
-																					<?php } ?>
-
-																					<?php if (isset($item['esquemas']['refuerzo'])) { ?>
-																					<li>
-																						<?php if(isset($item['esquemas']['refuerzo']['aplicable'])) { ?>
-																						<span class="label label-info">Aplicable</span>
-																						<input type="radio" name="esquema_aplica" class="esquema_aplica">
-																						<?php }  
-																						if(isset($item['esquemas']['refuerzo']['aplicada'])) { ?>
-																						<span class="label label-success">Aplicada</span>
-																						<?php } ?>
-																						<?php echo $item['esquemas']['refuerzo']['nombre_esquema']; ?>
-																						<ul>
-																							<li><b>Dosis faltantes:</b> <?php echo $item['esquemas']['refuerzo']['restante']; ?></li>
-																							<li><b>Intervalo:</b> Cada <?php echo $item['esquemas']['refuerzo']['intervalo']." ".$item['esquemas']['refuerzo']['intervalo_periodo']; ?> </li>
-																							<li><b>Administración: </b><?php echo $item['esquemas']['refuerzo']['via_administracion']; ?></li>
-																						</ul>
-																					</li>
-																					<?php } ?>	      					
-															      				</ul>
-															      			</li>      		
-															      		<?php } ?>
-															      		</ul>
+															      		<div id="tarjeta-overlay" class="overlay hide">
+															      			<i class="fa fa-refresh fa-spin"></i>
+															      		</div>
+															      		<ul id="tarjeta-vacunacion">
+															      		<?php 
+															      			$this->load->view('medicina/TarjetaVacunacion'); 
+															      		?>
+															      		</ul>	      		
 															      	</div>													      	
 															    </div>
 														  	</div><!--/ Esquema de vacunas -->
@@ -359,7 +306,82 @@
 															    </div>
 															    <div id="collapse2" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2">
 															      	<div class="panel-body">
-															      		
+															      		<div id="form-overlay" class="overlay hide">  			
+															      			<i class="fa fa-refresh fa-spin"></i>
+															      		</div>
+															      		<?php
+																		/**
+																		 * @var string $url Almacenará la dirección a la cual el formulario enviará los datos
+																		 */
+																		$url =  base_url()."Vacuna/AplicarVacuna";
+																		
+																		/** -- Formulario para agregar consultas -- */
+																		echo form_open(
+														      				$url,
+														      				'id="form-aplicar-vacuna"'
+														      				); ?>
+														      			<div class="row">
+														      				<div class="col-xs-12">
+														      					<div class="form-group">
+														      						<div class="input-group">
+														      							<div class="input-group-addon">Vacuna:</div>
+														      							<input type="text" id="vacuna" name="vacuna" class="form-control" readonly="readonly" required="required">
+														      						</div>
+														      						<div class="help-block with-errors"></div>
+														      						<input type="hidden" id="idvacuna" name="idvacuna" value="">
+														      					</div>
+														      				</div>
+														      				<div class="col-xs-12">
+														      					<div class="form-group">
+														      						<div class="input-group">
+														      							<div class="input-group-addon">Esquema:</div>
+														      							<input type="text" id="esquema" name="esquema" class="form-control" readonly="readonly" required="required">
+														      						</div>
+														      						<div class="help-block with-errors"></div>
+														      						<input type="hidden" id="idesquema" name="idesquema" value="">
+														      					</div>
+														      				</div>
+														      				<div class="col-xs-12">
+														      					<div class="form-group">
+														      						<div class="input-group">
+														      							<div class="input-group-addon">Dosis:</div>
+														      							<input type="number" min="1" id="dosis" name="dosis" class="form-control" readonly="readonly">
+														      						</div>
+														      						<div class="help-block with-errors"></div>
+														      					</div>
+														      				</div>
+														      				<div class="col-xs-12">
+														      					<div class="form-group">
+														      						<div class="input-group">
+														      							<div class="input-group-addon">Fecha aplicación:</div>
+														      							<input type="date" id="fecha_aplicacion" name="fecha_aplicacion" class="form-control" max="<?php echo date('Y-m-d');?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+														      						</div>
+													      							<div class="help-block with-errors"></div>
+														      					</div>
+														      				</div>
+														      				<div class="col-xs-12">
+														      					<div class="form-group">
+														      						<div class="input-group">
+														      							<div class="input-group-addon">Próx. Fecha aplicación:</div>
+														      							<input type="date" id="prox_fecha_aplicacion" name="prox_fecha_aplicacion" value="<?php echo date('Y-m-d');?>" class="form-control" readonly="readonly">
+														      						</div>
+														      					</div>
+														      				</div>
+														      				<div class="col-xs-12">
+														      					<div class="form-group">
+														      						<div class="input-group">
+														      							<div class="input-group-addon">Lote:</div>
+														      							<input type="text" id="lote" name="lote" class="form-control" required="required">
+														      						</div>
+													      							<div class="help-block with-errors"></div>
+														      					</div>
+														      				</div>
+														      				<div class="col-xs-12">
+														      					<button class="btn btn-primary" id="aplicar" type="submit">Aplicar</button>
+														      					<button class="btn btn-default" id="cancel">Cancelar</button>
+														      				</div>
+														      			</div>
+														      			<?php echo form_close(); ?>
 															      	</div>													      	
 															    </div>
 														  	</div><!--/ Aplicar vacuna -->
@@ -379,7 +401,7 @@
 															    </div>
 															    <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 															      	<div class="panel-body">
-															      		<div class="table-responsive">
+															      		<div class="table-responsive">      			
 															      			<table id="lista-vacunas-aplicadas" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 															      				<thead>
 															      					<th>Nº</th>
@@ -395,9 +417,9 @@
 															      						<tr>
 															      							<td><?php echo $cont++; ?></td>
 															      							<td><?php echo $v_aplic['nombre_vacuna']; ?></td>
-															      							<td><?php echo $v_aplic['esquema']." #".$v_aplic['nro_dosis']; ?></td>
-															      							<td><?php echo strftime('%d de %B de %Y', strtotime($v_aplic['fecha_aplicacion'])); ?></td>
-															      							<td><?php echo strftime('%d de %B de %Y', strtotime($v_aplic['prox_fecha_aplicacion'])); ?></td>
+															      							<td><?php echo ($v_aplic['esquema'] == "Única")? $v_aplic['esquema'] : $v_aplic['esquema']." #".$v_aplic['nro_dosis']; ?></td>
+															      							<td><?php echo strftime('%d de %B de %Y', strtotime($v_aplic['fecha_vacunacion'])); ?></td>
+															      							<td><?php echo strftime('%d de %B de %Y', strtotime($v_aplic['prox_fecha_vacunacion'])); ?></td>
 															      						</tr>
 															      						<?php } ?>
 
@@ -531,4 +553,5 @@
 </section>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/detalles-historia-clinica.js"></script>

@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    /**
+     * @var string url La dirección URL por defecto del sistema
+     */
+    var url = $("#base_url").val();
+
 	/**
 	 * @var json[] colums Las columnas que se mostrarán en la tabla
 	 */
@@ -246,16 +251,6 @@ $(document).ready(function(){
             $(this).removeClass('btn-success').addClass('btn-danger').children('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
         }
     });
-     /*
-    $("#accordion").on("show.bs.collapse", ".collapse", function(e){
-        
-        $(this).parent(".panel").find(".panel-heading .panel-title a span").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-    });
-
-    $("#accordion").on("hide.bs.collapse", ".collapse", function(e){
-        
-        $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
-    });*/
 
     $(".panel-group").on("show.bs.collapse", ".collapse", function(e){
         
@@ -267,5 +262,121 @@ $(document).ready(function(){
         $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
     });
     
+    /**
+     * Área de aplicación de vacunas
+     */
 
+    $('#form-aplicar-vacuna').validator();
+
+    $("#cancel").on("click", function(e){
+        e.preventDefault();
+        $('#form-aplicar-vacuna').find('.form-control').val("");
+        $(".esquema_aplica").each(function(i,v){
+            $(this).prop("checked",false);
+        });
+    });    
+
+    $("#tarjeta-vacunacion").on("change", "li ul li .esquema_aplica", function(e){
+
+        $("#form-overlay").removeClass('hide');
+
+        var idesquema = $(this).val();
+        var cod_historia = $("#cod_historia").val();
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        request = $.ajax({
+            url: url+"Esquema/obtenerEsquemaAplicable",
+            type: "POST",
+            dataType: "json",
+            data: "idesquema="+idesquema+"&cod_historia="+cod_historia
+        });
+
+        request.done(function (response, textStatus, jqXHR){            
+            
+            $("#vacuna").val(response['nombre_vacuna']);
+            $("#idvacuna").val(response['id_vacuna']);
+            $("#esquema").val(response['esquema']);
+            $("#idesquema").val(response['id']);
+            $("#dosis").val(response['nro_dosis']);
+            $("#form-overlay").addClass('hide');
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            alert('Error: '+textStatus);
+            alert(thrown);
+        });
+
+        e.preventDefault();
+    });
+
+    $('#form-aplicar-vacuna').on("submit", function(e){
+        e.preventDefault();
+
+        if (!$("#aplicar").hasClass('disabled')) {
+            $("#form-overlay").removeClass('hide');
+
+            var cod_historia = $("#cod_historia").val();
+            var data = $(this).serialize()+"&cod_historia="+cod_historia;
+
+            var request;
+            if (request) {
+                request.abort();
+            }
+
+            request = $.ajax({
+                url: $(this).attr('action'),
+                type: "POST",
+                dataType: "json",
+                data: data
+            });
+
+            request.done(function (response, textStatus, jqXHR){                        
+                console.log(response);
+                $("#form-overlay").addClass('hide');
+                $('#form-aplicar-vacuna').find('.form-control').val("");
+                $(".esquema_aplica").each(function(i,v){
+                    $(this).prop("checked",false);
+                });
+                recargarTarjetaVacunacion();
+            });
+
+            request.fail(function (jqXHR, textStatus, thrown){
+                alert('Error: '+textStatus);
+                alert(thrown);
+            });
+        }
+    });
+
+    function recargarTarjetaVacunacion() {
+        $("#tarjeta-overlay").removeClass('hide');
+
+        var cod_historia = $("#cod_historia").val();
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        request = $.ajax({
+            url: url+"Esquema/TarjetaVacunacion",
+            type: "POST",
+            data: "cod_historia="+cod_historia
+        });
+
+        request.done(function (response, textStatus, jqXHR){                        
+            console.log(response);
+            $("#tarjeta-overlay").addClass('hide');
+            $("#tarjeta-vacunacion").html(response);
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            $("#tarjeta-overlay").addClass('hide');
+            alert('Error: '+textStatus);
+            alert(thrown);
+        });
+    }
 });

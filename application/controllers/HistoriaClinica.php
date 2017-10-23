@@ -54,13 +54,6 @@ class HistoriaClinica extends CI_Controller {
                 "condicion" => "paciente.id = historia.id_paciente"
                 )
 			);
-            /*
-
-		$condicion = array(
-			"query" => "SELECT historia.cod_historia, historia.fecha_creada, paciente.id, paciente.nombre1, paciente.nombre2, paciente.apellido1, paciente.apellido2
-				FROM historia_medicina AS historia
-				JOIN paciente ON paciente.id = historia.id_paciente;"
-			);*/
 
 		$data = array();
 
@@ -137,11 +130,12 @@ class HistoriaClinica extends CI_Controller {
                     $data[$tabla]['rows'] = $result->num_rows();
                     $data[$tabla]['data'] = $result->row_array();
                 }  
-                $esquemas = $this->EsquemaModel->obtenerEsquemasDisponibles($data['paciente']['edad'],$cod_historia);
+                $esquemas = $this->EsquemaModel->extraerEsquemasDisponibles($data['paciente']['edad'],$cod_historia);
                 $data['esquemas_vacunacion'] = $esquemas;
 
                 $vacunas = $this->VacunaModel->extraerVacunasAplicadas($data['paciente']['edad'],$cod_historia);
-                $data['vacunas_aplicadas'] = $vacunas;                
+                $data['vacunas_aplicadas'] = $vacunas; 
+                $data['last_query'] = $this->db->last_query();
 
             }else{
 

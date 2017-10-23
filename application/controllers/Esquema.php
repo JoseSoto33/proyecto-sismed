@@ -36,7 +36,8 @@ class Esquema extends CI_Controller {
      * @method void ModificarVacuna(integer $id_vacuna)
      * @method void VerVacuna()
      * @method void ListarVacunas()
-     * @method void|boolean ValidarVacuna(mixed[] $data)
+     * @method void obtenerEsquemaAplicable()
+     * @method void TarjetaVacunacion()
      */
 
     /**
@@ -173,11 +174,52 @@ class Esquema extends CI_Controller {
     }
     
     /**
-     * 
+     * Extrae de la base de datos un esquema de vacunación para ser aplicado a un paciente
+     *
+     * @return void
      */
-    public function ValidarEsquema($data)
-    {
+    public function obtenerEsquemaAplicable()
+    {   
+        $this->load->model('EsquemaModel');
 
+        $idesquema = $this->input->post("idesquema");
+        $cod_historia = $this->input->post("cod_historia");
+
+        $esquema = $this->EsquemaModel->extraerEsquemaAplicable($idesquema,$cod_historia);
+
+        echo json_encode($esquema);
+    }
+
+    /**
+     * Muestra la tarjeta de vacunación del paciente
+     *
+     * @return void
+     */
+    public function TarjetaVacunacion()
+    {
+        $this->load->model('EsquemaModel');
+        $this->load->model('PacienteModel');
+
+        $cod_historia = $this->input->post('cod_historia');
+
+        $condicion = array(
+            'select' => 'fecha_nacimiento',
+            'join' => array(
+                'tabla' => 'historia_medicina',
+                'condicion' => 'paciente.id = historia_medicina.id_paciente'
+            ),
+            'where' => array("historia_medicina.cod_historia" => $cod_historia)
+            );
+
+        $result = $this->PacienteModel->Extraerpaciente($condicion)->row_array();
+
+        $hoy = date('Y-m-d');
+        $diff = abs(strtotime($hoy) - strtotime($result["fecha_nacimiento"]));
+        $edad = floor($diff / (365*60*60*24));
+
+        $esquemas = $this->EsquemaModel->extraerEsquemasDisponibles($edad,md5('sismed'.$cod_historia));
+        $data['esquemas_vacunacion'] = $esquemas;
+        $this->load->view('medicina/TarjetaVacunacion',$data); 
     }
     
 }

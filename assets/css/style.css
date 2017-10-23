@@ -1006,3 +1006,11 @@ img.general-logo{
 .sub-historia-record .panel-group .panel .panel-heading h4 a:focus{
 	color: inherit !important;
 }
+
+.panel .overlay{
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+}
