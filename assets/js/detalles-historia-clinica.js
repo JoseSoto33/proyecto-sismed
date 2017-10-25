@@ -266,6 +266,8 @@ $(document).ready(function(){
      * Área de aplicación de vacunas
      */
 
+    var esquema;
+
     $('#form-aplicar-vacuna').validator();
 
     $("#cancel").on("click", function(e){
@@ -274,7 +276,19 @@ $(document).ready(function(){
         $(".esquema_aplica").each(function(i,v){
             $(this).prop("checked",false);
         });
-    });    
+    });
+
+    $("#fecha_aplicacion").on("change", function(e) {
+        
+        var fecha_aplicacion = $(this).val();
+        calcularProximaAplicacion(fecha_aplicacion,esquema);        
+    }); 
+
+    $("#fecha_aplicacion").on("focusout", function(e) {
+        
+        var fecha_aplicacion = $(this).val();
+        calcularProximaAplicacion(fecha_aplicacion,esquema);        
+    });  
 
     $("#tarjeta-vacunacion").on("change", "li ul li .esquema_aplica", function(e){
 
@@ -295,14 +309,18 @@ $(document).ready(function(){
             data: "idesquema="+idesquema+"&cod_historia="+cod_historia
         });
 
-        request.done(function (response, textStatus, jqXHR){            
-            
+        request.done(function (response, textStatus, jqXHR){ 
+
+            esquema = response;
+            $('#form-aplicar-vacuna').find('.form-control').val("");
+            $("#fecha_aplicacion").removeAttr("readonly");
             $("#vacuna").val(response['nombre_vacuna']);
             $("#idvacuna").val(response['id_vacuna']);
             $("#esquema").val(response['esquema']);
             $("#idesquema").val(response['id']);
             $("#dosis").val(response['nro_dosis']);
             $("#form-overlay").addClass('hide');
+            
         });
 
         request.fail(function (jqXHR, textStatus, thrown){
@@ -341,6 +359,7 @@ $(document).ready(function(){
                 $(".esquema_aplica").each(function(i,v){
                     $(this).prop("checked",false);
                 });
+                $("#fecha_aplicacion").attr("readonly","readonly");
                 recargarTarjetaVacunacion();
             });
 
@@ -350,6 +369,36 @@ $(document).ready(function(){
             });
         }
     });
+
+    function calcularProximaAplicacion(fecha_aplicacion,esquema) {
+
+        if (esquema['cant_dosis'] > 1 && esquema['nro_dosis'] < esquema['cant_dosis']) {
+            
+            var myDate = new Date(fecha_aplicacion);
+            
+            if (esquema['tipo_esquema'] != 'Única') {
+                switch(esquema['intervalo_periodo']) {
+                    case "Día(s)":
+                        myDate.setDate(myDate.getDate() + parseInt(esquema['intervalo']));
+                        break;
+                    case "Semana(s)":
+                        var dias_semanas = parseInt(esquema['intervalo'])*7;
+                        myDate.setDate(myDate.getDate() + dias_semanas);
+                        break;
+                    case "Mes(es)":
+                        myDate.setMonth(myDate.getMonth() + parseInt(esquema['intervalo']));
+                        break;
+                    case "Año(s)":
+                        myDate.setFullYear(myDate.getFullYear() + parseInt(esquema['intervalo']));
+                        break;
+                }
+                var dia = myDate.getUTCDate();
+                var mes = myDate.getUTCMonth()+1;
+                var anio = myDate.getFullYear();                
+                $("#prox_fecha_aplicacion").val(anio+"-"+mes+"-"+dia);
+            }
+        }
+    }
 
     function recargarTarjetaVacunacion() {
         $("#tarjeta-overlay").removeClass('hide');

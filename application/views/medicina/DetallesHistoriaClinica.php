@@ -354,7 +354,7 @@
 														      					<div class="form-group">
 														      						<div class="input-group">
 														      							<div class="input-group-addon">Fecha aplicación:</div>
-														      							<input type="date" id="fecha_aplicacion" name="fecha_aplicacion" class="form-control" max="<?php echo date('Y-m-d');?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+														      							<input type="date" id="fecha_aplicacion" name="fecha_aplicacion" class="form-control" max="<?php echo date('Y-m-d');?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required" readonly="readonly">
 														      						</div>
 													      							<div class="help-block with-errors"></div>
 														      					</div>
@@ -363,7 +363,7 @@
 														      					<div class="form-group">
 														      						<div class="input-group">
 														      							<div class="input-group-addon">Próx. Fecha aplicación:</div>
-														      							<input type="date" id="prox_fecha_aplicacion" name="prox_fecha_aplicacion" value="<?php echo date('Y-m-d');?>" class="form-control" readonly="readonly">
+														      							<input type="date" id="prox_fecha_aplicacion" name="prox_fecha_aplicacion" value="" class="form-control" readonly="readonly">
 														      						</div>
 														      					</div>
 														      				</div>
@@ -371,7 +371,7 @@
 														      					<div class="form-group">
 														      						<div class="input-group">
 														      							<div class="input-group-addon">Lote:</div>
-														      							<input type="text" id="lote" name="lote" class="form-control" required="required">
+														      							<input type="text" id="lote" name="lote" class="form-control" minlength="6" maxlength="10" pattern="[0-9]{6,10}" title="Sólo números de 6 a 10 dígitos" data-pattern-error="El Nº del lote sólo debe contener números de 6 a 10 dígitos" required="required">
 														      						</div>
 													      							<div class="help-block with-errors"></div>
 														      					</div>

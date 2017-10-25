@@ -41,6 +41,9 @@
 					<li><b>Dosis faltantes:</b> <?php echo $item['esquemas']['dosis']['restante']; ?></li>
 					<li><b>Intervalo:</b> Cada <?php echo $item['esquemas']['dosis']['intervalo']." ".$item['esquemas']['dosis']['intervalo_periodo']; ?> </li>
 					<li><b>Administración: </b><?php echo $item['esquemas']['dosis']['via_administracion']; ?></li>
+					<?php if(isset($item['esquemas']['dosis']['fecha_prox'])) {	?>
+					<li><b>Próx. dosis: </b><?php echo date("d-m-Y",strtotime($item['esquemas']['dosis']['fecha_prox'])); ?>
+					<?php } ?>
 				</ul>
 			</li>
 			<?php } ?>
@@ -59,6 +62,9 @@
 					<li><b>Dosis faltantes:</b> <?php echo $item['esquemas']['refuerzo']['restante']; ?></li>
 					<li><b>Intervalo:</b> Cada <?php echo $item['esquemas']['refuerzo']['intervalo']." ".$item['esquemas']['refuerzo']['intervalo_periodo']; ?> </li>
 					<li><b>Administración: </b><?php echo $item['esquemas']['refuerzo']['via_administracion']; ?></li>
+					<?php if(isset($item['esquemas']['refuerzo']['fecha_prox'])) {	?>
+					<li><b>Próx. refuerzo: </b><?php echo date("d-m-Y",strtotime($item['esquemas']['refuerzo']['fecha_prox'])); ?></li>
+					<?php } ?>
 				</ul>
 			</li>
 			<?php } ?>	      					

@@ -39,6 +39,7 @@ class Vacuna extends CI_Controller {
      * @method void VerVacuna()
      * @method void ListarVacunas()
      * @method void EliminarVacuna()
+     * @method void AplicarVacuna()
      * @method void|boolean ValidarVacuna(mixed[] $data)
      */
 
@@ -399,9 +400,12 @@ class Vacuna extends CI_Controller {
             "id_esquema"            => $this->input->post('idesquema'),
             "nro_dosis"             => $this->input->post('dosis'),
             "fecha_vacunacion"      => $this->input->post('fecha_aplicacion'),
-            "prox_fecha_vacunacion" => $this->input->post('prox_fecha_aplicacion'),
             "lote"                  => $this->input->post('lote')
         );
+
+        if (!empty($_POST['prox_fecha_aplicacion'])) {            
+            $data["prox_fecha_vacunacion"] = $this->input->post('prox_fecha_aplicacion');
+        }
 
         if ($this->VacunaModel->AplicarVacunaEsquema($data)) {
 

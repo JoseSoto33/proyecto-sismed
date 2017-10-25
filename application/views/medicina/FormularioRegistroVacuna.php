@@ -374,7 +374,7 @@
 										        					<option value="Hora(s)" <?php echo set_select('interperiodo[]', 'Hora(s)'); ?>>Hora(s)</option>
 										        					<option value="Día(s)" <?php echo set_select('interperiodo[]', 'Día(s)'); ?>>Día(s)</option>
 										        					<option value="Semana(s)" <?php echo set_select('interperiodo[]', 'Semana(s)'); ?>>Semana(s)</option>
-										        					<option value="Mese(s)" <?php echo set_select('interperiodo[]', 'Mese(s)'); ?>>Mese(s)</option>
+										        					<option value="Mes(es)" <?php echo set_select('interperiodo[]', 'Mes(es)'); ?>>Mes(es)</option>
 										        					<option value="Año(s)" <?php echo set_select('interperiodo[]', 'Año(s)'); ?>>Año(s)</option>
 										        				</select>
 										        				<div class="help-block with-errors">
@@ -417,7 +417,7 @@
 										        					<option value="Hora(s)" <?php echo set_select('eminperiodo[]', 'Hora(s)'); ?>>Hora(s)</option>
 										        					<option value="Día(s)" <?php echo set_select('eminperiodo[]', 'Día(s)'); ?>>Día(s)</option>
 										        					<option value="Semana(s)" <?php echo set_select('eminperiodo[]', 'Semana(s)'); ?>>Semana(s)</option>
-										        					<option value="Mese(s)" <?php echo set_select('eminperiodo[]', 'Mese(s)'); ?>>Mese(s)</option>
+										        					<option value="Mes(es)" <?php echo set_select('eminperiodo[]', 'Mes(es)'); ?>>Mes(es)</option>
 										        					<option value="Año(s)" <?php echo set_select('eminperiodo[]', 'Año(s)'); ?>>Año(s)</option>	
 										        				</select>
 										        				<div class="help-block with-errors">
@@ -441,7 +441,7 @@
 										        					<option value="Hora(s)" <?php echo set_select('emaxperiodo[]', 'Hora(s)'); ?>>Hora(s)</option>
 										        					<option value="Día(s)" <?php echo set_select('emaxperiodo[]', 'Día(s)'); ?>>Día(s)</option>
 										        					<option value="Semana(s)" <?php echo set_select('emaxperiodo[]', 'Semana(s)'); ?>>Semana(s)</option>
-										        					<option value="Mese(s)" <?php echo set_select('emaxperiodo[]', 'Mese(s)'); ?>>Mese(s)</option>
+										        					<option value="Mes(es)" <?php echo set_select('emaxperiodo[]', 'Mes(es)'); ?>>Mes(es)</option>
 										        					<option value="Año(s)" <?php echo set_select('emaxperiodo[]', 'Año(s)'); ?>>Año(s)</option>
 										        				</select>
 										        				<div class="help-block with-errors">

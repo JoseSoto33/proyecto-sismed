@@ -202,7 +202,7 @@ class EsquemaModel extends CI_Model {
                     $aplicada = $result->row_array();           
                     $esquema['nombre_esquema'] = $esquema['esquema']." #".($found+1);
                     $esquema['restante'] = $esquema['cant_dosis'] - $aplicada['nro_dosis'];
-                    if ($esquema['restante'] > 0 && $aplicada['nro_dosis'] > 1) {
+                    if ($esquema['restante'] > 0 && $aplicada['nro_dosis'] > 0) {
                         $esquema['aplicable'] = true;
                         $esquema['fecha_prox'] = $aplicada['prox_fecha_vacunacion'];
                     }else if ($esquema['restante'] == 0){
@@ -234,15 +234,15 @@ class EsquemaModel extends CI_Model {
         $this->db->where('esquema.id',$idesquema);
         $esquema = $this->db->get()->row_array();
 
-        $this->db->where(array('id_esquema' => $idesquema, "MD5(concat('sismed',cod_historia))" => $cod_historia));
+        $this->db->where(array('id_esquema' => $idesquema, "cod_historia" => $cod_historia));
         $this->db->order_by('nro_dosis', 'DESC');
         $result = $this->db->get('vacuna_aplicada');
         $found = $result->num_rows();
-
+        
         if ($esquema['esquema'] == "Única") {
             $esquema['nro_dosis'] = 1;
         }else{
-
+            $esquema['tipo_esquema'] = $esquema['esquema'];
             if ($found > 0) {
                 $aplicada = $result->row_array();           
                 $esquema['esquema'] = $esquema['esquema']." #".($found+1);
