@@ -828,11 +828,7 @@
 											</div><!--/ Campo 'Antescedemtes familiares' -->
 										</div><!--/ Columna -->
 									</div>
-								</div><!--/ Fila -->
-
-								<!-- Línea divisoria -->
-								<hr class="form-divisor-line">
-								<!--/ Línea divisoria -->	
+								</div><!--/ Fila -->	
 								
 							<?php echo form_close(); ?>		
 						</div><!--/ Formulario -->

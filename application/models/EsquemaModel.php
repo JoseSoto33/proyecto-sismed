@@ -164,6 +164,7 @@ class EsquemaModel extends CI_Model {
 
     public function extraerEsquemasDisponibles($edad,$cod_historia) {
 
+        $this->load->model('EventoModel');
         $where = array(
             'esquema.min_edad_aplicacion <' => $edad,
             'esquema.min_edad_periodo' => 'Año(s)',
@@ -191,6 +192,8 @@ class EsquemaModel extends CI_Model {
             if ($esquema['esquema'] == "Única") {
                 $esquema['nombre_esquema'] = $esquema['esquema'];
                 if ($found > 0) {
+                    $aplicada = $result->row_array();           
+                    $esquema['fecha_aplicada'] = $aplicada['fecha_vacunacion'];
                     $esquema['aplicada'] = true;
                 }else{
                     $esquema['aplicable'] = true;
@@ -200,11 +203,19 @@ class EsquemaModel extends CI_Model {
 
                 if ($found > 0) {
                     $aplicada = $result->row_array();           
+                    $esquema['fecha_aplicada'] = $aplicada['fecha_vacunacion'];
                     $esquema['nombre_esquema'] = $esquema['esquema']." #".($found+1);
                     $esquema['restante'] = $esquema['cant_dosis'] - $aplicada['nro_dosis'];
                     if ($esquema['restante'] > 0 && $aplicada['nro_dosis'] > 0) {
-                        $esquema['aplicable'] = true;
+                            
+                        $dif_fecha = $this->EventoModel->CompararFechas(date('Y-m-d'),date('Y-m-d',strtotime($aplicada['prox_fecha_vacunacion'])));
+                        if ($dif_fecha < 0) {
+                            $esquema['pendiente'] = true;
+                        }else{
+                            $esquema['aplicable'] = true;
+                        }
                         $esquema['fecha_prox'] = $aplicada['prox_fecha_vacunacion'];
+                       
                     }else if ($esquema['restante'] == 0){
                         $esquema['aplicada'] = true;
                         $esquema['fecha_prox'] = null;
@@ -212,7 +223,44 @@ class EsquemaModel extends CI_Model {
                 }else{
                     $esquema['nombre_esquema'] = $esquema['esquema']." #1";
                     $esquema['restante'] = $esquema['cant_dosis'];
-                    $esquema['aplicable'] = true;
+                    if ($esquema['esquema'] != "Refuerzo") {
+                        if (!empty($output[$esquema['id_vacuna']]['esquemas']['unica']['aplicada']) ) {
+                            $fecha_aplicada = $output[$esquema['id_vacuna']]['esquemas']['unica']['fecha_aplicada'];
+                        }
+                        if (!empty($output[$esquema['id_vacuna']]['esquemas']['dosis']['aplicada']) ) {
+                            $fecha_aplicada = $output[$esquema['id_vacuna']]['esquemas']['dosis']['fecha_aplicada'];
+                        }
+
+                        if (!empty($fecha_aplicada)) {
+                            list($anio,$mes,$dia) = explode("-", date("Y-m-d",strtotime($fecha_aplicada)));
+                            switch($esquema['intervalo_periodo']) {
+                                case "Día(s)":
+                                    $dia = intval($dia) + intval($esquema['intervalo']);
+                                    break;
+                                case "Semana(s)":
+                                    $dias_semanas = intval($esquema['intervalo'])*7;
+                                    $dia = intval($dia) + $dias_semanas;
+                                    break;
+                                case "Mes(es)":
+                                    $mes = intval($mes) + intval($esquema['intervalo']);
+                                    break;
+                                case "Año(s)":
+                                    $dia = intval($dia) + intval($esquema['intervalo']);
+                                    break;
+                            }
+                            $esquema['fecha_prox'] = date('Y-m-d',strtotime($anio."-".$mes."-".$dia));
+
+                            $dif_fecha = $this->EventoModel->CompararFechas(date('Y-m-d'),date('Y-m-d',strtotime($esquema['fecha_prox'])));
+                            if ($dif_fecha < 0) {
+                                $esquema['pendiente'] = true;
+                            }else{
+                                $esquema['aplicable'] = true;
+                            }
+                        }
+                    }else{
+
+                        $esquema['aplicable'] = true;
+                    }
                 }                
 
                 if ($esquema['esquema'] == "Dosis") {                    

@@ -35,6 +35,11 @@
 					$reforzar = true; 
 					?>
 				<span class="label label-success">Aplicada</span>
+				<?php } 
+				if(isset($item['esquemas']['dosis']['pendiente'])) {
+					$reforzar = false; 
+					?>
+				<span class="label label-warning">Pendiente</span>
 				<?php } ?>
 				<?php echo $item['esquemas']['dosis']['nombre_esquema']; ?>
 				<ul>
@@ -56,6 +61,9 @@
 				<?php }  
 				if(isset($item['esquemas']['refuerzo']['aplicada'])) { ?>
 				<span class="label label-success">Aplicada</span>
+				<?php } 
+				if(isset($item['esquemas']['refuerzo']['pendiente'])) { ?>
+				<span class="label label-warning">Pendiente</span>
 				<?php } ?>
 				<?php echo $item['esquemas']['refuerzo']['nombre_esquema']; ?>
 				<ul>
