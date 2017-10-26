@@ -303,7 +303,7 @@ $(document).ready(function(){
         });
 
         request.done(function (response, textStatus, jqXHR){ 
-
+            console.log(response);
             esquema = response;
             $('#form-aplicar-vacuna').find('.form-control').val("");
             $("#fecha_aplicacion").removeAttr("readonly");
@@ -442,7 +442,7 @@ $(document).ready(function(){
         request.done(function (response, textStatus, jqXHR){                        
             console.log(response);
             $("#lista-vacunas-overlay").addClass('hide');
-            //$("#lista-vacunas-content").html(response);
+            $("#lista-vacunas-content").html(response);
         });
 
         request.fail(function (jqXHR, textStatus, thrown){
