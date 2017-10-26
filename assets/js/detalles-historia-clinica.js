@@ -81,14 +81,7 @@ $(document).ready(function(){
         },
         "columns": columns,
         "language": language
-    });
-
-    /**
-     * @var DataTable tablaVacunasAplicadas Tabla de las vacuans aplicadas al paciente
-     */
-    var tablaVacunasAplicadas = $('#lista-vacunas-aplicadas').DataTable({        
-        "language": language
-    });
+    });    
 
 	/**
 	 * Genera una sub tabla con los detalles de la consulta curativa
@@ -361,6 +354,7 @@ $(document).ready(function(){
                 });
                 $("#fecha_aplicacion").attr("readonly","readonly");
                 recargarTarjetaVacunacion();
+                recargarListaVacunas();
             });
 
             request.fail(function (jqXHR, textStatus, thrown){
@@ -417,13 +411,42 @@ $(document).ready(function(){
         });
 
         request.done(function (response, textStatus, jqXHR){                        
-            console.log(response);
+            //console.log(response);
             $("#tarjeta-overlay").addClass('hide');
             $("#tarjeta-vacunacion").html(response);
         });
 
         request.fail(function (jqXHR, textStatus, thrown){
             $("#tarjeta-overlay").addClass('hide');
+            alert('Error: '+textStatus);
+            alert(thrown);
+        });
+    }
+
+    function recargarListaVacunas() {
+        $("#lista-vacunas-overlay").removeClass('hide');
+
+        var cod_historia = $("#cod_historia").val();
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        request = $.ajax({
+            url: url+"Vacuna/ListaVacunasAplicadas",
+            type: "POST",
+            data: "cod_historia="+cod_historia
+        });
+
+        request.done(function (response, textStatus, jqXHR){                        
+            console.log(response);
+            $("#lista-vacunas-overlay").addClass('hide');
+            //$("#lista-vacunas-content").html(response);
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            $("#lista-vacunas-overlay").addClass('hide');
             alert('Error: '+textStatus);
             alert(thrown);
         });

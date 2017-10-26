@@ -401,38 +401,13 @@
 															    </div>
 															    <div id="collapse3" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading3">
 															      	<div class="panel-body">
-															      		<div class="table-responsive">      			
-															      			<table id="lista-vacunas-aplicadas" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
-															      				<thead>
-															      					<th>Nº</th>
-															      					<th>Vacuna</th>
-															      					<th>Esquema</th>
-															      					<th>Fecha de aplicación</th>
-															      					<th>Fecha de próxima aplicación</th>
-															      				</thead>
-															      				<tbody>
-															      					<?php if(count($vacunas_aplicadas) > 0) {
-															      						$cont = 1;
-															      						foreach ($vacunas_aplicadas as $key => $v_aplic) {?>
-															      						<tr>
-															      							<td><?php echo $cont++; ?></td>
-															      							<td><?php echo $v_aplic['nombre_vacuna']; ?></td>
-															      							<td><?php echo ($v_aplic['esquema'] == "Única")? $v_aplic['esquema'] : $v_aplic['esquema']." #".$v_aplic['nro_dosis']; ?></td>
-															      							<td><?php echo strftime('%d de %B de %Y', strtotime($v_aplic['fecha_vacunacion'])); ?></td>
-															      							<td><?php echo strftime('%d de %B de %Y', strtotime($v_aplic['prox_fecha_vacunacion'])); ?></td>
-															      						</tr>
-															      						<?php } ?>
-
-															      					<?php }?>
-															      				</tbody>	      				
-															      				<tfoot>
-															      					<th>Nº</th>
-															      					<th>Vacuna</th>
-															      					<th>Esquema</th>
-															      					<th>Fecha de aplicación</th>
-															      					<th>Fecha de próxima aplicación</th>
-															      				</tfoot>
-															      			</table>
+															      		<div id="lista-vacunas-overlay" class="overlay hide">
+															      			<i class="fa fa-refresh fa-spin"></i>
+															      		</div>
+															      		<div id="lista-vacunas-content" class="table-responsive">
+															      		<?php 
+															      			$this->load->view('medicina/ListaVacunasAplicadas'); 
+															      		?>
 															      		</div>
 															      	</div>													      	
 															    </div>

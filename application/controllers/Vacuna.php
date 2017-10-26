@@ -414,6 +414,39 @@ class Vacuna extends CI_Controller {
             echo json_encode(array("status"=>false, "message" => "Error al aplicar vacuna... ".$this->db->error()));
         }
     }
+
+    /**
+     * Extrae y muestra un listado de las vacunas aplicadas al paciente
+     *
+     * @return void
+     */
+    public function ListaVacunasAplicadas()
+    {
+        $this->load->model('VacunaModel');
+        $this->load->model('PacienteModel');
+
+        $cod_historia = $this->input->post('cod_historia');
+
+        $condicion = array(
+            'select' => 'fecha_nacimiento',
+            'join' => array(
+                'tabla' => 'historia_medicina',
+                'condicion' => 'paciente.id = historia_medicina.id_paciente'
+            ),
+            'where' => array("historia_medicina.cod_historia" => $cod_historia)
+            );
+
+        $result = $this->PacienteModel->Extraerpaciente($condicion)->row_array();
+
+        $hoy = date('Y-m-d');
+        $diff = abs(strtotime($hoy) - strtotime($result["fecha_nacimiento"]));
+        $edad = floor($diff / (365*60*60*24));
+        $vacunas = $this->VacunaModel->extraerVacunasAplicadas($edad,md5("sismed".$cod_historia));
+        $data['vacunas_aplicadas'] = $vacunas; 
+
+        $this->load->view('medicina/ListaVacunasAplicadas',$data); 
+        //echo json_encode($data);
+    }
     
     /**
      * Verifica si los datos ingresados por formulario son correctos.

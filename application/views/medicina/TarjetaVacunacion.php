@@ -55,7 +55,7 @@
 
 			<?php if (isset($item['esquemas']['refuerzo'])) { ?>
 			<li>
-				<?php if(isset($item['esquemas']['refuerzo']['aplicable']) && $reforzar) { ?>
+				<?php if(isset($item['esquemas']['refuerzo']['aplicable']) && $item['esquemas']['refuerzo']['aplicable'] && $reforzar) { ?>
 				<span class="label label-info">Aplicable</span>
 				<input type="radio" name="esquema_aplica" class="esquema_aplica" value="<?php echo $item['esquemas']['refuerzo']['id']; ?>">
 				<?php }  

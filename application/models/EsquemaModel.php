@@ -195,6 +195,37 @@ class EsquemaModel extends CI_Model {
                     $aplicada = $result->row_array();           
                     $esquema['fecha_aplicada'] = $aplicada['fecha_vacunacion'];
                     $esquema['aplicada'] = true;
+                    
+                    if (!empty($output[$esquema['id_vacuna']]['esquemas']['refuerzo'])) {
+                        list($anio,$mes,$dia) = explode("-", date("Y-m-d",strtotime($esquema['fecha_aplicada'])));
+                        switch($output[$esquema['id_vacuna']]['esquemas']['refuerzo']['intervalo_periodo']) {
+                            case "Día(s)":
+                                $dia = intval($dia) + intval($esquema['intervalo']);
+                                break;
+                            case "Semana(s)":
+                                $dias_semanas = intval($esquema['intervalo'])*7;
+                                $dia = intval($dia) + $dias_semanas;
+                                break;
+                            case "Mes(es)":
+                                $mes = intval($mes) + intval($esquema['intervalo']);
+                                break;
+                            case "Año(s)":
+                                $anio = intval($anio) + intval($esquema['intervalo']);
+                                break;
+                        }
+                        $output[$esquema['id_vacuna']]['esquemas']['refuerzo']['dia'] = $dia;
+                        $output[$esquema['id_vacuna']]['esquemas']['refuerzo']['mes'] = $mes;
+                        $output[$esquema['id_vacuna']]['esquemas']['refuerzo']['anio'] = $anio;
+                        $fecha_prox = date('Y-m-d',strtotime($anio."-".$mes."-".$dia));
+                        $output[$esquema['id_vacuna']]['esquemas']['refuerzo']['fecha_prox'] = $fecha_prox;
+
+                        $dif_fecha = $this->EventoModel->CompararFechas(date('Y-m-d'),date('Y-m-d',strtotime($fecha_prox)));
+                        if ($dif_fecha < 0) {
+                            $output[$esquema['id_vacuna']]['esquemas']['refuerzo']['pendiente'] = true;
+                        }else{
+                            $output[$esquema['id_vacuna']]['esquemas']['refuerzo']['aplicable'] = true;
+                        }
+                    }
                 }else{
                     $esquema['aplicable'] = true;
                 }
@@ -223,7 +254,7 @@ class EsquemaModel extends CI_Model {
                 }else{
                     $esquema['nombre_esquema'] = $esquema['esquema']." #1";
                     $esquema['restante'] = $esquema['cant_dosis'];
-                    if ($esquema['esquema'] != "Refuerzo") {
+                    if ($esquema['esquema'] == "Refuerzo") {
                         if (!empty($output[$esquema['id_vacuna']]['esquemas']['unica']['aplicada']) ) {
                             $fecha_aplicada = $output[$esquema['id_vacuna']]['esquemas']['unica']['fecha_aplicada'];
                         }
@@ -245,7 +276,7 @@ class EsquemaModel extends CI_Model {
                                     $mes = intval($mes) + intval($esquema['intervalo']);
                                     break;
                                 case "Año(s)":
-                                    $dia = intval($dia) + intval($esquema['intervalo']);
+                                    $anio = intval($anio) + intval($esquema['intervalo']);
                                     break;
                             }
                             $esquema['fecha_prox'] = date('Y-m-d',strtotime($anio."-".$mes."-".$dia));
