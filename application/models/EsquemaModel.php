@@ -326,9 +326,11 @@ class EsquemaModel extends CI_Model {
                 $aplicada = $result->row_array();           
                 $esquema['esquema'] = $esquema['esquema']." #".($found+1);
                 $esquema['nro_dosis'] = $aplicada['nro_dosis']+1;
+                $esquema['min_fecha_aplicar'] = date('Y-m-d',strtotime($aplicada['prox_fecha_vacunacion']));
             }else{
                 $esquema['esquema'] = $esquema['esquema']." #1";
                 $esquema['nro_dosis'] = 1;
+                $esquema['min_fecha_aplicar'] = false;
             }  
         }
         return $esquema;

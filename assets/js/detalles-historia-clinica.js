@@ -303,8 +303,11 @@ $(document).ready(function(){
         });
 
         request.done(function (response, textStatus, jqXHR){ 
-            console.log(response);
+            //console.log(response);
             esquema = response;
+            if (response['min_fecha_aplicar']) {
+                $("#fecha_aplicacion").attr("min",response['min_fecha_aplicar']);
+            }
             $('#form-aplicar-vacuna').find('.form-control').val("");
             $("#fecha_aplicacion").removeAttr("readonly");
             $("#vacuna").val(response['nombre_vacuna']);

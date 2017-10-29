@@ -60,7 +60,7 @@ class HistoriaClinica extends CI_Controller {
 		$result = $this->HistoriaModel->ExtraerHistoria($condicion);
 
 		$data["historias"] = $result;
-         switch ($this->session->userdata('tipo_usuario')) {
+        switch ($this->session->userdata('tipo_usuario')) {
         case "Doctor":                  
             $this->load->view('medicina/doctor/header'); 
             $this->load->view('medicina/ListarHistorias', $data);
