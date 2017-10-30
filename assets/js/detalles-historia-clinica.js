@@ -348,8 +348,7 @@ $(document).ready(function(){
                 data: data
             });
 
-            request.done(function (response, textStatus, jqXHR){                        
-                console.log(response);
+            request.done(function (response, textStatus, jqXHR){
                 $("#form-overlay").addClass('hide');
                 $('#form-aplicar-vacuna').find('.form-control').val("");
                 $(".esquema_aplica").each(function(i,v){

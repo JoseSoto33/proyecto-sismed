@@ -48,7 +48,7 @@
 					); ?>
 					<div class="form-group has-feedback">
 			          	<input type="text" class="form-control" name="log_cedula" placeholder="Cédula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" value="<?php echo set_value('log_cedula'); ?>" required="required" title="Sólo números de 6 a 8 dígitos" data-pattern-error="La cédula solo debe contener números de 6 a 8 dígitos"> 
-			          	<span class="glyphicon glyphicon-id-card form-control-feedback"></span>
+			          	<span class="fa fa-id-card form-control-feedback"></span>
 						<div class="help-block with-errors"></div>
 			        </div>
 			        <div class="form-group has-feedback">

@@ -29,20 +29,63 @@ class ReporteModel extends CI_Model {
     	$this->db->join('paciente','paciente.id = historia_medicina.id_paciente');
 
     	if (!empty($data['fecha'])) {
-    		list($anio,$mes) = explode("-", date("Y-m",strtotime($data['fecha'])));
+    		list($anio,$mes,$dia) = explode("-", date("Y-m-d",strtotime($data['fecha'])));
 			
-			$this->db->where('consulta.tipo',1);    		
-    		$this->db->where('extract(year from consulta.fecha_creacion) =',$anio);
-    		$this->db->where('extract(month from consulta.fecha_creacion) =',$mes);
+			if (!empty($data['tipo_consulta'])) {
+				$this->db->where('consulta.tipo',$data['tipo_consulta']);    		
+	    		$this->db->where('extract(year from consulta.fecha_creacion) =',$anio);
+	    		$this->db->where('extract(month from consulta.fecha_creacion) =',$mes);
+	    		$this->db->where('extract(day from consulta.fecha_creacion) =',$dia);
+			}else{				
+				$this->db->where('consulta.tipo',1);    		
+	    		$this->db->where('extract(year from consulta.fecha_creacion) =',$anio);
+	    		$this->db->where('extract(month from consulta.fecha_creacion) =',$mes);
+	    		$this->db->where('extract(day from consulta.fecha_creacion) =',$dia);
 
-    		$this->db->or_where('consulta.tipo',2);
-    		$this->db->where('extract(year from consulta.fecha_creacion) =',$anio);
-    		$this->db->where('extract(month from consulta.fecha_creacion) =',$mes);
+	    		$this->db->or_where('consulta.tipo',2);
+	    		$this->db->where('extract(year from consulta.fecha_creacion) =',$anio);
+	    		$this->db->where('extract(month from consulta.fecha_creacion) =',$mes);
+	    		$this->db->where('extract(day from consulta.fecha_creacion) =',$dia);
+			}
+
+    	}else if(!empty($data['fecha_mes'])){
+    		list($anio,$mes) = explode("-", date("Y-m",strtotime($data['fecha_mes'])));
+    		if (!empty($data['tipo_consulta'])) {
+				$this->db->where('consulta.tipo',$data['tipo_consulta']);    		
+	    		$this->db->where('extract(year from consulta.fecha_creacion) =',$anio);
+	    		$this->db->where('extract(month from consulta.fecha_creacion) =',$mes);
+			}else{				
+				$this->db->where('consulta.tipo',1);    		
+	    		$this->db->where('extract(year from consulta.fecha_creacion) =',$anio);
+	    		$this->db->where('extract(month from consulta.fecha_creacion) =',$mes);
+
+	    		$this->db->or_where('consulta.tipo',2);
+	    		$this->db->where('extract(year from consulta.fecha_creacion) =',$anio);
+	    		$this->db->where('extract(month from consulta.fecha_creacion) =',$mes);
+			}
+    	}else if(!empty($data['fecha_rango'])){
+
+    		if (!empty($data['tipo_consulta'])) {
+				$this->db->where('consulta.tipo',$data['tipo_consulta']);    		
+	    		$this->db->where('date(consulta.fecha_creacion) >=',$data['fecha_rango']['desde']);
+	    		$this->db->where('date(consulta.fecha_creacion) <=',$data['fecha_rango']['hasta']);
+			}else{				
+				$this->db->where('consulta.tipo',1);    		
+	    		$this->db->where('date(consulta.fecha_creacion) >=',$data['fecha_rango']['desde']);
+	    		$this->db->where('date(consulta.fecha_creacion) <=',$data['fecha_rango']['hasta']);
+
+	    		$this->db->or_where('consulta.tipo',2);
+	    		$this->db->where('date(consulta.fecha_creacion) >=',$data['fecha_rango']['desde']);
+	    		$this->db->where('date(consulta.fecha_creacion) <=',$data['fecha_rango']['hasta']);
+			}
     	}else{
-
-	    	$this->db->where('consulta.tipo',1);
-	    	$this->db->or_where('consulta.tipo',2);
-    	}
+    		if (!empty($data['tipo_consulta'])) {
+    			$this->db->where('consulta.tipo',$data['tipo_consulta']);
+    		}else{    			
+		    	$this->db->where('consulta.tipo',1);
+		    	$this->db->or_where('consulta.tipo',2);
+    		}
+	    }
 
     	$result = $this->db->get()->result_array();
 
@@ -99,7 +142,11 @@ class ReporteModel extends CI_Model {
      * @return 	real
      */
     public function calcularPorcentaje($cantidad,$total) 
-    {
-    	return ($cantidad*100)/$total;
+    {	
+    	if ($total != 0) {    		
+    		return ($cantidad*100)/$total;
+    	}else{
+    		return $total;
+    	}
     }
 }
