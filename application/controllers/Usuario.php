@@ -118,17 +118,17 @@ class Usuario extends CI_Controller {
             		if ($this->UsuarioModel->ValidarUsuario($condicion) === false) {
             			
             			//Si se realiza el registro exitosamente en la base de datos...
-						if ($this->UsuarioModel->AgregarUsuario($file_info)) {
-							
-							set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
+						if ($this->UsuarioModel->AgregarUsuario($file_info)) {							
 
 							//Si el registro de usuario se realiza desde la vista del login...
 							if ($this->input->post("origen") === "login") {
 								
+								set_cookie("message2","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...<br>Su clave de acceso es <strong>'User1234'</strong>...", time()+15);
 								header("Location: ".base_url());
 
 							//Si se registra desde una sesión de administrador...
 							}else{
+								set_cookie("message","El usuario <strong>'".$this->input->post('username')."'</strong> fue registrado exitosamente!...", time()+15);
 								header("Location: ".base_url()."Usuario/ListarUsuarios");
 							}
 						//Si ocurre un error durante el registro en base de datos...

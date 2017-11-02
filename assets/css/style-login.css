@@ -1,4 +1,4 @@
-
+/*
 .modal .modal-header{
 	-webkit-border-top-left-radius: 6px;
 	-webkit-border-top-right-radius: 6px;
@@ -12,4 +12,9 @@
 
 .modal .modal-content{
 	background-color: #f0f0f0 !important;
+}*/
+
+#form-admin{
+	padding-left: 15px;
+	padding-right: 15px; 
 }

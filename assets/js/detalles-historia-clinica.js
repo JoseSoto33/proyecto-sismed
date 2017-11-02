@@ -1,5 +1,10 @@
 $(document).ready(function(){
 
+    /**
+     * @var string url La dirección URL por defecto del sistema
+     */
+    var url = $("#base_url").val();
+
 	/**
 	 * @var json[] colums Las columnas que se mostrarán en la tabla
 	 */
@@ -76,7 +81,7 @@ $(document).ready(function(){
         },
         "columns": columns,
         "language": language
-    });
+    });    
 
 	/**
 	 * Genera una sub tabla con los detalles de la consulta curativa
@@ -239,16 +244,6 @@ $(document).ready(function(){
             $(this).removeClass('btn-success').addClass('btn-danger').children('.glyphicon').removeClass('glyphicon-plus').addClass('glyphicon-minus');
         }
     });
-     /*
-    $("#accordion").on("show.bs.collapse", ".collapse", function(e){
-        
-        $(this).parent(".panel").find(".panel-heading .panel-title a span").removeClass("glyphicon-plus").addClass("glyphicon-minus");
-    });
-
-    $("#accordion").on("hide.bs.collapse", ".collapse", function(e){
-        
-        $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
-    });*/
 
     $(".panel-group").on("show.bs.collapse", ".collapse", function(e){
         
@@ -260,5 +255,202 @@ $(document).ready(function(){
         $(this).parent(".panel").find(".panel-heading .panel-title a span").addClass("glyphicon-plus").removeClass("glyphicon-minus");
     });
     
+    /**
+     * Área de aplicación de vacunas
+     */
 
+    var esquema;
+
+    $('#form-aplicar-vacuna').validator();
+
+    $("#cancel").on("click", function(e){
+        e.preventDefault();
+        $('#form-aplicar-vacuna').find('.form-control').val("");
+        $(".esquema_aplica").each(function(i,v){
+            $(this).prop("checked",false);
+        });
+    });
+
+    $("#fecha_aplicacion").on("change", function(e) {
+        
+        var fecha_aplicacion = $(this).val();
+        calcularProximaAplicacion(fecha_aplicacion,esquema);        
+    }); 
+
+    $("#fecha_aplicacion").on("focusout", function(e) {
+        
+        var fecha_aplicacion = $(this).val();
+        calcularProximaAplicacion(fecha_aplicacion,esquema);        
+    });  
+
+    $("#tarjeta-vacunacion").on("change", "li ul li .esquema_aplica", function(e){
+
+        $("#form-overlay").removeClass('hide');
+
+        var idesquema = $(this).val();
+        var cod_historia = $("#cod_historia").val();
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        request = $.ajax({
+            url: url+"Esquema/obtenerEsquemaAplicable",
+            type: "POST",
+            dataType: "json",
+            data: "idesquema="+idesquema+"&cod_historia="+cod_historia
+        });
+
+        request.done(function (response, textStatus, jqXHR){ 
+            //console.log(response);
+            esquema = response;
+            if (response['min_fecha_aplicar']) {
+                $("#fecha_aplicacion").attr("min",response['min_fecha_aplicar']);
+            }
+            $('#form-aplicar-vacuna').find('.form-control').val("");
+            $("#fecha_aplicacion").removeAttr("readonly");
+            $("#vacuna").val(response['nombre_vacuna']);
+            $("#idvacuna").val(response['id_vacuna']);
+            $("#esquema").val(response['esquema']);
+            $("#idesquema").val(response['id']);
+            $("#dosis").val(response['nro_dosis']);
+            $("#form-overlay").addClass('hide');
+            
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            alert('Error: '+textStatus);
+            alert(thrown);
+        });
+
+        e.preventDefault();
+    });
+
+    $('#form-aplicar-vacuna').on("submit", function(e){
+        e.preventDefault();
+
+        if (!$("#aplicar").hasClass('disabled')) {
+            $("#form-overlay").removeClass('hide');
+
+            var cod_historia = $("#cod_historia").val();
+            var data = $(this).serialize()+"&cod_historia="+cod_historia;
+
+            var request;
+            if (request) {
+                request.abort();
+            }
+
+            request = $.ajax({
+                url: $(this).attr('action'),
+                type: "POST",
+                dataType: "json",
+                data: data
+            });
+
+            request.done(function (response, textStatus, jqXHR){
+                $("#form-overlay").addClass('hide');
+                $('#form-aplicar-vacuna').find('.form-control').val("");
+                $(".esquema_aplica").each(function(i,v){
+                    $(this).prop("checked",false);
+                });
+                $("#fecha_aplicacion").attr("readonly","readonly");
+                recargarTarjetaVacunacion();
+                recargarListaVacunas();
+            });
+
+            request.fail(function (jqXHR, textStatus, thrown){
+                alert('Error: '+textStatus);
+                alert(thrown);
+            });
+        }
+    });
+
+    function calcularProximaAplicacion(fecha_aplicacion,esquema) {
+
+        if (esquema['cant_dosis'] > 1 && esquema['nro_dosis'] < esquema['cant_dosis']) {
+            
+            var myDate = new Date(fecha_aplicacion);
+            
+            if (esquema['tipo_esquema'] != 'Única') {
+                switch(esquema['intervalo_periodo']) {
+                    case "Día(s)":
+                        myDate.setDate(myDate.getDate() + parseInt(esquema['intervalo']));
+                        break;
+                    case "Semana(s)":
+                        var dias_semanas = parseInt(esquema['intervalo'])*7;
+                        myDate.setDate(myDate.getDate() + dias_semanas);
+                        break;
+                    case "Mes(es)":
+                        myDate.setMonth(myDate.getMonth() + parseInt(esquema['intervalo']));
+                        break;
+                    case "Año(s)":
+                        myDate.setFullYear(myDate.getFullYear() + parseInt(esquema['intervalo']));
+                        break;
+                }
+                var dia = myDate.getUTCDate();
+                var mes = myDate.getUTCMonth()+1;
+                var anio = myDate.getFullYear();                
+                $("#prox_fecha_aplicacion").val(anio+"-"+mes+"-"+dia);
+            }
+        }
+    }
+
+    function recargarTarjetaVacunacion() {
+        $("#tarjeta-overlay").removeClass('hide');
+
+        var cod_historia = $("#cod_historia").val();
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        request = $.ajax({
+            url: url+"Esquema/TarjetaVacunacion",
+            type: "POST",
+            data: "cod_historia="+cod_historia
+        });
+
+        request.done(function (response, textStatus, jqXHR){                        
+            //console.log(response);
+            $("#tarjeta-overlay").addClass('hide');
+            $("#tarjeta-vacunacion").html(response);
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            $("#tarjeta-overlay").addClass('hide');
+            alert('Error: '+textStatus);
+            alert(thrown);
+        });
+    }
+
+    function recargarListaVacunas() {
+        $("#lista-vacunas-overlay").removeClass('hide');
+
+        var cod_historia = $("#cod_historia").val();
+
+        var request;
+        if (request) {
+            request.abort();
+        }
+
+        request = $.ajax({
+            url: url+"Vacuna/ListaVacunasAplicadas",
+            type: "POST",
+            data: "cod_historia="+cod_historia
+        });
+
+        request.done(function (response, textStatus, jqXHR){                        
+            console.log(response);
+            $("#lista-vacunas-overlay").addClass('hide');
+            $("#lista-vacunas-content").html(response);
+        });
+
+        request.fail(function (jqXHR, textStatus, thrown){
+            $("#lista-vacunas-overlay").addClass('hide');
+            alert('Error: '+textStatus);
+            alert(thrown);
+        });
+    }
 });

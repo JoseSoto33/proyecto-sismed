@@ -89,7 +89,7 @@ $(document).ready(function(){
         str += "<option value=\"Hora(s)\">Hora(s)</option>";
 		str += "<option value=\"Día(s)\">Día(s)</option>";
 		str += "<option value=\"Semana(s)\">Semana(s)</option>";
-		str += "<option value=\"Mese(s)\">Mese(s)</option>";
+		str += "<option value=\"Mes(es)\">Mes(es)</option>";
 		str += "<option value=\"Año(s)\">Año(s)</option>";
         str += "</select>";
         str += "<div class=\"help-block with-errors\">";
@@ -130,7 +130,7 @@ $(document).ready(function(){
         str += "<option value=\"Hora(s)\">Hora(s)</option>";
 		str += "<option value=\"Día(s)\">Día(s)</option>";
 		str += "<option value=\"Semana(s)\">Semana(s)</option>";
-		str += "<option value=\"Mese(s)\">Mese(s)</option>";
+		str += "<option value=\"Mes(es)\">Mes(es)</option>";
 		str += "<option value=\"Año(s)\">Año(s)</option>";
         str += "</select>";
         str += "<div class=\"help-block with-errors\">";
@@ -154,7 +154,7 @@ $(document).ready(function(){
         str += "<option value=\"Hora(s)\">Hora(s)</option>";
 		str += "<option value=\"Día(s)\">Día(s)</option>";
 		str += "<option value=\"Semana(s)\">Semana(s)</option>";
-		str += "<option value=\"Mese(s)\">Mese(s)</option>";
+		str += "<option value=\"Mes(es)\">Mes(es)</option>";
 		str += "<option value=\"Año(s)\">Año(s)</option>";
         str += "</select>";
         str += "<div class=\"help-block with-errors\">";

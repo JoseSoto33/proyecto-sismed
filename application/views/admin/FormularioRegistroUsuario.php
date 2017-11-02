@@ -478,7 +478,6 @@
 								</div>
 								<div class="col-sm-12">
 									<div class="row">
-
 										<!-- Campo Fecha de nacimiento -->
 										<div class="col-sm-6">
 											<div class="form-group">
@@ -500,9 +499,9 @@
 										</div><!--/ Campo Correo electrónico -->
 									</div>
 								</div>
+
 								<div class="col-sm-12">
 									<div class="row">
-
 										<!-- Campo Teléfono personal -->
 										<div class="col-sm-6">
 											<div class="form-group">
@@ -524,9 +523,9 @@
 										</div><!--/ Campo Teléfono emergencia -->
 									</div>
 								</div>
+								
 								<div class="col-sm-12">
 									<div class="row">
-
 										<!-- Campo Sexo -->
 										<div class="col-sm-6">
 											<div class="form-group">

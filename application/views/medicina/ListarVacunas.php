@@ -306,7 +306,7 @@
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>
-									        					<option value="Mese(s)">Mese(s)</option>
+									        					<option value="Mes(es)">Mes(es)</option>
 									        					<option value="Año(s)">Año(s)</option>
 									        				</select>				        				
 									        			</div>
@@ -343,7 +343,7 @@
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>
-									        					<option value="Mese(s)">Mese(s)</option>
+									        					<option value="Mes(es)">Mes(es)</option>
 									        					<option value="Año(s)">Año(s)</option>	
 									        				</select>				        				
 									        			</div>
@@ -365,7 +365,7 @@
 									        					<option value="Hora(s)">Hora(s)</option>
 									        					<option value="Día(s)">Día(s)</option>
 									        					<option value="Semana(s)">Semana(s)</option>
-									        					<option value="Mese(s)">Mese(s)</option>
+									        					<option value="Mes(es)">Mes(es)</option>
 									        					<option value="Año(s)">Año(s)</option>
 									        				</select>				        				
 									        			</div>

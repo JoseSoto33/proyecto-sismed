@@ -291,7 +291,7 @@
 				          	</a>
 				          	<ul class="treeview-menu">
 				            	<li>
-				            		<a href="#">
+				            		<a href="<?php echo base_url(); ?>Reportes/PacientesAtendidos">
 				            			<i class="fa fa-circle-o"></i>
 				            			<span>Pacientes atendidos</span>
 				            		</a>

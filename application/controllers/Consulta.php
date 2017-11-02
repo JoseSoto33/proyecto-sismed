@@ -134,12 +134,37 @@ class Consulta extends CI_Controller {
                     $data['mensaje'] = "Usted ya ha registrado una consulta de este tipo para la historia Nº ".$result['cod_historia']." el día de hoy...<br />".$this->db->last_query();
                 }
 
-                $this->load->view('medicina/FormularioConsultaMedica', $data);
+                switch ($this->session->userdata('tipo_usuario')){    
+                    case "Doctor":
+                        $this->load->view('medicina/doctor/header');
+                        $this->load->view('medicina/FormularioConsultaMedica', $data);
+                        $this->load->view('medicina/doctor/footer'); 
+                        break;
+
+                    case "Enfermero":
+                        $this->load->view('medicina/enfermero/header');
+                        $this->load->view('medicina/FormularioConsultaMedica', $data);
+                        $this->load->view('medicina/enfermero/footer'); 
+                        break;
+                }
+                
             }
 
         }else{
 
-            $this->load->view('medicina/FormularioConsultaMedica', $data);
+            switch ($this->session->userdata('tipo_usuario')){    
+                case "Doctor":
+                    $this->load->view('medicina/doctor/header');
+                    $this->load->view('medicina/FormularioConsultaMedica', $data);
+                    $this->load->view('medicina/doctor/footer'); 
+                    break;
+
+                case "Enfermero":
+                    $this->load->view('medicina/enfermero/header');
+                    $this->load->view('medicina/FormularioConsultaMedica', $data);
+                    $this->load->view('medicina/enfermero/footer'); 
+                    break;
+            } 
         }
 
     }

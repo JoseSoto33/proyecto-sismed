@@ -169,9 +169,9 @@ class Paciente extends CI_Controller {
 	            }
             }
     	}
-		$this->load->view('medicina/doctor/header'); 
+		$this->load->view('medicina/doctor/header');
     	$this->load->view('medicina/FormularioRegistroPaciente', $data);
-		$this->load->view('medicina/doctor/footer');     	
+		$this->load->view('medicina/doctor/footer');   	
     }
 
     /**
