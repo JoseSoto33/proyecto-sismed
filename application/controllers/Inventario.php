@@ -439,19 +439,8 @@ class Inventario extends CI_Controller {
 	{ 
 
 		if ($operacion == 0 || $operacion == 1) {
-			# code...
-			$this->form_validation->set_rules(
-			        'insumo', 'Insumo',
-			        array('required','max_length[60]','min_length[1]'),		        	
-			        array(  
-			        	'required'   	=> 'Debe insertar un %s.',
-		                'max_length'    => 'El nombre del %s debe terner un máximo de 60 caracteres',
-		                'min_length'    => 'El campo no debe estar vacio'
-		                
-			        )
-			);
 
-			
+			# code...
 			$this->form_validation->set_rules(
 			        'tipo_insumo', 'Tipo de insumo', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
 			        array('required'),		        	
@@ -460,54 +449,155 @@ class Inventario extends CI_Controller {
 			             )
 			);
 
+			if ($data['tipo_insumo'] == 'medicamento'){
+	
+				$this->form_validation->set_rules(
+				        'insumo', 'Insumo',
+				        array('required','max_length[60]','min_length[3]'),		        	
+				        array(  
+				        	'required'   	=> 'Debe insertar un %s.',
+			                'max_length'    => 'El nombre del %s debe terner un máximo de 60 caracteres',
+			                'min_length'    => 'El campo no debe estar vacio'
+			                
+				        )
+				);
 
-			$this->form_validation->set_rules(
-			        'numero', 'numero', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
-			        array('is_numeric','required'),	        	
-			        array( 
-			        	'is_numeric'  => 'El campo %s debe ser númerico',
-			        	'required'    => 'El campo %s no debe estar vacio.'     
-			        )
-			);  
+				$this->form_validation->set_rules(
+				        'presentacion', 'Presentación', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('required'),	        	
+				        array( 
+				        	'required'   => 'Debe ingresar al menos una %s'      
+				        )
+				);   
 
-			$this->form_validation->set_rules(
-			        'contenido', 'contenido', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
-			        array('required'),	        	
-			        array( 
-			        	'required'  => 'El campo %s no puede estar vacío.'     
-			        )
-			);
-
-			$this->form_validation->set_rules(
-			        'descripcion', 'Descripcion', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
-			        array('required','max_length[60]','min_length[12]'),	        	
-			        array( 
-			        	'required'   => 'Debe ingresar al menos una %s',
-			        	'max_length' => 'El campo %s no debe contener más de 60 carácteres',
-			        	'min_length' => 'La %s debe contener al menos 12 carácteres'     
-			        )
-			);
-		}
-
-		if ($operacion == 0 || $operacion == 2) {
+			// if ($operacion == 0 || $operacion == 2) {
 			# code...
-			$this->form_validation->set_rules(
-			        'cantidad', 'Cantidad', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
-			        array('numeric','required'),	        	
-			        array( 
-			        	'numeric'  => 'El campo %s debe ser númerico',
-			        	'required'    => 'Debe ingresar una %s'          
-			        )
-			);  
+				$this->form_validation->set_rules(
+				        'cantidad', 'Cantidad', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('numeric','required'),	        	
+				        array( 
+				        	'numeric'  => 'El campo %s debe ser númerico',
+				        	'required'    => 'Debe ingresar una %s'          
+				        )
+				); 
 
-			$this->form_validation->set_rules(
-			        'unidad_medida', 'Unidad de Medida', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
-			        array('required'),	        	
-			        array( 
-			        	'required'   => 'Debe ingresar al menos una %s'      
-			        )
-			);   
+				$this->form_validation->set_rules(
+						'forma_farmaceutica','Forma_farmaceutica',
+						
+						array('required'),	        	
+				        array( 
+				        	'required'   => 'Debe ingresar al menos una %s'      
+				        )
+				);
 
+				$this->form_validation->set_rules(
+				        'unidad', 'Unidad', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('numeric','required'),	        	
+				        array( 
+				        	'numeric'  => 'El campo %s debe ser númerico',
+				        	'required'    => 'Debe ingresar una %s'          
+				        )
+				 );
+
+				$this->form_validation->set_rules(
+				        'numero', 'numero', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('is_numeric','required'),	        	
+				        array( 
+				        	'is_numeric'  => 'El campo %s debe ser númerico',
+				        	'required'    => 'El campo %s no debe estar vacio.'     
+				        )
+				);  
+
+				$this->form_validation->set_rules(
+				        'contenido', 'contenido', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('required'),	        	
+				        array( 
+				        	'required'  => 'El campo %s no puede estar vacío'     
+				        )
+				);
+			}
+			
+				elseif ($data['tipo_insumo'] == 'reactivo'){
+
+					$this->form_validation->set_rules(
+					        'insumo', 'Insumo',
+					        array('required','max_length[60]','min_length[3]'),		        	
+					        array(  
+					        	'required'   	=> 'Debe insertar un %s.',
+				                'max_length'    => 'El nombre del %s debe terner un máximo de 60 caracteres',
+				                'min_length'    => 'El campo no debe estar vacio'
+				                
+					        )
+					);
+
+					$this->form_validation->set_rules(
+					        'presentacion', 'Presentación', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+					        array('required'),	        	
+					        array( 
+					        	'required'   => 'Debe ingresar al menos una %s'      
+					        )
+					);   
+
+					$this->form_validation->set_rules(
+				        'unidad', 'Unidad', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('numeric','required'),	        	
+				        array( 
+				        	'numeric'  => 'El campo %s debe ser númerico',
+				        	'required'    => 'Debe ingresar una %s'          
+				        )
+				 );
+
+				$this->form_validation->set_rules(
+				        'numero', 'numero', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('is_numeric','required'),	        	
+				        array( 
+				        	'is_numeric'  => 'El campo %s debe ser númerico',
+				        	'required'    => 'El campo %s no debe estar vacio.'     
+				        )
+				);  
+
+				$this->form_validation->set_rules(
+				        'contenido', 'contenido', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('required'),	        	
+				        array( 
+				        	'required'  => 'El campo %s no puede estar vacío'     
+				        )
+				);
+			}
+
+				elseif ($data['tipo_insumo'] == 'equipo'){
+
+					$this->form_validation->set_rules(
+						'insumo', 'Insumo',
+						 array('required','max_length[60]','min_length[3]'),		        	
+				        array(  
+			        	'required'   	=> 'Debe insertar un %s.',
+		                'max_length'    => 'El nombre del %s debe terner un máximo de 60 caracteres',
+		                'min_length'    => 'El campo no debe estar vacio'
+		                 )
+					);
+
+					$this->form_validation->set_rules(
+				        'unidad', 'Unidad', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('numeric','required'),	        	
+				        array( 
+				        	'numeric'  => 'El campo %s debe ser númerico',
+				        	'required'    => 'Debe ingresar una %s'          
+				        )
+				    );
+			    }
+			 
+			$this->form_validation->set_rules(
+			        'nro_lote', 'Numero de lote', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+			     array('is_numeric','required'),	        	
+			     array( 
+			        	'is_numeric'  => 'El campo %s debe ser númerico',
+			        	'required'    => 'El campo %s no debe estar vacio.',
+			        	'max_length' => 'El campo %s no debe contener más de 10 carácteres',
+			        	'min_length' => 'La %s debe contener al menos 1 carácter' 
+			     )
+			);
+ 	
 			
 			$this->form_validation->set_rules(
 			        'fecha_elaboracion', 'Fecha de Elaboracion', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
@@ -523,6 +613,14 @@ class Inventario extends CI_Controller {
 			        	'required'   => 'Debe ingresar al menos una %s'      
 			        )
 			);
+			$this->form_validation->set_rules(
+				        'descripcion', 'Descripcion', // el primero corresponde al nombre del campo del formulario y el segundo a el nombre que aparecera por pantalla en las validaciones
+				        array('required','max_length[150]','min_length[6]'),	        	
+				        array( 
+				  			'max_length' => 'El campo %s no debe contener más de 60 carácteres',
+				        	'min_length' => 'La %s debe contener al menos 3 carácteres'     
+				        )
+				);
 		}
 		
 		//Si algún dato es incorrecto...

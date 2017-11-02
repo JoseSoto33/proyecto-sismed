@@ -15,13 +15,17 @@ class InventarioModel extends CI_Model {
     
         $var1= 1;
      	$data = array(
+                "tipo_insumo" => $this->input->post('tipo_insumo'),
      			"insumo" => $this->input->post('insumo'),
+                "presentacion" => $this->input->post('presentacion'),
+                "cantidad" => $this->input->post('cantidad'),
+                "forma_farmaceutica" => $this->input->post('forma_farmaceutica'),
+                "unidad" => $this->input->post('unidad'),
                 "descripcion" => $this->input->post('descripcion'),
-                "almacen" => $almacen,
-                "tipo_insumo" => $this->input->post('tipo_insumo'), 
                 "contenido" =>$contenido,
-                "disponibilidad" =>$this->input->post('cantidad'),
-                "unidad_medida" => $this->input->post('unidad_medida') 
+                "almacen" => $almacen
+                //"disponibilidad" =>$this->input->post('cantidad'),
+                
      		);
         //faltan almacen y disponibilidad
 
@@ -34,7 +38,9 @@ class InventarioModel extends CI_Model {
                     "fecha_registro" => $fecha_actual,
                     "fecha_elaboracion" => $this->input->post('fecha_elaboracion'),
                     "fecha_vencimiento" => $this->input->post('fecha_vencimiento'),
-                    "cantidad" => $this->input->post('cantidad')              
+                    "cantidad" => $this->input->post('cantidad'),
+                    "nro_lote" => $this->input->post('nro_lote'),
+                    "unidad" => $this->input->post('unidad')            
                 );
             if($this->db->insert("lote_insumo", $data)){
                 return true;

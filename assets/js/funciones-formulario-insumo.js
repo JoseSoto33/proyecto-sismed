@@ -8,7 +8,7 @@ $(document).ready(function(){
     }
     $('#registro-insumo').validator();
     $("#fecha_vencimiento").mask("9999-99-99",{placeholder:"AAAA-MM-DD"});
-
+    $(".form-part").slideUp();
     $("#img-change").on("click", function(){
         
         if ($("#img-change").is(":checked")) {
@@ -22,5 +22,18 @@ $(document).ready(function(){
             $("#imagen-content #input-imagen").addClass("hidden");
         }
     });
+
+    $("#tipo_insumo").on("change",function(){
+        var valor = "#"+$(this).val();
+        $(".form-part").find(".form-control").attr('disabled','disabled');
+        $(".form-part").find(".form-control").attr("required",false);
+        $(".form-part").slideUp();
+        $(valor).find(".form-control").removeAttr("disabled");
+        $(valor).find(".form-control").attr("required","required");
+        console.log($(valor).find(".form-control"));
+        $(valor).slideDown();
+       
+        
+     });
 
 });
