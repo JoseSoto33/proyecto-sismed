@@ -47,6 +47,11 @@ class Paciente extends CI_Controller {
      */
     public function AgregarPaciente()
     {
+		$this->load->model('EventoModel');
+		$this->load->model('PacienteModel');
+		$this->load->model('HistoriaModel');
+
+
     	$data = array("titulo" => "Registrar paciente");
 
     	//Si se envió una petición POST...
@@ -177,6 +182,8 @@ class Paciente extends CI_Controller {
 
     public function VerPaciente()
     {
+		$this->load->model('PacienteModel');
+
     	$cedula = $this->input->post('cedula');
 
     	$cond = array(

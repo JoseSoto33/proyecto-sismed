@@ -56,6 +56,7 @@ class Usuario extends CI_Controller {
 		$this->load->model('UsuarioModel');
 		$this->load->model('EventoModel');
 		$this->load->model('ImagenModel');
+		
 		$data = array("titulo" => "Agregar nuevo usuario");
 
 		//Si se envió una petición POST...

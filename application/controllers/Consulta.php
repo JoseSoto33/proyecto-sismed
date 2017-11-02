@@ -56,6 +56,9 @@ class Consulta extends CI_Controller {
      */
     public function AgregarConsulta($param)
     {
+        $this->load->model('HistoriaModel');
+        $this->load->model('PacienteModel');
+        $this->load->model('ConsultaModel');
         list($cod_historia, $tipo) = explode("_", $param);
         $data = array(
             'tipo_consulta' => $tipo,
@@ -150,6 +153,9 @@ class Consulta extends CI_Controller {
      */
     public function ModificarConsulta($consulta)
     {
+        $this->load->model('HistoriaModel');
+        $this->load->model('PacienteModel');
+        $this->load->model('ConsultaModel');
         $data = array("titulo" => "Modificar datos de consulta");
 
         list($id_consulta, $cod_historia, $tipo_consulta) = explode("_", $consulta);
@@ -263,7 +269,8 @@ class Consulta extends CI_Controller {
      * Extrae de la base de datos el listado de las consultas realizadas a un paciente, según el tipo de consulta
      */
     public function ListarConsultas()
-    {        
+    {
+        $this->load->model('ConsultaModel');
     	/**
          * @var string $cod_historia Contiene el código de la historia clínica al que pertenecen las consultas listadas
          * @var char $tipo_consulta Contiene el valor que define el tipo de consulta que se desea obtener:

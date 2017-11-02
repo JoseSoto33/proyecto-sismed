@@ -1,6 +1,6 @@
 /*=============================General=============================*/
 hr.divisor-line{
-	border-color: #00796B !important;	
+	border-color: #00A65A !important;	
 }
 
 hr.divisor-line-2{
@@ -8,12 +8,12 @@ hr.divisor-line-2{
 }
 
 hr.form-divisor-line{
-	border-color: #00796B !important;
+	border-color: #00A65A !important;
 }
 
 .btn-principal{
-	background: #00796B;
-	border-color: #00796B; 
+	background: #00A65A;
+	border-color: #00A65A; 
 	color: #ffffff;
 }
 
@@ -21,12 +21,12 @@ hr.form-divisor-line{
 .btn-principal:focus,
 .btn-principal.focus{
 	background: #ffffff;
-	color: #00796B;
+	color: #00A65A;
 }
 
 .btn-second{
-	background: #009688;
-	border-color: #009688; 
+	background: #008749;
+	border-color: #008749; 
 	color: #ffffff;
 }
 
@@ -34,7 +34,7 @@ hr.form-divisor-line{
 .btn-second:focus,
 .btn-second.focus{
 	background: #ffffff;
-	color: #009688;
+	color: #008749;
 }
 
 .btn-cancel{
@@ -51,27 +51,27 @@ hr.form-divisor-line{
 
 .btn-principal-2{
 	background: #ffffff;
-	border-color: #00796B; 
-	color: #00796B !important;
+	border-color: #00A65A; 
+	color: #00A65A !important;
 }
 
 .btn-principal-2:hover,
 .btn-principal-2:focus,
 .btn-principal-2.focus{
-	background: #00796B;
+	background: #00A65A;
 	color: #ffffff !important;
 }
 
 .btn-second-2{
 	background: #ffffff;
-	border-color: #009688; 
-	color: #009688;
+	border-color: #008749; 
+	color: #008749;
 }
 
 .btn-second-2:hover,
 .btn-second-2:focus,
 .btn-second-2.focus{
-	background: #009688;
+	background: #008749;
 	color: #ffffff;
 }
 
@@ -88,39 +88,39 @@ hr.form-divisor-line{
 }
 
 .btn-form{
-	background: #009688;
-	border-color: #009688; 
+	background: #008749;
+	border-color: #008749; 
 	color: #ffffff;
 }
 
 .btn-form:hover,
 .btn-form:focus,
 .btn-form.focus{
-	background: #00796B;
-	border-color: #00796B;
+	background: #00A65A;
+	border-color: #00A65A;
 	color: #ffffff;
 }
-
+/*
 table.table > thead > tr > th,
 table.table > thead > tr > td,
 table.table > tfoot > tr > th, 
 table.table > tfoot > tr > td{
 	color: #ffffff !important;
-	background: #00796B !important;
-}
+	background: #00A65A !important;
+}*/
 
 .form-instructions > .istruction-content{
-	border: 2px #00796B solid !important;
+	border: 2px #00A65A solid !important;
 	background: #B2DFDB;
 }
 
 .form-instructions > .istruction-content > .descripcion > .panel-group > .panel{
-	border-color: #00796B !important;
+	border-color: #00A65A !important;
 }
 
 .form-instructions > .istruction-content > .descripcion > .panel-group > .panel > .panel-heading{
-	background-color: #00796B !important;
-    border-color: #00796B !important;
+	background-color: #00A65A !important;
+    border-color: #00A65A !important;
     color: #ffffff !important;
 }
 
@@ -128,7 +128,7 @@ table.table > tfoot > tr > td{
 /*Cabecera*/
 
 #seccion1{
-	background: #00796B;
+	background: #00A65A;
 }
 
 #seccion1 label.nav-titulo{
@@ -136,7 +136,7 @@ table.table > tfoot > tr > td{
 }
 
 .divider{
-	border: 1px solid #009688 !important;
+	border: 1px solid #008749 !important;
 }
 
 #nav-menu-principal #principal-menu ul li a{
@@ -145,13 +145,13 @@ table.table > tfoot > tr > td{
 #principal-menu > ul > li.dropdown > .dropdown-menu,
 #principal-menu > ul > li.dropdown > .dropdown-menu > .dropdown-submenu > .dropdown-menu{
 	background: #F8FCFA;	
-	border: 1px solid #009688;
+	border: 1px solid #008749;
 }
 #principal-menu > ul > li.dropdown > .dropdown-menu > li > a,
 #principal-menu > ul > li.dropdown > .dropdown-menu > .dropdown-submenu > .dropdown-menu > li > a{
 	font-size: 16px;
 	font-family: oswaldlight;
-	color: #009688 !important;
+	color: #008749 !important;
 }
 
 #principal-menu > ul > li:hover > a,
@@ -164,18 +164,18 @@ table.table > tfoot > tr > td{
 #principal-menu > ul > li.dropdown > .dropdown-menu > .dropdown-submenu > .dropdown-menu > li:hover > a,
 #principal-menu > ul > li.dropdown > .dropdown-menu > .dropdown-submenu > .dropdown-menu > li:active > a,
 #principal-menu > ul > li.dropdown > .dropdown-menu > .dropdown-submenu > .dropdown-menu > li.active > a{
-	background: #009688;
+	background: #008749;
 	color: #ffffff !important;
 }
 
 #principal-menu > .nav > li#usuario > .dropdown-menu > .header-info{
-	background: #009688;
+	background: #008749;
 	color: #ffffff;
 }
 
 #principal-menu > .nav > li#usuario > .dropdown-menu > li:hover > a{
 	background: transparent !important;
-	color: #009688 !important;
+	color: #008749 !important;
 }
 
 #principal-menu > .nav > li#usuario > .dropdown-menu > .header-info > img{
@@ -222,25 +222,25 @@ table.table > tfoot > tr > td{
 }
 
 #img-carousel > .carousel-indicators > li{
-	border-color: #00796B;
+	border-color: #00A65A;
 }
 #img-carousel > .carousel-indicators > li.active{
-	border-color: #00796B;
-	background: #00796B;
+	border-color: #00A65A;
+	background: #00A65A;
 }
 
 .form-basic{
-	border: 2px #00796B solid !important;
+	border: 2px #00A65A solid !important;
 	background: #B2DFDB !important;
 }
 
 .form-shadow{
-	border: 2px #00796B solid !important;
+	border: 2px #00A65A solid !important;
 	background: #ffffff !important;
 }
 
 .paginate_button.active a{
-	background: #00796B !important;
+	background: #00A65A !important;
 }
 /*----------SECCION 3----------*/
 
@@ -250,26 +250,26 @@ table.table > tfoot > tr > td{
 }
 
 #seccion3 p.parrafo{
-	/*color: #00796B !important;*/
+	/*color: #00A65A !important;*/
 }
 
 .sub-cabecera{
 	margin-top: 20px;
-	background: #00796B !important;
+	background: #00A65A !important;
 }
 
 #seccion3 #contenido{
-	border-left: 1px solid #00796B !important;
-	/*border-right: 1px solid #00796B !important;*/
+	border-left: 1px solid #00A65A !important;
+	/*border-right: 1px solid #00A65A !important;*/
 }
 
 #contenido .circle{
-	background: #00796B !important;
+	background: #00A65A !important;
 	color: #ffffff !important;
 }
 
 #contenido .info-contenido .info-titulo{
-	color: #00796B !important;
+	color: #00A65A !important;
 }
 
 /*----------Noticias----------*/
@@ -288,7 +288,7 @@ table.table > tfoot > tr > td{
 
 /*----------Eventos----------*/
 #div-eventos{	
-	background: #009688;
+	background: #008749;
 }
 #div-eventos .sub-title .glyphicon{
 	color: #ffffff !important;
@@ -334,12 +334,12 @@ table.table > tfoot > tr > td{
 /*----------FOOTER----------*/
 
 #footer{
-	background: #00796B !important;
+	background: #00A65A !important;
 }
 
 #footer #contenido{
-	border-left: 1px solid #00796B !important;
-	border-right: 1px solid #00796B !important;
+	border-left: 1px solid #00A65A !important;
+	border-right: 1px solid #00A65A !important;
 }
 
 #footer .footer-nav-link .glyphicon,
@@ -367,7 +367,7 @@ table.table > tfoot > tr > td{
 
 /*-----------MODAL-----------*/
 .modal .modal-header{
-	background-color: #00796B !important;
+	background-color: #00A65A !important;
 	color: #ffffff !important;
 }
 
@@ -379,18 +379,18 @@ table.table > tfoot > tr > td{
 #tabla-info table,
 #tabla-info table > tbody > tr > th, 
 #tabla-info table > tbody > tr > td{
-	border: 1px #00796B solid;
+	border: 1px #00A65A solid;
 }
 
 /*----------HISTORIA CLÍNICA----------*/
 
 #sub-historia .nav-tabs > li > a,
 #sub-historia .nav-tabs > li.active > a{
-	color: #00796B;
+	color: #00A65A;
 }
 
 #sub-historia .nav-tabs > li > a{
-	border-bottom: 1px #00796B solid !important;
+	border-bottom: 1px #00A65A solid !important;
 }
 
 #sub-historia .nav-tabs > li.active > a, 
@@ -401,29 +401,29 @@ table.table > tfoot > tr > td{
     -moz-border-right-colors: none;
     -moz-border-top-colors: none;
     background-color: #fff;
-    border-color: #00796B #00796B transparent !important;
+    border-color: #00A65A #00A65A transparent !important;
 }
 
 .sub-historia-record .panel-group .panel .panel-heading{
-	background: #009688;
-	color: #ffffff;
+	background: #008749;
+	color: #ffffff !important;
 }
 
 /*----------VACUNAS----------*/
 
 #lista-esquemas{
 	padding: 25px;
-	border: 1px solid #00796B;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	border: 1px solid #00A65A;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
 
 .esquema-content{
 	padding: 15px;
 	margin-bottom: 10px;
-	border: 1px solid #00796B;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
+	border: 1px solid #00A65A;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
 }
