@@ -261,7 +261,7 @@
 				        <li class="treeview <?php if($this->uri->segment(1) == 'Inventario') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-cubes"></i>
-				          		<span>Inventario </span>
+				          		<span>Stock </span>
 				          		<span class="pull-right-container">
 				                	<i class="fa fa-angle-left pull-right"></i>
 				              	</span>
@@ -276,7 +276,7 @@
 					            <li>
 					            	<a href="<?php echo base_url(); ?>Inventario/ListarInsumos">
 					            		<i class="fa fa-circle-o"></i>					            		
-										<span>Ver inventario</span>
+										<span>Ver Stock</span>
 					            	</a>
 					            </li>				            
 					        </ul>
@@ -295,17 +295,17 @@
 				            			<i class="fa fa-circle-o"></i>
 				            			<span>Pacientes atendidos</span>
 				            		</a>
-				            	</li>
+				            	</li><!--
 				            	<li>
 				            		<a href="#">
 				            			<i class="fa fa-circle-o"></i>
 				            			<span>Morbilidad</span>
 				            		</a>
-				            	</li>
+				            	</li>-->
 				            	<li>
 				            		<a href="#">
 				            			<i class="fa fa-circle-o"></i>
-				            			<span>Insumos</span>
+				            			<span>Inventario</span>
 				            		</a>
 				            	</li>
 				          	</ul>

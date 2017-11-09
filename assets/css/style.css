@@ -189,7 +189,8 @@ header{
 	background-color: #4682B4;
 }
 
-.cintillo{
+.cintillo,
+#modal_cintillo{
 	/*width: 100%;*/
 	min-height: 40px;
 	background: #ffffff;
@@ -355,7 +356,7 @@ span.red{
 	display: table;
 	margin: 30px auto;
 }
-
+/*
 .modal .modal-header{
 	-webkit-border-top-left-radius: 6px;
 	-webkit-border-top-right-radius: 6px;
@@ -363,7 +364,7 @@ span.red{
 	-moz-border-radius-topright: 6px;
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
-}
+}*/
 
 .file-preview{
 	background: #ffffff !important;
@@ -1013,4 +1014,34 @@ img.general-logo{
 	left: 0 !important;
 	width: 100% !important;
 	height: 100% !important;
+}
+
+#modal_hoja_impresion{
+	background: #ffffff;
+	padding: 60px 60px 60px 90px;
+	-webkit-box-shadow: 0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	-moz-box-shadow:    0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+	box-shadow:         0px 1px 15px 0px rgba(50, 50, 50, 0.62);
+}
+
+#modal_cintillo,
+#verimp_titulos,
+#verimp_info{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+#verimp_titulos{
+	margin-top: 60px;
+	margin-bottom: 60px;
+}
+
+#verimp_info{
+	margin-bottom: 70px;
+}
+
+#modal_cintillo figure.pull-right img{
+	width: auto;
+	height: 40px;
 }
