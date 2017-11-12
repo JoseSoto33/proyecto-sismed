@@ -127,7 +127,7 @@
 
 		$('#periodo-reporte').validator();
 
-		$("input[type=radio]").on('click',function(e){
+		$("input[type=radio]").on('click', function(e){
 			var valor = $(this).val();
 			
 			$("input[type=date]").each(function(index,value){
@@ -176,5 +176,39 @@
 	            });
 			}
 		});
+
+		$("#resultados").on("mouseenter", "#verImprimir #modal_hoja_impresion #verimp_info .nota-content", function(e){
+	    	var nota = $(this).children(".nota");
+
+	        if (!nota.hasClass("hide")) {
+	    		nota.children("button").removeClass("hide");
+	    	}
+	    	
+	    }).on("mouseleave", "#verImprimir #modal_hoja_impresion #verimp_info .nota-content", function(e){
+	    	var nota = $(this).children(".nota");
+
+	    	if (!nota.hasClass("hide")) {
+	    		nota.children("button").addClass("hide");
+	    	} 
+	    });
+
+	    $("#resultados").on("click", "#verImprimir #modal_hoja_impresion #verimp_info .nota-content .nota button", function(e){
+	    	var nota = $(this).parent(".nota");
+	    	var nota_content = nota.parent(".nota-content");
+	    	var input_nota_content = nota_content.children(".input-nota-content");
+
+	    	nota.addClass("hide");
+	    	input_nota_content.removeClass("hide");
+	    });
+
+	    $("#resultados").on("click", "#verImprimir #modal_hoja_impresion #verimp_info .nota-content .input-nota-content .form-group button", function(e){
+	    	var input_nota_content = $(this).parent(".form-group").parent(".input-nota-content");
+	    	var nota_content = input_nota_content.parent(".nota-content");
+	    	var nota = nota_content.children(".nota");
+	    	var texto = input_nota_content.children(".form-group").children("textarea").val();
+
+	    	input_nota_content.addClass("hide");
+	    	nota.removeClass("hide").children("span").html(texto);
+	    });
 	});
 </script>

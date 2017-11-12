@@ -225,12 +225,32 @@
 							<h5><?php echo $periodo_imprimir; ?></h5>								
 		    			</div>
 		    			<div id="verimp_info">
-		    				<p id="nota_jornada">
-		    					En este mes la jornada laboral fue de18 días hábiles. XXXXXXXXXxXxx
-		    				</p>
-		    				<p id="nota_observacion">
-		    					En la consulta curativa se observó tendencia a patologías relacionadas con XXXxxxx
-		    				</p>
+		    				<div id="nota_jornada-content" class="nota-content">
+			    				<p id="nota_jornada" class="nota">
+			    					<span>Nota sobre jornada</span> <button class="btn btn-default btn-xs hide"><span class="glyphicon glyphicon-pencil"></span></button>
+			    				</p>
+			    				<div class="input-nota-content hide">
+				    				<div class="form-group">
+				    					<textarea name="input-nota-jornada" class="form-control">Nota sobre jornada</textarea>
+				    				</div>
+				    				<div class="form-group">
+				    					<button class="btn btn-primary">Aceptar</button>
+				    				</div>
+				    			</div>
+			    			</div>
+			    			<div id="nota_jornada-content" class="nota-content">
+			    				<p id="nota_observacion" class="nota">
+			    					<span>Observación</span> <button class="btn btn-default btn-xs hide"><span class="glyphicon glyphicon-pencil"></span></button>
+			    				</p>
+			    				<div class="input-nota-content hide">
+				    				<div class="form-group">
+				    					<textarea name="input-nota-observacion" class="form-control">Observación</textarea>
+				    				</div>
+				    				<div class="form-group">
+				    					<button class="btn btn-primary">Aceptar</button>
+				    				</div>
+				    			</div>
+			    			</div>
 		    				<h5>
 		    					<?php echo (!empty($consultas))? $consultas ." ". $periodo_imprimir : "Todas las consultas ". $periodo_imprimir; ?>
 		    				</h5>
@@ -238,7 +258,7 @@
 		    					<thead>
 		    						<tr>
 		    							<th><?php echo $periodo; ?></th>
-		    							<th>Estudiante</th>
+		    							<th colspan="2">Estudiante</th>
 		    							<th>Administrativo</th>
 		    							<th>Obrero</th>
 		    							<th>Cortesía</th>
@@ -249,18 +269,30 @@
 		    					<tbody>
 		    						<tr>
 		    							<td><?php echo $periodo_imprimir; ?></td>
-		    							<td>
-		    								<table class="table table-bordered">
+		    							<td style="padding: 0px !important;">
+		    								<table class="table table-bordered" style="margin-bottom: 0px !important;">
 		    									<thead>
 		    										<tr>
-		    											<th>H</th>
-		    											<th>V</th>
+		    											<th class="text-center">H</th>
 		    										</tr>
 		    									</thead>
 		    									<tbody>
 		    										<tr>
-		    											<td class="text-center"><?php echo $estudiante['f']['cantidad']; ?></td>
-		    											<td class="text-center"><?php echo $estudiante['m']['cantidad']; ?></td>
+		    											<td class="text-center" style="border-bottom: 0px !important;"><?php echo $estudiante['f']['cantidad']; ?></td>
+		    										</tr>
+		    									</tbody>
+		    								</table>
+		    							</td>
+		    							<td style="padding: 0px !important;">
+		    								<table class="table table-bordered" style="margin-bottom: 0px !important;">
+		    									<thead>
+		    										<tr>
+		    											<th class="text-center">V</th>
+		    										</tr>
+		    									</thead>
+		    									<tbody>
+		    										<tr>
+		    											<td class="text-center" style="border-bottom: 0px !important;"><?php echo $estudiante['m']['cantidad']; ?></td>
 		    										</tr>
 		    									</tbody>
 		    								</table>
@@ -392,5 +424,6 @@
 		    pieChart1.Doughnut(PieData1, pieOptions);
 		    pieChart2.Doughnut(PieData2, pieOptions);
 	    }
+	    
 	});
 </script>
