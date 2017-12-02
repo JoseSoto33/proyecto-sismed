@@ -112,9 +112,9 @@ class Noticia extends CI_Controller {
 			}
 		}
 		//Cargar vista del formulario de registro de noticia
-		$this->load->view('admin/header');
-		$this->load->view('admin/FormularioRegistroNoticia', $data);
-		$this->load->view('admin/footer');
+		$this->CargarHeader();
+        $this->load->view('noticias/FormularioRegistroNoticia', $data);
+        $this->load->view('footer');
 	}
 
 	/**
@@ -227,9 +227,9 @@ class Noticia extends CI_Controller {
 		}
 
 		//Se carga la vista del formulario para modificar noticia
-		$this->load->view('admin/header');
-		$this->load->view('admin/FormularioRegistroNoticia', $data);
-		$this->load->view('admin/footer');
+		$this->CargarHeader();
+        $this->load->view('noticias/FormularioRegistroNoticia', $data);
+        $this->load->view('footer');
 	}
 
 	/**
@@ -313,9 +313,9 @@ class Noticia extends CI_Controller {
 		$result = $this->NoticiaModel->ExtraerNoticia($condicion);
 
 		$data["noticias"] = $result;
-		$this->load->view('admin/header');
-		$this->load->view('admin/ListarNoticias', $data);
-		$this->load->view('admin/footer');		
+		$this->CargarHeader();
+        $this->load->view('noticias/ListarNoticias', $data);
+        $this->load->view('footer');
 	}
 
 	/**
@@ -356,9 +356,10 @@ class Noticia extends CI_Controller {
 
 		//Si no hay datos inválidos...
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('admin/header');        	
-			$this->load->view('admin/FormularioRegistroNoticia', $data);
-			$this->load->view('admin/footer');
+
+			$this->CargarHeader();
+	        $this->load->view('noticias/FormularioRegistroNoticia', $data);
+	        $this->load->view('footer');
 		//Si hay datos inválidos...
         }else{
 

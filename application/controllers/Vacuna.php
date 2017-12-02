@@ -84,61 +84,19 @@ class Vacuna extends CI_Controller {
                         set_cookie("message","La Vacuna <strong>'".$_POST["nombre_vacuna"]."'</strong> fue registrada exitosamente!...", time()+15);
                         header("Location: ".base_url()."Vacuna/ListarVacunas"); //controlador y metododo del controlador que carga la vista                       
 
-                    }else{
-                        $data['mensaje'] = $this->db->error();
-                        switch ($this->session->userdata('tipo_usuario')) {
-                            case "Doctor":                  
-                                $this->load->view('medicina/doctor/header'); 
-                                $this->load->view('medicina/FormularioRegistroVacuna', $data);
-                                $this->load->view('medicina/doctor/footer'); 
-                                break;
-
-                            case "Enfermero":                   
-                                $this->load->view('medicina/enfermero/header'); 
-                                $this->load->view('medicina/FormularioRegistroVacuna', $data);
-                                $this->load->view('medicina/enfermero/footer'); 
-                                break;
-                        }                        
                     }
 
                 //Si hay error en la inserción
                 }else{
-
-                    $data['mensaje'] = $this->db->error();
-                    switch ($this->session->userdata('tipo_usuario')) {
-                        case "Doctor":                  
-                            $this->load->view('medicina/doctor/header'); 
-                            $this->load->view('medicina/FormularioRegistroVacuna', $data);
-                            $this->load->view('medicina/doctor/footer'); 
-                            break;
-
-                        case "Enfermero":                   
-                            $this->load->view('medicina/enfermero/header'); 
-                            $this->load->view('medicina/FormularioRegistroVacuna', $data);
-                            $this->load->view('medicina/enfermero/footer'); 
-                            break;
-                    }
-                    
+                    $data['mensaje'] = $this->db->error(); 
                 }
 
             }
 
-        }else{
-
-            switch ($this->session->userdata('tipo_usuario')) {
-                case "Doctor":                  
-                    $this->load->view('medicina/doctor/header'); 
-                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
-                    $this->load->view('medicina/doctor/footer'); 
-                    break;
-
-                case "Enfermero":                   
-                    $this->load->view('medicina/enfermero/header'); 
-                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
-                    $this->load->view('medicina/enfermero/footer'); 
-                    break;
-            }            
         }
+        $this->CargarHeader();              
+        $this->load->view('vacunas/FormularioRegistroVacuna', $data);//Se carga la vista del formulario de registro de vacunas
+        $this->load->view('footer');
     }
 
     /**
@@ -331,20 +289,9 @@ class Vacuna extends CI_Controller {
         $data["patologias"] = $patologias;
         $data["vacunas"] = $items;
         //$data["items"] = $items;
-
-        switch ($this->session->userdata('tipo_usuario')) {
-            case "Doctor":                  
-                $this->load->view('medicina/doctor/header'); 
-                $this->load->view('medicina/ListarVacunas', $data);
-                $this->load->view('medicina/doctor/footer'); 
-                break;
-
-            case "Enfermero":                   
-                $this->load->view('medicina/enfermero/header'); 
-                $this->load->view('medicina/ListarVacunas', $data);
-                $this->load->view('medicina/enfermero/footer'); 
-                break;
-        }
+        $this->CargarHeader();              
+        $this->load->view('vacunas/ListarVacunas', $data);
+        $this->load->view('footer');
     }
 
     /**
@@ -591,19 +538,9 @@ class Vacuna extends CI_Controller {
         //Si hay datos inválidos...
         if ($this->form_validation->run() == FALSE) {
 
-             switch ($this->session->userdata('tipo_usuario')) {
-                case "Doctor":                  
-                    $this->load->view('medicina/doctor/header'); 
-                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
-                    $this->load->view('medicina/doctor/footer'); 
-                    break;
-
-                case "Enfermero":                   
-                    $this->load->view('medicina/enfermero/header'); 
-                    $this->load->view('medicina/FormularioRegistroVacuna', $data);
-                    $this->load->view('medicina/enfermero/footer'); 
-                    break;
-            }             
+            $this->CargarHeader();              
+            $this->load->view('vacunas/FormularioRegistroVacuna', $data);
+            $this->load->view('footer');
 
         //Si no hay datos inválidos...
         }else{

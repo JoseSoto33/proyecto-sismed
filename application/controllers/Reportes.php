@@ -79,20 +79,9 @@ class Reportes extends CI_Controller {
         $registros['fecha'] = $data["fecha"];
 
         //var_dump($registros);
-
-        switch ($this->session->userdata('tipo_usuario')) {
-        case "Doctor":                  
-            $this->load->view('medicina/doctor/header'); 
-            $this->load->view('medicina/ReportePacientesAtendidos', $registros);
-            $this->load->view('medicina/doctor/footer'); 
-            break;
-
-        case "Enfermero":                   
-            $this->load->view('medicina/enfermero/header'); 
-            $this->load->view('medicina/ReportePacientesAtendidos', $registros);
-            $this->load->view('medicina/enfermero/footer'); 
-            break;
-        }
+        $this->CargarHeader();
+        $this->load->view('reportes/ReportePacientesAtendidos', $data);
+        $this->load->view('footer');
     }
 
     /**

@@ -64,6 +64,7 @@
 
 			    <!-- Header Navbar -->
 			    <nav class="navbar navbar-static-top" role="navigation">
+			    	<?php if($this->session->has_userdata("login")) { ?>
 			      	<!-- Sidebar toggle button-->
 			      	<a class="sidebar-toggle" href="#" data-toggle="push-menu" role="button">
 						<span class="sr-only">Toggle navigation</span>
@@ -71,11 +72,14 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
+					<?php } ?>
+					
 			      	<!-- Navbar Right Menu -->
 			      	<div class="navbar-custom-menu">
 			        	<ul class="nav navbar-nav">			          		
 			          		<!-- User Account Menu -->
 			          		<li class="dropdown user user-menu">
+			          			<?php if($this->session->has_userdata("login")) { ?>
 			            		<!-- Menu Toggle Button -->
 			            		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 			              			<!-- The user image in the navbar-->
@@ -123,7 +127,7 @@
 					        			?>
 			              			</span>
 			            		</a>
-			            		<?php if($this->session->has_userdata("login")) { ?>
+			            		
 			            		<ul class="dropdown-menu">
 			              		<!-- The user image in the menu -->
 			              			<li class="user-header">

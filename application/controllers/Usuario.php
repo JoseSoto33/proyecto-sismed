@@ -162,18 +162,18 @@ class Usuario extends CI_Controller {
 					$this->load->view('login/index', $data);//Se carga la vista del login
 
 				//Si se está registrando un usuario desde una sesión de administración...
-				}else{					
-					$this->load->view('admin/header');
-					$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario de registro de usuario
-					$this->load->view('admin/footer');
+				}else{
+					$this->CargarHeader();
+					$this->load->view('usuarios/FormularioRegistroUsuario', $data);//Se carga la vista del formulario de registro de usuario
+			        $this->load->view('footer');
 				}
 			}
 
 		//Si no se hizo POST...
 		}else{
-			$this->load->view('admin/header');
-			$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario de registro de usuario
-			$this->load->view('admin/footer');
+			$this->CargarHeader();
+			$this->load->view('usuarios/FormularioRegistroUsuario', $data);//Se carga la vista del formulario de registro de usuario
+	        $this->load->view('footer');
 		}
 	}
 
@@ -347,9 +347,9 @@ class Usuario extends CI_Controller {
 			$data['message'] = $this->db->error();
 		}
 		
-		$this->load->view('admin/header');
-		$this->load->view('admin/FormularioRegistroUsuario', $data);//Se carga la vista del formulario para modificar un usuario...
-		$this->load->view('admin/footer');
+		parent::CargarHeader();
+		$this->load->view('usuarios/FormularioRegistroUsuario', $data);//Se carga la vista del formulario para modificar un usuario...
+        $this->load->view('footer');
 	}
 
 	/**
@@ -416,14 +416,14 @@ class Usuario extends CI_Controller {
 						$data['mensaje'] = $this->db->error();
 					}
 				}
-				$this->load->view('admin/header');
+				$this->CargarHeader();
 				$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
-				$this->load->view('admin/footer');
+		        $this->load->view('footer');
 			}
 		}else{
-			$this->load->view('admin/header');
+			$this->CargarHeader();
 			$this->load->view('admin/FormularioCambioClave', $data);//Cargar vista de formulario de modificación de contraseña
-			$this->load->view('admin/footer');
+	        $this->load->view('footer');
 		}
 
 	}
@@ -511,57 +511,9 @@ class Usuario extends CI_Controller {
 			
 		$data['sesiones'] = $result;
 		//Dependiendo del tipo de usuario..
-		switch ($this->session->userdata('tipo_usuario')) {
-			//Si el tipo de usuario es "Administrador"...
-			case "Administrador":
-				$this->load->view('admin/header');
-				$this->load->view('admin/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
-				$this->load->view('admin/footer');
-				break;
-			
-			//Si el tipo de usuario es "Doctor"...
-			case "Doctor":
-				$this->load->view('medicina/doctor/header');
-				$this->load->view('admin/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
-				$this->load->view('medicina/doctor/footer');
-				break;
-
-			//Si el tipo de usuario es "Enfermero"...
-			case "Enfermero":
-				$this->load->view('medicina/enfermero/header');
-				$this->load->view('admin/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
-				$this->load->view('medicina/enfermero/footer');
-				break;
-
-			//Si el tipo de usuario es "Odontólogo"...
-			case "Odontólogo":
-				$this->load->view('odontologia/header');
-				$this->load->view('admin/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
-				$this->load->view('odontologia/footer');
-				break;
-
-			//Si el tipo de usuario es "Bioanalista"...
-			case "Bioanalista":
-				$this->load->view('laboratorio/header');
-				$this->load->view('admin/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
-				$this->load->view('laboratorio/footer');
-				break;
-
-			//Si el tipo de usuario es "Nutricionista"...
-			case "Nutricionista":
-				$this->load->view('nutricion/header');
-				$this->load->view('admin/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
-				$this->load->view('nutricion/footer');
-				break;
-
-			//Si el tipo de usuario es "Asistente"...
-			case "Asistente":
-				$this->load->view('nutricion/header');
-				$this->load->view('admin/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
-				$this->load->view('nutricion/footer');
-				break;
-		}
-		
+		$this->CargarHeader();
+		$this->load->view('usuarios/PerfilUsuario', $data);//Se carga la vista del perfil de usuario
+		$this->load->view('footer');
 	}
 
 	/**
@@ -585,9 +537,9 @@ class Usuario extends CI_Controller {
 	
 		$data["usuarios"] = $result;
 
-		$this->load->view('admin/header');
-		$this->load->view('admin/ListarUsuarios', $data);//Cargar vista del listado de usuarios
-		$this->load->view('admin/footer');
+		$this->CargarHeader();
+		$this->load->view('usuarios/ListarUsuarios', $data);//Se carga la vista del perfil de usuario
+		$this->load->view('footer');
 	}
 
 	/**
@@ -770,10 +722,9 @@ class Usuario extends CI_Controller {
 
 			//Si la operación se realizó desde el formulario en una sesión de administrador...
 			}else{
-				
-				$this->load->view('admin/header');
-				$this->load->view('admin/FormularioRegistroUsuario', $data);//Cargar vista de formulario de registro o modificación de usuario
-				$this->load->view('admin/footer');
+				$this->CargarHeader();
+				$this->load->view('usuarios/FormularioRegistroUsuario', $data);//Cargar vista de formulario de registro o modificación de usuario
+				$this->load->view('footer');
 			}
 		
 		//Si los datos son correctos...
@@ -834,9 +785,9 @@ class Usuario extends CI_Controller {
 
 		//Si existe algún error en los datos ingresados...
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('admin/header');        	
+			$this->CargarHeader();				
 			$this->load->view('admin/FormularioCambioClave', $data);//Se carga la vista del formulario de cambio de contraseña
-			$this->load->view('admin/footer');
+			$this->load->view('footer');
 		//Si los datos son correctos...
         }else{
         	return false;

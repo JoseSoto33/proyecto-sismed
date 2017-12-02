@@ -169,9 +169,9 @@ class Paciente extends CI_Controller {
 	            }
             }
     	}
-		$this->load->view('medicina/doctor/header');
-    	$this->load->view('medicina/FormularioRegistroPaciente', $data);
-		$this->load->view('medicina/doctor/footer');   	
+    	$this->CargarHeader();
+        $this->load->view('historiasClinicas/FormularioRegistroPaciente', $data);
+        $this->load->view('footer');  	
     }
 
     /**
@@ -432,10 +432,10 @@ class Paciente extends CI_Controller {
 		
 		//Si algún dato es incorrecto...
 		if ($this->form_validation->run() == FALSE) {
-        		
-        	$this->load->view('medicina/doctor/header'); 
-			$this->load->view('medicina/FormularioRegistroPaciente', $data);//Cargar vista de formulario de registro o modificación de paciente
-			$this->load->view('medicina/doctor/footer'); 
+        	
+        	$this->CargarHeader();
+	        $this->load->view('historiasClinicas/FormularioRegistroPaciente', $data);
+	        $this->load->view('footer');
 					
 		//Si los datos son correctos...
         }else{

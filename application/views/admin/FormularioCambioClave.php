@@ -96,7 +96,7 @@
 		        </div>
 		        <div class="box-footer">
 					<a href="<?php echo base_url(); ?>" class="btn btn-default">Cancelar</a>
-		        	<button id="guardar" type="submit" form="bio-clave" class="btn btn-success pull-right">Guardar</button>
+		        	<button id="guardar" type="submit" form="cambio-clave" class="btn btn-success pull-right">Guardar</button>
 		        </div>
 		    </div>
 		</div>

@@ -77,7 +77,9 @@ class Home extends CI_Controller {
 
 				//Si el tipo de usuario es "Odontólogo"...
 				case "Odontólogo":
+					$this->load->view('odontologia/header');
 					$this->load->view('odontologia/index',$data);
+					$this->load->view('odontologia/footer');
 					break;
 
 				//Si el tipo de usuario es "Bioanalista"...
