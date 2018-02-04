@@ -25,10 +25,9 @@ class HistoriaClinica extends CI_Controller {
 
         if (!$this->session->has_userdata('login') && ($this->uri->segment(1, 0) != '0' || $this->uri->segment(2, 0) != '0')) {
         	redirect(base_url());
-
         }
-        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Doctor" && $this->session->userdata('tipo_usuario') != "Enfermero") {
 
+        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') == "Administrador") {
         	redirect(base_url('Home')); 
         }
     }
@@ -36,6 +35,8 @@ class HistoriaClinica extends CI_Controller {
     /**
      * @method void ListarHistorias()
      * @method void ConsultarHistoriaClinica(integer $id_evento)
+     * @method json CrearHistoriaClinica()
+     * @method void CargarHeader()
      */
 
     /**
@@ -60,19 +61,10 @@ class HistoriaClinica extends CI_Controller {
 		$result = $this->HistoriaModel->ExtraerHistoria($condicion);
 
 		$data["historias"] = $result;
-        switch ($this->session->userdata('tipo_usuario')) {
-        case "Doctor":                  
-            $this->load->view('medicina/doctor/header'); 
-            $this->load->view('medicina/ListarHistorias', $data);
-            $this->load->view('medicina/doctor/footer'); 
-            break;
 
-        case "Enfermero":                   
-            $this->load->view('medicina/enfermero/header'); 
-            $this->load->view('medicina/ListarHistorias', $data);
-            $this->load->view('medicina/enfermero/footer'); 
-            break;
-        }
+        $this->CargarHeader();
+        $this->load->view('historiasClinicas/ListarHistorias', $data);
+        $this->load->view('footer');         
 		
     }
 
@@ -147,20 +139,9 @@ class HistoriaClinica extends CI_Controller {
             $data['mensaje'] = "Error. No se encontró la historia clínica...";
         }
 
-        switch ($this->session->userdata('tipo_usuario')) {
-        case "Doctor":                  
-            $this->load->view('medicina/doctor/header'); 
-            $this->load->view('medicina/DetallesHistoriaClinica', $data);
-            $this->load->view('medicina/doctor/footer'); 
-            break;
-
-        case "Enfermero":                   
-            $this->load->view('medicina/enfermero/header'); 
-            $this->load->view('medicina/DetallesHistoriaClinica', $data);
-            $this->load->view('medicina/enfermero/footer'); 
-            break;
-        }
-
+        $this->CargarHeader();
+        $this->load->view('historiasClinicas/DetallesHistoriaClinica', $data);
+        $this->load->view('footer');
     }
 
     /**

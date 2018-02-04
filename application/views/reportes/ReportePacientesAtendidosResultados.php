@@ -2,13 +2,18 @@
 	setlocale(LC_TIME,"esp"); 
 	
 	if (!empty($fecha)) {
+		$periodo = "Día";
+		$periodo_imprimir = strftime('%d de %B de %Y', strtotime($fecha));
+	}else if (!empty($fecha_mes)) {
+		$periodo = "Mes";
+		$periodo_imprimir = strftime('%B de %Y', strtotime($fecha_mes));
+	}else if (!empty($rango)) {
+		$periodo = "Rango";
+		$periodo_imprimir = strftime('%d de %B de %Y', strtotime($rango['desde']))." - ".strftime('%d de %B de %Y', strtotime($rango['hasta']));
+	}
 ?>
-<h3 id="fecha_consultada"><?php echo $descripcion_periodo." ".strftime('%d de %B de %Y', strtotime($fecha)); ?></h3>
-<?php }else if (!empty($fecha_mes)) { ?>
-<h3 id="fecha_consultada"><?php echo $descripcion_periodo." ".strftime('%B de %Y', strtotime($fecha_mes)); ?></h3>
-<?php }else if (!empty($rango)) { ?>
-<h3 id="fecha_consultada"><?php echo $descripcion_periodo." ".strftime('%d de %B de %Y', strtotime($rango['desde']))." - ".strftime('%d de %B de %Y', strtotime($rango['hasta'])); ?></h3>
-<?php } ?>	
+<h3 id="fecha_consultada"><?php echo $descripcion_periodo." ".$periodo_imprimir; ?></h3>
+
 <h3 id="tipo-reporte"><?php echo (!empty($consultas))? $consultas : "Todas las consultas"; ?></h3>
 <div class="col-xs-12">	
 	<div class="row">
@@ -167,9 +172,164 @@
 						<?php } ?>
 					</div>
 				</div>
+				<?php if ($total > 0) { ?>
+				<div class="box-footer">
+					<button class="btn btn-success" data-toggle="modal" data-target="#verImprimir">Ver versión para imprimir</button>
+				</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
+</div>
+
+<div id="verImprimir" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  	<div class="modal-dialog modal-lg" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		        <h4 class="modal-title" id="myModalLabel">Versión para imprimir</h4>
+		    </div>
+		    <div class="modal-body">
+		    	<div class="row">
+		    		<div id="modal_hoja_impresion" class="col-xs-12 col-sm-10 col-sm-offset-1">
+		        		<div id="modal_cintillo">
+		    				<figure class="pull-left">
+								<img alt="Gobierno Bolivariano de Venezuela" src="<?php echo base_url(); ?>assets/img/gbv-logo.png">
+							</figure>
+							<figure class="pull-right">
+								<div class="row">
+									<div class="col-xs-6">
+										<img src="<?php echo base_url(); ?>assets/img/victorioso-logo.png">
+									</div>
+									<div class="col-xs-6">
+										<img src="<?php echo base_url(); ?>assets/img/iut-logo3.png">
+									</div>
+								</div>									
+							</figure>
+		    			</div>
+		    			<div id="verimp_titulos">		    				
+			    			<h3>Informe de Actividades Médicas. Servicio Médico I.U.T. Dr. Federico Rivero Palacio</h3>
+			    			<h4>
+			    				<?php
+			    					if ($this->session->userdata('tipo_usuario') == 'Doctor') {
+			    						if ($this->session->userdata('sexo') == 'f') {
+			    							echo "Dra. " . $this->session->userdata('nombre') ." ". $this->session->userdata('apellido');
+			    						}else if ($this->session->userdata('sexo') == 'm') {
+			    							echo "Dr. " . $this->session->userdata('nombre') ." ". $this->session->userdata('apellido');
+			    						}
+			    					}else{
+			    						echo "Lic. " . $this->session->userdata('nombre') ." ". $this->session->userdata('apellido');
+			    					}
+			    				?>		    					
+			    			</h4>			    			
+							<h5><?php echo $periodo_imprimir; ?></h5>								
+		    			</div>
+		    			<div id="verimp_info">
+		    				<div id="nota_jornada-content" class="nota-content">
+			    				<p id="nota_jornada" class="nota">
+			    					<span>Nota sobre jornada</span> <button class="btn btn-default btn-xs hide"><span class="glyphicon glyphicon-pencil"></span></button>
+			    				</p>
+			    				<div class="input-nota-content hide">
+				    				<div class="form-group">
+				    					<textarea name="input-nota-jornada" class="form-control">Nota sobre jornada</textarea>
+				    				</div>
+				    				<div class="form-group">
+				    					<button class="btn btn-primary">Aceptar</button>
+				    				</div>
+				    			</div>
+			    			</div>
+			    			<div id="nota_jornada-content" class="nota-content">
+			    				<p id="nota_observacion" class="nota">
+			    					<span>Observación</span> <button class="btn btn-default btn-xs hide"><span class="glyphicon glyphicon-pencil"></span></button>
+			    				</p>
+			    				<div class="input-nota-content hide">
+				    				<div class="form-group">
+				    					<textarea name="input-nota-observacion" class="form-control">Observación</textarea>
+				    				</div>
+				    				<div class="form-group">
+				    					<button class="btn btn-primary">Aceptar</button>
+				    				</div>
+				    			</div>
+			    			</div>
+		    				<h5>
+		    					<?php echo (!empty($consultas))? $consultas ." ". $periodo_imprimir : "Todas las consultas ". $periodo_imprimir; ?>
+		    				</h5>
+		    				<table class="table table-bordered">
+		    					<thead>
+		    						<tr>
+		    							<th><?php echo $periodo; ?></th>
+		    							<th colspan="2">Estudiante</th>
+		    							<th>Administrativo</th>
+		    							<th>Obrero</th>
+		    							<th>Cortesía</th>
+		    							<th>Docente</th>
+		    							<th>Total por <?php echo $periodo; ?></th>
+		    						</tr>
+		    					</thead>
+		    					<tbody>
+		    						<tr>
+		    							<td><?php echo $periodo_imprimir; ?></td>
+		    							<td style="padding: 0px !important;">
+		    								<table class="table table-bordered" style="margin-bottom: 0px !important;">
+		    									<thead>
+		    										<tr>
+		    											<th class="text-center">H</th>
+		    										</tr>
+		    									</thead>
+		    									<tbody>
+		    										<tr>
+		    											<td class="text-center" style="border-bottom: 0px !important;"><?php echo $estudiante['f']['cantidad']; ?></td>
+		    										</tr>
+		    									</tbody>
+		    								</table>
+		    							</td>
+		    							<td style="padding: 0px !important;">
+		    								<table class="table table-bordered" style="margin-bottom: 0px !important;">
+		    									<thead>
+		    										<tr>
+		    											<th class="text-center">V</th>
+		    										</tr>
+		    									</thead>
+		    									<tbody>
+		    										<tr>
+		    											<td class="text-center" style="border-bottom: 0px !important;"><?php echo $estudiante['m']['cantidad']; ?></td>
+		    										</tr>
+		    									</tbody>
+		    								</table>
+		    							</td>
+		    							<td class="text-center"><?php echo $administrativo['cantidad']; ?></td>
+		    							<td class="text-center"><?php echo $obrero['cantidad']; ?></td>
+		    							<td class="text-center"><?php echo $cortesia['cantidad']; ?></td>
+		    							<td class="text-center"><?php echo $docente['cantidad']; ?></td>
+		    							<td class="text-center"><?php echo $total; ?></td>
+		    						</tr>
+		    					</tbody>
+		    				</table>
+		    			</div>
+		    			<div id="verimp_firma">
+		    				<p>
+	    					<?php
+		    					if ($this->session->userdata('tipo_usuario') == 'Doctor') {
+		    						if ($this->session->userdata('sexo') == 'f') {
+		    							echo "Dra. " . $this->session->userdata('nombre') ." ". $this->session->userdata('apellido');
+		    						}else if ($this->session->userdata('sexo') == 'm') {
+		    							echo "Dr. " . $this->session->userdata('nombre') ." ". $this->session->userdata('apellido');
+		    						}
+		    					}else{
+		    						echo "Lic. " . $this->session->userdata('nombre') ." ". $this->session->userdata('apellido');
+		    					}
+		    				?>	
+		    				</p>
+		    				<p>C.I.: </p>
+		    			</div>
+		    		</div>		        	
+		        </div>
+		    </div>
+		    <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		    </div>
+	    </div>
+  	</div>
 </div>
 
 <!-- ChartJS -->
@@ -264,5 +424,6 @@
 		    pieChart1.Doughnut(PieData1, pieOptions);
 		    pieChart2.Doughnut(PieData2, pieOptions);
 	    }
+	    
 	});
 </script>

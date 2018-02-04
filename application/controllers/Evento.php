@@ -115,9 +115,9 @@ class Evento extends CI_Controller {
 			}
 		}
 		//Cargar vista del formulario de registro de evento
-		$this->load->view('admin/header');
-		$this->load->view('admin/FormularioRegistroEvento', $data);
-		$this->load->view('admin/footer');
+		$this->CargarHeader();
+        $this->load->view('eventos/FormularioRegistroEvento', $data);
+        $this->load->view('footer');
 	}
 
 	/**
@@ -249,9 +249,9 @@ class Evento extends CI_Controller {
 		}
 
 		//Se carga la vista del formulario para modificar eventos
-		$this->load->view('admin/header');
-		$this->load->view('admin/FormularioRegistroEvento', $data);
-		$this->load->view('admin/footer');
+		$this->CargarHeader();
+        $this->load->view('eventos/FormularioRegistroEvento', $data);
+        $this->load->view('footer');
 	}
 
 	/**
@@ -350,9 +350,10 @@ class Evento extends CI_Controller {
 		///if ($result->num_rows() > 0) {
 			
 		$data["eventos"] = $result;
-		$this->load->view('admin/header');
-		$this->load->view('admin/ListarEventos', $data);
-		$this->load->view('admin/footer');
+
+		$this->CargarHeader();
+        $this->load->view('eventos/ListarEventos', $data);
+        $this->load->view('footer');
 		//}
 	}
 
@@ -445,9 +446,9 @@ class Evento extends CI_Controller {
 
         //Si no hay datos inválidos...
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('admin/header');        	
-			$this->load->view('admin/FormularioRegistroEvento', $data);
-			$this->load->view('admin/footer');
+			$this->CargarHeader();
+	        $this->load->view('eventos/FormularioRegistroEvento', $data);
+	        $this->load->view('footer');
 		//Si hay datos inválidos...
         }else{
 			return false;

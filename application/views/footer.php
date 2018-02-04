@@ -1,5 +1,5 @@
-		
-			</div>
+
+		</div>
   			<!-- /.content-wrapper -->
 
   			<!-- Main Footer -->
@@ -13,6 +13,5 @@
   			</footer>
 		</div>
 		<!-- ./wrapper -->
-
 	</body>
 </html>

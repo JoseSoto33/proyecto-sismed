@@ -213,25 +213,25 @@
 					            </li>				            
 					        </ul>
 				        </li>
-				        <li class="treeview <?php if($this->uri->segment(1) == 'Tratamiento') echo 'active'; ?>">
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Dietas') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-stethoscope"></i>
-				          		<span>Tratamientos </span>
+				          		<span>Dietas </span>
 				          		<span class="pull-right-container">
 				                	<i class="fa fa-angle-left pull-right"></i>
 				              	</span>
 				          	</a>
 					        <ul class="treeview-menu">									            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Tratamiento/AgregarPatologia">
+					            	<a href="<?php echo base_url(); ?>Dietas/AgregarPatologia">
 					            		<i class="fa fa-circle-o"></i>
-					            		<span>Agregar tratamiento</span>
+					            		<span>Agregar dietas</span>
 					            	</a>
 					            </li>								            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Tratamiento/ListarPatologias">
+					            	<a href="<?php echo base_url(); ?>Dietas/ListarPatologias">
 					            		<i class="fa fa-circle-o"></i>
-					            		<span>Listado de tratamientos</span>
+					            		<span>Listado de dietas</span>
 					            	</a>
 					            </li>				            
 					        </ul>
@@ -246,7 +246,7 @@
 				          	</a>
 					        <ul class="treeview-menu">									            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Cita/AgregarVacuna">
+					            	<a href="<?php echo base_url(); ?>Cita/AgregarCitaNutricion">
 					            		<i class="fa fa-circle-o"></i>
 										<span>Agregar cita</span>
 					            	</a>

@@ -1,4 +1,4 @@
-		
+	
 			</div>
   			<!-- /.content-wrapper -->
 
@@ -13,6 +13,5 @@
   			</footer>
 		</div>
 		<!-- ./wrapper -->
-
 	</body>
 </html>

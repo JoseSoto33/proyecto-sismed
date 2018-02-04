@@ -8,6 +8,23 @@ hr.form-divisor-line{
 	border-color: #00BED5 !important;
 }
 
+.box.box-success {
+    border-top-color: #605CA8 !important;
+}
+
+.box.box-solid.box-success {
+    border: 1px solid #605CA8 !important;
+}
+
+.box.box-solid.box-success > .box-header {
+    color: #fff !important;
+    background: #605CA8 !important;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: #605CA8 !important;
+}
+
 /*=============================PANTALLA PRINCIPAL=============================*/
 /*Cabecera*/
 
@@ -90,11 +107,11 @@ hr.form-divisor-line{
 }
 
 #img-carousel > .carousel-indicators > li{
-	border-color: #016064;
+	border-color: #605CA8;
 }
 #img-carousel > .carousel-indicators > li.active{
-	border-color: #016064;
-	background: #016064;
+	border-color: #605CA8;
+	background: #605CA8;
 }
 
 /*----------SECCION 3----------*/

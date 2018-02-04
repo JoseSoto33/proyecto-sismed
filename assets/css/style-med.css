@@ -3,10 +3,6 @@ hr.divisor-line{
 	border-color: #00A65A !important;	
 }
 
-hr.divisor-line-2{
-	border-color: #ffffff !important;	
-}
-
 hr.form-divisor-line{
 	border-color: #00A65A !important;
 }
@@ -122,6 +118,10 @@ table.table > tfoot > tr > td{
 	background-color: #00A65A !important;
     border-color: #00A65A !important;
     color: #ffffff !important;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: #00A65A !important;
 }
 
 /*=============================PANTALLA PRINCIPAL=============================*/
@@ -274,16 +274,8 @@ table.table > tfoot > tr > td{
 
 /*----------Noticias----------*/
 
-.icon-content{
-	text-align: center;
-}
-
 #div-noticias .sub-title .glyphicon{
 	color: #212121 !important;
-}
-
-#div-noticias hr.divisor-line-2{
-	border-color: #212121 !important;	
 }
 
 /*----------Eventos----------*/
@@ -292,10 +284,6 @@ table.table > tfoot > tr > td{
 }
 #div-eventos .sub-title .glyphicon{
 	color: #ffffff !important;
-}
-
-#div-eventos hr.divisor-line-2{
-	border-color: #ffffff !important;	
 }
 
 #imagen-content figure,

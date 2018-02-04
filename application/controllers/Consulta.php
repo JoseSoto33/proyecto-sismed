@@ -133,38 +133,16 @@ class Consulta extends CI_Controller {
                 }else{
                     $data['mensaje'] = "Usted ya ha registrado una consulta de este tipo para la historia Nº ".$result['cod_historia']." el día de hoy...<br />".$this->db->last_query();
                 }
-
-                switch ($this->session->userdata('tipo_usuario')){    
-                    case "Doctor":
-                        $this->load->view('medicina/doctor/header');
-                        $this->load->view('medicina/FormularioConsultaMedica', $data);
-                        $this->load->view('medicina/doctor/footer'); 
-                        break;
-
-                    case "Enfermero":
-                        $this->load->view('medicina/enfermero/header');
-                        $this->load->view('medicina/FormularioConsultaMedica', $data);
-                        $this->load->view('medicina/enfermero/footer'); 
-                        break;
-                }
-                
+                $this->CargarHeader();
+                $this->load->view('consultas/FormularioConsultaMedica', $data);
+                $this->load->view('footer');
             }
 
         }else{
 
-            switch ($this->session->userdata('tipo_usuario')){    
-                case "Doctor":
-                    $this->load->view('medicina/doctor/header');
-                    $this->load->view('medicina/FormularioConsultaMedica', $data);
-                    $this->load->view('medicina/doctor/footer'); 
-                    break;
-
-                case "Enfermero":
-                    $this->load->view('medicina/enfermero/header');
-                    $this->load->view('medicina/FormularioConsultaMedica', $data);
-                    $this->load->view('medicina/enfermero/footer'); 
-                    break;
-            } 
+            $this->CargarHeader();
+            $this->load->view('consultas/FormularioConsultaMedica', $data);
+            $this->load->view('footer');             
         }
 
     }
@@ -279,7 +257,9 @@ class Consulta extends CI_Controller {
             $data['message'] = $this->db->error();
         }
 
-        $this->load->view('medicina/FormularioConsultaMedica', $data);
+        $this->CargarHeader();
+        $this->load->view('consultas/FormularioConsultaMedica', $data);
+        $this->load->view('footer');
     }
 
     /**
@@ -540,7 +520,9 @@ class Consulta extends CI_Controller {
         //Si no hay datos inválidos...
         if ($this->form_validation->run() == FALSE) {
             
-            $this->load->view('medicina/FormularioConsultaMedica', $data);
+            $this->CargarHeader();
+            $this->load->view('consultas/FormularioConsultaMedica', $data);
+            $this->load->view('footer');
 
         //Si hay datos inválidos...
         }else{

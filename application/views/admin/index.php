@@ -76,7 +76,7 @@
     <div class="col-xs-12 col-sm-6">
       <div class="box box-solid box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Eventos</h3>
+          <h3 class="box-title"><span class="glyphicon glyphicon-calendar"></span> Eventos</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="calendar"></div>
@@ -86,26 +86,11 @@
     <div class="col-xs-12">
       <div class="box box-solid box-primary">
         <div class="box-header with-border">
-          <h3 class="box-title">Noticias</h3>
+          <h3 class="box-title"><span class="glyphicon glyphicon-list-alt"></span> Noticias</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
           <div id="div-noticias">              
             <div class="row">
-              <div class="col-sm-12">
-                <h1 class="text-center">Noticias</h1>
-              </div>
-              <div class="col-xs-12 sub-title">
-                <div class="col-sm-5">
-                  <hr class="divisor-line-2 pull-right">
-                </div>
-                <div class="col-sm-2 icon-content">
-                  <samp class="glyphicon glyphicon-list-alt"></samp>
-                </div>
-                <div class="col-sm-5">
-                  <hr class="divisor-line-2 pull-left">
-                </div>
-              </div>
-              <br>
               <div class="owl-carousel owl-theme">
               <?php if ($noticias != false) { 
                 foreach ($noticias as $key => $noticia) {
