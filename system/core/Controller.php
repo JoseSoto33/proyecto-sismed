@@ -116,6 +116,10 @@ class CI_Controller {
         case "Odontólogo":
             $this->load->view('odontologia/header'); 
             break;
+
+        case "Nutricionista":
+            $this->load->view('nutricion/header'); 
+            break;
         }        
     }
 }
