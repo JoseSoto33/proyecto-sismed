@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Citas extends CI_Controller {
+class Citas extends CI_Controller {/*CI: CodeIgniter*/
 
 	/**
 	 * Index Page for this controller.
@@ -47,15 +47,24 @@ class Citas extends CI_Controller {
      */
 	public function AgregarCitaNutricion()
 	{
-		//$this->load->model('CitasModel');
+		$this->load->model('CitasModel');
 
 		$data = array("titulo" => "Agregar nuevo evento");
 
 		//Si se envió una petición POST...
-		/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			if($this->CitasModel->AgregarCita()) {
+				/*cookie: es un arreglo. que funciona como variables universales del servidor*/
+				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')."' '".$this->input->post('apellido1')."'</strong> fue registrada exitosamente!...", time()+15);
+					/*header: redirecciona envia a la direccion que se le asigna. */
+				header("Location: ".base_url()."Citas/ListarCitas");
+			}else{
+
+				$data['mensaje'] = $this->db->error();
+			}
 
 			//Si los datos enviados por formulario son correctos...
-            if ($this->ValidarCita($data) === false) { 
+          /*  if ($this->ValidarCita($data) === false) { 
 
 	        			//Si no existe un evento registrado con el mismo nombre para
 	        			//las mismas fechas...
@@ -81,12 +90,19 @@ class Citas extends CI_Controller {
 	        	}else{
 	        		$data['mensaje'] = $this->upload->display_errors();		      
 	        	}
-			}
-		}*/
+			}*/
+		}
 		//Cargar vista del formulario de registro de evento
 		$this->CargarHeader();
         $this->load->view('citas/FormularioNuevaCita', $data);
         $this->load->view('footer');
+	}
+	/*Extrae a un paciente de la base de datos con la cedula proporcionada, lo guarda en un objeto y retorna en formato json*/
+	public function ValidarPaciente(){
+		$cedula = $this->input->post("cedula");
+		$this->load->model("PacienteModel");
+		$paciente = $this->PacienteModel->Extraerpaciente(array("where"=>"cedula = '$cedula'"))->row();
+		echo json_encode($paciente);
 	}
 
 	/**
@@ -302,26 +318,25 @@ class Citas extends CI_Controller {
 	 *
 	 * @return void
 	 */
-	public function ListarEventos()
+	public function ListarCitas()
 	{
-		$this->load->model('EventoModel');
+		$this->load->model('CitasModel');
 		
 		$condicion = array(
-			"select" => "id, titulo, descripcion, fecha_hora_inicio",
-			"where" => array("id_usuario" => $this->session->userdata('idUsuario')),
-			"order_by" => "id ASC"
+			"select" => "id, id_paciente, fecha_creacion, fecha_cita, estatus, cedula, nombre1, apellido1",
+			"order_by" => array('campo'=>"id","opcion"=> "ASC") /*Traer todos los registros ordenados por el campo ID de manera ascendente, de menor a mayor*/
 			);
 
 		$data = array();
 
-		$result = $this->EventoModel->ExtraerEvento($condicion);
+		$result = $this->CitasModel->ExtraerCitas($condicion);
 
 		///if ($result->num_rows() > 0) {
 			
-		$data["eventos"] = $result;
+		$data["citas"] = $result;
 
 		$this->CargarHeader();
-        $this->load->view('eventos/ListarEventos', $data);
+        $this->load->view('citas/ListarCitas', $data);
         $this->load->view('footer');
 		//}
 	}

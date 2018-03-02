@@ -243,6 +243,7 @@
 									    </div>
 				      				</div>	
 				      			</div>
+				      			<input type="hidden" name="id_paciente" id="id" value="">
 				      			<div class="col-xs-12">
 				      				<div class="box box-solid box-primary">
 						      			<div class="box-header with-border">
@@ -270,17 +271,21 @@
 		        										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="">
 		        									</div>
 		        								</div>
-		        								<div class="col-sm-3">
+		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label>Sexo:</label>
-		        										<input type="text" class="form-control" id="sexo" name="sexo" readonly="">
-		        									</div>
-		        								</div>
-		        								<div class="col-sm-3">
-		        									<div class="form-group">
-		        										<label>Edad:</label>
-		        										<input type="text" class="form-control" id="edad" name="edad" readonly="">
-		        									</div>
+		        										<div class="col-sm-12">
+															<label class="radio-inline">
+															  	<input type="radio" name="sexo" id="sexoM" value="m" required="required" readonly=""> Masculino
+															</label>
+															<label class="radio-inline">
+															  	<input type="radio" name="sexo" id="sexoF" value="f" required="required" readonly=""> 
+															  	Femenino
+															</label>
+														</div>
+														<div class="help-block with-errors">
+												      	</div>
+						        					</div>
 		        								</div>
 		        							</div>
 		        							<div class="row">
@@ -292,9 +297,18 @@
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
-		        										<label>Departamento:</label>
-		        										<input type="text" class="form-control" id="departamento" name="departamento" readonly="">
-		        									</div>
+														<label for="tipo_paciente" class="control-label"><span class="red">*</span> Tipo de paciente:</label>
+														<select class="form-control" id="tipo_paciente" name="tipo_paciente" data-placeholder="Seleccione una opción..." required="required" readonly="" >
+															<option></option>
+															<option value="Estudiante">Estudiante</option>
+															<option value="Docente">Docente</option>
+															<option value="Administrativo">Administrativo</option>
+															<option value="Obrero">Obrero</option>
+															<option value="Cortesía">Cortesía</option>											
+														</select>
+														<div class="help-block with-errors">
+												      	</div>
+													</div>
 		        								</div>
 		        							</div>
 		        						</div>
@@ -309,7 +323,7 @@
 					       					<div class="row">
 					       						<div class="col-xs-12">
 					       							<div class="form-group">
-					       								<textarea class="form-control" name="Motivo"></textarea>
+					       								<textarea class="form-control" name="motivo"></textarea>
 					       							</div>
 					       						</div>
 					       					</div>
@@ -323,10 +337,10 @@
 										<label for="examen"><span class="red">*</span> ¿Posee examen de laboratorio?</label>
 										<div class="col-sm-12">
 											<label class="radio-inline">
-											  	<input type="radio" name="examen" id="si" value="1" required="required" readonly=""> Si
+											  	<input type="radio" name="examen_lb" id="si" value="1" required="required" readonly=""> Si
 											</label>
 											<label class="radio-inline">
-											  	<input type="radio" name="examen" id="no" value="0" required="required" readonly=""> No
+											  	<input type="radio" name="examen_lb" id="no" value="0" required="required" readonly=""> No
 											</label>
 										</div>
 										<div class="help-block with-errors">
@@ -337,7 +351,7 @@
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="examen"><span class="red">*</span> Fecha de la cita</label>
-										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
+										<input type="date" class="form-control" id="fecha_cita" name="fecha_cita" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
 									</div>
 								</div>
 
@@ -426,15 +440,15 @@
 		        	</div>		        	
 		        </div>
 		        <div class="box-footer">
-					<a href="<?php echo base_url(); ?>Evento/ListarEventos" class="btn btn-default">Cancelar</a>
-		        	<button id="guardar" type="submit" form="registro-evento" class="btn btn-success pull-right">Guardar</button>
+					<a href="<?php echo base_url(); ?>Citas/ListarCitas" class="btn btn-default">Cancelar</a>
+		        	<button id="guardar" type="submit" form="registro-citas" class="btn btn-success pull-right">Guardar</button>
 		        </div>
 		    </div>
 		</div>
 	</div>
 	
 </section>
-
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -443,11 +457,77 @@ $(document).ready(function() {
 		$("#orden_body .center-block p").html($(this).val());
 	});
 
-	$("input[name=examen]").on('change', function( event ) {
+	$("input[name=examen_lb]").on('change', function( event ) {
 		if ($(this).val() == 0) {
 			$("#generar_orden").removeClass('hidden');
 		}else{
 			$("#generar_orden").addClass('hidden');
+		}
+	});
+	/*Al momento de darle click a buscar, captura el evento y ejecuta la función que se establece*/
+	$("#search").on("click", function(event){
+		event.preventDefault();/*el elemento del boton lo anula*/
+
+		var cedula= $("#cedula").val();/*obtiene el valor del campo que lleva por id cedula*/
+		if (cedula.length >=6) {
+			var request;/*variable que almacena la peticion del servidor*/
+			if (request) {
+				request.abort();
+			}
+
+			request= $.ajax({
+				/* funcion que trae por defecto el url del sistema*/
+				url: "<?php echo base_url(); ?>Citas/ValidarPaciente",
+				type: "POST",
+				dataType: "json",/*Se utiliza para manejar objetos y arreglos */
+				data: "cedula="+cedula
+			});
+			/*La peticion se ejecuta con exito*/
+			request.done(function(response,textStatus,jqXRH){
+				console.log(response);
+				if (response != null){
+					$.each(response,function(index,value){/*Recorre cada posicion del arreglo response*/
+						if(value == "" || value == null || value == " " || value == undefined){
+							if(index == 'sexo'){
+								$("input[name=sexo]").prop("checked",false);
+							}else{
+								$("#"+index).prop("readonly",false);
+							}
+						}else{
+							if (index == 'sexo') {
+								/*Tiple igual: es exactamente igual*/
+								if (value === 'm') {
+									$("#sexoM").prop("checked",true);
+								}else{
+									$("#sexoF").prop("checked",true);
+								}
+								$("input[name=sexo]").prop("readonly",true);
+							}else if(index == 'tipo_paciente'){/*compara el valor de tipo de paciente traido desde el servidor con cada opcion del select de tipo paciente*/
+								$("#"+index+" option").prop("readonly",true);
+								$("#"+index+" option").each(function(i,val){
+									if ($(this).val() == value.substr(0,1).toUpperCase()+$(this).val().substr(1)) {
+
+										$(this).prop("selected",true);
+									}
+								});
+								setTimeout(function(){/*sepera determinado tiempo para ejecutar la sentencias establecidas en el*/
+									$("#"+index).attr("readonly","readonly");
+								},60);
+							}else{
+								$("#"+index).val(value).prop("readonly",true);
+							}
+						}
+					});
+
+				}else{
+					$(".form-control").prop("readonly",false);
+					$("select.form-control").removeAttr("readonly");
+				}
+			}); 
+			request.fail(function(jqXRH,textStatus,thrown){
+				alert("error: "+textStatus);
+			});
+
 		}
 	});
 });

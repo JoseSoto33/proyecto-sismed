@@ -229,7 +229,7 @@
 					            	</a>
 					            </li>								            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Citas/ListarVacunas">
+					            	<a href="<?php echo base_url(); ?>Citas/ListarCitas">
 					            		<i class="fa fa-circle-o"></i>					            		
 										<span>Listado de citas</span>
 					            	</a>
