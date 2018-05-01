@@ -1,15 +1,14 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Agregar evento
+    <?php echo $titulo; ?>
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li>Eventos</li>
-    <li class="active">Agregar evento</li>
+    <li>Citas</li>
+    <li class="active"><?php echo $titulo; ?></li>
   </ol>
 </section>
-
 <!-- Main content -->
 <section class="content container-fluid">
 	<div class="row">
@@ -234,7 +233,7 @@
 													<span class="glyphicon glyphicon-search"></span>
 												</button>	
 											</div>											
-					      					<input type="text" name="cedula" class="form-control" id="cedula" placeholder="Ingrese cédula">
+					      					<input type="text" name="cedula" class="form-control" id="cedula" placeholder="Ingrese cédula" value="<?php echo (isset($cita['cedula']))? $cita['cedula'] : set_value('cedula'); ?>" <?php echo (isset($cita['cedula']))? "readonly":''; ?>>
 									      	<div class="input-group-btn">								
 												<button id="reset" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Limpiar formulario...">
 													<span class="glyphicon glyphicon-refresh"></span>
@@ -254,13 +253,13 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label>Nombre:</label>
-		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
+		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['nombre1']))? $cita['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label>Apellido:</label>
-		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
+		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['apellido1']))? $cita['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        							</div>
@@ -268,7 +267,7 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label>Fecha de nacimiento:</label>
-		        										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="">
+		        										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($cita['fecha_nacimiento']))? $cita['fecha_nacimiento'] : set_value('fecha_nacimiento'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
@@ -276,10 +275,10 @@
 		        										<label>Sexo:</label>
 		        										<div class="col-sm-12">
 															<label class="radio-inline">
-															  	<input type="radio" name="sexo" id="sexoM" value="m" required="required" readonly=""> Masculino
+															  	<input type="radio" name="sexo" id="sexoM" value="m" required="required" readonly="" <?php echo (isset($cita['sexo']) && $cita['sexo'] == 'm')? "checked" : ""; ?> > Masculino
 															</label>
 															<label class="radio-inline">
-															  	<input type="radio" name="sexo" id="sexoF" value="f" required="required" readonly=""> 
+															  	<input type="radio" name="sexo" id="sexoF" value="f" required="required" readonly="" <?php echo (isset($cita['sexo']) && $cita['sexo'] == 'f')? "checked" : ""; ?> > 
 															  	Femenino
 															</label>
 														</div>
@@ -292,20 +291,16 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label>Correo:</label>
-		        										<input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="" required="required" readonly="">
+		        										<input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="<?php echo (isset($cita['email']))? $cita['email'] : set_value('email'); ?>" required="required" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 														<label for="tipo_paciente" class="control-label"><span class="red">*</span> Tipo de paciente:</label>
-														<select class="form-control" id="tipo_paciente" name="tipo_paciente" data-placeholder="Seleccione una opción..." required="required" readonly="" >
-															<option></option>
-															<option value="Estudiante">Estudiante</option>
-															<option value="Docente">Docente</option>
-															<option value="Administrativo">Administrativo</option>
-															<option value="Obrero">Obrero</option>
-															<option value="Cortesía">Cortesía</option>											
-														</select>
+														<?php
+															$attr = "class=\"form-control\" id=\"tipo_paciente\" data-placeholder=\"Seleccione una opción...\" required=\"required\" readonly=\"\"";
+															echo form_dropdown("tipo_paciente", $tipo_paciente, set_value("tipo_paciente", (isset($cita['tipo_paciente']))? $cita['tipo_paciente'] : ""), $attr);
+														?>
 														<div class="help-block with-errors">
 												      	</div>
 													</div>
@@ -323,7 +318,8 @@
 					       					<div class="row">
 					       						<div class="col-xs-12">
 					       							<div class="form-group">
-					       								<textarea class="form-control" name="motivo"></textarea>
+					       								<textarea class="form-control" name="motivo"><?php echo (isset($cita['motivo']))? trim($cita['motivo']) : set_value('motivo'); ?>
+					       								</textarea>
 					       							</div>
 					       						</div>
 					       					</div>
@@ -337,10 +333,10 @@
 										<label for="examen"><span class="red">*</span> ¿Posee examen de laboratorio?</label>
 										<div class="col-sm-12">
 											<label class="radio-inline">
-											  	<input type="radio" name="examen_lb" id="si" value="1" required="required" readonly=""> Si
+											  	<input type="radio" name="examen_lb" id="si" value="1" required="required" readonly="" <?php echo (isset($cita['examen_lb']) && $cita['examen_lb'] == 't')? "checked" : ""; ?> > Si
 											</label>
 											<label class="radio-inline">
-											  	<input type="radio" name="examen_lb" id="no" value="0" required="required" readonly=""> No
+											  	<input type="radio" name="examen_lb" id="no" value="0" required="required" readonly="" <?php echo (isset($cita['examen_lb']) && $cita['examen_lb'] == 'f')? "checked" : ""; ?> > No
 											</label>
 										</div>
 										<div class="help-block with-errors">
@@ -351,7 +347,7 @@
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="examen"><span class="red">*</span> Fecha de la cita</label>
-										<input type="date" class="form-control" id="fecha_cita" name="fecha_cita" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
+										<input type="date" class="form-control" id="fecha_cita" name="fecha_cita" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($cita['fecha_cita']))? date('Y-m-d',strtotime($cita['fecha_cita'])) : date('Y-m-d'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
 									</div>
 								</div>
 
@@ -425,9 +421,17 @@
 									</div>
 								</div>
 
-
-
-
+								<?php if( isset($cita['estatus'])){?>
+								<input type="hidden" name="estatus_actual" value="<?php echo$cita['estatus']?>">
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label for="estatus">Status</label>
+										<?php 
+											$attr = "class=\"form-control\" id=\"estatus\" data-placeholder=\"Seleccione una opción...\" required=\"required\"";
+											echo form_dropdown("estatus", $estatus, set_value("estatus", $cita['estatus']), $attr);?>
+									</div>
+								</div>
+								<?php } ?>
 
 								<div class="col-sm-12">						
 									<small> 
@@ -464,6 +468,37 @@ $(document).ready(function() {
 			$("#generar_orden").addClass('hidden');
 		}
 	});
+
+	if ($("input[name=estatus_actual]").length>0) {
+		var estatus= $("input[name=estatus_actual]").val();
+		switch(estatus){
+			case "0": 
+				var permitidos=["0","3"];
+				break;
+			case "1":
+				var permitidos =["1","2","3"];
+				break; 
+		}
+
+		$("#estatus option").each(function(index,value){
+			var select_estatus = $(this).val();
+			if( $.inArray(select_estatus, permitidos)== -1){
+			 	$(this).remove();
+			}
+		});
+	}
+
+	$("#reset").on("click", function(event){
+		event.preventDefault();/*el elemento del boton lo anula*/
+		$("#cedula").val('').prop("readonly",false);
+		$("#nombre1").val('').prop("readonly",true);
+		$("#apellido1").val('').prop("readonly",true);
+		$("#email").val('').prop("readonly",true);
+		$("#fecha_nacimiento").val('').prop("readonly",true);
+		$("#tipo_paciente").val('').prop("readonly",true);
+		$("input[name=sexo]").prop("checked",false).prop("readonly",true);
+	});
+
 	/*Al momento de darle click a buscar, captura el evento y ejecuta la función que se establece*/
 	$("#search").on("click", function(event){
 		event.preventDefault();/*el elemento del boton lo anula*/
