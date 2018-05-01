@@ -37,7 +37,7 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
         }
     }
 
-    public function Modificarcita($condicion = array())
+    public function ModificarCita($condicion = array())
     {
         if (isset($condicion['where']) && !empty($condicion['where'])) {
             
@@ -49,7 +49,7 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
             $this->db->or_where($condicion['or_where']);
         }
 
-        if ($this->db->update($condicion['table'], $condicion['data'])) {
+        if ($this->db->update("citas", $condicion['data'])) {
             return true;
         }else{
             return false;

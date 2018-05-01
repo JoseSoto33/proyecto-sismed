@@ -50,7 +50,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 		$this->load->model('CitasModel');
 
 		$data = array("titulo" => "Agregar nuevo evento");
-
+		$data['tipo_paciente'] = array("" => "", "Estudiante"  => "Estudiante", "Docente" => "Docente", "Administrativo" => "Administrativo", "Obrero"  => "Obrero", "Cortesía" => "Cortesía");
 		//Si se envió una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if($this->CitasModel->AgregarCita()) {
@@ -113,119 +113,66 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
      *
      * @return void
 	 */
-	public function ModificarEvento($id_evento)
+	public function ModificarCitaNutricion($id_cita)
 	{
-		$this->load->model('EventoModel');
-		$this->load->model('ImagenModel');
+		$this->load->model('CitasModel');//carga del controlador al modela de citas
 
-		$data = array("titulo" => "Modificar datos de evento");
-
+		$data = array("titulo" => "Modificar cita");										
+		$data['tipo_paciente'] = array("" => "", "Estudiante"  => "Estudiante", "Docente" => "Docente", "Administrativo" => "Administrativo", "Obrero"  => "Obrero", "Cortesía" => "Cortesía");
+		$data['estatus'] =  array("" => "", "0" => "Pendiente", "1" => "Agendada-Hoy", "2" => "Atendida","3" => "Cancelada", "4" => "Anulada");
+		//
 		$cond = array(
 				"where" => array(
-					"MD5(concat('sismed',id))" => $id_evento
+					//md5 encripta el id que se encuentra en la BD.usando como llave "sismed"
+					"MD5(concat('sismed',id))" => $id_cita
 					)
 				);
 
-		$result = $this->EventoModel->ExtraerEvento($cond);
+		$result = $this->CitasModel->ExtraerCitas($cond);
 
 		//Si los registros encontrados son más de 0...
 		if ($result->num_rows() > 0) {
 
-			$data['evento'] = $result->row_array();
-
-			$data['evento']['fecha_inicio'] = date("Y-m-d", strtotime($data['evento']['fecha_hora_inicio']));
-			$data['evento']['hora_inicio'] = date("h:i", strtotime($data['evento']['fecha_hora_inicio']));
-			$data['evento']['h_i_meridiano'] = date("a", strtotime($data['evento']['fecha_hora_inicio']));
-
-			$data['evento']['fecha_fin'] = date("Y-m-d", strtotime($data['evento']['fecha_hora_fin']));
-			$data['evento']['hora_fin'] = date("h:i", strtotime($data['evento']['fecha_hora_fin']));
-			$data['evento']['h_f_meridiano'] = date("a", strtotime($data['evento']['fecha_hora_fin']));
-
+			$data['cita'] = $result->row_array();
+			
 			//Si se envía una petición POST...
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
 				
 				//Si los datos del evento son válidos...
-	            if ($this->ValidarEvento($data) === false) {
+	            //if ($this->ValidarEvento($data) === false) {	        		
 
-	            	//Si se cambió la imagen del evento...
-	            	if (isset($_POST['img-change']) && isset($_FILES["imagen"]) && $_FILES["imagen"]["name"] != '' ) {
-	            		
-		            	$ruta 		= './assets/img/eventos/';
-				        $nombre 	= base64_encode($this->input->post('titulo'))."_".$this->input->post('fecha_inicio')."_".$this->input->post('fecha_fin');
-				        $file_info 	= $this->ImagenModel->SubirImagen($data,$ruta,$nombre);
+        			//Si los datos del evento son correctos...
+        			//if (!$this->CitasModel->ValidarEvento($condicion)) {        
 
-				        //Si el archivo se cargó correctamente...
-				        if ($file_info != false) {
-				        	$data['evento']['img'] = $file_info['file_name'];
-				        }
-	            	}
+        				$condicion = array(	
+        					"data" => array(
+				                "motivo" => $this->input->post('motivo'),
+				                "fecha_cita" => $this->input->post('fecha_cita'),
+				                "examen_lb" => $this->input->post('examen_lb'),
+				                "estatus" => $this->input->post('estatus'),
+				            ),
+				     		"where" => array("MD5(concat('sismed',id))" => $id_cita)
+						);
 
-	            	//Si el archivo fue declarado...
-			        if (!isset($file_info) || (isset($file_info) && $file_info != false)) {
-	            		
-	            		$fecha_inicio = $this->input->post('fecha_inicio');
-						$fecha_fin 	 = $this->input->post('fecha_fin');
 
-						$hora_inicio = $this->input->post('hora_inicio')." ".$this->input->post('h_i_meridiano');
-		        		$hora_fin 	 = $this->input->post('hora_fin')." ".$this->input->post('h_f_meridiano');
+        				//Si la modificación es exitosa...
+	        			if ($this->CitasModel->ModificarCita($condicion)) {
 
-		        		$data = $this->EventoModel->ValidarFechaHora($fecha_inicio, $fecha_fin, $hora_inicio, $hora_fin, $data);
+	        				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue modificada exitosamente!...", time()+15);
+							header("Location: ".base_url()."Citas/ListarCitas");
 
-		        		//Si las fechas del evento son válidas...
-		        		if ($data['status'] === true) {
+						//Si ocurre un error en la modificación...
+						}else{
 
-		        			$fecha_hora_inicio = $fecha_inicio." ".$hora_inicio;
-		        			$fecha_hora_fin = $fecha_fin." ".$hora_fin;
+							$data['mensaje'] = $this->db->error();
+						}
 
-		        			$condicion = array(
-				        			'where' => array(
-				        				'titulo' => $this->input->post('titulo'),
-				        				'fecha_hora_inicio' => $fecha_hora_inicio,
-				        				'fecha_hora_fin' => $fecha_hora_fin,
-				        				"MD5(concat('sismed',id)) != " => $id_evento
-				        				)
-				        			);
-
-		        			//Si los datos del evento son correctos...
-		        			if (!$this->EventoModel->ValidarEvento($condicion)) {
-
-						        $file_info = $this->upload->data();						        
-
-		        				$condicion = array(	
-		        					"data" => array(
-						                "id_usuario" => $this->session->userdata('idUsuario'),
-						                "titulo" => $this->input->post('titulo'),
-						                "descripcion" => $this->input->post('descripcion'),
-						                "fecha_hora_inicio" => $fecha_hora_inicio,
-						                "fecha_hora_fin" => $fecha_hora_fin,
-						                "img" =>  $data['evento']['img']
-						            ),
-						     		"where" => array("MD5(concat('sismed',id))" => $id_evento)
-								);
-
-		        				//Si la modificación es exitosa...
-			        			if ($this->EventoModel->ModificarEvento($condicion)) {
-
-			        				set_cookie("message","El evento <strong>'".$this->input->post('titulo')."'</strong> fue registrado exitosamente!...", time()+15);
-									header("Location: ".base_url()."Evento/ListarEventos");
-
-								//Si ocurre un error en la modificación...
-								}else{
-
-									$data['mensaje'] = $this->db->error();
-								}
-
-							//Si los datos coinsiden con un evento registrado...
-		        			}else{
-		        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
-		        			}
-		        		}
-
+					//Si los datos coinsiden con un evento registrado...
+        			/*}else{
+        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
+        			}*/
 	        		//Si no se pudo cargar el archivo...
-		        	}else{
-		        		$data['mensaje'] = $this->upload->display_errors();	
-		        	}
-				}
+		        //}
 			}
 
 		//Si no se encontraron registros...
@@ -233,9 +180,9 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 			$data['mensaje'] = $this->db->error();
 		}
 
-		//Se carga la vista del formulario para modificar eventos
+		//Se carga la vista del formulario para modificar cita
 		$this->CargarHeader();
-        $this->load->view('eventos/FormularioRegistroEvento', $data);
+        $this->load->view('citas/FormularioNuevaCita', $data);
         $this->load->view('footer');
 	}
 

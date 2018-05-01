@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Listado de eventos
+    Listado de Citas
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li class="active">Eventos</li>
+    <li class="active">Citas</li>
   </ol>
 </section>
 
@@ -58,10 +58,10 @@
 						<?php 
 							$cont = 1;
 							if ($citas->num_rows() > 0) {
-								
 								setlocale(LC_TIME,"esp"); 
 
 								foreach ($citas->result_array() as $key => $cita) {
+								var_dump($cita["estatus"]);
 									
 									echo "<tr id=\"fila_".md5('sismed'.$cita["id"])."\">";
 									echo "<td>".$cont++."</td>";
@@ -71,19 +71,28 @@
 									echo "<td>".$cita["apellido1"]."</td>";
 									echo "<td>".strftime('%d de %B de %Y', strtotime($cita["fecha_creacion"]))."</td>";
 									echo "<td>";
-									switch ($cita["estatus"]) {
+									switch ((int) $cita["estatus"]) {
 										case 0:
-											echo "Pendiente";
+											$str = "<span class=\"label lebel-warning\">Pendiente</span>";
 											break;
 										
 										case 1:
-											echo "Realizada";
+											$str = "<span class=\"label lebel-info\">Agendada-Hoy</span>";
 											break;
 
 										case 2:
-											echo "Cancelada";
+											$str = "<span class=\"label lebel-success\">Atendida</span>";
 											break;
-									}										
+
+										case 3:
+											$str = "<span class=\"label lebel-danger\">Cancelado</span>";
+											break;
+
+										case 4:
+											$str = "<span class=\"label lebel-danger\">Anulado</span>";
+											break;
+									}
+									echo $str;								
 									echo "</td>";									
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
@@ -93,7 +102,7 @@
 									echo "</a>";
 
 									//---Boton editar---
-									echo "<a class=\"btn btn-xs btn-success editar-evento\" href=\"".base_url("Evento/ModificarEvento/".md5('sismed'.$cita["id"]))."\" title=\"Editar evento\">";
+									echo "<a class=\"btn btn-xs btn-success editar-evento\" href=\"".base_url("Citas/ModificarCitaNutricion/".md5('sismed'.$cita["id"]))."\" title=\"Editar evento\">";
 									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 									echo "</a>";
 
