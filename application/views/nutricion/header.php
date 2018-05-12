@@ -236,7 +236,7 @@
 					            </li>				            
 					        </ul>
 				        </li>
-				        <li class="treeview <?php if($this->uri->segment(1) == 'Dietas') echo 'active'; ?>">
+				        <li class="treeview <?php if($this->uri->segment(1) == 'PlanesAlimenticios') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-book"></i>
 				          		<span>Planes alimenticios </span>
@@ -246,13 +246,13 @@
 				          	</a>
 					        <ul class="treeview-menu">									            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Dietas/AgregarPatologia">
+					            	<a href="<?php echo base_url(); ?>PlanesAlimenticios/AgregarPlanAlimenticio">
 					            		<i class="fa fa-circle-o"></i>
 					            		<span>Agregar dietas</span>
 					            	</a>
 					            </li>								            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Dietas/ListarPatologias">
+					            	<a href="<?php echo base_url(); ?>PlanesAlimenticios/ListarPlanes">
 					            		<i class="fa fa-circle-o"></i>
 					            		<span>Listado de dietas</span>
 					            	</a>

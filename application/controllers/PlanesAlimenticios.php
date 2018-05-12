@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Citas extends CI_Controller {/*CI: CodeIgniter*/
+class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 
 	/**
 	 * Index Page for this controller.
@@ -45,15 +45,25 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
      *
      * @return 	void
      */
-	public function AgregarCitaNutricion()
+	public function AgregarPlanAlimenticio()
 	{
-		$this->load->model('CitasModel');
+		$this->load->model('PlanesAlimenticiosModel');
 
-		$data = array("titulo" => "Agregar nueva cita");
+		$data = array("titulo" => "Agregar nuevo plan alimenticio");
 		$data['tipo_paciente'] = array("" => "", "Estudiante"  => "Estudiante", "Docente" => "Docente", "Administrativo" => "Administrativo", "Obrero"  => "Obrero", "Cortesía" => "Cortesía");
+		$data['lista_sustitutos'] = $this->PlanesAlimenticiosModel->ExtraerListaSustitutos();
+
+		foreach ($data['lista_sustitutos'] as $key => $sustituto) {
+			$racion[$sustituto['id']] = $this->PlanesAlimenticiosModel->ExtraerListaRacion($sustituto['id']);
+		}
+		$data['raciones'] = $racion;
+
+		$data['lista_equivalente'] = $this->PlanesAlimenticiosModel->ExtraerListaEquivalente();
+		$data['lista_medida'] = $this->PlanesAlimenticiosModel->ExtraerListaMedida();
+		
 		//Si se envió una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if($this->CitasModel->AgregarCita()) {
+			if($this->PlanesAlimenticiosModel->AgregarPlanAlimenticio()) {
 				/*cookie: es un arreglo. que funciona como variables universales del servidor*/
 				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')."' '".$this->input->post('apellido1')."'</strong> fue registrada exitosamente!...", time()+15);
 					/*header: redirecciona envia a la direccion que se le asigna. */
@@ -94,7 +104,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 		}
 		//Cargar vista del formulario de registro de evento
 		$this->CargarHeader();
-        $this->load->view('citas/FormularioNuevaCita', $data);
+        $this->load->view('planes/FormularioNuevoPlanAlimenticio', $data);
         $this->load->view('footer');
 	}
 	/*Extrae a un paciente de la base de datos con la cedula proporcionada, lo guarda en un objeto y retorna en formato json*/
