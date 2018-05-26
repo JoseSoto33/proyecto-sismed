@@ -93,12 +93,15 @@ $(document).ready(function(){
 
     $(".table-responsive").on("click", "#lista-citas tbody tr td .eliminar-cita", function(e){
 
-    	var idcita = $(this).data("idcita"); 
-    	var titulo = $(this).data("titulo"); 
-
+    	var idcita = $(this).data("idcita"),
+            fila= $(this).closest("tr"),
+            nombre= fila.find(".listanombre").text(),
+            apellido= fila.find(".listaapellido").text(),
+            fecha= fila.find(".listafecha").text();
         $("#delete-message").hide();
 
-    	$("#la-cita").html(titulo);
+    	$("#nom_paciente").html(nombre + " " + apellido);
+        $("#fecha_cita").html(fecha);
     	$("#accion-eliminar-cita").data('idcita', idcita);
     });
 
@@ -152,6 +155,7 @@ $(document).ready(function(){
 
         e.preventDefault();
     });
+
 
     function dump(obj) {
 

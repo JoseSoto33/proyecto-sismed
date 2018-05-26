@@ -248,13 +248,13 @@
 					            <li>
 					            	<a href="<?php echo base_url(); ?>PlanesAlimenticios/AgregarPlanAlimenticio">
 					            		<i class="fa fa-circle-o"></i>
-					            		<span>Agregar dietas</span>
+					            		<span>Agregar plan </span>
 					            	</a>
 					            </li>								            
 					            <li>
 					            	<a href="<?php echo base_url(); ?>PlanesAlimenticios/ListarPlanes">
 					            		<i class="fa fa-circle-o"></i>
-					            		<span>Listado de dietas</span>
+					            		<span>Listado de planes </span>
 					            	</a>
 					            </li>				            
 					        </ul>
@@ -271,13 +271,13 @@
 					            <li>
 					            	<a href="<?php echo base_url(); ?>Dietas/AgregarPatologia">
 					            		<i class="fa fa-circle-o"></i>
-					            		<span>Agregar dietas</span>
+					            		<span>Agregar menú</span>
 					            	</a>
 					            </li>								            
 					            <li>
 					            	<a href="<?php echo base_url(); ?>Dietas/ListarPatologias">
 					            		<i class="fa fa-circle-o"></i>
-					            		<span>Listado de dietas</span>
+					            		<span>Listado de menú</span>
 					            	</a>
 					            </li>				            
 					        </ul>

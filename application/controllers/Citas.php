@@ -270,7 +270,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 		$this->load->model('CitasModel');
 		
 		$condicion = array(
-			"select" => "id, id_paciente, fecha_creacion, fecha_cita, estatus, cedula, nombre1, apellido1",
+			"select" => "id, id_paciente, fecha_creacion, fecha_cita, estatus, cedula, nombre1, apellido1, motivo",
 			"order_by" => array('campo'=>"id","opcion"=> "ASC") /*Traer todos los registros ordenados por el campo ID de manera ascendente, de menor a mayor*/
 			);
 
