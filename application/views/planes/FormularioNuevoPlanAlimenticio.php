@@ -62,7 +62,7 @@
 				       						<div class="panel-group" id="lista_sustitutos" role="tablist" aria-multiselectable="true">
 				       							<?php foreach ($lista_sustitutos as $key => $sustituto) {?>
 				       							<div class="panel panel-default">
-				       								<div class="panel-heading" role="tab" id="heading<?php echo $sustituto['id'] ?>">
+				       								<div class="panel-heading" role="tab" id="heading<?php echo $sustituto['id']; ?>">
 				       									<h4 class="panel-title">
 				       										<?php  echo $sustituto['titulo']; 
 				       										?>
@@ -71,14 +71,71 @@
 				       										</a>
 				       									</h4>
 				       								</div>
-				       								<div id="collapse <?php echo $sustituto['id']; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $sustituto['id']; ?>">
+				       								<div id="collapse <?php echo $sustituto['id']; ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $sustituto['id']; ?>">
 				       									<div class="panel-body">
-				       										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				       										tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				       										quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				       										consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				       										cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				       										proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				       										<div class="raciones-contentt" >
+				       											<input type="hidden" class="id_sustituto" value="<?php echo $sustituto['id']; ?>">
+					       										<div class="row fila">
+					       											<div class="col-xs-11">
+					       												<div class="row">
+							       											<div class="col-xs-12 col-sm-4" >
+							       												<div class="form-group">
+							       													<label class="control-label">Ración</label>
+							       													<select class="form-control racion" name="racion[]">
+							       														<option value=""></option>
+							       														<?php 
+							       														foreach ($raciones[$sustituto['id']] as $key => $racion) {?>
+							       															<option value="<?php echo $racion['id']?>">
+							       															<?php  echo $racion['descripcion']?>
+							       															</option>
+							       													<?php } ?>
+							       														
+							       													</select>
+							       												</div>
+							       											</div>
+
+							       											<div class="col-xs-12 col-sm-4" >
+							       												<div class="form-group">
+							       													<label class="control-label">Equivalente</label>
+							       													<select class="form-control" name="equivalente[]">
+							       														<option value=""></option>
+							       														<?php 
+							       														foreach ($lista_equivalente as $key => $equivalente) {?>
+							       															<option value="<?php echo $equivalente['id']?>">
+							       																<?php  echo $equivalente['equivalente']?>
+							       															</option>
+							       													<?php } ?>
+							       														
+							       													</select>
+							       												</div>
+							       											</div>
+
+							       											<div class="col-xs-12 col-sm-4" >
+							       												<div class="form-group">
+							       													<label class="control-label">Medida</label>
+							       													<select class="form-control" name="medida[]">
+							       														<option value=""></option>
+							       														<?php 
+							       														foreach ($lista_medida as $key => $medida) {?>
+							       															<option value="<?php echo $medida['id']?>">
+							       																<?php  echo $medida['medida']?>
+							       															</option>
+							       													<?php } ?>
+							       														
+							       													</select>
+							       												</div>
+							       											</div>
+							       										</div>
+					       											</div>
+					       										</div>
+					       									</div>
+				       										<div class="row">
+				       											<div class="col-sm-12">
+				       												<button type="button" class="btn btn-info pull-right agregar-fila" data-id_sustituto="<?php echo $sustituto['id'];?>">
+				       													Añadir
+				       												</button>
+				       											</div>
+				       										</div>
 				       									</div>
 				       								</div>
 				       							</div>
@@ -112,114 +169,62 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	var select_raciones = [];
+	$(".agregar-fila").on("click", function(event){
+		event.preventDefault();/*el elemento del boton lo anula*/
+		var contenedor = $(this).closest('.panel-body'),
+			lista = contenedor.find('.raciones-contentt'),
+			id_sustituto = $(this).data('id_sustituto'), 
+			request;
 
-	$("#examenes").on('keyup', function( event ) {
-		$("#orden_body .center-block p").html($(this).val());
-	});
-
-	$("input[name=examen_lb]").on('change', function( event ) {
-		if ($(this).val() == 0) {
-			$("#generar_orden").removeClass('hidden');
-		}else{
-			$("#generar_orden").addClass('hidden');
-		}
-	});
-
-	if ($("input[name=estatus_actual]").length>0) {
-		var estatus= $("input[name=estatus_actual]").val();
-		switch(estatus){
-			case "0": 
-				var permitidos=["0","3"];
-				break;
-			case "1":
-				var permitidos =["1","2","3"];
-				break; 
+		if(request){
+			request.abort();
 		}
 
-		$("#estatus option").each(function(index,value){
-			var select_estatus = $(this).val();
-			if( $.inArray(select_estatus, permitidos)== -1){
-			 	$(this).remove();
-			}
+		request= $.ajax({
+			url:"<?php echo base_url();?>PlanesAlimenticios/AgregarFilaRacion",
+			type: "POST",
+			data:"id_sustituto="+id_sustituto
+		});
+		request.done(function(response,textStatus,jqXRH){
+			lista.append(response);
+		});
+		request.fail(function(jqXRH,textStatus,thrown){
+			alert("error:"+textStatus);
+		});
+	});
+
+	$(".raciones-contentt").on("click", ".fila .col-xs-1 .quitar-fila", function(event){
+		event.preventDefault();
+		var boton = $ (this),
+			fila = boton.closest('.fila');
+		fila.remove();
+	});
+
+	$(".raciones-contentt").on("change", ".row .col-xs-11 .racion", function(event){
+		event.preventDefault();
+		var select = $ (this),
+			fila = select.closest('.raciones-contentt'),
+			valor = select.val(),
+			id_sustituto = fila.find('.id_sustituto').val();
+		select_raciones[id_sustituto] = [];
+		select_raciones[id_sustituto].push(valor);
+		console.log(select_raciones);
+		seleccionados(select_raciones[id_sustituto], fila);
+	});
+
+	function seleccionados(arr_select, elemento) {
+		elemento.find('.fila').each(function(i,v){
+			var select = $(this).find('.racion');
+			select.find('option').each(function(index, value){
+				if (select.val() != $(this).attr('value') && $.inArray($(this).attr('value'), arr_select) > -1) {
+					$(this).prop('disabled',true);
+				}else{
+					$(this).prop('disabled',false);
+				}
+			});
 		});
 	}
 
-	$("#reset").on("click", function(event){
-		event.preventDefault();/*el elemento del boton lo anula*/
-		$("#cedula").val('').prop("readonly",false);
-		$("#nombre1").val('').prop("readonly",true);
-		$("#apellido1").val('').prop("readonly",true);
-		$("#email").val('').prop("readonly",true);
-		$("#fecha_nacimiento").val('').prop("readonly",true);
-		$("#tipo_paciente").val('').prop("readonly",true);
-		$("input[name=sexo]").prop("checked",false).prop("readonly",true);
-	});
-
-	/*Al momento de darle click a buscar, captura el evento y ejecuta la función que se establece*/
-	$("#search").on("click", function(event){
-		event.preventDefault();/*el elemento del boton lo anula*/
-
-		var cedula= $("#cedula").val();/*obtiene el valor del campo que lleva por id cedula*/
-		if (cedula.length >=6) {
-			var request;/*variable que almacena la peticion del servidor*/
-			if (request) {
-				request.abort();
-			}
-
-			request= $.ajax({
-				/* funcion que trae por defecto el url del sistema*/
-				url: "<?php echo base_url(); ?>Citas/ValidarPaciente",
-				type: "POST",
-				dataType: "json",/*Se utiliza para manejar objetos y arreglos */
-				data: "cedula="+cedula
-			});
-			/*La peticion se ejecuta con exito*/
-			request.done(function(response,textStatus,jqXRH){
-				console.log(response);
-				if (response != null){
-					$.each(response,function(index,value){/*Recorre cada posicion del arreglo response*/
-						if(value == "" || value == null || value == " " || value == undefined){
-							if(index == 'sexo'){
-								$("input[name=sexo]").prop("checked",false);
-							}else{
-								$("#"+index).prop("readonly",false);
-							}
-						}else{
-							if (index == 'sexo') {
-								/*Tiple igual: es exactamente igual*/
-								if (value === 'm') {
-									$("#sexoM").prop("checked",true);
-								}else{
-									$("#sexoF").prop("checked",true);
-								}
-								$("input[name=sexo]").prop("readonly",true);
-							}else if(index == 'tipo_paciente'){/*compara el valor de tipo de paciente traido desde el servidor con cada opcion del select de tipo paciente*/
-								$("#"+index+" option").prop("readonly",true);
-								$("#"+index+" option").each(function(i,val){
-									if ($(this).val() == value.substr(0,1).toUpperCase()+$(this).val().substr(1)) {
-
-										$(this).prop("selected",true);
-									}
-								});
-								setTimeout(function(){/*sepera determinado tiempo para ejecutar la sentencias establecidas en el*/
-									$("#"+index).attr("readonly","readonly");
-								},60);
-							}else{
-								$("#"+index).val(value).prop("readonly",true);
-							}
-						}
-					});
-
-				}else{
-					$(".form-control").prop("readonly",false);
-					$("select.form-control").removeAttr("readonly");
-				}
-			}); 
-			request.fail(function(jqXRH,textStatus,thrown){
-				alert("error: "+textStatus);
-			});
-
-		}
-	});
 });
 </script>

@@ -107,6 +107,15 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
         $this->load->view('planes/FormularioNuevoPlanAlimenticio', $data);
         $this->load->view('footer');
 	}
+	public function AgregarFilaRacion(){
+		$this->load->model('PlanesAlimenticiosModel');
+		$id_sustituto = $this->input->post('id_sustituto');
+		$data['raciones'] = $this->PlanesAlimenticiosModel->ExtraerListaRacion($id_sustituto);
+		$data['id_sustituto'] = $id_sustituto;
+		$data['lista_equivalente'] = $this->PlanesAlimenticiosModel->ExtraerListaEquivalente();
+		$data['lista_medida'] = $this->PlanesAlimenticiosModel->ExtraerListaMedida();
+		$this->load->view('planes/FilaRacion', $data);
+	}
 	/*Extrae a un paciente de la base de datos con la cedula proporcionada, lo guarda en un objeto y retorna en formato json*/
 	public function ValidarPaciente(){
 		$cedula = $this->input->post("cedula");
