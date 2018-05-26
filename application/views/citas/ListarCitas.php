@@ -61,7 +61,6 @@
 								setlocale(LC_TIME,"esp"); 
 
 								foreach ($citas->result_array() as $key => $cita) {
-								var_dump($cita["estatus"]);
 									
 									echo "<tr id=\"fila_".md5('sismed'.$cita["id"])."\">";
 									echo "<td>".$cont++."</td>";
@@ -73,23 +72,23 @@
 									echo "<td>";
 									switch ((int) $cita["estatus"]) {
 										case 0:
-											$str = "<span class=\"label lebel-warning\">Pendiente</span>";
+											$str = "<span class=\"label label-warning\">Pendiente</span>";
 											break;
 										
 										case 1:
-											$str = "<span class=\"label lebel-info\">Agendada-Hoy</span>";
+											$str = "<span class=\"label label-info\">Agendada-Hoy</span>";
 											break;
 
 										case 2:
-											$str = "<span class=\"label lebel-success\">Atendida</span>";
+											$str = "<span class=\"label label-success\">Atendida</span>";
 											break;
 
 										case 3:
-											$str = "<span class=\"label lebel-danger\">Cancelado</span>";
+											$str = "<span class=\"label label-danger\">Cancelado</span>";
 											break;
 
 										case 4:
-											$str = "<span class=\"label lebel-danger\">Anulado</span>";
+											$str = "<span class=\"label label-danger\">Anulado</span>";
 											break;
 									}
 									echo $str;								

@@ -89,11 +89,11 @@
           <h3 class="box-title"><span class="glyphicon glyphicon-list-alt"></span> Noticias</h3>
         </div><!-- /.box-header -->
         <div class="box-body">
+          <?php if ($noticias != false) { ?>
           <div id="div-noticias">              
             <div class="row">
               <div class="owl-carousel owl-theme">
-              <?php if ($noticias != false) { 
-                foreach ($noticias as $key => $noticia) {
+              <?php foreach ($noticias as $key => $noticia) {
                   
                   echo "<div class=\"item\">";
                   echo "<div class=\"item-noticia\">";
@@ -121,11 +121,13 @@
                   echo "</div>";
                   echo "</div>";
                   echo "</div>";
-                }
-              } ?>
+                } ?>
               </div>      
             </div>
           </div>
+          <?php } else { ?>
+            <h2 class="text-center">No se encontraron noticias para este mes...</h2>
+          <?php } ?>
         </div><!-- /.box-body -->
       </div><!-- /.box -->
     </div>

@@ -158,7 +158,7 @@
 		        </div>
 		        <div class="box-footer">
 					<a href="<?php echo base_url(); ?>Citas/ListarCitas" class="btn btn-default">Cancelar</a>
-		        	<button id="guardar" type="submit" form="registro-citas" class="btn btn-success pull-right">Guardar</button>
+		        	<button id="guardar" type="submit" form="registro-planes" class="btn btn-success pull-right">Guardar</button>
 		        </div>
 		    </div>
 		</div>

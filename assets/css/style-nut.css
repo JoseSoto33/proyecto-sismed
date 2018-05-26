@@ -9,20 +9,20 @@ hr.form-divisor-line{
 }
 
 .box.box-success {
-    border-top-color: #605CA8 !important;
+    border-top-color: #F39C12 !important;
 }
 
 .box.box-solid.box-success {
-    border: 1px solid #605CA8 !important;
+    border: 1px solid #F39C12 !important;
 }
 
 .box.box-solid.box-success > .box-header {
     color: #fff !important;
-    background: #605CA8 !important;
+    background: #F39C12 !important;
 }
 
 .nav-tabs-custom > .nav-tabs > li.active {
-    border-top-color: #605CA8 !important;
+    border-top-color: #f39c12 !important;
 }
 
 /*=============================PANTALLA PRINCIPAL=============================*/
@@ -107,11 +107,11 @@ hr.form-divisor-line{
 }
 
 #img-carousel > .carousel-indicators > li{
-	border-color: #605CA8;
+	border-color: #f39c12;
 }
 #img-carousel > .carousel-indicators > li.active{
-	border-color: #605CA8;
-	background: #605CA8;
+	border-color: #f39c12;
+	background: #f39c12;
 }
 
 /*----------SECCION 3----------*/
