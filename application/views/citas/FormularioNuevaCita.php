@@ -193,8 +193,8 @@
 																	</div>
 							       								</div>
 							       								<div id="orden_header">
-					       											<label class="col-xs-12">N:</label>
-					       											<label class="col-xs-12">C.I:</label>
+					       											<label class="col-xs-12">Nom: <span id=examen_nompaciente></span> </label>
+					       											<label class="col-xs-12">C.I: <span id=examen_cipaciente></span> </label>
 							       								</div>
 							       								<div id="orden_body">
 							       									<div class="center-block">
@@ -367,12 +367,14 @@ $(document).ready(function() {
 						}
 					});
 
+				$("#examen_nompaciente").text(response["nombre1"] + " " + response["apellido1"]);
+				$("#examen_cipaciente").text(response["cedula"]);	
 				}else{
 					$(".form-control").prop("readonly",false);
 					$("select.form-control").removeAttr("readonly");
 				}
 			}); 
-			request.fail(function(jqXRH,textStatus,thrown){
+			request.fail(function(jqXRH,textStatus,thrown){s
 				alert("error: "+textStatus);
 			});
 

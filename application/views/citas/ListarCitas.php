@@ -64,10 +64,10 @@
 									
 									echo "<tr id=\"fila_".md5('sismed'.$cita["id"])."\">";
 									echo "<td>".$cont++."</td>";
-									echo "<td>".strftime('%d de %B de %Y', strtotime($cita["fecha_cita"]))."</td>";
+									echo "<td class=\"listafecha\">".strftime('%d de %B de %Y', strtotime($cita["fecha_cita"]))."</td>";
 									echo "<td>".$cita["cedula"]."</td>";
-									echo "<td>".$cita["nombre1"]."</td>";
-									echo "<td>".$cita["apellido1"]."</td>";
+									echo "<td class=\"listanombre\">".$cita["nombre1"]."</td>";
+									echo "<td class=\"listaapellido\">".$cita["apellido1"]."</td>";
 									echo "<td>".strftime('%d de %B de %Y', strtotime($cita["fecha_creacion"]))."</td>";
 									echo "<td>";
 									switch ((int) $cita["estatus"]) {
@@ -96,17 +96,17 @@
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 									//---Boton ver detalles---
-									echo "<a class=\"btn btn-xs btn-info detalle-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#VerEvento\" title=\"Ver detalles\" data-idevento=\"".md5('sismed'.$cita["id"])."\">";
-									echo "<span class=\"glyphicon glyphicon-search\"></span>";
+									echo "<a href=\"#\" class=\"btn btn-xs btn-info detalle-cita\" data-toggle=\"popover\" data-container=\"body\" data-placement=\"left\" title=\"Motivo cita\" data-content=\"".$cita["motivo"]."\" >";
+									echo "<span class=\"glyphicon glyphicon-eye-open\"></span>";
 									echo "</a>";
 
 									//---Boton editar---
-									echo "<a class=\"btn btn-xs btn-success editar-evento\" href=\"".base_url("Citas/ModificarCitaNutricion/".md5('sismed'.$cita["id"]))."\" title=\"Editar evento\">";
+									echo "<a class=\"btn btn-xs btn-success editar-cita\" href=\"".base_url("Citas/ModificarCitaNutricion/".md5('sismed'.$cita["id"]))."\" title=\"Editar cita\">";
 									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 									echo "</a>";
 
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-xs btn-danger eliminar-evento\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarEvento\" title=\"Eliminar evento\" data-idevento=\"".md5('sismed'.$cita["id"])."\" data-nombre1=\"".$cita["nombre1"]."\">";
+									echo "<a class=\"btn btn-xs btn-danger eliminar-cita\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarCita\" title=\"Eliminar cita\" data-idevento=\"".md5('sismed'.$cita["id"])."\" data-nombre1=\"".$cita["nombre1"]."\">";
 									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 									echo "</a>";
 
@@ -136,7 +136,7 @@
       <div class="modal-body">
         <div class="row">
         	<div class="col-xs-12">
-        		<h3 id="delete-title">¿Está seguro que desea eliminar la cita "<span id="la-cita"></span>"?</h3>
+        		<h3 id="delete-title">¿Está seguro que desea eliminar la cita de "<span id="nom_paciente"></span>" para la fecha <span id="fecha_cita" ></span>?</h3>
         		<div id="delete-message" class="alert"></div>
         	</div>
         </div>
@@ -152,3 +152,22 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-citas.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".table-responsive").on("click", "#lista-citas tbody tr td .detalle-cita",function(e){
+	        e.preventDefault();
+	    });
+	    
+	    $("#lista-citas tbody tr td .detalle-cita").each(function(i,v){
+	    	var titulo=$(this).attr("title"),
+	            contenido=$(this).data("content"),
+	            popover= {
+	                title: titulo,
+	                content: contenido,
+	                trigger: "click",
+	                plasement: "left"
+	            }
+	        $(this).popover(popover);
+	    })
+	});
+</script>

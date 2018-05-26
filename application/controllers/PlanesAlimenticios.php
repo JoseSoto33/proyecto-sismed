@@ -62,11 +62,11 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 		$data['lista_medida'] = $this->PlanesAlimenticiosModel->ExtraerListaMedida();
 		
 		//Si se envió una petición POST...
-		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if($this->PlanesAlimenticiosModel->AgregarPlanAlimenticio()) {
-				/*cookie: es un arreglo. que funciona como variables universales del servidor*/
+				//cookie: es un arreglo. que funciona como variables universales del servidor
 				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')."' '".$this->input->post('apellido1')."'</strong> fue registrada exitosamente!...", time()+15);
-					/*header: redirecciona envia a la direccion que se le asigna. */
+					//header: redirecciona envia a la direccion que se le asigna. 
 				header("Location: ".base_url()."Citas/ListarCitas");
 			}else{
 
@@ -101,9 +101,10 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 	        		$data['mensaje'] = $this->upload->display_errors();		      
 	        	}
 			}*/
-		}
+		// }*/
 		//Cargar vista del formulario de registro de evento
 		$this->CargarHeader();
+		var_dump($_POST);
         $this->load->view('planes/FormularioNuevoPlanAlimenticio', $data);
         $this->load->view('footer');
 	}

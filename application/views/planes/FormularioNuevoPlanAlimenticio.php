@@ -1,4 +1,14 @@
 <!-- Main content -->
+<section class="content-header">
+  <h1>
+    <?php echo $titulo; ?>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li>Plan alimenticio</li>
+    <li class="active"><?php echo $titulo; ?></li>
+  </ol>
+</section>
 <section class="content container-fluid">
 	<div class="row">
 		<div class="col-xs-12">
@@ -35,16 +45,16 @@
 				      			</div>
 				      			<input type="hidden" name="id_paciente" id="id" value="">
 				      			
-				      			<div class="col-xs-12">
+				      			<div class="col-xs-12 col-sm-4">
 				      				<div class="box box-solid box-primary">
 						      			<div class="box-header with-border">
 				         					<h3 class="box-title">Prescripción Dietética</h3>
 				       					</div>
 				       					<div class="box-body">				       						
 					       					<div class="row">
-					       						<div class="col-xs-12">
+					       						<div class="col-sm-12">
 					       							<div class="form-group">
-					       								<textarea class="form-control" name="prescripcion"><?php echo (isset($plan['prescripcion']))? trim($plan['prescripcion']) : set_value('prescripcion'); ?>
+					       								<textarea class="form-control" name="prescripcion" rows="12"><?php echo (isset($plan['prescripcion']))? trim($plan['prescripcion']) : set_value('prescripcion'); ?>
 					       								</textarea>
 					       							</div>
 					       						</div>
@@ -53,25 +63,24 @@
 				       				</div>
 				       			</div>
 
-				       			<div class="col-xs-12">
+				       			<div class="col-xs-12 col-sm-8">
 				      				<div class="box box-solid box-primary">
 						      			<div class="box-header with-border">
 				         					<h3 class="box-title">Lista de Sustitutos</h3>
 				       					</div>
 				       					<div class="box-body">	
-				       						<div class="panel-group" id="lista_sustitutos" role="tablist" aria-multiselectable="true">
+				       						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 				       							<?php foreach ($lista_sustitutos as $key => $sustituto) {?>
 				       							<div class="panel panel-default">
 				       								<div class="panel-heading" role="tab" id="heading<?php echo $sustituto['id']; ?>">
 				       									<h4 class="panel-title">
-				       										<?php  echo $sustituto['titulo']; 
-				       										?>
-				       										<a href="#collapse<?php echo $sustituto['id']; ?>" class="pull-right" role="buttom" data-toggle="collapse" data-parent="#lista_sustitutos" aria-expanded="false" aria-controls="collapse<?php echo $sustituto['id']; ?>">
-				       											<span class="glyhpicon glyhpicon-plus"></span>
+				       											<?php  echo trim($sustituto['titulo']);	?>
+				       										<a href="#collapse<?php echo $sustituto['id']; ?>" class="collapsed pull-right" role="buttom" data-toggle="collapse" aria-expanded="false" aria-controls="collapse<?php echo $sustituto['id']; ?>">
+				       											<span class="glyphicon glyphicon-plus" aria-label="Left Align"></span>
 				       										</a>
 				       									</h4>
 				       								</div>
-				       								<div id="collapse <?php echo $sustituto['id']; ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?php echo $sustituto['id']; ?>">
+				       								<div id="collapse<?php echo $sustituto['id']; ?>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading<?php echo $sustituto['id']; ?>">
 				       									<div class="panel-body">
 				       										<div class="raciones-contentt" >
 				       											<input type="hidden" class="id_sustituto" value="<?php echo $sustituto['id']; ?>">
