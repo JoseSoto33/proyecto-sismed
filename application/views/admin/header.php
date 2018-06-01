@@ -30,7 +30,7 @@
 		<script src="<?php echo base_url(); ?>assets/js/owl.carousel.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/locale/es.js"></script>
 	</head>
-	<body class="hold-transition skin-blue sidebar-mini">
+	<body class="hold-transition skin-blue sidebar-mini <?php if(!$this->session->has_userdata("login")) echo 'sidebar-collapse' ?>">
 		<div class="cintillo">
 			<div class="container-fluid">
 				<figure class="pull-left">

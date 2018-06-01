@@ -235,7 +235,7 @@ a.navbar-brand{
 .fondo-opaco{
 	/*min-height: 700px;*/
 	min-height: 100%;
-	padding-top: 190px;
+	padding-top: 100px;
 	background: none rgba(0, 0, 0, 0.50) repeat;
 }
 .fondo-opaco #mensaje{

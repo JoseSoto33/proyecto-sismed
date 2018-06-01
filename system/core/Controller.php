@@ -99,27 +99,31 @@ class CI_Controller {
      * @return void
      */
     public function CargarHeader()
-    {        
-        switch ($this->session->userdata('tipo_usuario')) {
-        case "Administrador":                  
-            $this->load->view('admin/header');
-            break;
+    {   
+    	if($this->session->has_userdata("login")) { 
+	        switch ($this->session->userdata('tipo_usuario')) {
+		        case "Administrador":                  
+		            $this->load->view('admin/header');
+		            break;
 
-        case "Doctor":                  
-            $this->load->view('medicina/doctor/header');
-            break;
+		        case "Doctor":                  
+		            $this->load->view('medicina/doctor/header');
+		            break;
 
-        case "Enfermero":                   
-            $this->load->view('medicina/enfermero/header'); 
-            break;
+		        case "Enfermero":                   
+		            $this->load->view('medicina/enfermero/header'); 
+		            break;
 
-        case "Odontólogo":
-            $this->load->view('odontologia/header'); 
-            break;
+		        case "Odontólogo":
+		            $this->load->view('odontologia/header'); 
+		            break;
 
-        case "Nutricionista":
-            $this->load->view('nutricion/header'); 
-            break;
-        }        
+		        case "Nutricionista":
+		            $this->load->view('nutricion/header'); 
+		            break;
+	        }
+	    } else {
+	    	$this->load->view('admin/header');
+	    }      
     }
 }

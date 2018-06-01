@@ -14,7 +14,7 @@
 <section class="content container-fluid">
 	<div class="row">
 		<?php if(!$this->session->has_userdata("login")) {?>
-		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+		<div class="col-xs-12 col-sm-6">
 			<div class="box box-primary">
 		        <div class="box-body">					
 					<blockquote>
@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<?php } ?>
-		<div class="col-xs-12 col-sm-6 col-sm-offset-3">
+		<div class="col-xs-12 col-sm-6">
 			<div class="box box-primary">
 		        <div class="box-body">
 		        	<div class="row">
