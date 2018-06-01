@@ -12,11 +12,13 @@ hr.form-divisor-line{
     border-top-color: #F39C12 !important;
 }
 
-.box.box-solid.box-success {
+.box.box-solid.box-success,
+.box.box-solid.box-primary {
     border: 1px solid #F39C12 !important;
 }
 
-.box.box-solid.box-success > .box-header {
+.box.box-solid.box-success > .box-header,
+.box.box-solid.box-primary > .box-header {
     color: #fff !important;
     background: #F39C12 !important;
 }

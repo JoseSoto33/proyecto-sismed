@@ -181,6 +181,14 @@ table.table > tfoot > tr > td{
 #principal-menu > .nav > li#usuario > .dropdown-menu > .header-info > img{
 	border: 3px #B2EBF2 solid;
 }
+
+.box.box-solid.box-primary{
+	border: 1px solid #00A65A !important;
+}
+
+.box.box-solid.box-primary > .box-header{
+	background-color: #00A65A !important;
+}
 /*----------SECCION 2----------*/
 
 #img-carousel .carousel-inner .item #text1{
