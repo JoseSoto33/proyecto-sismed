@@ -229,6 +229,12 @@
 							       						</div>
 							       					</div>
 						       					</div>
+						       					<div class="box-footer">
+						       						<button type="button" id="generar_orden_pdf" class="btn btn-primary">
+						       							<i class="fa fa-file-pdf-o"></i>
+						       							Generar PDF
+						       						</button>
+						       					</div>
 						       				</div>
 						       			</div>
 									</div>
@@ -377,7 +383,36 @@ $(document).ready(function() {
 			request.fail(function(jqXRH,textStatus,thrown){s
 				alert("error: "+textStatus);
 			});
+		}
+	});
 
+	$("#generar_orden_pdf").on("click", function(event){
+		event.preventDefault();
+		var	cedula 	 = $("#cedula").val(),
+			nombre 	 = $("#nombre1").val(),
+			apellido = $("#apellido1").val(),
+			examen 	 = $("#examenes").val();
+
+		if ( cedula != '' && nombre != '' && apellido != '' && examen != '') {
+			var request;/*variable que almacena la peticion del servidor*/
+			if (request) {
+				request.abort();
+			}
+
+			request= $.ajax({
+				/* funcion que trae por defecto el url del sistema*/
+				url: "<?php echo base_url(); ?>Pdf/GenerarOrdenExamen",
+				type: "POST",
+				dataType: "json",/*Se utiliza para manejar objetos y arreglos */
+				data: "cedula="+cedula+"&nombre="+nombre+"&apellido="+apellido+"&examen="+examen
+			});
+			/*La peticion se ejecuta con exito*/
+			request.done(function(response,textStatus,jqXRH){
+				console.log(response);
+			}); 
+			request.fail(function(jqXRH,textStatus,thrown){s
+				alert("error: "+textStatus);
+			});
 		}
 	});
 });

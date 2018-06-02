@@ -30,6 +30,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
         	redirect(base_url('Home')); 
         }
     }
+    
     /**
      * @method void AgregarCitaNutricion()
      * @method void ModificarEvento(integer $id_evento)
