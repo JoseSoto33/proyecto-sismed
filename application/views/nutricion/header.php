@@ -269,13 +269,13 @@
 				          	</a>
 					        <ul class="treeview-menu">									            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Dietas/AgregarPatologia">
+					            	<a href="<?php echo base_url(); ?>MenuComedor/AgregarMenuComedor">
 					            		<i class="fa fa-circle-o"></i>
 					            		<span>Agregar menú</span>
 					            	</a>
 					            </li>								            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Dietas/ListarPatologias">
+					            	<a href="<?php echo base_url(); ?>MenuComedor/ListarMenu">
 					            		<i class="fa fa-circle-o"></i>
 					            		<span>Listado de menú</span>
 					            	</a>

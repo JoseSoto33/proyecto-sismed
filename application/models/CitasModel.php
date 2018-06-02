@@ -64,13 +64,13 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
             return $this->db->query($condicion['query']);
         }
 
-        //Si se declaró una sentencia 'distinct'...
+        //Si se declaró una sentencia 'distinct' ... no trae registro repetidos 
         if (isset($condicion['distinct']) && $condicion['distinct'] != false) {
             
             $this->db->distinct();
         }
 
-        //Si se declaró una sentencia 'select'...
+        //Si se declaró una sentencia 'select'... especifica que columnas a consultar
         if (isset($condicion['select']) && !empty($condicion['select'])) {
             
             $this->db->select($condicion['select']);
@@ -78,7 +78,7 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
             $this->db->select("*");
         }
         
-        //Si está definida una cláusula 'from'
+        //Si está definida una cláusula 'from' especifica la tabla consultar
         if (isset($condicion['from']) && !empty($condicion['from'])) {
             
             $this->db->from($condicion['from']);
@@ -142,5 +142,4 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
             return false;
         }
     }
-
 }
