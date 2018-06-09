@@ -48,14 +48,14 @@ class Pdf extends CI_Controller {/*CI: CodeIgniter*/
     	$data['carpeta']  = "ordenes";
 
     	//Crear carpeta donde se almacena el archivo
-    	$this->crearCarpeta($carpeta);
+    	$this->crearCarpeta($data['carpeta']);
     	$hoy = date('Y-m-d');
     	$num_dia = date('N');
     	$sum_dias = 5 - $num_dia;
-    	$max_fecha = date('Y-m-d', strtotime("+$sum_dias day" , strtotime ( $hoy )))
+    	$max_fecha = date('Y-m-d', strtotime("+$sum_dias day" , strtotime ( $hoy )));
 
     	//Asignar carpeta para guardar PDF
-		$this->html2pdf->folder('./pdfs/'.$carpeta);
+		$this->html2pdf->folder('./pdf/'.$data['carpeta']);
 
 		//Asignar el nombre del archivo para abrir/descargar 
 		$this->html2pdf->filename('ordenExamen.pdf');
@@ -69,9 +69,9 @@ class Pdf extends CI_Controller {/*CI: CodeIgniter*/
 		//Crear el PDF
 		if($path = $this->html2pdf->create('save')) {
 			//El PDF creado o descargado exitosamente
-			echo $path;
+			echo json_encode(array('success' => true, 'path' => $path));
 		}else{
-			echo 'false';
+			echo json_encode(array('success' => fale, 'path' => ''));
 		}
     }
 

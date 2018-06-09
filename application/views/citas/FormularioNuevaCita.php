@@ -593,11 +593,15 @@ $(document).ready(function() {
 				dataType: "json",/*Se utiliza para manejar objetos y arreglos */
 				data: "cedula="+cedula+"&nombre="+nombre+"&apellido="+apellido+"&examen="+examen
 			});
+
 			/*La peticion se ejecuta con exito*/
 			request.done(function(response,textStatus,jqXRH){
 				console.log(response);
+				window.open("<?php echo base_url(); ?>"+response['path'], "_blank");
 			}); 
-			request.fail(function(jqXRH,textStatus,thrown){s
+
+			/*Ocurre un error*/
+			request.fail(function(jqXRH,textStatus,thrown){
 				alert("error: "+textStatus);
 			});
 		}
