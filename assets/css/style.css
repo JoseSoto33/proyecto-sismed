@@ -88,6 +88,10 @@ li{
 	font-family: "fira_sansregular" !important;
 }
 
+textarea{
+		resize: none;
+}
+
 .content-wrapper{
 	padding-top: 50px;
 }

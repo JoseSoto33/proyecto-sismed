@@ -15,7 +15,7 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
      */
 
     /**
-     * Registra una historia clínica en la base de datos
+     * Registra una nueva cita en la base de datos
      * 
      * Los datos serán registrados en tablas diferentes, dependiendo el tipo de 
      * usuario que esté realizando la operación.
@@ -28,6 +28,9 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
     public function AgregarCita()
     {
         unset($_POST['examenes']);
+        if(isset($_POST['primera_vez'])){
+            $_POST['primera_vez']= true;
+        }
         $_POST['id_paciente'] = (!empty($_POST['id_paciente']))? $_POST['id_paciente'] : null;
         if($this->db->insert("citas", $_POST)){
            
@@ -141,5 +144,16 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
         }else{
             return false;
         }
+    }
+
+    public function CancelarCita($idcita){
+        $this->db->set('estatus','3');
+        $this->db->where("MD5(concat('sismed',id))",$idcita);
+
+        if($this->db->update('citas')){
+            return true;
+        }
+        return false;
+
     }
 }

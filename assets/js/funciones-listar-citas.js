@@ -115,7 +115,7 @@ $(document).ready(function(){
         }
 
         request = $.ajax({
-            url: url+"cita/Eliminarcita",
+            url: url+"citas/CancelarCita",
             type: "POST",
             dataType: "json",
             data: "id="+idcita

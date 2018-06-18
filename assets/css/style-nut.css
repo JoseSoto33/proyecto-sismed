@@ -257,3 +257,8 @@ hr.form-divisor-line{
 	text-align: right;
 	font-size: 10px;
 }
+
+hr.separador{
+	border-color: #FF851B !important;
+}
+

@@ -65,27 +65,27 @@
 		        							<div class="row">
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
-		        										<label>Nombre:</label>
-		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['nombre1']))? $cita['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
+		        										<label><span class="red"> *</span>Nombre:</label>
+		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ\s\p{P}]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['nombre1']))? $cita['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
-		        										<label>Apellido:</label>
-		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['apellido1']))? $cita['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
+		        										<label><span class="red">*</span>Apellido:</label>
+		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ\s\p{P}]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['apellido1']))? $cita['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        							</div>
 		        							<div class="row">
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
-		        										<label>Fecha de nacimiento:</label>
+		        										<label><span class="red">*</span>Fecha de nacimiento:</label>
 		        										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($cita['fecha_nacimiento']))? $cita['fecha_nacimiento'] : set_value('fecha_nacimiento'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
-		        										<label>Sexo:</label>
+		        										<label><span class="red">*</span>Sexo:</label>
 		        										<div class="col-sm-12">
 															<label class="radio-inline">
 															  	<input type="radio" name="sexo" id="sexoM" value="m" required="required" readonly="" <?php echo (isset($cita['sexo']) && $cita['sexo'] == 'm')? "checked" : ""; ?> > Masculino
@@ -103,7 +103,7 @@
 		        							<div class="row">
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
-		        										<label>Correo:</label>
+		        										<label><span class="red">*</span>Correo:</label>
 		        										<input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="<?php echo (isset($cita['email']))? $cita['email'] : set_value('email'); ?>" required="required" readonly="">
 		        									</div>
 		        								</div>
@@ -127,7 +127,12 @@
 						      			<div class="box-header with-border">
 				         					<h3 class="box-title">Motivo de la cita</h3>
 				       					</div>
-				       					<div class="box-body">				       						
+				       					<div class="box-body">	
+				       					<div class="checkbox">
+										    <label class="control-label">
+										      <input type="checkbox" value="1" name="primera_vez" id="primera_vez"><b>¿Primera vez?</b>
+										    </label>
+										  </div>			       						
 					       					<div class="row">
 					       						<div class="col-xs-12">
 					       							<div class="form-group">

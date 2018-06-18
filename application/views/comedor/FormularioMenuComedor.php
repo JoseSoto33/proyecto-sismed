@@ -234,24 +234,26 @@
 				       					</div>
 				       					<div class="box-body">				       						
 							      			<div class="row">
+							      				<?PHP 
+							      					$hoy = date('Y-m-d'); 
+													$num_dia = date('N'); 
+													$sum_dias= 6 - $num_dia;
+													$max_fecha= date('Y-m-d',strtotime("+$sum_dias day",strtotime($hoy)));
+												?>
 												<div class="col-sm-6">
 													<div class="form-group">
-														<label>Fecha de incio:</label>
-														<input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($MenuComedor['fecha_inicio']))? $MenuComedor['fecha_inicio'] : set_value('fecha_inicio'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
+														<label><span class="red">*</span> Fecha de incio:</label>
+														<input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" placeholder="" min="<?php echo date('Y-m-d'); ?>" max="<?php echo $max_fecha; ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($MenuComedor['fecha_inicio']))? $MenuComedor['fecha_inicio'] : set_value('fecha_inicio'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" <?php echo (isset($MenuComedor['fecha_inicio']))? "disabled":""; ?> >
 													</div>
 												</div>
 									
 												<div class="col-sm-6">
 													<div class="form-group">
-														<label>Fecha de fin:</label>
-														<?PHP $hoy = date('Y-m-d'); 
-														$num_dia = date('N'); 
-														$sum_dias= 5- $num_dia;
-														$max_fecha= date('Y-m-d',strtotime("+$sum_dias",strtotime($hoy)))?>
-														<input type="date" class="form-control" id="fecha_fin" name="fecha_fin" placeholder="" max="<?php echo $max_fecha; ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($MenuComedor['fecha_fin']))? $MenuComedor['fecha_fin'] : set_value('fecha_fin'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
+														<label><span class="red">*</span> Fecha de fin:</label>
+														<input type="date" class="form-control" id="fecha_fin" name="fecha_fin" placeholder="" min="<?php echo $hoy; ?>" max="<?php echo $max_fecha; ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($MenuComedor['fecha_fin']))? $MenuComedor['fecha_fin'] : set_value('fecha_fin'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" <?php echo (isset($MenuComedor['fecha_fin']))? "disabled":""; ?>>
 													</div>
 												</div>
-											</div>5
+											</div>
 				       					</div>
 				       				</div>
 				       			</div>
@@ -260,44 +262,86 @@
 						      			<div class="box-header with-border">
 				         					<h3 class="box-title">Menú del día</h3>
 				       					</div>
-						       			<div class="col-sm-6 col-sm-offset-5">
-											<div class="form-group">
-												<label for="tipo_paciente" class="control-label"><span class="red">*</span> Turno de comida:</label>
-												<select id="turno" name="turno" class="form-control">
-													<option value="">Seleccione un turno</option>
-													<option value="Almuerzo">Almuerzo</option>
-													<option value="Cena">Cena</option>
-
-												</select>
-												<div class="help-block with-errors">
-											    </div>
+				         				<div class="box-body">
+				         					<div class="col-sm-6">
+												<div class="form-group">
+													<label for="dia" class="control-label"><span class="red">*</span> Día:</label>
+													<select id="dia" name="dia" class="form-control" <?php echo (!empty($MenuComedor['dia']))? "disabled" : "" ;?>>>
+														<option value="">Seleccione el día</option>
+														<?php setlocale(LC_TIME,"esp");
+														$dia=$hoy;
+															for ($i=$num_dia; $i <= 6; $i++) { 
+																if(strtotime($MenuComedor['dia'])== strtotime($dia)){
+																	$selected="selected='selected'";
+																}
+																else{
+																	$selected="";
+																}
+																echo "<option value=\"$dia\" $selected>".utf8_encode( ucfirst( strftime( '%A', strtotime( $dia ) ) ) )."</option>";
+																$dia=date('Y-m-d',strtotime("+1 day",strtotime($dia)));
+															}
+														?>
+													</select>
+													<div class="help-block with-errors">
+												    </div>
+												</div>
 											</div>
-										</div>
-				       					<div class="box-body">				       						
-					       					<div class="row">
-					       						<div class="col-sm-10 col-sm-offset-1">
-					       							<label for="tipo_paciente" class="control-label"><span class="red">*</span> Descripción del plato:</label>
-					       							<div class="form-group">
-					       								<textarea class="form-control" name="descripcion"><?php echo (isset($MenuComedor['descripcion']))? trim($MenuComedor['descripcion']) : set_value('descripcion'); ?>
-					       								</textarea>
+							       			<div class="col-sm-6">
+												<div class="form-group">
+													<label for="turno" class="control-label"><span class="red">*</span> Turno de comida:</label>
+													<select id="turno" name="turno" class="form-control" <?php echo (!empty($MenuComedor['turno']))? "disabled" : "" ;?>>
+														<option value="">Seleccione un turno</option>
+														<option <?php echo ($MenuComedor['turno']=="Almuerzo")? "selected='selected'" : "" ;?> value="Almuerzo">Almuerzo</option>
+														<option <?php echo ($MenuComedor['turno']=="Cena")? "selected='selected'" : "" ;?> value="Cena">Cena</option>
+
+													</select>
+													<div class="help-block with-errors">
+												    </div>
+												</div>
+											</div>
+					       					<div class="col-sm-12">
+					       						<h4> Descripción del plato</h4>
+					       						<hr class="separador">
+
+					       						<div class="row"> 
+					       							<div class="col-sm-4"> 
+					       								<div class="form-group" >
+					       									<label class="control-label">Entrada Caliente</label>
+					       									<textarea  name="entrada" class="form-control" id="entrada"><?php echo (isset($MenuComedor['entrada']))? trim($MenuComedor['entrada']) : set_value('entrada'); ?></textarea>
+					       								</div>
+					       							</div>
+					       							<div class="col-sm-4">
+					       							 	<div class="form-group" >
+					       									<label class="control-label">Plato proteico o combinado</label>
+					       									<textarea name="proteico" class="form-control" id="proteico"><?php echo (isset($MenuComedor['proteico']))? trim($MenuComedor['proteico']) : set_value('proteico'); ?></textarea>
+					       								</div>
+					       							</div>
+					       							<div class="col-sm-4"> 
+					       								<div class="form-group" >
+					       									<label class="control-label">Contorno farináceo</label>
+					       									<textarea name="contorno" class="form-control" id="contorno"> <?php echo (isset($MenuComedor['contorno']))? trim($MenuComedor['contorno']) : set_value('contorno'); ?></textarea>
+					       								</div>
 					       							</div>
 					       						</div>
-					       					</div>
+					       						<div class="row"> 
+					       							<div class="col-sm-6"> 
+					       								<div class="form-group" >
+					       									<label class="control-label">Ensalada, vegetales
+					       									 cocido o platano</label>
+					       									<textarea name="extras" class="form-control" id="extras"> <?php echo (isset($MenuComedor['extras']))? trim($MenuComedor['extras']) : set_value('extras'); ?></textarea>
+					       								</div>
+					       							</div>
+					       							<div class="col-sm-6">
+					       								<div class="form-group" >
+					       									<label class="control-label">Bebida Fría</label>
+					       									<textarea name="bebida" class="form-control" id="bebida"> <?php echo (isset($MenuComedor['bebida']))? trim($MenuComedor['bebida']) : set_value('bebida'); ?></textarea>
+					       								</div>
+					       							</div>
+				       							</div>
+				       						</div>
 				       					</div>
 				       				</div>
 				       			</div>
-
-								<?php if( isset($cita['estatus'])){?>
-								<input type="hidden" name="estatus_actual" value="<?php echo$cita['estatus']?>">
-								<div class="col-sm-6">
-									<div class="form-group">
-										<label for="estatus">Status</label>
-										<?php 
-											$attr = "class=\"form-control\" id=\"estatus\" data-placeholder=\"Seleccione una opción...\" required=\"required\"";
-											echo form_dropdown("estatus", $estatus, set_value("estatus", $cita['estatus']), $attr);?>
-									</div>
-								</div>
-								<?php } ?>
 
 								<div class="col-sm-12">						
 									<small> 
@@ -311,7 +355,7 @@
 		        </div>
 		        <div class="box-footer">
 					<a href="<?php echo base_url(); ?>MenuComedor/ListarMenuComedor" class="btn btn-default">Cancelar</a>
-		        	<button id="guardar" type="submit" form="registro-menu" class="btn btn-success pull-right">Guardar</button>
+		        	<button id="guardar" type="submit" form="registro-MenuComedor" class="btn btn-success pull-right">Guardar</button>
 		        </div>
 		    </div>
 		</div>

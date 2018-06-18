@@ -49,6 +49,21 @@
 				</div>
 			</div>
 		</div>	
+		<div class="col-xs-12 col-sm-10" >
+			<div class="row">
+				<div class="form-group">
+					<label class="control-label">Turno de Comidas</label>
+					<select name="comidas[]" id="comidas" multiple class="form-control chosenselect" data-placeholder="Seleccione">
+					  <option>Desayuno</option>
+					  <option>Merienda-D</option>
+					  <option>Almuerzo</option>
+					  <option>Merienda-A</option>
+					  <option>Cena</option>
+					  <option>Merienda-C</option>
+					</select>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="col-xs-1">
 		<button type="button" class="btn btn-danger quitar-fila">
@@ -58,3 +73,8 @@
 		</button>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".raciones-contentt .fila .chosenselect").chosen({ width: "100%"});
+});
+</script>

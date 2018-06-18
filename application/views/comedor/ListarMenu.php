@@ -77,16 +77,9 @@
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 									//---Boton ver detalles---
-									echo "<a href=\"#\" class=\"btn btn-xs btn-info detalle-menu\" title=\"Descripcion menu\">";
+									echo "<a href=\"".base_url("MenuComedor/ListarComedor/".md5('sismed'.$semana["id"]))."\" class=\"btn btn-xs btn-info detalle-menu\" title=\"Descripcion menu\">";
 									echo "<span class=\"glyphicon glyphicon-eye-open\"></span>";
-									echo "</a>";
-
-									//---Boton editar---
-									echo "<a class=\"btn btn-xs btn-success editar-menuComedor\" href=\"".base_url("Citas/ModificarCitaNutricion/".md5('sismed'.$semana["id"]))."\" title=\"Editar Menu Comedor\">";
-									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
-									echo "</a>";
-
-								
+									echo "</a>";					
 
 									echo "</div>";
 									echo "</td>";
@@ -135,17 +128,5 @@
 		$(".table-responsive").on("click", "#lista-citas tbody tr td .detalle-cita",function(e){
 	        e.preventDefault();
 	    });
-	    
-	    $("#lista-citas tbody tr td .detalle-cita").each(function(i,v){
-	    	var titulo=$(this).attr("title"),
-	            contenido=$(this).data("content"),
-	            popover= {
-	                title: titulo,
-	                content: contenido,
-	                trigger: "click",
-	                plasement: "left"
-	            }
-	        $(this).popover(popover);
-	    })
 	});
 </script>

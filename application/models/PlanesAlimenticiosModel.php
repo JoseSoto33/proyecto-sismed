@@ -100,4 +100,38 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
         }
     }
 
+    public function ExtraerRecomendaciones(){
+        $this->db->order_by('id','ASC');
+        $result=$this->db->get("recomendaciones");
+        if ($result->num_rows()> 0) {
+            return $result->result_array();
+        }
+        return null;
+
+    }
+    public function ExtraerListaRecomendaciones($id_recomendacion){
+        $this->db->select('lista_recomendaciones.*');
+        $this->db->join('relacion_recomendaciones_lista', 'id_lista = lista_recomendaciones.id');
+        $this->db->where('relacion_recomendaciones_lista.id_recomendaciones', $id_recomendacion);
+
+        $result=$this->db->get("lista_recomendaciones");
+        if ($result->num_rows()> 0) {
+            return $result->result_array();
+        }
+        return null;
+
+    }
+
+    public function ExtraerCuadroRecomendaciones($id_recomendacion){
+        $this->db->select('alimentos_recomendaciones.descripcion as alimento, cuadro_recomendaciones.*');
+        $this->db->join('alimentos_recomendaciones', 'id_alimentos = alimentos_recomendaciones.id');
+        $this->db->where('cuadro_recomendaciones.id_recomendaciones', $id_recomendacion);
+
+        $result=$this->db->get("cuadro_recomendaciones");
+        if ($result->num_rows()> 0) {
+            return $result->result_array();
+        }
+        return null;
+    }
+
 }

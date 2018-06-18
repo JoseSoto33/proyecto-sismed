@@ -1,11 +1,10 @@
-<!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Listado de Citas
+    Listado de menú por día
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li class="active">Citas</li>
+    <li class="active">Menu Comedor</li>
   </ol>
 </section>
 
@@ -16,9 +15,9 @@
 			<div class="box-header">
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
-						<a class="btn btn-success" href="<?php echo base_url(); ?>Citas/AgregarCitaNutricion"><span class="glyphicon glyphicon-plus"></span>Nueva cita</a>
+						<a class="btn btn-success" href="<?php echo base_url(); ?>MenuComedor/AgregarMenuComedor"><span class="glyphicon glyphicon-plus"></span>Nuevo menú</a>
 					</div>
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-12 col-sm-9">
 						<?php if(get_cookie("message") != null) { ?>
 							<div id="alert-message" class="alert alert-success" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -36,78 +35,51 @@
 				<table id="lista-citas" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<th>Nº</th>
-						<th>Fecha pautada</th>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Fecha de creación</th>
-						<th>Status</th>
+						<th>Día</th>
+						<th>Turno</th>
+						<th>Entrada</th>
+						<th>Proteico</th>
+						<th>Contorno</th>
+						<th>Ensalada</th>
+						<th>Bebida</th>
 						<th> </th>
 					</thead>
 					<tfoot>
 						<th>Nº</th>
-						<th>Fecha pautada</th>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Fecha de creación</th>
-						<th>Status</th>
+						<th>Día</th>
+						<th>Turno</th>
+						<th>Entrada</th>
+						<th>Proteico</th>
+						<th>Contorno</th>
+						<th>Ensalada</th>
+						<th>Bebida</th>
 						<th> </th>						
 					</tfoot>
 					<tbody>
 						<?php 
 							$cont = 1;
-							if ($citas->num_rows() > 0) {
+							if (!empty($dias)) {
 								setlocale(LC_TIME,"esp"); 
 
-								foreach ($citas->result_array() as $key => $cita) {
+								foreach ($dias as $key => $dia) {
+							
 									
-									echo "<tr id=\"fila_".md5('sismed'.$cita["id"])."\">";
+									echo "<tr id=\"fila_".md5('sismed'.$dia["id"])."\">";
 									echo "<td>".$cont++."</td>";
-									echo "<td class=\"listafecha\">".strftime('%d de %B de %Y', strtotime($cita["fecha_cita"]))."</td>";
-									echo "<td>".$cita["cedula"]."</td>";
-									echo "<td class=\"listanombre\">".$cita["nombre1"]."</td>";
-									echo "<td class=\"listaapellido\">".$cita["apellido1"]."</td>";
-									echo "<td>".strftime('%d de %B de %Y', strtotime($cita["fecha_creacion"]))."</td>";
-									echo "<td>";
-									switch ((int) $cita["estatus"]) {
-										case 0:
-											$str = "<span class=\"label label-warning\">Pendiente</span>";
-											break;
-										
-										case 1:
-											$str = "<span class=\"label label-info\">Agendada-Hoy</span>";
-											break;
-
-										case 2:
-											$str = "<span class=\"label label-success\">Atendida</span>";
-											break;
-
-										case 3:
-											$str = "<span class=\"label label-danger\">Cancelado</span>";
-											break;
-
-										case 4:
-											$str = "<span class=\"label label-danger\">Anulado</span>";
-											break;
-									}
-									echo $str;								
-									echo "</td>";									
+									echo "<td class=\"listadia\">".strftime('%A, %d-%b-%Y', strtotime($dia["dia"]))."</td>";
+									echo "<td class=\"listaturno\">".$dia["turno"]."</td>";
+									echo "<td class=\"listaturno\">".$dia["entrada"]."</td>";
+									echo "<td class=\"listaturno\">".$dia["proteico"]."</td>";
+									echo "<td class=\"listaturno\">".$dia["contorno"]."</td>";
+									echo "<td class=\"listaturno\">".$dia["extras"]."</td>";
+									echo "<td class=\"listaturno\">".$dia["bebida"]."</td>";
+																		
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
-									//---Boton ver detalles---
-									echo "<a href=\"#\" class=\"btn btn-xs btn-info detalle-cita\" role=\"button\"data-toggle=\"popover\" data-trigger=\"hover\" data-container=\"body\" data-placement=\"left\" title=\"Motivo cita\" data-content=\"".$cita["motivo"]."\" >";
-									echo "<span class=\"glyphicon glyphicon-eye-open\"></span>";
-									echo "</a>";
 
 									//---Boton editar---
-									echo "<a class=\"btn btn-xs btn-success editar-cita\" href=\"".base_url("Citas/ModificarCitaNutricion/".md5('sismed'.$cita["id"]))."\" title=\"Editar cita\">";
+									echo "<a class=\"btn btn-xs btn-success editar-menuComedor\" href=\"".base_url("MenuComedor/ModificarMenuComedor/".md5('sismed'.$dia["id"]))."\" title=\"Editar Menu Comedor\">";
 									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
-									echo "</a>";
-
-									//---Boton eliminar---
-									echo "<a class=\"btn btn-xs btn-danger eliminar-cita\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarCita\" title=\"Eliminar cita\" data-idcita=\"".md5('sismed'.$cita["id"])."\" data-nombre1=\"".$cita["nombre1"]."\">";
-									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 									echo "</a>";
 
 									echo "</div>";
@@ -136,14 +108,14 @@
       <div class="modal-body">
         <div class="row">
         	<div class="col-xs-12">
-        		<h3 id="delete-title">¿Está seguro que desea Cancelar la cita de "<span id="nom_paciente"></span>" para la fecha <span id="fecha_cita" ></span>?</h3>
+        		<h3 id="delete-title">¿Está seguro que desea eliminar la cita de "<span id="nom_paciente"></span>" para la fecha <span id="fecha_cita" ></span>?</h3>
         		<div id="delete-message" class="alert"></div>
         	</div>
         </div>
       </div>
       <div class="modal-footer">
-      	<button type="button" id="accion-eliminar-cita" class="btn btn-primary" data-idevento="">Cancelar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	<button type="button" id="accion-eliminar-cita" class="btn btn-primary" data-idevento="">Eliminar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
@@ -164,8 +136,8 @@
 	            popover= {
 	                title: titulo,
 	                content: contenido,
-	                trigger: "hover",
-	                plasement: "left",
+	                trigger: "click",
+	                plasement: "left"
 	            }
 	        $(this).popover(popover);
 	    })

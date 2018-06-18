@@ -60,6 +60,15 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 
 		$data['lista_equivalente'] = $this->PlanesAlimenticiosModel->ExtraerListaEquivalente();
 		$data['lista_medida'] = $this->PlanesAlimenticiosModel->ExtraerListaMedida();
+
+		$data['recomendaciones'] = $this->PlanesAlimenticiosModel->ExtraerRecomendaciones();
+		foreach ($data['recomendaciones'] as $key => $recomendaciones) {
+			$data['lista_recomendaciones'][$recomendaciones['id']]= $this->PlanesAlimenticiosModel->ExtraerListaRecomendaciones($recomendaciones['id']);
+		}
+		foreach ($data['recomendaciones'] as $key => $recomendaciones) {
+			$data['cuadro_recomendaciones'][$recomendaciones['id']]= $this->PlanesAlimenticiosModel->ExtraerCuadroRecomendaciones($recomendaciones['id']);
+		}
+
 		
 		//Si se envió una petición POST...
 		/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -104,7 +113,6 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 		// }*/
 		//Cargar vista del formulario de registro de evento
 		$this->CargarHeader();
-		var_dump($_POST);
         $this->load->view('planes/FormularioNuevoPlanAlimenticio', $data);
         $this->load->view('footer');
 	}
