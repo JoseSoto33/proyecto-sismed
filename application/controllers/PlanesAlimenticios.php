@@ -71,8 +71,38 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 
 		
 		//Si se envió una petición POST...
-		/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if($this->PlanesAlimenticiosModel->AgregarPlanAlimenticio()) {
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			$id_usuario=$this->session->userdata("idUsuario");
+			$prescripcion=$this->input->post("prescripcion");
+			$id_plan_alimenticio=$this->PlanesAlimenticiosModel->AgregarPlanAlimenticio($id_usuario,$prescripcion);
+			$lista_raciones=$this->input->post("racion");
+			$lista_medidas=$this->input->post("medida");
+			$lista_equivalentes=$this->input->post("equivalente");
+			$turnos=array("1"=>"D", "2"=>"DM","3"=>"A","4"=>"AM","5"=>"C","6"=>"CM");
+
+			foreach ($lista_raciones as $X => $raciones) {
+				foreach ($raciones as $Y => $racion) {
+					$medida=$lista_medidas[$X][$Y];
+					if(!empty($racion)){
+						$id_lista_racion_sustituto= $this->PlanesAlimenticiosModel->AgregarRacionSustituto($id_plan_alimenticio,$racion,$medida);
+
+						foreach ($lista_equivalentes[$X] as $Z => $equivalentes){
+							$turno=$turnos[$Z];
+							
+							foreach ($equivalentes as $key => $turno_equivalente) {
+								if(!empty($turno_equivalente)){
+									$success=$this->PlanesAlimenticiosModel->AgregarTurnoEquivalente($turno,$turno_equivalente,$id_lista_racion_sustituto);	
+								}
+							
+							}	
+						}
+					}	
+				}
+						
+			}
+		
+			
+			/*if($this->PlanesAlimenticiosModel->AgregarPlanAlimenticio()) {
 				//cookie: es un arreglo. que funciona como variables universales del servidor
 				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')."' '".$this->input->post('apellido1')."'</strong> fue registrada exitosamente!...", time()+15);
 					//header: redirecciona envia a la direccion que se le asigna. 
@@ -110,7 +140,7 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 	        		$data['mensaje'] = $this->upload->display_errors();		      
 	        	}
 			}*/
-		// }*/
+		 }
 		//Cargar vista del formulario de registro de evento
 		$this->CargarHeader();
         $this->load->view('planes/FormularioNuevoPlanAlimenticio', $data);

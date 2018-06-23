@@ -241,8 +241,7 @@
 					       					<div class="row">
 					       						<div class="col-sm-12">
 					       							<div class="form-group">
-					       								<textarea class="form-control" name="prescripcion" rows="5"><?php echo (isset($plan['prescripcion']))? trim($plan['prescripcion']) : set_value('prescripcion'); ?>
-					       								</textarea>
+					       								<textarea  placeholder="Este campo es obligatorio" required class="form-control" name="prescripcion" rows="5"><?php echo (isset($plan['prescripcion']))? trim($plan['prescripcion']) : set_value('prescripcion'); ?></textarea>
 					       							</div>
 					       						</div>
 					       					</div>
@@ -257,8 +256,8 @@
 				       					</div>
 				       					<div class="box-body">	
 				       						<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
-				       							<?php foreach ($lista_sustitutos as $key => $sustituto) {?>
-				       							<div class="panel panel-default">
+				       							<?php foreach ($lista_sustitutos as $key =t> $sustituto) {?>
+				       							<div class="panel panel-default" data_idsustituto="<?php echo $sustituto['id']; ?>">
 				       								<div class="panel-heading" role="tab" id="heading<?php echo $sustituto['id']; ?>">
 				       									<h4 class="panel-title">
 				       											<?php  echo trim($sustituto['titulo']);	?>
@@ -276,8 +275,8 @@
 					       												<div class="row">
 							       											<div class="col-xs-12 col-sm-4" >
 							       												<div class="form-group">
-							       													<label class="control-label">Ración</label>
-							       													<select class="form-control racion" name="racion[]">
+							       													<label class="control-label"><span class="red"> *</span>Ración</label>
+							       													<select required class="form-control racion" name="racion[<?php echo $sustituto['id']; ?>][]">
 							       														<option value=""></option>
 							       														<?php 
 							       														foreach ($raciones[$sustituto['id']] as $key => $racion) {?>
@@ -290,26 +289,10 @@
 							       												</div>
 							       											</div>
 
-							       											<div class="col-xs-12 col-sm-4" >
+							       											<div class="col-xs-12 col-sm-4 col-sm-offset-4" >
 							       												<div class="form-group">
-							       													<label class="control-label">Equivalente</label>
-							       													<select class="form-control" name="equivalente[]">
-							       														<option value=""></option>
-							       														<?php 
-							       														foreach ($lista_equivalente as $key => $equivalente) {?>
-							       															<option value="<?php echo $equivalente['id']?>">
-							       																<?php  echo $equivalente['equivalente']?>
-							       															</option>
-							       													<?php } ?>
-							       														
-							       													</select>
-							       												</div>
-							       											</div>
-
-							       											<div class="col-xs-12 col-sm-4" >
-							       												<div class="form-group">
-							       													<label class="control-label">Medida</label>
-							       													<select class="form-control" name="medida[]">
+							       													<label class="control-label"><span class="red"> *</span>Medida</label>
+							       													<select required class="form-control media" name="medida[<?php echo $sustituto['id']; ?>][]">
 							       														<option value=""></option>
 							       														<?php 
 							       														foreach ($lista_medida as $key => $medida) {?>
@@ -321,17 +304,91 @@
 							       													</select>
 							       												</div>
 							       											</div>
-							       											<div class="col-xs-12 col-sm-10" >
-							       												<div class="form-group">
-							       													<label class="control-label"> Turno de Comidas</label>
-								       												<select name="comidas[]" id="comidas" multiple class="form-control chosenselect" data-placeholder="Seleccione">
-																					  <option>Desayuno</option>
-																					  <option>Merienda-D</option>
-																					  <option>Almuerzo</option>
-																					  <option>Merienda-A</option>
-																					  <option>Cena</option>
-																					  <option>Merienda-C</option>
-																					</select>
+							       											<div class="col-xs-12" >
+							       												<div class="table-responsive">
+							       													<label class="control-label"><span class="red"> *</span>Equivalentes</label>
+																				 	<table class="table table-hover table-bordered">
+																	  					<thead>
+																	  						<tr class="active">
+																	  							<th class="text-center">D</th>
+																	  							<th class="text-center">DM</th>
+																	  							<th class="text-center">A</th>
+																	  							<th class="text-center">AM</th>
+																	  							<th class="text-center">C</th>
+																	  							<th class="text-center">CM</th>
+																	  						</tr>
+																	  					</thead>
+																	  					<tbody>
+																	  						<tr>
+																	  							<td>
+																									<select class="form-control equivalente-d" name="equivalente[<?php echo $sustituto['id']; ?>][1][]">
+																										<option value=""></option>
+																										<?php 
+																										foreach ($lista_equivalente as $key => $equivalente) {?>
+																										<option value="<?php echo $equivalente['id']?>">
+																											<?php  echo $equivalente['equivalente']?>
+																										</option>
+																										<?php } ?>
+																									</select>
+																	  							</td>
+																	  							<td>
+																									<select class="form-control equivalente-dm" name="equivalente[<?php echo $sustituto['id']; ?>][2][]">
+																										<option value=""></option>
+																										<?php 
+																										foreach ($lista_equivalente as $key => $equivalente) {?>
+																										<option value="<?php echo $equivalente['id']?>">
+																											<?php  echo $equivalente['equivalente']?>
+																										</option>
+																										<?php } ?>
+																									</select>
+																	  							</td>
+																	  							<td>
+																									<select class="form-control equivalente-a" name="equivalente[<?php echo $sustituto['id']; ?>][3][]">
+																										<option value=""></option>
+																										<?php 
+																										foreach ($lista_equivalente as $key => $equivalente) {?>
+																										<option value="<?php echo $equivalente['id']?>">
+																											<?php  echo $equivalente['equivalente']?>
+																										</option>
+																										<?php } ?>
+																									</select>
+																	  							</td>
+																	  							<td>
+																									<select class="form-controlequivalente-am" name="equivalente[<?php echo $sustituto['id']; ?>][4][]">
+																										<option value=""></option>
+																										<?php 
+																										foreach ($lista_equivalente as $key => $equivalente) {?>
+																										<option value="<?php echo $equivalente['id']?>">
+																											<?php  echo $equivalente['equivalente']?>
+																										</option>
+																										<?php } ?>
+																									</select>
+																	  							</td>
+																	  							<td>
+																									<select class="form-control equivalente-c" name="equivalente[<?php echo $sustituto['id']; ?>][5][]">
+																										<option value=""></option>
+																										<?php 
+																										foreach ($lista_equivalente as $key => $equivalente) {?>
+																										<option value="<?php echo $equivalente['id']?>">
+																											<?php  echo $equivalente['equivalente']?>
+																										</option>
+																										<?php } ?>
+																									</select>
+																	  							</td>
+																	  							<td>
+																									<select class="form-control equivalente-cm" name="equivalente[<?php echo $sustituto['id']; ?>][6][]">
+																										<option value=""></option>
+																										<?php 
+																										foreach ($lista_equivalente as $key => $equivalente) {?>
+																										<option value="<?php echo $equivalente['id']?>">
+																											<?php  echo $equivalente['equivalente']?>
+																										</option>
+																										<?php } ?>
+																									</select>
+																	  							</td>
+																	  						</tr>
+																	  					</tbody>
+																					</table>
 																				</div>
 																			</div>
 							       										</div>
@@ -353,11 +410,12 @@
 				       						</div>
 				       					</div>
 				       				</div>
-				       				 <div class="col-xs-12">
-		        						<button id="Recomendaciones" type="submit" data-toggle="modal" data-target="#myModal" class="btn btn-primary pull-right">Recomendaciones</button>
+				       				 <div class="col-sm-12">
+				       				 	<button id="menu_paciente" type="button" data-toggle="modal" data-target="#menu" class="btn btn-info pull-left">Menú</button>
+		        						<button id="Recomendaciones" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-info pull-right">Recomendaciones</button>
 		        					</div>
 				       			</div>
-
+				          				
 								<div class="col-sm-12">						
 									<small> 
 										<span class="red2">Los campos con (*) son obligatorios.</span>
@@ -378,7 +436,7 @@
 	</div>
 	
 </section>
-<!-- Modal -->
+<!-- Modal recomendaciones-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -392,7 +450,14 @@
 		  	<ul class="nav nav-tabs" role="tablist">
 		   	<?php foreach ($recomendaciones as $key => $recomendacion) { ?>
 			 	<li role="presentation" <?php echo ($key==0)? "class=\"active\"": '' ?>>
-			 		<a href="#<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>" aria-controls="generales" role="tab" data-toggle="tab"><?php echo  (!empty($recomendacion['abv']))? $recomendacion['abv'] : $recomendacion['descripcion']?></a>
+			 		<a class="tab-link" href="#<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>" aria-controls="generales" role="tab" data-toggle="tab">
+			 			<div class="radio">
+						  <label>
+						    <input type="radio" name="recomendacion" id="<?php echo $recomendacion['id'] ?>" value="<?php echo $recomendacion['id'] ?>">
+						   <?php echo  (!empty($recomendacion['abv']))? $recomendacion['abv'] : $recomendacion['descripcion']?>
+						  </label>
+						</div>
+			 		</a>
 			 	</li>
 		 	<?php } ?>		 	
 		  	</ul>
@@ -408,12 +473,73 @@
 						</li>	
 					<?php } ?>
 				 	</ol>
+				 	<div class="table-responsive">
+					 	<table class="table table-hover table-bordered">
+		  					<thead>
+		  						<tr class="active">
+		  							<th class="text-center">Alimentos</th>
+		  							<th class="text-center">Permitidos</th>
+		  							<th class="text-center">Evitar</th>
+		  						</tr>
+		  					</thead>
+		  					<tbody>
+		  						<?php foreach ($cuadro_recomendaciones[$recomendacion['id']] as $key => $cuadro) {?>
+			  					<tr>
+			  						<td class="active"><?php echo $cuadro['alimento']; ?></td>
+			  						<td><?php echo $cuadro['permitidos']; ?></td>
+			  						<td><?php echo $cuadro['evitar']; ?></td>
+			  					</tr>
+			  					<?php }?>
+		  					</tbody>
+						</table>
+					</div>
 			 	</div>
-			 	<?php } ?>
+				<?php } ?>
 		  	</div>
-
 		</div>
-      
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Menu -->
+<div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Menú Ejemplo</h4>
+      </div>
+      <div class="modal-body">
+      	<!-- cabezera -->
+      	<ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active"><a href="#desayuno" aria-controls="desayuno" role="tab" data-toggle="tab">Desayuno</a></li>
+		    <li role="presentation"><a href="#almuerzo" aria-controls="almuerzo" role="tab" data-toggle="tab">Almuerzo</a></li>
+		    <li role="presentation"><a href="#cena" aria-controls="cena" role="tab" data-toggle="tab">Cena</a></li>
+		  </ul>
+
+		  <!-- contenido -->
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="desayuno">
+		    	<div class="col-sm-12" id="D">
+		    		aqui  3
+				</div>
+				<div class="col-sm-12" id="DM"></div>
+		    </div>
+		    <div role="tabpanel" class="tab-pane" id="almuerzo">
+		    	<div class="col-sm-12" id="A">aqui2</div>
+				<div class="col-sm-12" id="AM"></div>
+		    </div>
+		    <div role="tabpanel" class="tab-pane" id="cena">
+		    	<div class="col-sm-12" id="C">aqui 1</div>
+				<div class="col-sm-12" id="CM"></div>
+		    </div>
+		  </div>
 
       </div>
       <div class="modal-footer">
@@ -429,6 +555,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var select_raciones = [];
+	var menu_data = [];
 	$(".agregar-fila").on("click", function(event){
 		event.preventDefault();/*el elemento del boton lo anula*/
 		var contenedor = $(this).closest('.panel-body'),
@@ -451,6 +578,16 @@ $(document).ready(function() {
 		request.fail(function(jqXRH,textStatus,thrown){
 			alert("error:"+textStatus);
 		});
+	});
+
+
+	$(".tab-link").on("click", function(event){
+		var radio = $(this).find('input[type=radio]');
+		radio.prop("checked",true);
+	});
+
+	$(".tab-link .radio input[type=radio]").on("click", function(event){
+		$(this).prop("checked",true);
 	});
 
 	$(".raciones-contentt").on("click", ".fila .col-xs-1 .quitar-fila", function(event){

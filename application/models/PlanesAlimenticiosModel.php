@@ -25,13 +25,39 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
      *
      * @return boolean
      */
-    public function AgregarCita()
+    public function AgregarPlanAlimenticio($id_usuario,$prescripcion)
     {
-        unset($_POST['examenes']);
-        $_POST['id_paciente'] = (!empty($_POST['id_paciente']))? $_POST['id_paciente'] : null;
-        if($this->db->insert("citas", $_POST)){
+        $this->db->set("id_usuario",$id_usuario);
+        $this->db->set("prescripcion_dietetica",trim($prescripcion));
+        if($this->db->insert("plan_alimenticio")){
            
-            return true;
+            return $this->db->insert_id();
+        }else{
+            return false;
+        }
+    }
+
+    public function AgregarRacionSustituto($id_plan_alimenticio,$racion,$medida)
+    {
+        $this->db->set("id_plan_alimenticio",$id_plan_alimenticio);
+        $this->db->set("id_racion",$racion);
+        $this->db->set("id_medida",$medida);
+        
+        if($this->db->insert("lista_racion_sustituto")){
+         return $this->db->insert_id();
+        }else{
+            return false;
+        }
+    }
+
+    public function AgregarTurnoEquivalente($turno,$turno_equivalente,$id_lista_racion_sustituto)
+    {
+        $this->db->set("id_equivalente",$turno_equivalente);
+        $this->db->set("turno_comida",$turno);
+        $this->db->set("id_sustituto",$id_lista_racion_sustituto);
+
+        if($this->db->insert("turno_equivalente")){
+         return true;
         }else{
             return false;
         }
