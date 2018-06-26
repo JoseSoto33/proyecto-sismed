@@ -256,7 +256,7 @@
 				       					</div>
 				       					<div class="box-body">	
 				       						<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
-				       							<?php foreach ($lista_sustitutos as $key =t> $sustituto) {?>
+				       							<?php foreach ($lista_sustitutos as $key => $sustituto) {?>
 				       							<div class="panel panel-default" data_idsustituto="<?php echo $sustituto['id']; ?>">
 				       								<div class="panel-heading" role="tab" id="heading<?php echo $sustituto['id']; ?>">
 				       									<h4 class="panel-title">
@@ -354,7 +354,7 @@
 																									</select>
 																	  							</td>
 																	  							<td>
-																									<select class="form-controlequivalente-am" name="equivalente[<?php echo $sustituto['id']; ?>][4][]">
+																									<select class="form-control equivalente-am" name="equivalente[<?php echo $sustituto['id']; ?>][4][]">
 																										<option value=""></option>
 																										<?php 
 																										foreach ($lista_equivalente as $key => $equivalente) {?>

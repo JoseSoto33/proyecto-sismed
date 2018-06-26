@@ -135,6 +135,15 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
         return $this->db->get();
     }
 
+    public function ExtraerCitasPendientes() {
+        $this->db->select("id, nombre1, apellido1, cedula, motivo, fecha_cita as start, estatus");
+        $query = $this->db->get('citas');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        }
+        return null;
+    }
+
     public function Validarcita($condicion = array())
     {
         $query = $this->Extraercita($condicion);

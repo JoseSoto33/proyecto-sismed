@@ -131,6 +131,34 @@ class Home extends CI_Controller {
 			$evento->fecha_fin 	  = strftime('%d de %B de %Y', strtotime($evento->fecha_fin));		
 			$evento->hora_inicio  = date('h:i a', strtotime($evento->hora_inicio));		
 			$evento->hora_fin 	  = date('h:i a', strtotime($evento->hora_fin));
+			$evento->tipo 		  = 'evento';
+		}
+
+		if ($this->session->userdata('tipo_usuario') == 'Nutricionista' || $this->session->userdata('tipo_usuario') == 'Asistente') {
+			$this->load->model('CitasModel');
+			$citas = $this->CitasModel->ExtraerCitasPendientes();
+			if (!empty($citas)) {
+				
+				foreach ($citas as $key => $cita) {
+					$cita->title = 'Cita: '.$cita->nombre1.' '.$cita->apellido1;
+					$cita->tipo  = 'cita';
+					switch ($cita->estatus) {
+						case '0':
+							$cita->color = '#EC971F';
+							break;
+						case '1':
+							$cita->color = '#31B0D5';
+							break;
+						case '3':
+							$cita->color = '#C9302C';
+							break;
+						case '4':
+							$cita->color = '#C9302C';
+							break;
+					}
+				}
+				$eventos = array_merge($eventos, $citas);
+			}
 		}
 		echo json_encode($eventos);
 	}

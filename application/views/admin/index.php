@@ -244,6 +244,7 @@
   $(document).ready(function() {
            
     $.post("<?php echo base_url(); ?>Home/ExtraerEventos", function(data) {
+      console.log(data);
       $("#calendar").fullCalendar({
         header:{
           left: "prev,next today",
