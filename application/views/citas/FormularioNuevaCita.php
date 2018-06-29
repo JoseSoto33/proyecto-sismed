@@ -491,6 +491,30 @@ $(document).ready(function() {
 			}
 		});
 	}
+	$("#nombre1").on("keyup", function(event){
+		var apellido= $("#apellido1").val(),
+			nombre= $(this).val(),
+			cedula= $("#cedula").val();
+
+			$("#examen_nompaciente").text(nombre+" "+apellido);
+			$("#examen_cipaciente").text(cedula);
+	});
+	$("#apellido1").on("keyup", function(event){
+		var nombre= $("#nombre1").val(),
+			apellido= $(this).val(),
+			cedula= $("#cedula").val();
+
+			$("#examen_nompaciente").text(nombre+" "+apellido);
+			$("#examen_cipaciente").text(cedula);
+	});
+	$("#cedula").on("keyup", function(event){
+		var apellido= $("#apellido1").val(),
+			cedula= $(this).val(),
+			nombre= $("#nombre1").val();
+
+			$("#examen_nompaciente").text(nombre+" "+apellido);
+			$("#examen_cipaciente").text(cedula);
+	});
 
 	$("#reset").on("click", function(event){
 		event.preventDefault();/*el elemento del boton lo anula*/

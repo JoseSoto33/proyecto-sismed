@@ -235,6 +235,10 @@ hr.form-divisor-line{
 	width: 250px;
 	font-size: 18px;
 }
+#orden_body .center-block p{
+	text-align: justify;
+	height: auto;
+}
 
 #orden_header,
 #orden_body,

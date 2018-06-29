@@ -68,7 +68,6 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 		foreach ($data['recomendaciones'] as $key => $recomendaciones) {
 			$data['cuadro_recomendaciones'][$recomendaciones['id']]= $this->PlanesAlimenticiosModel->ExtraerCuadroRecomendaciones($recomendaciones['id']);
 		}
-
 		
 		//Si se envió una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -171,27 +170,17 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
      *
      * @return void
 	 */
-	public function ModificarCitaNutricion($id_cita)
+	public function ModificarPlanAlimenticio($id_cita)
 	{
-		$this->load->model('CitasModel');//carga del controlador al modela de citas
+		$this->load->model('PlanesAlimenticiosModel');//carga del controlador al modela de citas
 
-		$data = array("titulo" => "Modificar cita");										
-		$data['tipo_paciente'] = array("" => "", "Estudiante"  => "Estudiante", "Docente" => "Docente", "Administrativo" => "Administrativo", "Obrero"  => "Obrero", "Cortesía" => "Cortesía");
-		$data['estatus'] =  array("" => "", "0" => "Pendiente", "1" => "Agendada-Hoy", "2" => "Atendida","3" => "Cancelada", "4" => "Anulada");
-		//
-		$cond = array(
-				"where" => array(
-					//md5 encripta el id que se encuentra en la BD.usando como llave "sismed"
-					"MD5(concat('sismed',id))" => $id_cita
-					)
-				);
-
-		$result = $this->CitasModel->ExtraerCitas($cond);
+		$data = array("titulo" => "Modificar planes");										
+		$result = $this->PlanesAlimenticiosModel->ExtraerPlanesAlimenticios($cond);
 
 		//Si los registros encontrados son más de 0...
 		if ($result->num_rows() > 0) {
 
-			$data['cita'] = $result->row_array();
+			$data['plan_alimenticio'] = $result->row_array();
 			
 			//Si se envía una petición POST...
 			if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -204,20 +193,17 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 
         				$condicion = array(	
         					"data" => array(
-				                "motivo" => $this->input->post('motivo'),
-				                "fecha_cita" => $this->input->post('fecha_cita'),
-				                "examen_lb" => $this->input->post('examen_lb'),
-				                "estatus" => $this->input->post('estatus'),
+				                "prescripcion" => $this->input->post('prescripcion'),
 				            ),
 				     		"where" => array("MD5(concat('sismed',id))" => $id_cita)
 						);
 
 
         				//Si la modificación es exitosa...
-	        			if ($this->CitasModel->ModificarCita($condicion)) {
+	        			if ($this->CitasModel->ModificarPlan($condicion)) {
 
-	        				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue modificada exitosamente!...", time()+15);
-							header("Location: ".base_url()."Citas/ListarCitas");
+	        				set_cookie("message","La cita del paciente fue modificada exitosamente!...", time()+15);
+							header("Location: ".base_url()."planes/ListarPlanAlimenticio");
 
 						//Si ocurre un error en la modificación...
 						}else{
@@ -240,10 +226,30 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 
 		//Se carga la vista del formulario para modificar cita
 		$this->CargarHeader();
-        $this->load->view('citas/FormularioNuevaCita', $data);
+        $this->load->view('planes/FormularioNuevoPlanAlimenticio', $data);
         $this->load->view('footer');
 	}
 
+	public function EliminarPlan()
+	{
+		$this->load->model('PlanesAlimenticiosModel');
+
+		$id = $this->input->post('id');
+
+		//Si se cancela la cita exitosamente...
+		if ($this->PlanesAlimenticiosModel->EliminarPlan($id)) {
+			
+			$data['result']  = true;
+			$data['message'] = "¡Cita cancelada exitosamente!";
+
+		//Si ocurre un error durante la eliminación...
+		}else{
+			$data['result']  = false;
+			$data['message'] = 'Error: Ha ocurrido un problema durante la cancelación.\n'.$this->db->error();
+		}
+		
+		echo json_encode($data);
+	}
 	/**
 	 * Elimina un evento de la base de datos. El id del evento se envía
 	 * por Ajax como un POST
@@ -323,25 +329,25 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 	 *
 	 * @return void
 	 */
-	public function ListarCitas()
+	public function ListarPlanAlimenticio()
 	{
-		$this->load->model('CitasModel');
+		$this->load->model('PlanesAlimenticiosModel');
 		
 		$condicion = array(
-			"select" => "id, id_paciente, fecha_creacion, fecha_cita, estatus, cedula, nombre1, apellido1",
+			"select" => "id,fecha_creacion, prescripcion_dietetica",
 			"order_by" => array('campo'=>"id","opcion"=> "ASC") /*Traer todos los registros ordenados por el campo ID de manera ascendente, de menor a mayor*/
 			);
 
 		$data = array();
 
-		$result = $this->CitasModel->ExtraerCitas($condicion);
+		$result = $this->PlanesAlimenticiosModel->ExtraerPlanesAlimenticios($condicion);
 
 		///if ($result->num_rows() > 0) {
 			
-		$data["citas"] = $result;
+		$data["plan_alimenticio"] = $result;
 
 		$this->CargarHeader();
-        $this->load->view('citas/ListarCitas', $data);
+        $this->load->view('planes/ListarPlanAlimenticio', $data);
         $this->load->view('footer');
 		//}
 	}

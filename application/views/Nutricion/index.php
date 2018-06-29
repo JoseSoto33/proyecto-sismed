@@ -31,7 +31,8 @@
                         <label class="item-text" id="text1"></label>                
                     </div>
                     <div class="item">
-                        <label class="item-text" id="text2"></label>                
+                        <label class="item-text" id="text2"></label> 
+                          <?php echo "<img src=\"".base_url()."assets/img/nutricion/FONDO4.png\">";   ?>  
                     </div>
                     <div class="item">
                         <label class="item-text" id="text3"></label>                
@@ -57,7 +58,7 @@
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_2">
                 <p class="text-justify">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Suministra al estudiante una alimentación diaria, equilibrada y acorde a sus requerimientos nutricionales. Asesoría Nutricional: Suministra al estudiante orientación nutricional y tratamiento dieto terapéutico de acuerdo al diagnóstico clínico.
                 </p>
               </div>
               <!-- /.tab-pane -->

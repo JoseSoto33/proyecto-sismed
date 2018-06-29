@@ -252,7 +252,7 @@
 					            	</a>
 					            </li>								            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>PlanesAlimenticios/ListarPlanes">
+					            	<a href="<?php echo base_url(); ?>PlanesAlimenticios/ListarPlanAlimenticio">
 					            		<i class="fa fa-circle-o"></i>
 					            		<span>Listado de planes </span>
 					            	</a>

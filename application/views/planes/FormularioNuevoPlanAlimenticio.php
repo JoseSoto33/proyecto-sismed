@@ -256,7 +256,7 @@
 				       					</div>
 				       					<div class="box-body">	
 				       						<div class="panel-group" id="accordion2" role="tablist" aria-multiselectable="true">
-				       							<?php foreach ($lista_sustitutos as $key =t> $sustituto) {?>
+				       							<?php foreach ($lista_sustitutos as $key => $sustituto) {?>
 				       							<div class="panel panel-default" data_idsustituto="<?php echo $sustituto['id']; ?>">
 				       								<div class="panel-heading" role="tab" id="heading<?php echo $sustituto['id']; ?>">
 				       									<h4 class="panel-title">
@@ -292,7 +292,7 @@
 							       											<div class="col-xs-12 col-sm-4 col-sm-offset-4" >
 							       												<div class="form-group">
 							       													<label class="control-label"><span class="red"> *</span>Medida</label>
-							       													<select required class="form-control media" name="medida[<?php echo $sustituto['id']; ?>][]">
+							       													<select required class="form-control medida" name="medida[<?php echo $sustituto['id']; ?>][]">
 							       														<option value=""></option>
 							       														<?php 
 							       														foreach ($lista_medida as $key => $medida) {?>
@@ -321,7 +321,7 @@
 																	  					<tbody>
 																	  						<tr>
 																	  							<td>
-																									<select class="form-control equivalente-d" name="equivalente[<?php echo $sustituto['id']; ?>][1][]">
+																									<select class="form-control equivalente equivalente-d" name="equivalente[<?php echo $sustituto['id']; ?>][1][]">
 																										<option value=""></option>
 																										<?php 
 																										foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -332,7 +332,7 @@
 																									</select>
 																	  							</td>
 																	  							<td>
-																									<select class="form-control equivalente-dm" name="equivalente[<?php echo $sustituto['id']; ?>][2][]">
+																									<select class="form-control equivalente equivalente-dm" name="equivalente[<?php echo $sustituto['id']; ?>][2][]">
 																										<option value=""></option>
 																										<?php 
 																										foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -343,7 +343,7 @@
 																									</select>
 																	  							</td>
 																	  							<td>
-																									<select class="form-control equivalente-a" name="equivalente[<?php echo $sustituto['id']; ?>][3][]">
+																									<select class="form-control equivalente equivalente-a" name="equivalente[<?php echo $sustituto['id']; ?>][3][]">
 																										<option value=""></option>
 																										<?php 
 																										foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -354,7 +354,7 @@
 																									</select>
 																	  							</td>
 																	  							<td>
-																									<select class="form-controlequivalente-am" name="equivalente[<?php echo $sustituto['id']; ?>][4][]">
+																									<select class="form-control equivalente equivalente-am" name="equivalente[<?php echo $sustituto['id']; ?>][4][]">
 																										<option value=""></option>
 																										<?php 
 																										foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -365,7 +365,7 @@
 																									</select>
 																	  							</td>
 																	  							<td>
-																									<select class="form-control equivalente-c" name="equivalente[<?php echo $sustituto['id']; ?>][5][]">
+																									<select class="form-control equivalente equivalente-c" name="equivalente[<?php echo $sustituto['id']; ?>][5][]">
 																										<option value=""></option>
 																										<?php 
 																										foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -376,7 +376,7 @@
 																									</select>
 																	  							</td>
 																	  							<td>
-																									<select class="form-control equivalente-cm" name="equivalente[<?php echo $sustituto['id']; ?>][6][]">
+																									<select class="form-control equivalente equivalente-cm" name="equivalente[<?php echo $sustituto['id']; ?>][6][]">
 																										<option value=""></option>
 																										<?php 
 																										foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -428,7 +428,7 @@
 		        </div>
 
 		        <div class="box-footer">
-					<a href="<?php echo base_url(); ?>Citas/ListarCitas" class="btn btn-default">Cancelar</a>
+					<a href="<?php echo base_url(); ?>PlanesAlimenticios/ListarPlanAlimenticio" class="btn btn-default">Cancelar</a>
 		        	<button id="guardar" type="submit" form="registro-planes" class="btn btn-success pull-right">Guardar</button>
 		        </div>
 		    </div>
@@ -524,20 +524,198 @@
 		  </ul>
 
 		  <!-- contenido -->
+
 		  <div class="tab-content">
 		    <div role="tabpanel" class="tab-pane active" id="desayuno">
-		    	<div class="col-sm-12" id="D">
-		    		aqui  3
-				</div>
-				<div class="col-sm-12" id="DM"></div>
-		    </div>
+			    <ul class="list-group">
+					  <li class="list-group-item" id="D">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Desayuno
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+					  <li class="list-group-item" id="DM">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Merienda
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+				</ul>
+		   </div>
 		    <div role="tabpanel" class="tab-pane" id="almuerzo">
-		    	<div class="col-sm-12" id="A">aqui2</div>
-				<div class="col-sm-12" id="AM"></div>
+		    	<ul class="list-group">
+					  <li class="list-group-item" id="A">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Almuerzo
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+					  <li class="list-group-item" id="AM">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Merienda
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+				</ul>
 		    </div>
 		    <div role="tabpanel" class="tab-pane" id="cena">
-		    	<div class="col-sm-12" id="C">aqui 1</div>
-				<div class="col-sm-12" id="CM"></div>
+		    	<ul class="list-group">
+					  <li class="list-group-item" id="C">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Cena
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+					  <li class="list-group-item" id="CM"><h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Merienda
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+				</ul>
 		    </div>
 		  </div>
 
@@ -552,10 +730,15 @@
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
 <script type="text/javascript">
+
 $(document).ready(function() {
 	var select_raciones = [];
 	var menu_data = [];
+
+	$("#hora_inicio").mask("99:99",{placeholder: "00:00"});
+
 	$(".agregar-fila").on("click", function(event){
 		event.preventDefault();/*el elemento del boton lo anula*/
 		var contenedor = $(this).closest('.panel-body'),
@@ -596,18 +779,226 @@ $(document).ready(function() {
 			fila = boton.closest('.fila');
 		fila.remove();
 	});
-
+	//para generar el arreglo para imprimir el menú para los paciente
 	$(".raciones-contentt").on("change", ".row .col-xs-11 .racion", function(event){
 		event.preventDefault();
 		var select = $ (this),
-			fila = select.closest('.raciones-contentt'),
-			valor = select.val(),
-			id_sustituto = fila.find('.id_sustituto').val();
-		select_raciones[id_sustituto] = [];
-		select_raciones[id_sustituto].push(valor);
-		console.log(select_raciones);
-		seleccionados(select_raciones[id_sustituto], fila);
+		sustituto= armarArregloMenu(select);
+		menu_data= pushSustituto(sustituto, menu_data);
+		mostrarMenu(menu_data);
+		console.log(menu_data);
+		//select_raciones[id_sustituto] = [],
+		//select_raciones[id_sustituto].push(valor);
+	
+		//console.log(sustituto);
+		//seleccionados(select_raciones[id_sustituto], fila);
 	});
+
+	$(".raciones-contentt").on("change", ".row .col-xs-11 .medida", function(event){
+		event.preventDefault();
+		var select = $ (this),
+			sustituto= armarArregloMenu(select);
+			menu_data= pushSustituto(sustituto, menu_data);
+			mostrarMenu(menu_data);
+			console.log(menu_data);
+	});
+
+	$(".raciones-contentt").on("change", ".row .col-xs-11 .table-responsive .equivalente", function(event){
+		event.preventDefault();
+		var select = $ (this),
+			sustituto= armarArregloMenu(select);
+			menu_data= pushSustituto(sustituto, menu_data);
+			mostrarMenu(menu_data);
+			console.log(menu_data);
+	});
+
+	function armarArregloMenu(select){
+		var fila = select.closest('.raciones-contentt'),
+			valor = select.val(),
+			titulo_sustituto= fila.closest(".panel-default").find('.panel-title').text().trim(),
+			id_sustituto = fila.find('.id_sustituto').val(),
+			sustituto= {
+			idsustituto: id_sustituto,
+			titulo: titulo_sustituto,
+			raciones: obtenerRaciones(id_sustituto),
+			medidas: obtenerMedidas(id_sustituto),
+			equivalentes: obtenerEquivalentes(id_sustituto)
+		}
+		console.log(sustituto);
+		return sustituto;
+	}
+	function obtenerRaciones(id_sustituto){
+		var raciones=[];
+		$("#collapse2"+id_sustituto+" .raciones-contentt .fila .racion").each(function(i,b){
+			var racion= $(this).find('option:selected').text().trim();
+			raciones.push(racion);
+		});
+		return raciones;
+	}
+
+	function obtenerMedidas(id_sustituto){
+		var medidas=[];
+		$("#collapse2"+id_sustituto+" .raciones-contentt .fila .medida").each(function(i,b){
+			var medida= $(this).find('option:selected').text().trim();
+			medidas.push(medida);
+		});
+		return medidas;
+	}
+
+	function obtenerEquivalentes(id_sustituto){
+		var equivalente_d=[],
+			equivalente_dm=[],
+			equivalente_a=[],
+			equivalente_am=[],
+			equivalente_c=[],
+			equivalente_cm=[];
+
+		$("#collapse2"+id_sustituto+" .raciones-contentt .fila .table-responsive .equivalente-d").each(function(i,b){
+			var equivalente= $(this).find('option:selected').text().trim();
+			equivalente_d.push(equivalente);
+		});
+
+		$("#collapse2"+id_sustituto+" .raciones-contentt .fila .table-responsive .equivalente-dm").each(function(i,b){
+			var equivalente= $(this).find('option:selected').text().trim();
+			equivalente_dm.push(equivalente);
+		});
+
+		$("#collapse2"+id_sustituto+" .raciones-contentt .fila .table-responsive .equivalente-a").each(function(i,b){
+			var equivalente= $(this).find('option:selected').text().trim();
+			equivalente_a.push(equivalente);
+		});
+
+		$("#collapse2"+id_sustituto+" .raciones-contentt .fila .table-responsive .equivalente-am").each(function(i,b){
+			var equivalente= $(this).find('option:selected').text().trim();
+			equivalente_am.push(equivalente);
+		});
+
+		$("#collapse2"+id_sustituto+" .raciones-contentt .fila .table-responsive .equivalente-c").each(function(i,b){
+			var equivalente= $(this).find('option:selected').text().trim();
+			equivalente_c.push(equivalente);
+		});
+
+		$("#collapse2"+id_sustituto+" .raciones-contentt .fila .table-responsive .equivalente-cm").each(function(i,b){
+			var equivalente= $(this).find('option:selected').text().trim();
+			equivalente_cm.push(equivalente);
+		});
+		var equivalentes={
+			d: equivalente_d,
+			dm: equivalente_dm,
+			a: equivalente_a,
+			am: equivalente_am,
+			c: equivalente_c,
+			cm: equivalente_cm
+		}
+		return equivalentes;
+	}
+
+	function pushSustituto(sustituto, menu_data){
+		if (menu_data.length>0){
+			var finded= false;
+			$.each(menu_data, function(i,v){
+				if(v.idsustituto == sustituto.idsustituto){
+					finded=true;
+					menu_data[i].raciones=sustituto.raciones;
+					menu_data[i].medidas=sustituto.medidas;
+					menu_data[i].equivalentes=sustituto.equivalentes;
+				}
+			});
+
+			if(!finded){
+				menu_data.push(sustituto);
+			}
+			
+		} else{ 
+			menu_data.push(sustituto);
+		}
+		return menu_data;
+	}
+
+	function mostrarMenu(menu_data){
+		$.each(menu_data,function(i,v){
+			var desayuno="",
+				merienda_d="",
+				almuerzo="",
+				merienda_a="",
+				cena="",
+				merienda_c="";
+			$.each(v.raciones,function(index,value){
+				if (v.equivalentes.d[index] !='') {
+					desayuno+="<p>"+v.equivalentes.d[index]+" "+v.medidas[index]+" de "+value+". Lista "+v.idsustituto+"</p>";
+				}
+				if (v.equivalentes.dm[index] !='') {
+					merienda_d+="<p>"+v.equivalentes.dm[index]+" "+v.medidas[index]+" de "+value+". Lista "+v.idsustituto+"</p>";
+				}
+				if (v.equivalentes.a[index] !='') {
+					almuerzo+="<p>"+v.equivalentes.a[index]+" "+v.medidas[index]+" de "+value+". Lista "+v.idsustituto+"</p>";
+				}
+				if (v.equivalentes.am[index] !='') {
+					merienda_a+="<p>"+v.equivalentes.am[index]+" "+v.medidas[index]+" de "+value+". Lista "+v.idsustituto+"</p>";
+				}
+				if (v.equivalentes.c[index] !='') {
+					cena+="<p>"+v.equivalentes.c[index]+" "+v.medidas[index]+" de "+value+". Lista "+v.idsustituto+"</p>";
+				}
+				if (v.equivalentes.cm[index] !='') {
+					merienda_c+="<p>"+v.equivalentes.cm[index]+" "+v.medidas[index]+" de "+value+". Lista "+v.idsustituto+"</p>";
+				}				
+			});
+			if (desayuno!= "") {
+				if ($("#desayuno_"+v.idsustituto).length>0) {
+					$("#desayuno_"+v.idsustituto).find('.iten-lista').html(desayuno);
+				}else{
+					var elemento="<div id=\"desayuno_"+v.idsustituto+"\"><div class=\"iten-lista\">"+desayuno+"</div></div>";
+					$("#D").append(elemento);
+				}
+			}
+
+				
+			if (merienda_d!= "") {
+				if ($("#merienda_d_"+v.idsustituto).length>0) {
+					$("#merienda_d_"+v.idsustituto).find('.iten-lista').html(merienda_d);
+				}else{
+					var elemento="<div id=\"merienda_d_"+v.idsustituto+"\"><div class=\"iten-lista\">"+merienda_d+"</div></div>";
+					$("#DM").append(elemento);
+				}
+			}
+			if (almuerzo!= "") {
+				if ($("#almuerzo_"+v.idsustituto).length>0) {
+					$("#almuerzo_"+v.idsustituto).find('.iten-lista').html(almuerzo);
+				}else{
+					var elemento="<div id=\"almuerzo_"+v.idsustituto+"\"><div class=\"iten-lista\">"+almuerzo+"</div></div>";
+					$("#A").append(elemento);
+				}
+			}
+
+			if (merienda_a!= "") {
+				if ($("#merienda_a_"+v.idsustituto).length>0) {
+					$("#merienda_a_"+v.idsustituto).find('.iten-lista').html(merienda_a);
+				}else{
+					var elemento="<div id=\"merienda_a_"+v.idsustituto+"\"><div class=\"iten-lista\">"+merienda_a+"</div></div>";
+					$("#AM").append(elemento);
+				}
+			}
+			if (cena!= "") {
+				if ($("#cena_"+v.idsustituto).length>0) {
+					$("#cena_"+v.idsustituto).find('.iten-lista').html(cena);
+				}else{
+					var elemento="<div id=\"cena_"+v.idsustituto+"\"><div class=\"iten-lista\">"+cena+"</div></div>";
+					$("#C").append(elemento);
+				}
+			}
+
+			if (merienda_c!= "") {
+				if ($("#merienda_c_"+v.idsustituto).length>0) {
+					$("#merienda_c_"+v.idsustituto).find('.iten-lista').html(merienda_c);
+				}else{
+					var elemento="<div id=\"merienda_c_"+v.idsustituto+"\"><div class=\"iten-lista\">"+merienda_c+"</div></div>";
+					$("#CM").append(elemento);					
+				}
+			}			
+		});
+	}
+
+
 	$(".raciones-contentt .fila .chosenselect").chosen({ width: "100%"});
 	
 	$("#Recomendaciones").on("click", function(event){

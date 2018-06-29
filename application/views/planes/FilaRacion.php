@@ -19,8 +19,8 @@
 
 			<div class="col-xs-12 col-sm-4 col-sm-offset-4" >
 				<div class="form-group">
-					<label class="control-label medida"><span class="red"> *</span>Medida</label>					
-					<select required class="form-control" name="medida[<?php echo $id_sustituto; ?>][]">
+					<label class="control-label"><span class="red"> *</span>Medida</label>					
+					<select required class="form-control medida" name="medida[<?php echo $id_sustituto; ?>][]">
 						<option value=""></option>
 						<?php 
 						foreach ($lista_medida as $key => $medida) {?>
