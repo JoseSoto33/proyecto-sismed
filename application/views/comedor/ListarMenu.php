@@ -69,7 +69,7 @@
 											break;
 										
 										case 1:
-											$str = "<span class=\"label label-info\">Pendiente</span>";
+											$str = "<span class=\"label label-primary\">Finalizado</span>";
 											break;
 									}
 									echo $str;								

@@ -165,4 +165,19 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
         return false;
 
     }
+
+    public function ActualizarstatusCita(){
+        
+        $this->db->set('estatus','1');
+        $this->db->where("estatus",'0');
+        $this->db->where("fecha_cita",date("Y-m-d"));
+        $this->db->update("citas");
+
+        $this->db->set('estatus','4');
+        $this->db->where("estatus",'1');
+        $this->db->where("fecha_cita < ",date("Y-m-d"));
+        $this->db->or_where("estatus","0");
+        $this->db->where("fecha_cita < ",date("Y-m-d"));
+        $this->db->update("citas");
+    }
 }

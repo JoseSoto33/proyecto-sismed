@@ -28,11 +28,11 @@
 								</p>
 								<!-- Panel de descripción de campos -->
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-					    			<!-- Descripción campo Título -->
+					    			<!-- Descripción campo Prescrpción dietética -->
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading1">
 									      	<h4 class="panel-title">
-									      		Título
+									      		Prescrpción dietética
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -42,20 +42,19 @@
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Tamaño mínimo:</b> 6 caracteres.</li>
-									      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales).</li>
+									      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Título -->
+								  	</div><!--/ Descripción campo Prescrpción dietética -->
 
-								  	<!-- Descripción campo Fecha inicio -->
+								  	<!-- Descripción campo Lista de sustitutos -->
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Fecha inicio
+									      		Ración
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -64,125 +63,112 @@
 									    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual.</li>
-									      			<li><b>Campo obligatorio.</b></li>
+									      			<li><b>Tipo de dato:</b> Lista desplegable de selección.</li>
+									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Fecha inicio -->
-
-								  	<!-- Descripción campo Hora inicio -->
+								  	</div>
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading3">
+									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Hora inicio
+									      		Medida
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+									    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
-									      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
-									      			<li><b>Condición:</b> La combinación entre la hora y la fecha de inicio debe ser posterior a la hora y fecha actuales.</li>
-									      			<li><b>Campo obligatorio.</b></li>
+									      			<li><b>Tipo de dato:</b> Lista desplegable de selección.</li>
+									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Hora inicio -->
-
-								  	<!-- Descripción campo Fecha finalización -->
+								  	</div>
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading4">
+									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Fecha finalización
+									      		Equivalentes
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual ni a la fecha de inicio.</li>
-									      			<li><b>Campo obligatorio.</b></li>
+									      			<li><b>Tipo de dato:</b> Turnos de la comidas con listas desplegables de selección.</li>
+									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Fecha finalización -->
+								  	</div><!--/ Descripción campo Lista de sustitutos -->
 
-								  	<!-- Descripción campo Hora finalización -->
+								  	<!-- Descripción campo Hora Menú ejemplo -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading5">
+									    <div class="panel-heading" role="tab" id="heading3">
 									      	<h4 class="panel-title">
-									      		Hora finalización
+									      		Hora del Menú
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
 									      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
-									      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
-									      			<li><b>Condición:</b> La combinación entre la hora y la fecha de finalización debe ser posterior a la hora y fecha actuales y a la hora y fecha de inicio del evento.</li>
-									      			<li><b>Campo obligatorio.</b></li>
+									      			<li><b>Meridiano:</b> Lista desplegable de selección.</li>
+									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Hora finalización -->
+								  	</div><!--/ Descripción campo Hora Menú ejemplo -->
 
-								  	<!-- Descripción campo Descripción -->
+								  	<!-- Descripción campo Recomendaciones -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading6">
+									    <div class="panel-heading" role="tab" id="heading5">
 									      	<h4 class="panel-title">
-									      		Descripción
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Descripción -->
-
-								  	<!-- Descripción campo Imagen -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading7">
-									      	<h4 class="panel-title">
-									      		Imagen
+									      		Recomendaciones
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+									    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Archivo de tipo imagen.</li>
-									      			<li><b>Fromatos permitidos:</b> JPG, PNG y GIF.</li>
-									      			<li><b>Campo opcional.</b></li>
+									      			<li><b>Tipo de dato:</b> Opciones de selección simple.</li>
+									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Imagen -->
+								  	</div><!--/ Descripción campo Recomendaciones -->
+
+								  	<!-- Descripción campo vaso de agua -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading6">
+									      	<h4 class="panel-title">
+									      		Vasos de agua al día
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Tamaño mínimo:</b> 2 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Numéricos</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo vaso de agua -->
 
 								</div><!--/ Panel de descripción de campos -->
 
@@ -466,12 +452,15 @@
 
 		  	<!-- Tab panes -->
 		  	<div class="tab-content">
-			  	<?php foreach ($recomendaciones as $key => $recomendacion) { ?>
+			  	<?php 
+			  	foreach ($recomendaciones as $key => $recomendacion) { 
+			  		$input="<input type='number' style='width:70px !important; display:inline-block !important;' name='vasos_agua_".$recomendacion['id']."' id='vasos_agua_".$recomendacion['id']."' class='form-control' min='1' step='1'>";
+			  	?>
 			 	<div role="tabpanel" class="tab-pane" id="<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>">
 			 		<ol>
 					<?php foreach ($lista_recomendaciones[$recomendacion['id']] as $key => $lista) { ?> 
 						<li>
-							<?php echo $lista['descripcion']; ?>
+							<?php echo str_replace("*", $input, $lista['descripcion']); ?>
 						</li>	
 					<?php } ?>
 				 	</ol>

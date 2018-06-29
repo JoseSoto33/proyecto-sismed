@@ -9,7 +9,11 @@
     <li class="active"><?php echo $titulo; ?></li>
   </ol>
 </section>
-<div class="col-xs-12 col-sm-4">
+		
+<!-- Main content -->
+<section class="content container-fluid">
+	<div class="row">
+		<div class="col-xs-12 col-sm-4">
 			<div class="box box-solid box-primary">
 	        	<div class="box-header with-border">
 		          <h3 class="box-title">Instrucciones</h3>
@@ -26,11 +30,11 @@
 								</p>
 								<!-- Panel de descripción de campos -->
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-					    			<!-- Descripción campo Título -->
+					    			<!-- Descripción campo Cédula -->
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading1">
 									      	<h4 class="panel-title">
-									      		Título
+									      		Cédula
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -41,19 +45,19 @@
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
 									      			<li><b>Tamaño mínimo:</b> 6 caracteres.</li>
-									      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales).</li>
+									      			<li><b>Tamaño máximo:</b> 8 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Sólo caracteres numéricos.</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Título -->
+								  	</div><!--/ Descripción campo Cédula -->
 
-								  	<!-- Descripción campo Fecha inicio -->
+								  	<!-- Descripción campo Primer nombre -->
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Fecha inicio
+									      		Primer nombre
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -63,126 +67,223 @@
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual.</li>
+									      			<li><b>Tamaño mínimo:</b> 3 caracteres.</li>
+									      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Alfabéticos (incluyendo acentuados).</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Fecha inicio -->
-
-								  	<!-- Descripción campo Hora inicio -->
+								  	</div><!--/ Descripción campo Primer nombre -->
+								  
+								  	<!-- Descripción campo Primer apellido -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading3">
+									    <div class="panel-heading" role="tab" id="heading4">
 									      	<h4 class="panel-title">
-									      		Hora inicio
+									      		Primer apellido
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+									    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
-									      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
-									      			<li><b>Condición:</b> La combinación entre la hora y la fecha de inicio debe ser posterior a la hora y fecha actuales.</li>
+									      			<li><b>Tamaño mínimo:</b> 3 caracteres.</li>
+									      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Alfabéticos (incluyendo acentuados).</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Hora inicio -->
+								  	</div><!--/ Descripción campo Primer apellido -->
 
-								  	<!-- Descripción campo Fecha finalización -->
+								  	<!-- Descripción campo Fecha de nacimiento -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading4">
+									    <div class="panel-heading" role="tab" id="heading6">
 									      	<h4 class="panel-title">
-									      		Fecha finalización
+									      		Fecha de nacimiento
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
 									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual ni a la fecha de inicio.</li>
+									      			<li><b>Condición:</b> La fecha ingresada debe ser anterior a la fecha actual.</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Fecha finalización -->
+								  	</div><!--/ Descripción campo Fecha de nacimiento -->
 
-								  	<!-- Descripción campo Hora finalización -->
+								  	<!-- Descripción campo Sexo -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading5">
+									    <div class="panel-heading" role="tab" id="heading10">
 									      	<h4 class="panel-title">
-									      		Hora finalización
+									      		Sexo
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
 									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
-									      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
-									      			<li><b>Condición:</b> La combinación entre la hora y la fecha de finalización debe ser posterior a la hora y fecha actuales y a la hora y fecha de inicio del evento.</li>
+									      		<ul>							      			
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Hora finalización -->
+								  	</div><!--/ Descripción campo Sexo -->
 
-								  	<!-- Descripción campo Descripción -->
+								  	<!-- Descripción campo Correo electrónico -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading6">
+									    <div class="panel-heading" role="tab" id="heading7">
 									      	<h4 class="panel-title">
-									      		Descripción
+									      		Correo electrónico
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+									    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Formato:</b> Dirección de correo electrónico (ejemp.: andres_lopez2005@gmail.com).</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Correo electrónico -->
+
+								  	<!-- Descripción campo Tipo de paciente -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading8">
+									      	<h4 class="panel-title">
+									      		Tipo de paciente
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Lista desplegable de selección.</li>				      		<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Tipo de paciente-->
+
+								  	<!-- Descripción campo Motivo de la cita -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading6">
+									      	<h4 class="panel-title">
+									      		¿Primera vez?
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<b>¿Primeravez?</b> 
+									      			<li><b>Tipo de dato:</b> Selecion opcional.</li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div>
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading6">
+									      	<h4 class="panel-title">
+									      		Descripcion del motivo
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+									      	<div class="panel-body">
+									      		<ul>
+							 						<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
 									      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
 									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Descripción -->
+								  	</div><!--/ Descripción campo Motivo de la cita -->
 
-								  	<!-- Descripción campo Imagen -->
+								  	<!-- Descripción campo Examen de laboratorio -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading7">
+									    <div class="panel-heading" role="tab" id="heading10">
 									      	<h4 class="panel-title">
-									      		Imagen
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+									      		Examen de laboratorio
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+									    <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
 									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Archivo de tipo imagen.</li>
-									      			<li><b>Fromatos permitidos:</b> JPG, PNG y GIF.</li>
-									      			<li><b>Campo opcional.</b></li>
+									      		<ul>							      			
+									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Imagen -->
+								  	</div><!--/ Descripción campo Examen de laboratorio -->
 
-								</div><!--/ Panel de descripción de campos -->
+								  		<!-- Descripción campo Examen a realizar -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading3">
+									      	<h4 class="panel-title">
+									      		Examen a realizar
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Tamaño mínimo:</b> 3 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Examen a realizar -->
+
+								  	<!-- Descripción campo Fecha cita -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading2">
+									      	<h4 class="panel-title">
+									      		Fecha cita
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
+									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual.</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Fecha cita -->
+
+							 	</div><!--/ Panel de descripción de campos -->
 
 								<p>
 									<b>Nota:</b><br>
@@ -196,9 +297,6 @@
 				</div>
 			</div>
 		</div>
-<!-- Main content -->
-<section class="content container-fluid">
-	<div class="row">
 		<div class="col-xs-12 col-sm-8 ">
 			<div class="box box-primary">
 		        <div class="box-body">
@@ -323,7 +421,7 @@
 					       					<div class="row">
 					       						<div class="col-xs-12">
 					       							<div class="form-group">
-					       								<textarea class="form-control" name="motivo"><?php echo (isset($cita['motivo']))? trim($cita['motivo']) : set_value('motivo'); ?></textarea>
+					       								<textarea placeholder="Descripción del motivo" class="form-control" name="motivo"><?php echo (isset($cita['motivo']))? trim($cita['motivo']) : set_value('motivo'); ?></textarea>
 					       							</div>
 					       						</div>
 					       					</div>

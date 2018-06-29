@@ -147,7 +147,10 @@ class Home extends CI_Controller {
 							$cita->color = '#EC971F';
 							break;
 						case '1':
-							$cita->color = '#31B0D5';
+							$cita->color = '#00C0EF';
+							break;
+						case '2':
+							$cita->color = '#00A65A';
 							break;
 						case '3':
 							$cita->color = '#C9302C';
@@ -186,4 +189,5 @@ class Home extends CI_Controller {
 			return false;
 		}
 	}
+
 }

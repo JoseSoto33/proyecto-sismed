@@ -142,14 +142,23 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 	            //if ($this->ValidarEvento($data) === false) {	        		
 
         			//Si los datos del evento son correctos...
-        			//if (!$this->CitasModel->ValidarEvento($condicion)) {        
+        			//if (!$this->CitasModel->ValidarEvento($condicion)) {    
+        			$hoy= strtotime(date("Y-m-d"));
+        			$fecha_cita= strtotime($this->input->post('fecha_cita'));
+        			if($fecha_cita > $hoy){
+        				$estatus=0;
+        			}elseif($fecha_cita < $hoy){
+        				$estatus=4;
+        			}elseif($fecha_cita == $hoy){
+        				$estatus=1;
+        			}
 
         				$condicion = array(	
         					"data" => array(
 				                "motivo" => $this->input->post('motivo'),
 				                "fecha_cita" => $this->input->post('fecha_cita'),
 				                "examen_lb" => $this->input->post('examen_lb'),
-				                "estatus" => $this->input->post('estatus'),
+				                "estatus" => $estatus,
 				            ),
 				     		"where" => array("MD5(concat('sismed',id))" => $id_cita)
 						);
