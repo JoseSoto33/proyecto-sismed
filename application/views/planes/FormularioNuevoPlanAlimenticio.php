@@ -28,11 +28,11 @@
 								</p>
 								<!-- Panel de descripción de campos -->
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-					    			<!-- Descripción campo Título -->
+					    			<!-- Descripción campo Prescrpción dietética -->
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading1">
 									      	<h4 class="panel-title">
-									      		Título
+									      		Prescrpción dietética
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -42,20 +42,19 @@
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Tamaño mínimo:</b> 6 caracteres.</li>
-									      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales).</li>
+									      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Título -->
+								  	</div><!--/ Descripción campo Prescrpción dietética -->
 
-								  	<!-- Descripción campo Fecha inicio -->
+								  	<!-- Descripción campo Lista de sustitutos -->
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Fecha inicio
+									      		Ración
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -64,125 +63,112 @@
 									    <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual.</li>
-									      			<li><b>Campo obligatorio.</b></li>
+									      			<li><b>Tipo de dato:</b> Lista desplegable de selección.</li>
+									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Fecha inicio -->
-
-								  	<!-- Descripción campo Hora inicio -->
+								  	</div>
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading3">
+									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Hora inicio
+									      		Medida
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+									    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
-									      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
-									      			<li><b>Condición:</b> La combinación entre la hora y la fecha de inicio debe ser posterior a la hora y fecha actuales.</li>
-									      			<li><b>Campo obligatorio.</b></li>
+									      			<li><b>Tipo de dato:</b> Lista desplegable de selección.</li>
+									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Hora inicio -->
-
-								  	<!-- Descripción campo Fecha finalización -->
+								  	</div>
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading4">
+									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Fecha finalización
+									      		Equivalentes
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual ni a la fecha de inicio.</li>
-									      			<li><b>Campo obligatorio.</b></li>
+									      			<li><b>Tipo de dato:</b> Turnos de la comidas con listas desplegables de selección.</li>
+									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Fecha finalización -->
+								  	</div><!--/ Descripción campo Lista de sustitutos -->
 
-								  	<!-- Descripción campo Hora finalización -->
+								  	<!-- Descripción campo Hora Menú ejemplo -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading5">
+									    <div class="panel-heading" role="tab" id="heading3">
 									      	<h4 class="panel-title">
-									      		Hora finalización
+									      		Hora del Menú
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
 									      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
-									      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
-									      			<li><b>Condición:</b> La combinación entre la hora y la fecha de finalización debe ser posterior a la hora y fecha actuales y a la hora y fecha de inicio del evento.</li>
-									      			<li><b>Campo obligatorio.</b></li>
+									      			<li><b>Meridiano:</b> Lista desplegable de selección.</li>
+									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Hora finalización -->
+								  	</div><!--/ Descripción campo Hora Menú ejemplo -->
 
-								  	<!-- Descripción campo Descripción -->
+								  	<!-- Descripción campo Recomendaciones -->
 								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading6">
+									    <div class="panel-heading" role="tab" id="heading5">
 									      	<h4 class="panel-title">
-									      		Descripción
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Descripción -->
-
-								  	<!-- Descripción campo Imagen -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading7">
-									      	<h4 class="panel-title">
-									      		Imagen
+									      		Recomendaciones
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
 									      	</h4>
 									    </div>
-									    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+									    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Archivo de tipo imagen.</li>
-									      			<li><b>Fromatos permitidos:</b> JPG, PNG y GIF.</li>
-									      			<li><b>Campo opcional.</b></li>
+									      			<li><b>Tipo de dato:</b> Opciones de selección simple.</li>
+									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Imagen -->
+								  	</div><!--/ Descripción campo Recomendaciones -->
+
+								  	<!-- Descripción campo vaso de agua -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading6">
+									      	<h4 class="panel-title">
+									      		Vasos de agua al día
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Tamaño mínimo:</b> 2 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Numéricos</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo vaso de agua -->
 
 								</div><!--/ Panel de descripción de campos -->
 
@@ -726,6 +712,301 @@
 	</div>
 	
 </section>
+
+<!-- Modal recomendaciones-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Recomendaciones</h4>
+      </div>
+      <div class="modal-body">
+      	<div>
+
+		  	<ul class="nav nav-tabs" role="tablist">
+		   	<?php foreach ($recomendaciones as $key => $recomendacion) { ?>
+			 	<li role="presentation" <?php echo ($key==0)? "class=\"active\"": '' ?>>
+			 		<a class="tab-link" href="#<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>" aria-controls="generales" role="tab" data-toggle="tab">
+			 			<div class="radio">
+						  <label>
+						    <input type="radio" name="recomendacion" id="<?php echo $recomendacion['id'] ?>" value="<?php echo $recomendacion['id'] ?>">
+						   <?php echo  (!empty($recomendacion['abv']))? $recomendacion['abv'] : $recomendacion['descripcion']?>
+						  </label>
+						</div>
+			 		</a>
+			 	</li>
+		 	<?php } ?>		 	
+		  	</ul>
+
+		  	<!-- Tab panes -->
+		  	<div class="tab-content">
+			  	<?php 
+			  	foreach ($recomendaciones as $key => $recomendacion) { 
+			  		$input="<input type='number' style='width:70px !important; display:inline-block !important;' name='vasos_agua_".$recomendacion['id']."' id='vasos_agua_".$recomendacion['id']."' class='form-control' min='1' step='1'>";
+			  	?>
+			 	<div role="tabpanel" class="tab-pane" id="<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>">
+			 		<ol>
+					<?php foreach ($lista_recomendaciones[$recomendacion['id']] as $key => $lista) { ?> 
+						<li>
+							<?php echo str_replace("*", $input, $lista['descripcion']); ?>
+						</li>	
+					<?php } ?>
+				 	</ol>
+				 	<div class="table-responsive">
+					 	<table class="table table-hover table-bordered">
+		  					<thead>
+		  						<tr class="active">
+		  							<th class="text-center">Alimentos</th>
+		  							<th class="text-center">Permitidos</th>
+		  							<th class="text-center">Evitar</th>
+		  						</tr>
+		  					</thead>
+		  					<tbody>
+		  						<?php foreach ($cuadro_recomendaciones[$recomendacion['id']] as $key => $cuadro) {?>
+			  					<tr>
+			  						<td class="active"><?php echo $cuadro['alimento']; ?></td>
+			  						<td><?php echo $cuadro['permitidos']; ?></td>
+			  						<td><?php echo $cuadro['evitar']; ?></td>
+			  					</tr>
+			  					<?php }?>
+		  					</tbody>
+						</table>
+					</div>
+			 	</div>
+				<?php } ?>
+		  	</div>
+		</div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Menu -->
+<div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog " role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Menú Ejemplo</h4>
+      </div>
+      <div class="modal-body">
+      	<!-- cabezera -->
+      	<ul class="nav nav-tabs" role="tablist">
+		    <li role="presentation" class="active"><a href="#desayuno" aria-controls="desayuno" role="tab" data-toggle="tab">Desayuno</a></li>
+		    <li role="presentation"><a href="#almuerzo" aria-controls="almuerzo" role="tab" data-toggle="tab">Almuerzo</a></li>
+		    <li role="presentation"><a href="#cena" aria-controls="cena" role="tab" data-toggle="tab">Cena</a></li>
+		  </ul>
+
+		  <!-- contenido -->
+
+		  <div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="desayuno">
+			    <ul class="list-group">
+					  <li class="list-group-item" id="D">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Desayuno
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+					  <li class="list-group-item" id="DM">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Merienda
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+				</ul>
+		   </div>
+		    <div role="tabpanel" class="tab-pane" id="almuerzo">
+		    	<ul class="list-group">
+					  <li class="list-group-item" id="A">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Almuerzo
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+					  <li class="list-group-item" id="AM">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Merienda
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+				</ul>
+		    </div>
+		    <div role="tabpanel" class="tab-pane" id="cena">
+		    	<ul class="list-group">
+					  <li class="list-group-item" id="C">
+					  	<h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Cena
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+					  <li class="list-group-item" id="CM"><h4>
+					  		<div class="row">
+					  			<div class="col-xs-12 col-sm-6">	
+					  				Merienda
+					  			</div>
+					  			<div class="col-xs-12 col-sm-6">
+								  	<div class="form-group">
+										<div class="row">
+											<div class="col-xs-12 col-md-4">
+										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+										    	<div class="help-block with-errors">
+												</div>
+										    </div>
+											<div class="col-xs-12 col-md-4">
+												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+													<option> </option>
+													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
+													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
+												</select>
+												<div class="help-block with-errors">
+												</div>
+											</div>
+										</div>
+									</div>	
+					  				
+					  			</div>
+					  		</div>
+					  	</h4>
+					  </li>
+				</ul>
+		    </div>
+		  </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
