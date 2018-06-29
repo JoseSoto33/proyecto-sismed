@@ -13,7 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/owl.carousel.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/owl.theme.default.min.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style-odo.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/css/style-nut.css">
 		<!-- Font Awesome -->
 		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>bower_components/font-awesome/css/font-awesome.min.css">
 		<!-- Ionicons -->
@@ -30,7 +30,7 @@
 		<script src="<?php echo base_url(); ?>assets/js/owl.carousel.min.js"></script>
 		<script src="<?php echo base_url(); ?>assets/js/locale/es.js"></script>
 	</head>
-	<body class="hold-transition skin-purple sidebar-mini">
+	<body class="hold-transition skin-yellow sidebar-mini">
 		<div class="cintillo">					
 			<div class="container-fluid">
 				<figure class="pull-left">
@@ -213,30 +213,7 @@
 					            </li>				            
 					        </ul>
 				        </li>
-				        <li class="treeview <?php if($this->uri->segment(1) == 'Dietas') echo 'active'; ?>">
-				          	<a href="#">
-				          		<i class="fa fa-stethoscope"></i>
-				          		<span>Dietas </span>
-				          		<span class="pull-right-container">
-				                	<i class="fa fa-angle-left pull-right"></i>
-				              	</span>
-				          	</a>
-					        <ul class="treeview-menu">									            
-					            <li>
-					            	<a href="<?php echo base_url(); ?>Dietas/AgregarPatologia">
-					            		<i class="fa fa-circle-o"></i>
-					            		<span>Agregar dietas</span>
-					            	</a>
-					            </li>								            
-					            <li>
-					            	<a href="<?php echo base_url(); ?>Dietas/ListarPatologias">
-					            		<i class="fa fa-circle-o"></i>
-					            		<span>Listado de dietas</span>
-					            	</a>
-					            </li>				            
-					        </ul>
-				        </li>
-				        <li class="treeview <?php if($this->uri->segment(1) == 'Cita') echo 'active'; ?>">
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Citas') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-clock-o"></i>
 				          		<span>Citas </span>
@@ -246,19 +223,66 @@
 				          	</a>
 					        <ul class="treeview-menu">									            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Cita/AgregarCitaNutricion">
+					            	<a href="<?php echo base_url(); ?>Citas/AgregarCitaNutricion">
 					            		<i class="fa fa-circle-o"></i>
 										<span>Agregar cita</span>
 					            	</a>
 					            </li>								            
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Cita/ListarVacunas">
+					            	<a href="<?php echo base_url(); ?>Citas/ListarCitas">
 					            		<i class="fa fa-circle-o"></i>					            		
 										<span>Listado de citas</span>
 					            	</a>
 					            </li>				            
 					        </ul>
 				        </li>
+				        <li class="treeview <?php if($this->uri->segment(1) == 'PlanesAlimenticios') echo 'active'; ?>">
+				          	<a href="#">
+				          		<i class="fa fa-book"></i>
+				          		<span>Planes alimenticios </span>
+				          		<span class="pull-right-container">
+				                	<i class="fa fa-angle-left pull-right"></i>
+				              	</span>
+				          	</a>
+					        <ul class="treeview-menu">									            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>PlanesAlimenticios/AgregarPlanAlimenticio">
+					            		<i class="fa fa-circle-o"></i>
+					            		<span>Agregar plan </span>
+					            	</a>
+					            </li>								            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>PlanesAlimenticios/ListarPlanAlimenticio">
+					            		<i class="fa fa-circle-o"></i>
+					            		<span>Listado de planes </span>
+					            	</a>
+					            </li>				            
+					        </ul>
+				        </li>
+				        <li class="treeview <?php if($this->uri->segment(1) == 'Menu') echo 'active'; ?>">
+				          	<a href="#">
+				          		<i class="fa fa-cutlery"></i>
+				          		<span>Menú del comedor</span>
+				          		<span class="pull-right-container">
+				                	<i class="fa fa-angle-left pull-right"></i>
+				              	</span>
+				          	</a>
+					        <ul class="treeview-menu">									            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>MenuComedor/AgregarMenuComedor">
+					            		<i class="fa fa-circle-o"></i>
+					            		<span>Agregar menú</span>
+					            	</a>
+					            </li>								            
+					            <li>
+					            	<a href="<?php echo base_url(); ?>MenuComedor/ListarMenu">
+					            		<i class="fa fa-circle-o"></i>
+					            		<span>Listado de menú</span>
+					            	</a>
+					            </li>				            
+					        </ul>
+				        </li>
+				        
 				        <li class="treeview <?php if($this->uri->segment(1) == 'Inventario') echo 'active'; ?>">
 				          	<a href="#">
 				          		<i class="fa fa-cubes"></i>

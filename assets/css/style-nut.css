@@ -1,0 +1,268 @@
+/*=============================General=============================*/
+
+hr.divisor-line{
+	border-color: #00BED5 !important;	
+}
+
+hr.form-divisor-line{
+	border-color: #00BED5 !important;
+}
+
+.box.box-success {
+    border-top-color: #F39C12 !important;
+}
+
+.box.box-solid.box-success {
+    border: 1px solid #F39C12 !important;
+}
+
+.box.box-solid.box-success > .box-header {
+    color: #fff !important;
+    background: #F39C12 !important;
+}
+
+.nav-tabs-custom > .nav-tabs > li.active {
+    border-top-color: #f39c12 !important;
+}
+
+/*=============================PANTALLA PRINCIPAL=============================*/
+/*Cabecera*/
+
+#seccion1{
+	background: #016064;
+}
+#seccion1 label.nav-titulo{
+	color: #ffffff;
+}
+
+.divider{
+	border: 1px solid #00BED5 !important;
+}
+
+#nav-menu-principal #principal-menu ul li a{
+	color: #ffffff;
+}
+
+#principal-menu > ul > li.dropdown > .dropdown-menu{
+	background: #F8FCFA;	
+	border: 1px solid #00BED5;
+}
+
+#principal-menu > ul > li.dropdown > .dropdown-menu > li > a{
+	font-size: 16px;
+	font-family: oswaldlight;
+	color: #00BED5 !important;
+}
+
+#principal-menu > ul > li:hover > a,
+#principal-menu > ul > li:active > a,
+#principal-menu > ul > li.active > a,
+#principal-menu > ul > li.open > a,
+#principal-menu > ul > li.dropdown > .dropdown-menu > li:hover > a,
+#principal-menu > ul > li.dropdown > .dropdown-menu > li:active > a,
+#principal-menu > ul > li.dropdown > .dropdown-menu > li.active > a{
+	background: #00BED5;
+	color: #ffffff !important;
+}
+
+/*----------SECCION 2----------*/
+
+#img-carousel .carousel-inner .item #text1{
+	width: 100%;
+	max-width: 600px;
+	float: right;
+	text-align: right;
+	right: 80px;	
+	bottom: 120px;
+}
+
+#img-carousel .carousel-inner .item #text2{
+	width: 100%;
+	max-width: 700px;
+	float: right;
+	text-align: right;
+	top: 80px;
+	right: 80px;
+}
+
+#img-carousel .carousel-inner .item #text3{
+	width: 100%;
+	max-width: 700px;
+	text-align: left;
+	top: 80px;
+	left: 10%;
+}
+
+#img-carousel > .carousel-inner > .item{
+	background: url("../img/nutricion/FONDO5.jpg")  no-repeat scroll center center;
+	background-size: 100% auto;	
+}
+#img-carousel > .carousel-inner > .item:first-child{
+	background: url("../img/nutricion/FONDO1.jpg")  no-repeat scroll center center;
+	background-size: 100% 100%;
+}
+#img-carousel > .carousel-inner > .item:last-child{
+	background: url("../img/nutricion/FONDO3.jpg")  no-repeat scroll center center;
+	background-size: 100% auto;
+}
+
+#img-carousel > .carousel-indicators > li{
+	border-color: #f39c12;
+}
+#img-carousel > .carousel-indicators > li.active{
+	border-color: #f39c12;
+	background: #f39c12;
+}
+
+/*----------SECCION 3----------*/
+
+#seccion3{
+	background: linear-gradient(to bottom, #F0F0F0 17%, #FFFFFF 83%) !important;	
+}
+
+#seccion3 p.parrafo{
+	color: #016064 !important;
+}
+
+.sub-cabecera{
+	margin-top: 20px;
+	background: #016064 !important;
+}
+
+#seccion3 #contenido{
+	border-left: 1px solid #00BED5 !important;
+	border-right: 1px solid #00BED5 !important;
+}
+
+#contenido .info-contenido .circle{
+	background: #016064 !important;
+	color: #ffffff !important;
+}
+
+#contenido .info-contenido .info-titulo{
+	color: #016064 !important;
+}
+
+/*----------FOOTER----------*/
+
+#footer{
+	background: #F3F3F3 !important;
+}
+
+#footer #contenido{
+	border-left: 1px solid #016064 !important;
+	border-right: 1px solid #016064 !important;
+}
+
+#footer .div-evento .glyphicon,
+#footer .div-evento .fecha-evento:hover,
+#footer .div-evento .fecha-evento:focus,
+#footer .div-evento .desc-evento,
+#footer .footer-nav-link{
+	color: #016064 !important;
+}
+
+/*----------FOOTER 2----------*/
+#footer2{
+	background: #016064;
+}
+
+/**/
+.box-primary .box-header.with-border{
+	background: #ff851b !important;
+}
+
+.box.box-solid.box-primary{
+	border-color: #ff851b !important;
+}
+
+.box.box-primary{
+	border-top-color: #ff851b !important;
+}
+
+.box-primary .box-header.with-border.active{
+	background: #FF7701 !important;
+}
+
+.box.box-solid.box-primary.active{
+	border-color: #FF7701 !important;
+}
+
+.box.box-primary.active{
+	border-top-color: #FF7701 !important;
+}
+
+.box-primary .box-header.with-border.disabled{
+	background: #FFAF6B !important;
+}
+
+.box.box-solid.box-primary.disabled{
+	border-color: #FFAF6B !important;
+}
+
+.box.box-primary.disabled{
+	border-top-color: #FFAF6B !important;
+}
+
+#orden_vista_previa{
+	float: left;
+	position: relative;
+	min-height: 60px;
+	margin: 10px 0px;
+	padding: 5px;
+	-webkit-box-shadow: 1px 3px 22px 1px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 3px 22px 1px rgba(0,0,0,0.75);
+	box-shadow: 1px 3px 22px 1px rgba(0,0,0,0.75);
+}
+
+#orden_membrete{
+	width: 100%;
+	float: left;
+	position: relative;
+}
+
+#orden_membrete .container-fluid figure.pull-right img{
+	width: auto !important;
+	height: 16px !important;
+}
+
+#orden_membrete .container-fluid figure.pull-left img{
+	width: auto !important;
+	height: 16px !important;
+}
+
+#orden_body .center-block{
+	width: 250px;
+	font-size: 18px;
+}
+#orden_body .center-block p{
+	text-align: justify;
+	height: auto;
+}
+
+#orden_header,
+#orden_body,
+#orden_footer{
+	width: 100%;
+	float: left;
+	position: relative;
+	padding: 10px 0px;
+}
+
+#sello{
+	width: 50px;
+	border: 1px solid #333333;
+	margin-bottom: 5px;
+	float: right;
+}
+
+#orden_header label,
+#orden_footer label{
+	text-align: right;
+	font-size: 10px;
+}
+
+hr.separador{
+	border-color: #FF851B !important;
+}
+

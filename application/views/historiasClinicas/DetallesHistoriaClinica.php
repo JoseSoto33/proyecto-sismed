@@ -284,7 +284,7 @@
 															      		</div>
 															      		<ul id="tarjeta-vacunacion">
 															      		<?php 
-															      			$this->load->view('medicina/TarjetaVacunacion'); 
+															      			$this->load->view('vacunas/TarjetaVacunacion'); 
 															      		?>
 															      		</ul>	      		
 															      	</div>													      	
@@ -406,7 +406,7 @@
 															      		</div>
 															      		<div id="lista-vacunas-content" class="table-responsive">
 															      		<?php 
-															      			$this->load->view('medicina/ListaVacunasAplicadas'); 
+															      			$this->load->view('vacunas/ListaVacunasAplicadas'); 
 															      		?>
 															      		</div>
 															      	</div>													      	

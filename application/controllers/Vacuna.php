@@ -391,7 +391,7 @@ class Vacuna extends CI_Controller {
         $vacunas = $this->VacunaModel->extraerVacunasAplicadas($edad,md5("sismed".$cod_historia));
         $data['vacunas_aplicadas'] = $vacunas; 
 
-        $this->load->view('medicina/ListaVacunasAplicadas',$data); 
+        $this->load->view('vacunas/ListaVacunasAplicadas',$data); 
         //echo json_encode($data);
     }
     
