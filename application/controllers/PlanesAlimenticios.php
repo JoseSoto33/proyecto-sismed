@@ -160,8 +160,8 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 				}
 			}else{
 
-					$data['mensaje'] = $this->db->error();
-				}
+				$data['mensaje'] = $this->db->error();
+			}
 			
 
 			//Si los datos enviados por formulario son correctos...
@@ -192,7 +192,7 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 	        		$data['mensaje'] = $this->upload->display_errors();		      
 	        	}
 			}*/
-		 }
+		}
 		//Cargar vista del formulario de registro de evento
 		$this->CargarHeader();
         $this->load->view('planes/FormularioNuevoPlanAlimenticio', $data);
