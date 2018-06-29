@@ -25,10 +25,11 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
      *
      * @return boolean
      */
-    public function AgregarPlanAlimenticio($id_usuario,$prescripcion)
+    public function AgregarPlanAlimenticio($id_usuario,$prescripcion,$recomendacion)
     {
         $this->db->set("id_usuario",$id_usuario);
         $this->db->set("prescripcion_dietetica",trim($prescripcion));
+        $this->db->set("id_recomendaciones",$recomendacion);
         if($this->db->insert("plan_alimenticio")){
            
             return $this->db->insert_id();
@@ -58,25 +59,6 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
 
         if($this->db->insert("turno_equivalente")){
          return true;
-        }else{
-            return false;
-        }
-    }
-
-    public function ModificarCita($condicion = array())
-    {
-        if (isset($condicion['where']) && !empty($condicion['where'])) {
-            
-            $this->db->where($condicion['where']);
-        }
-
-        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
-            
-            $this->db->or_where($condicion['or_where']);
-        }
-
-        if ($this->db->update("citas", $condicion['data'])) {
-            return true;
         }else{
             return false;
         }
@@ -160,7 +142,20 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
         return null;
     }
 
-        public function ExtraerPlanesAlimenticios($condicion = array())
+    public function GuardarMenuPlan($id_plan_alimenticio,$horaD=null, $horaMD=null, $horaA=null, $horaMA=null, $horaC=null, $horaMC=null){
+
+        if(!empty($horaD)) $this->db->set('hora_desayuno',$horaD);
+        if(!empty($horaMD)) $this->db->set('hora_merienda_desayuno',$horaMD);
+        if(!empty($horaA)) $this->db->set('hora_almuerzo',$horaA);
+        if(!empty($horaMA)) $this->db->set('hora_merienda_almuerzo',$horaMA);
+        if(!empty($horaC)) $this->db->set('hora_cena',$horaC);
+        if(!empty($horaMC)) $this->db->set('hora_merienda_cena',$horaMC);
+
+        $this->db->set('id_plan_alimenticio',$id_plan_alimenticio);
+        $this->db->insert('menu_plan');
+    }
+
+    public function ExtraerPlanesAlimenticios($condicion = array())
     {
         //Si se declaró una sentencia SQL personalizada...
         if (isset($condicion['query']) && !empty($condicion['query'])) {
@@ -236,31 +231,11 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
         return $this->db->get();
     }
 
-    public function ModificarPlan($condicion = array())
-    {
-        if (isset($condicion['where']) && !empty($condicion['where'])) {
-            
-            $this->db->where($condicion['where']);
-        }
-
-        if (isset($condicion['or_where']) && !empty($condicion['or_where'])) {
-            
-            $this->db->or_where($condicion['or_where']);
-        }
-
-        if ($this->db->update("plan_alimenticio", $condicion['data'])) {
-            return true;
-        }else{
-            return false;
-        }
-    }
-
     public function EliminarPlan($id){
     
         $this->db->where("MD5(concat('sismed',id))",$id);
-        $this->db-> delete ( 'plan_alimenticio');
 
-        if($this->db->update('plan_alimenticio')){
+        if($this->db->delete('plan_alimenticio')){
             return true;
         }
         return false;

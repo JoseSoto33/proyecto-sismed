@@ -61,14 +61,8 @@
 									echo "<a href=\"#\" class=\"btn btn-xs btn-info prescripcion-plan\" role=\"button\"data-toggle=\"popover\" data-trigger=\"hover\" data-container=\"body\" data-placement=\"left\" title=\"Prescripcion plan\" data-content=\"".$plan["prescripcion_dietetica"]."\" >";
 									echo "<span class=\"glyphicon glyphicon-eye-open\"></span>";
 									echo "</a>";
-
-									//---Boton editar---
-									echo "<a class=\"btn btn-xs btn-success editar-planes\" href=\"".base_url("PlanesAlimenticios/ModificarPlanAlimenticio/".md5('sismed'.$plan["id"]))."\" title=\"Editar planes\">";
-									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
-									echo "</a>";
-
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-xs btn-danger eliminar-plan\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPlan\" title=\"Eliminar plan\" data-idcita=\"".md5('sismed'.$plan["id"])."\" data-nombre1=\"".$plan["id"]."\">";
+									echo "<a class=\"btn btn-xs btn-danger eliminar-plan\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPlan\" title=\"Eliminar plan\" data-idplan=\"".md5('sismed'.$plan["id"])."\">";
 									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
 									echo "</a>";
 
@@ -104,7 +98,7 @@
         </div>
       </div>
       <div class="modal-footer">
-      	<button type="button" id="accion-eliminar-plan" class="btn btn-primary" data-idevento="">Eliminar</button>
+      	<button type="button" id="accion-eliminar-plan" class="btn btn-primary" data-idplan="">Eliminar</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
@@ -113,7 +107,7 @@
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-citas.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-plan.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".table-responsive").on("click", "#lista-planes tbody tr td .prescripcion-plan",function(e){

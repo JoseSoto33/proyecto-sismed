@@ -422,8 +422,296 @@
 									<small> 
 										<span class="red2">Los campos con (*) son obligatorios.</span>
 									</small>
-								</div>	
 
+								</div>	
+								<!-- Modal recomendaciones-->
+								<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog modal-lg" role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								        <h4 class="modal-title" id="myModalLabel">Recomendaciones</h4>
+								      </div>
+								      <div class="modal-body">
+								      	<div>
+
+										  	<ul class="nav nav-tabs" role="tablist">
+										   	<?php foreach ($recomendaciones as $key => $recomendacion) { ?>
+											 	<li role="presentation" <?php echo ($key==0)? "class=\"active\"": '' ?>>
+											 		<a class="tab-link" href="#<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>" aria-controls="generales" role="tab" data-toggle="tab">
+											 			<div class="radio">
+														  <label>
+														    <input type="radio" name="recomendacion" id="<?php echo $recomendacion['id'] ?>" value="<?php echo $recomendacion['id'] ?>">
+														   <?php echo  (!empty($recomendacion['abv']))? $recomendacion['abv'] : $recomendacion['descripcion']?>
+														  </label>
+														</div>
+											 		</a>
+											 	</li>
+										 	<?php } ?>		 	
+										  	</ul>
+
+										  	<!-- Tab panes -->
+										  	<div class="tab-content">
+											  	<?php foreach ($recomendaciones as $key => $recomendacion) { ?>
+											 	<div role="tabpanel" class="tab-pane" id="<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>">
+											 		<ol>
+													<?php foreach ($lista_recomendaciones[$recomendacion['id']] as $key => $lista) { ?> 
+														<li>
+															<?php echo $lista['descripcion']; ?>
+														</li>	
+													<?php } ?>
+												 	</ol>
+												 	<div class="table-responsive">
+													 	<table class="table table-hover table-bordered">
+										  					<thead>
+										  						<tr class="active">
+										  							<th class="text-center">Alimentos</th>
+										  							<th class="text-center">Permitidos</th>
+										  							<th class="text-center">Evitar</th>
+										  						</tr>
+										  					</thead>
+										  					<tbody>
+										  						<?php foreach ($cuadro_recomendaciones[$recomendacion['id']] as $key => $cuadro) {?>
+											  					<tr>
+											  						<td class="active"><?php echo $cuadro['alimento']; ?></td>
+											  						<td><?php echo $cuadro['permitidos']; ?></td>
+											  						<td><?php echo $cuadro['evitar']; ?></td>
+											  					</tr>
+											  					<?php }?>
+										  					</tbody>
+														</table>
+													</div>
+											 	</div>
+												<?php } ?>
+										  	</div>
+										</div>
+
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								<!-- Modal de Menu -->
+								<div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog " role="document">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								        <h4 class="modal-title" id="myModalLabel">Menú Ejemplo</h4>
+								      </div>
+								      <div class="modal-body">
+								      	<!-- cabezera -->
+								      	<ul class="nav nav-tabs" role="tablist">
+										    <li role="presentation" class="active"><a href="#desayuno" aria-controls="desayuno" role="tab" data-toggle="tab">Desayuno</a></li>
+										    <li role="presentation"><a href="#almuerzo" aria-controls="almuerzo" role="tab" data-toggle="tab">Almuerzo</a></li>
+										    <li role="presentation"><a href="#cena" aria-controls="cena" role="tab" data-toggle="tab">Cena</a></li>
+										  </ul>
+
+										  <!-- contenido -->
+
+										  <div class="tab-content">
+										    <div role="tabpanel" class="tab-pane active" id="desayuno">
+											    <ul class="list-group">
+													  <li class="list-group-item" id="D">
+													  	<h4>
+													  		<div class="row">
+													  			<div class="col-xs-12 col-sm-6">	
+													  				Desayuno
+													  			</div>
+													  			<div class="col-xs-12 col-sm-6">
+																  	<div class="form-group">
+																		<div class="row">
+																			<div class="col-xs-12 col-md-4">
+																		    	<input type="text" class="form-control hora" id="hora_desayuno" name="hora_desayuno" placeholder="Hora" value="<?php echo set_value('hora_desayuno'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+																		    	<div class="help-block with-errors">
+																				</div>
+																		    </div>
+																			<div class="col-xs-12 col-md-4">
+																				<select class="form-control" id="h_d_meridiano" name="h_d_meridiano">
+																					<option> </option>
+																					<option value="am" <?php echo set_select('h_d_meridiano', 'am'); ?>>am</option>
+																					<option value="pm" <?php echo set_select('h_d_meridiano', 'pm'); ?>>pm</option>
+																				</select>
+																				<div class="help-block with-errors">
+																				</div>
+																			</div>
+																		</div>
+																	</div>	
+													  				
+													  			</div>
+													  		</div>
+													  	</h4>
+													  </li>
+													  <li class="list-group-item" id="DM">
+													  	<h4>
+													  		<div class="row">
+													  			<div class="col-xs-12 col-sm-6">	
+													  				Merienda
+													  			</div>
+													  			<div class="col-xs-12 col-sm-6">
+																  	<div class="form-group">
+																		<div class="row">
+																			<div class="col-xs-12 col-md-4">
+																		    	<input type="text" class="form-control hora" id="hora_merienda_desayuno" name="hora_merienda_desayuno" placeholder="Hora" value="<?php echo set_value('hora_merienda_desayuno'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+																		    	<div class="help-block with-errors">
+																				</div>
+																		    </div>
+																			<div class="col-xs-12 col-md-4">
+																				<select class="form-control" id="h_m_d_meridiano" name="h_m_d_meridiano">
+																					<option> </option>
+																					<option value="am" <?php echo set_select('h_m_d_meridiano', 'am'); ?>>am</option>
+																					<option value="pm" <?php echo set_select('h_m_d_meridiano', 'pm'); ?>>pm</option>
+																				</select>
+																				<div class="help-block with-errors">
+																				</div>
+																			</div>
+																		</div>
+																	</div>	
+													  				
+													  			</div>
+													  		</div>
+													  	</h4>
+													  </li>
+												</ul>
+										   </div>
+										    <div role="tabpanel" class="tab-pane" id="almuerzo">
+										    	<ul class="list-group">
+													  <li class="list-group-item" id="A">
+													  	<h4>
+													  		<div class="row">
+													  			<div class="col-xs-12 col-sm-6">	
+													  				Almuerzo
+													  			</div>
+													  			<div class="col-xs-12 col-sm-6">
+																  	<div class="form-group">
+																		<div class="row">
+																			<div class="col-xs-12 col-md-4">
+																		    	<input type="text" class="form-control hora" id="hora_almuerzo" name="hora_almuerzo" placeholder="Hora" value="<?php echo set_value('hora_almuerzo'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+																		    	<div class="help-block with-errors">
+																				</div>
+																		    </div>
+																			<div class="col-xs-12 col-md-4">
+																				<select class="form-control" id="h_a_meridiano" name="h_a_meridiano">
+																					<option> </option>
+																					<option value="am" <?php echo  set_select('h_a_meridiano', 'am'); ?>>am</option>
+																					<option value="pm" <?php echo set_select('h_a_meridiano', 'pm'); ?>>pm</option>
+																				</select>
+																				<div class="help-block with-errors">
+																				</div>
+																			</div>
+																		</div>
+																	</div>	
+													  				
+													  			</div>
+													  		</div>
+													  	</h4>
+													  </li>
+													  <li class="list-group-item" id="AM">
+													  	<h4>
+													  		<div class="row">
+													  			<div class="col-xs-12 col-sm-6">	
+													  				Merienda
+													  			</div>
+													  			<div class="col-xs-12 col-sm-6">
+																  	<div class="form-group">
+																		<div class="row">
+																			<div class="col-xs-12 col-md-4">
+																		    	<input type="text" class="form-control hora" id="hora_merienda_almuerzo" name="hora_merienda_almuerzo" placeholder="Hora" value="<?php echo set_value('hora_merienda_almuerzo'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+																		    	<div class="help-block with-errors">
+																				</div>
+																		    </div>
+																			<div class="col-xs-12 col-md-4">
+																				<select class="form-control" id="h_m_a_meridiano" name="h_m_a_meridiano">
+																					<option> </option>
+																					<option value="am" <?php echo set_select('h_m_a_meridiano', 'am'); ?>>am</option>
+																					<option value="pm" <?php echo set_select('h_m_a_meridiano', 'pm'); ?>>pm</option>
+																				</select>
+																				<div class="help-block with-errors">
+																				</div>
+																			</div>
+																		</div>
+																	</div>	
+													  				
+													  			</div>
+													  		</div>
+													  	</h4>
+													  </li>
+												</ul>
+										    </div>
+										    <div role="tabpanel" class="tab-pane" id="cena">
+										    	<ul class="list-group">
+													  <li class="list-group-item" id="C">
+													  	<h4>
+													  		<div class="row">
+													  			<div class="col-xs-12 col-sm-6">	
+													  				Cena
+													  			</div>
+													  			<div class="col-xs-12 col-sm-6">
+																  	<div class="form-group">
+																		<div class="row">
+																			<div class="col-xs-12 col-md-4">
+																		    	<input type="text" class="form-control hora" id="hora_cena" name="hora_cena" placeholder="Hora" value="<?php echo set_value('hora_cena'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+																		    	<div class="help-block with-errors">
+																				</div>
+																		    </div>
+																			<div class="col-xs-12 col-md-4">
+																				<select class="form-control" id="h_c_meridiano" name="h_c_meridiano">
+																					<option> </option>
+																					<option value="am" <?php echo set_select('h_c_meridiano', 'am'); ?>>am</option>
+																					<option value="pm" <?php echo set_select('h_c_meridiano', 'pm'); ?>>pm</option>
+																				</select>
+																				<div class="help-block with-errors">
+																				</div>
+																			</div>
+																		</div>
+																	</div>	
+													  				
+													  			</div>
+													  		</div>
+													  	</h4>
+													  </li>
+													  <li class="list-group-item" id="CM"><h4>
+													  		<div class="row">
+													  			<div class="col-xs-12 col-sm-6">	
+													  				Merienda
+													  			</div>
+													  			<div class="col-xs-12 col-sm-6">
+																  	<div class="form-group">
+																		<div class="row">
+																			<div class="col-xs-12 col-md-4">
+																		    	<input type="text" class="form-control hora" id="hora_merienda_cena" name="hora_merienda_cena" placeholder="Hora" value="<?php echo set_value('hora_merienda_cena'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+																		    	<div class="help-block with-errors">
+																				</div>
+																		    </div>
+																			<div class="col-xs-12 col-md-4">
+																				<select class="form-control" id="h_m_c_meridiano" name="h_m_c_meridiano" >
+																					<option> </option>
+																					<option value="am" <?php echo set_select('h_m_c_meridiano', 'am'); ?>>am</option>
+																					<option value="pm" <?php echo set_select('h_m_c_meridiano', 'pm'); ?>>pm</option>
+																				</select>
+																				<div class="help-block with-errors">
+																				</div>
+																			</div>
+																		</div>
+																	</div>	
+													  				
+													  			</div>
+													  		</div>
+													  	</h4>
+													  </li>
+												</ul>
+										    </div>
+										  </div>
+
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
 							<?php echo form_close(); ?>
 						</div>
 		        	</div>		        	
@@ -438,297 +726,6 @@
 	</div>
 	
 </section>
-<!-- Modal recomendaciones-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Recomendaciones</h4>
-      </div>
-      <div class="modal-body">
-      	<div>
-
-		  	<ul class="nav nav-tabs" role="tablist">
-		   	<?php foreach ($recomendaciones as $key => $recomendacion) { ?>
-			 	<li role="presentation" <?php echo ($key==0)? "class=\"active\"": '' ?>>
-			 		<a class="tab-link" href="#<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>" aria-controls="generales" role="tab" data-toggle="tab">
-			 			<div class="radio">
-						  <label>
-						    <input type="radio" name="recomendacion" id="<?php echo $recomendacion['id'] ?>" value="<?php echo $recomendacion['id'] ?>">
-						   <?php echo  (!empty($recomendacion['abv']))? $recomendacion['abv'] : $recomendacion['descripcion']?>
-						  </label>
-						</div>
-			 		</a>
-			 	</li>
-		 	<?php } ?>		 	
-		  	</ul>
-
-		  	<!-- Tab panes -->
-		  	<div class="tab-content">
-			  	<?php foreach ($recomendaciones as $key => $recomendacion) { ?>
-			 	<div role="tabpanel" class="tab-pane" id="<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>">
-			 		<ol>
-					<?php foreach ($lista_recomendaciones[$recomendacion['id']] as $key => $lista) { ?> 
-						<li>
-							<?php echo $lista['descripcion']; ?>
-						</li>	
-					<?php } ?>
-				 	</ol>
-				 	<div class="table-responsive">
-					 	<table class="table table-hover table-bordered">
-		  					<thead>
-		  						<tr class="active">
-		  							<th class="text-center">Alimentos</th>
-		  							<th class="text-center">Permitidos</th>
-		  							<th class="text-center">Evitar</th>
-		  						</tr>
-		  					</thead>
-		  					<tbody>
-		  						<?php foreach ($cuadro_recomendaciones[$recomendacion['id']] as $key => $cuadro) {?>
-			  					<tr>
-			  						<td class="active"><?php echo $cuadro['alimento']; ?></td>
-			  						<td><?php echo $cuadro['permitidos']; ?></td>
-			  						<td><?php echo $cuadro['evitar']; ?></td>
-			  					</tr>
-			  					<?php }?>
-		  					</tbody>
-						</table>
-					</div>
-			 	</div>
-				<?php } ?>
-		  	</div>
-		</div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal de Menu -->
-<div class="modal fade" id="menu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog " role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Menú Ejemplo</h4>
-      </div>
-      <div class="modal-body">
-      	<!-- cabezera -->
-      	<ul class="nav nav-tabs" role="tablist">
-		    <li role="presentation" class="active"><a href="#desayuno" aria-controls="desayuno" role="tab" data-toggle="tab">Desayuno</a></li>
-		    <li role="presentation"><a href="#almuerzo" aria-controls="almuerzo" role="tab" data-toggle="tab">Almuerzo</a></li>
-		    <li role="presentation"><a href="#cena" aria-controls="cena" role="tab" data-toggle="tab">Cena</a></li>
-		  </ul>
-
-		  <!-- contenido -->
-
-		  <div class="tab-content">
-		    <div role="tabpanel" class="tab-pane active" id="desayuno">
-			    <ul class="list-group">
-					  <li class="list-group-item" id="D">
-					  	<h4>
-					  		<div class="row">
-					  			<div class="col-xs-12 col-sm-6">	
-					  				Desayuno
-					  			</div>
-					  			<div class="col-xs-12 col-sm-6">
-								  	<div class="form-group">
-										<div class="row">
-											<div class="col-xs-12 col-md-4">
-										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
-										    	<div class="help-block with-errors">
-												</div>
-										    </div>
-											<div class="col-xs-12 col-md-4">
-												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
-													<option> </option>
-													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
-													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
-												</select>
-												<div class="help-block with-errors">
-												</div>
-											</div>
-										</div>
-									</div>	
-					  				
-					  			</div>
-					  		</div>
-					  	</h4>
-					  </li>
-					  <li class="list-group-item" id="DM">
-					  	<h4>
-					  		<div class="row">
-					  			<div class="col-xs-12 col-sm-6">	
-					  				Merienda
-					  			</div>
-					  			<div class="col-xs-12 col-sm-6">
-								  	<div class="form-group">
-										<div class="row">
-											<div class="col-xs-12 col-md-4">
-										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
-										    	<div class="help-block with-errors">
-												</div>
-										    </div>
-											<div class="col-xs-12 col-md-4">
-												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
-													<option> </option>
-													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
-													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
-												</select>
-												<div class="help-block with-errors">
-												</div>
-											</div>
-										</div>
-									</div>	
-					  				
-					  			</div>
-					  		</div>
-					  	</h4>
-					  </li>
-				</ul>
-		   </div>
-		    <div role="tabpanel" class="tab-pane" id="almuerzo">
-		    	<ul class="list-group">
-					  <li class="list-group-item" id="A">
-					  	<h4>
-					  		<div class="row">
-					  			<div class="col-xs-12 col-sm-6">	
-					  				Almuerzo
-					  			</div>
-					  			<div class="col-xs-12 col-sm-6">
-								  	<div class="form-group">
-										<div class="row">
-											<div class="col-xs-12 col-md-4">
-										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
-										    	<div class="help-block with-errors">
-												</div>
-										    </div>
-											<div class="col-xs-12 col-md-4">
-												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
-													<option> </option>
-													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
-													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
-												</select>
-												<div class="help-block with-errors">
-												</div>
-											</div>
-										</div>
-									</div>	
-					  				
-					  			</div>
-					  		</div>
-					  	</h4>
-					  </li>
-					  <li class="list-group-item" id="AM">
-					  	<h4>
-					  		<div class="row">
-					  			<div class="col-xs-12 col-sm-6">	
-					  				Merienda
-					  			</div>
-					  			<div class="col-xs-12 col-sm-6">
-								  	<div class="form-group">
-										<div class="row">
-											<div class="col-xs-12 col-md-4">
-										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
-										    	<div class="help-block with-errors">
-												</div>
-										    </div>
-											<div class="col-xs-12 col-md-4">
-												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
-													<option> </option>
-													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
-													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
-												</select>
-												<div class="help-block with-errors">
-												</div>
-											</div>
-										</div>
-									</div>	
-					  				
-					  			</div>
-					  		</div>
-					  	</h4>
-					  </li>
-				</ul>
-		    </div>
-		    <div role="tabpanel" class="tab-pane" id="cena">
-		    	<ul class="list-group">
-					  <li class="list-group-item" id="C">
-					  	<h4>
-					  		<div class="row">
-					  			<div class="col-xs-12 col-sm-6">	
-					  				Cena
-					  			</div>
-					  			<div class="col-xs-12 col-sm-6">
-								  	<div class="form-group">
-										<div class="row">
-											<div class="col-xs-12 col-md-4">
-										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
-										    	<div class="help-block with-errors">
-												</div>
-										    </div>
-											<div class="col-xs-12 col-md-4">
-												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
-													<option> </option>
-													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
-													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
-												</select>
-												<div class="help-block with-errors">
-												</div>
-											</div>
-										</div>
-									</div>	
-					  				
-					  			</div>
-					  		</div>
-					  	</h4>
-					  </li>
-					  <li class="list-group-item" id="CM"><h4>
-					  		<div class="row">
-					  			<div class="col-xs-12 col-sm-6">	
-					  				Merienda
-					  			</div>
-					  			<div class="col-xs-12 col-sm-6">
-								  	<div class="form-group">
-										<div class="row">
-											<div class="col-xs-12 col-md-4">
-										    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
-										    	<div class="help-block with-errors">
-												</div>
-										    </div>
-											<div class="col-xs-12 col-md-4">
-												<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
-													<option> </option>
-													<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
-													<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
-												</select>
-												<div class="help-block with-errors">
-												</div>
-											</div>
-										</div>
-									</div>	
-					  				
-					  			</div>
-					  		</div>
-					  	</h4>
-					  </li>
-				</ul>
-		    </div>
-		  </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
@@ -1019,5 +1016,6 @@ $(document).ready(function() {
 			});
 		});
 	}
+	$(".hora").mask("99:99",{placeholder:"00:00"}); 
 });
 </script>
