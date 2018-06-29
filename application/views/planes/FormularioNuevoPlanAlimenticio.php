@@ -749,7 +749,7 @@
 			 		<ol>
 					<?php foreach ($lista_recomendaciones[$recomendacion['id']] as $key => $lista) { ?> 
 						<li>
-							<?php echo str_replace("*", $input, $lista['descripcion']); ?>
+							<?php echo str_replace("* ", $input, $lista['descripcion']); ?>
 						</li>	
 					<?php } ?>
 				 	</ol>
