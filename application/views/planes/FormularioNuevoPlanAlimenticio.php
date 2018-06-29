@@ -354,7 +354,9 @@
 																									</select>
 																	  							</td>
 																	  							<td>
+
 																									<select class="form-control equivalente equivalente-am" name="equivalente[<?php echo $sustituto['id']; ?>][4][]">
+
 																										<option value=""></option>
 																										<?php 
 																										foreach ($lista_equivalente as $key => $equivalente) {?>
