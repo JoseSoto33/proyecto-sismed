@@ -101,15 +101,18 @@
 									echo "</a>";
 
 									//---Boton editar---
-									echo "<a class=\"btn btn-xs btn-success editar-cita\" href=\"".base_url("Citas/ModificarCitaNutricion/".md5('sismed'.$cita["id"]))."\" title=\"Editar cita\">";
-									echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
-									echo "</a>";
+									if ((int) $cita["estatus"]!=2 ){
+										echo "<a class=\"btn btn-xs btn-success editar-cita\" href=\"".base_url("Citas/ModificarCitaNutricion/".md5('sismed'.$cita["id"]))."\" title=\"Editar cita\">";
+										echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
+										echo "</a>";
+									}
 
 									//---Boton eliminar---
-									echo "<a class=\"btn btn-xs btn-danger eliminar-cita\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarCita\" title=\"Eliminar cita\" data-idcita=\"".md5('sismed'.$cita["id"])."\" data-nombre1=\"".$cita["nombre1"]."\">";
-									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
-									echo "</a>";
-
+									if ((int) $cita["estatus"]!=3 && (int) $cita["estatus"]!=4 && (int) $cita["estatus"]!=2){
+										echo "<a class=\"btn btn-xs btn-danger eliminar-cita\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarCita\" title=\"Eliminar cita\" data-idcita=\"".md5('sismed'.$cita["id"])."\" data-nombre1=\"".$cita["nombre1"]."\">";
+										echo "<span class=\"glyphicon glyphicon-trash\"></span>";
+										echo "</a>";
+									}
 									echo "</div>";
 									echo "</td>";
 									echo "</tr>";
@@ -152,22 +155,4 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-citas.js"></script>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$(".table-responsive").on("click", "#lista-citas tbody tr td .detalle-cita",function(e){
-	        e.preventDefault();
-	    });
-	    
-	    $("#lista-citas tbody tr td .detalle-cita").each(function(i,v){
-	    	var titulo=$(this).attr("title"),
-	            contenido=$(this).data("content"),
-	            popover= {
-	                title: titulo,
-	                content: contenido,
-	                trigger: "hover",
-	                plasement: "left",
-	            }
-	        $(this).popover(popover);
-	    })
-	});
-</script>
+

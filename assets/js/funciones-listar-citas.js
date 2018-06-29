@@ -128,8 +128,9 @@ $(document).ready(function(){
             	$("#delete-title").hide();
             	$("#delete-message").removeClass('alert-danger').addClass('alert-success').removeClass('hidden').html(response['message']).show();
             	$("#accion-eliminar-cita").attr('disabled','disabled');
-
-                tabla.row($("#fila_"+idcita)).remove().draw();           	
+                setTimeout(function() {
+                    window.location=  url+"Citas/ListarCitas"; 
+                }, 2000);
 
             }else{
             	//alert(response['message']);
@@ -172,4 +173,20 @@ $(document).ready(function(){
         pre.innerHTML = out;
         document.body.appendChild(pre)*/
     }
+
+    $(".table-responsive").on("click", "#lista-citas tbody tr td .detalle-cita",function(e){
+        e.preventDefault();
+    });
+    
+    $("#lista-citas tbody tr td .detalle-cita").each(function(i,v){
+        var titulo=$(this).attr("title"),
+            contenido=$(this).data("content"),
+            popover= {
+                title: titulo,
+                content: contenido,
+                trigger: "hover",
+                plasement: "left",
+            }
+        $(this).popover(popover);
+    });
 });

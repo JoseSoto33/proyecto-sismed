@@ -63,6 +63,7 @@ class ComedorModel extends CI_Model {/*CI: CodeIgniter*/
     }
 
     public function ExtraerUltimaSemana(){
+        $this->db->where('estatus','0');
     	$this->db->order_by("id","DESC");
     	$this->db->limit(1);
 
@@ -110,6 +111,15 @@ class ComedorModel extends CI_Model {/*CI: CodeIgniter*/
         if($result->num_rows()>0)
             return $result->row_array();
         return null;   
+    }
+
+     public function ActualizarStatusComedor(){
+        
+        $this->db->set('estatus','1');
+        $this->db->where("estatus",'0');
+        $this->db->where("fecha_fin <", date('Y-m-d'));
+        $this->db->update("menu_semanal");
+      
     }
    
 }
