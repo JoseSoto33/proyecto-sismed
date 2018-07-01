@@ -51,19 +51,20 @@
             <div class="tab-content">
               <div class="tab-pane active" id="tab_1">
                 <p class="text-justify">
-                  La Medicina debe aspirar a ser honorable y dirigir su propia vida profesional; ser moderada y prudente; ser asequible y económicamente sostenible; ser justa y equitativa; y a respetar las opciones y la dignidad de las personas. Los valores elementales de la Medicina contribuyen a preservar su integridad frente a las presiones políticas y sociales que defienden unos fines ajenos o anacrónicos.
+                  La nutrición es el proceso biológico en el que los organismos animales y vegetales absorben de los alimentos los nutrientes necesarios para la vida. La nutrición es importante porque es fundamental para el funcionamiento y el mantenimiento de las funciones vitales de los seres vivos, ayuda a mantener el equilibrio homeostático del organismo, tanto en procesos macrosistémicos, como la digestión o el metabolismo.
+
                 </p>
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_2">
                 <p class="text-justify">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Suministra al estudiante una alimentación diaria, equilibrada y acorde a sus requerimientos nutricionales. Asesoría Nutricional: Suministra al estudiante orientación nutricional y tratamiento dieto terapéutico de acuerdo al diagnóstico clínico.
                 </p>
               </div>
               <!-- /.tab-pane -->
               <div class="tab-pane" id="tab_3">
                 <p class="text-justify">
-                  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  Contribuir al desarrollo pleno y sano de la población a la vez de mejorar su estado de nutrición mediante la generación, la divulgación y la aplicación del conocimiento de forma integrada, relacionadas con la nutrición clínica y la nutrición pública.
                 </p>
               </div>
               <!-- /.tab-pane -->

@@ -2,7 +2,7 @@ $(document).ready(function(){
 
 	var url = $("#base_url").val();
 
-	var tabla = $("#lista-citas").DataTable( {
+	var tabla = $("#lista-planes").DataTable( {
         "language": {
             	"sProcessing":     "Procesando...",
     			"sLengthMenu":     "Mostrar _MENU_ registros",
@@ -91,23 +91,18 @@ $(document).ready(function(){
         e.preventDefault();
     });*/
 
-    $(".table-responsive").on("click", "#lista-citas tbody tr td .eliminar-cita", function(e){
+    $(".table-responsive").on("click", "#lista-planes tbody tr td .eliminar-plan", function(e){
 
-    	var idcita = $(this).data("idcita"),
+    	var idplan = $(this).data("idplan"),
             fila= $(this).closest("tr"),
-            nombre= fila.find(".listanombre").text(),
-            apellido= fila.find(".listaapellido").text(),
             fecha= fila.find(".listafecha").text();
         $("#delete-message").hide();
-
-    	$("#nom_paciente").html(nombre + " " + apellido);
-        $("#fecha_cita").html(fecha);
-    	$("#accion-eliminar-cita").data('idcita', idcita);
+    	$("#accion-eliminar-plan").data('idplan', idplan);
     });
 
-    $(".modal-footer").on("click", "#accion-eliminar-cita", function(e){
+    $(".modal-footer").on("click", "#accion-eliminar-plan", function(e){
 
-        var idcita = $(this).data("idcita");        
+        var idplan = $(this).data("idplan");        
 
         var request;
         if (request) {
@@ -115,10 +110,10 @@ $(document).ready(function(){
         }
 
         request = $.ajax({
-            url: url+"citas/CancelarCita",
+            url: url+"PlanesAlimenticios/EliminarPlan",
             type: "POST",
             dataType: "json",
-            data: "id="+idcita
+            data: "id="+idplan
         });
 
         request.done(function (response, textStatus, jqXHR){            
@@ -127,25 +122,22 @@ $(document).ready(function(){
             	
             	$("#delete-title").hide();
             	$("#delete-message").removeClass('alert-danger').addClass('alert-success').removeClass('hidden').html(response['message']).show();
-            	$("#accion-eliminar-cita").attr('disabled','disabled');
-                setTimeout(function() {
-                    window.location=  url+"Citas/ListarCitas"; 
-                }, 2000);
+            	$("#accion-eliminar-plan").attr('disabled','disabled');
+
+                setTimeout( function(){
+
+                   window.location=url+"PlanesAlimenticios/ListarPlanAlimenticio";
+                }, 2000);     	
 
             }else{
             	//alert(response['message']);
             	$("#delete-message").removeClass('alert-success').addClass('alert-danger').removeClass('hidden').html(response['message']).show();
             }
-            
-            setTimeout( function(){
-
-                $('#Eliminarcita').modal('hide');
-            }, 5000);
 
             setTimeout( function(){
                 $("#delete-message").hide();
                 $("#delete-title").show();
-                $("#accion-eliminar-cita").removeAttr('disabled');
+                $("#accion-eliminar-plan").removeAttr('disabled');
             }, 6000);
         });
 
@@ -173,20 +165,4 @@ $(document).ready(function(){
         pre.innerHTML = out;
         document.body.appendChild(pre)*/
     }
-
-    $(".table-responsive").on("click", "#lista-citas tbody tr td .detalle-cita",function(e){
-        e.preventDefault();
-    });
-    
-    $("#lista-citas tbody tr td .detalle-cita").each(function(i,v){
-        var titulo=$(this).attr("title"),
-            contenido=$(this).data("content"),
-            popover= {
-                title: titulo,
-                content: contenido,
-                trigger: "hover",
-                plasement: "left",
-            }
-        $(this).popover(popover);
-    });
 });

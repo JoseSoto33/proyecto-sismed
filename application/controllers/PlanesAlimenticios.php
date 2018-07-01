@@ -60,18 +60,109 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 
 		$data['lista_equivalente'] = $this->PlanesAlimenticiosModel->ExtraerListaEquivalente();
 		$data['lista_medida'] = $this->PlanesAlimenticiosModel->ExtraerListaMedida();
+
+		$data['recomendaciones'] = $this->PlanesAlimenticiosModel->ExtraerRecomendaciones();
+		foreach ($data['recomendaciones'] as $key => $recomendaciones) {
+			$data['lista_recomendaciones'][$recomendaciones['id']]= $this->PlanesAlimenticiosModel->ExtraerListaRecomendaciones($recomendaciones['id']);
+		}
+		foreach ($data['recomendaciones'] as $key => $recomendaciones) {
+			$data['cuadro_recomendaciones'][$recomendaciones['id']]= $this->PlanesAlimenticiosModel->ExtraerCuadroRecomendaciones($recomendaciones['id']);
+		}
 		
 		//Si se envió una petición POST...
-		/*if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if($this->PlanesAlimenticiosModel->AgregarPlanAlimenticio()) {
-				//cookie: es un arreglo. que funciona como variables universales del servidor
-				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')."' '".$this->input->post('apellido1')."'</strong> fue registrada exitosamente!...", time()+15);
-					//header: redirecciona envia a la direccion que se le asigna. 
-				header("Location: ".base_url()."Citas/ListarCitas");
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			$id_usuario 				= $this->session->userdata("idUsuario");
+			$prescripcion 				= $this->input->post("prescripcion");
+			$recomendacion 				= $this->input->post("recomendacion");
+			$hora_desayuno 				= $this->input->post("hora_desayuno");
+			$hora_MD 					= $this->input->post("hora_merienda_desayuno");
+			$hora_almuerzo 				= $this->input->post("hora_almuerzo");
+			$hora_MA 					= $this->input->post("hora_merienda_almuerzo");
+			$hora_cena 					= $this->input->post("hora_cena");
+			$hora_MC  					= $this->input->post("hora_merienda_cena");
+			$meridianoD 				= $this->input->post("h_d_meridiano");
+			$meridianoMD 				= $this->input->post("h_m_d_meridiano");
+			$meridianoA 				= $this->input->post("h_a_meridiano");
+			$meridianoMA 				= $this->input->post("h_m_a_meridiano");
+			$meridianoC 				= $this->input->post("h_c_meridiano");
+			$meridianoMC 				= $this->input->post("h_m_c_meridiano");
+			$lista_raciones 			= $this->input->post("racion");
+			$lista_medidas				= $this->input->post("medida");
+			$lista_equivalentes			= $this->input->post("equivalente");
+			$id_plan_alimenticio 		= $this->PlanesAlimenticiosModel->AgregarPlanAlimenticio($id_usuario,$prescripcion,$recomendacion);
+			$turnos=array("1"=>"D", "2"=>"DM","3"=>"A","4"=>"AM","5"=>"C","6"=>"CM");
+			$completado=true;
+			
+			if(!empty($id_plan_alimenticio)){
+				if(!empty($hora_desayuno)&& !empty($meridianoD)){
+					$full_horaD= $hora_desayuno." ".$meridianoD;
+				}
+
+				if(!empty($hora_almuerzo)&& !empty($meridianoA)){
+					$full_horaA= $hora_almuerzo." ".$meridianoA;
+				}
+
+				if(!empty($hora_cena)&& !empty($meridianoC)){
+					$full_horaC= $hora_cena." ".$meridianoC;
+				}
+
+				if(!empty($hora_MD)&& !empty($meridianoMD)){
+					$full_horaMD= $hora_MD." ".$meridianoMD;
+				}
+
+				if(!empty($hora_MA)&& !empty($meridianoMA)){
+					$full_horaMA= $hora_MA." ".$meridianoMA;
+				}
+
+				if(!empty($hora_MC)&& !empty($meridianoMC)){
+					$full_horaMC= $hora_MC." ".$meridianoMC;
+				}
+
+				$this->PlanesAlimenticiosModel->GuardarMenuPlan($id_plan_alimenticio,(!empty($full_horaD))? $full_horaD : null,(!empty($full_horaA))? $full_horaA : null, (!empty($full_horaC))? $full_horaC : null,(!empty($full_horaMD))? $full_horaMD : null,(!empty($full_horaMA))? $full_horaMA : null,(!empty($full_horaMC))? $full_horaMC : null);
+				foreach ($lista_raciones as $X => $raciones) {
+					foreach ($raciones as $Y => $racion) {
+						$medida=$lista_medidas[$X][$Y];
+						if(!empty($racion)){
+							$id_lista_racion_sustituto= $this->PlanesAlimenticiosModel->AgregarRacionSustituto($id_plan_alimenticio,$racion,$medida);
+							if(!$id_lista_racion_sustituto){
+								$completado=false;
+								break;
+							}
+							foreach ($lista_equivalentes[$X] as $Z => $equivalentes){
+								$turno=$turnos[$Z];
+								
+								foreach ($equivalentes as $key => $turno_equivalente) {
+									if(!empty($turno_equivalente)){
+										$success=$this->PlanesAlimenticiosModel->AgregarTurnoEquivalente($turno,$turno_equivalente,$id_lista_racion_sustituto);	
+										if(!$success){
+											$completado=false;
+											break;
+										}
+									}
+								
+								}
+								if(!$completado) break;		
+							}
+							if(!$completado) break;
+						}	
+					}
+					if(!$completado) break;
+							
+				}
+				if($completado) {
+					//cookie: es un arreglo. que funciona como variables universales del servidor
+					set_cookie("message","¡El plan ha sido agregado exitosamente!...", time()+15);
+						//header: redirecciona envia a la direccion que se le asigna. 
+					header("Location: ".base_url()."PlanesAlimenticios/ListarPlanAlimenticio");
+				}else{
+
+					$data['mensaje'] = $this->db->error();
+				}
 			}else{
 
 				$data['mensaje'] = $this->db->error();
 			}
+			
 
 			//Si los datos enviados por formulario son correctos...
           /*  if ($this->ValidarCita($data) === false) { 
@@ -101,10 +192,9 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 	        		$data['mensaje'] = $this->upload->display_errors();		      
 	        	}
 			}*/
-		// }*/
+		}
 		//Cargar vista del formulario de registro de evento
 		$this->CargarHeader();
-		var_dump($_POST);
         $this->load->view('planes/FormularioNuevoPlanAlimenticio', $data);
         $this->load->view('footer');
 	}
@@ -133,79 +223,27 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
      *
      * @return void
 	 */
-	public function ModificarCitaNutricion($id_cita)
+
+	public function EliminarPlan()
 	{
-		$this->load->model('CitasModel');//carga del controlador al modela de citas
+		$this->load->model('PlanesAlimenticiosModel');
 
-		$data = array("titulo" => "Modificar cita");										
-		$data['tipo_paciente'] = array("" => "", "Estudiante"  => "Estudiante", "Docente" => "Docente", "Administrativo" => "Administrativo", "Obrero"  => "Obrero", "Cortesía" => "Cortesía");
-		$data['estatus'] =  array("" => "", "0" => "Pendiente", "1" => "Agendada-Hoy", "2" => "Atendida","3" => "Cancelada", "4" => "Anulada");
-		//
-		$cond = array(
-				"where" => array(
-					//md5 encripta el id que se encuentra en la BD.usando como llave "sismed"
-					"MD5(concat('sismed',id))" => $id_cita
-					)
-				);
+		$id = $this->input->post('id');
 
-		$result = $this->CitasModel->ExtraerCitas($cond);
-
-		//Si los registros encontrados son más de 0...
-		if ($result->num_rows() > 0) {
-
-			$data['cita'] = $result->row_array();
+		//Si se cancela la cita exitosamente...
+		if ($this->PlanesAlimenticiosModel->EliminarPlan($id)) {
 			
-			//Si se envía una petición POST...
-			if ($_SERVER["REQUEST_METHOD"] == "POST") {
-				
-				//Si los datos del evento son válidos...
-	            //if ($this->ValidarEvento($data) === false) {	        		
+			$data['result']  = true;
+			$data['message'] = "¡Se ha eliminado el plan exitosamente!";
 
-        			//Si los datos del evento son correctos...
-        			//if (!$this->CitasModel->ValidarEvento($condicion)) {        
-
-        				$condicion = array(	
-        					"data" => array(
-				                "motivo" => $this->input->post('motivo'),
-				                "fecha_cita" => $this->input->post('fecha_cita'),
-				                "examen_lb" => $this->input->post('examen_lb'),
-				                "estatus" => $this->input->post('estatus'),
-				            ),
-				     		"where" => array("MD5(concat('sismed',id))" => $id_cita)
-						);
-
-
-        				//Si la modificación es exitosa...
-	        			if ($this->CitasModel->ModificarCita($condicion)) {
-
-	        				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue modificada exitosamente!...", time()+15);
-							header("Location: ".base_url()."Citas/ListarCitas");
-
-						//Si ocurre un error en la modificación...
-						}else{
-
-							$data['mensaje'] = $this->db->error();
-						}
-
-					//Si los datos coinsiden con un evento registrado...
-        			/*}else{
-        				$data['mensaje'] = "Ya existe un evento registrado con el mismo título y fechas de inicio y fin.";
-        			}*/
-	        		//Si no se pudo cargar el archivo...
-		        //}
-			}
-
-		//Si no se encontraron registros...
+		//Si ocurre un error durante la eliminación...
 		}else{
-			$data['mensaje'] = $this->db->error();
+			$data['result']  = false;
+			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();
 		}
-
-		//Se carga la vista del formulario para modificar cita
-		$this->CargarHeader();
-        $this->load->view('citas/FormularioNuevaCita', $data);
-        $this->load->view('footer');
+		
+		echo json_encode($data);
 	}
-
 	/**
 	 * Elimina un evento de la base de datos. El id del evento se envía
 	 * por Ajax como un POST
@@ -285,25 +323,25 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 	 *
 	 * @return void
 	 */
-	public function ListarCitas()
+	public function ListarPlanAlimenticio()
 	{
-		$this->load->model('CitasModel');
+		$this->load->model('PlanesAlimenticiosModel');
 		
 		$condicion = array(
-			"select" => "id, id_paciente, fecha_creacion, fecha_cita, estatus, cedula, nombre1, apellido1",
+			"select" => "id,fecha_creacion, prescripcion_dietetica",
 			"order_by" => array('campo'=>"id","opcion"=> "ASC") /*Traer todos los registros ordenados por el campo ID de manera ascendente, de menor a mayor*/
 			);
 
 		$data = array();
 
-		$result = $this->CitasModel->ExtraerCitas($condicion);
+		$result = $this->PlanesAlimenticiosModel->ExtraerPlanesAlimenticios($condicion);
 
 		///if ($result->num_rows() > 0) {
 			
-		$data["citas"] = $result;
+		$data["plan_alimenticio"] = $result;
 
 		$this->CargarHeader();
-        $this->load->view('citas/ListarCitas', $data);
+        $this->load->view('planes/ListarPlanAlimenticio', $data);
         $this->load->view('footer');
 		//}
 	}

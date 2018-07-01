@@ -96,15 +96,15 @@ hr.form-divisor-line{
 }
 
 #img-carousel > .carousel-inner > .item{
-	background: url("../img/odontologia/fondo4.jpg")  no-repeat scroll center center;
+	background: url("../img/nutricion/FONDO5.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;	
 }
 #img-carousel > .carousel-inner > .item:first-child{
-	background: url("../img/odontologia/fondo2.jpg")  no-repeat scroll center center;
-	background-size: 100% auto;
+	background: url("../img/nutricion/FONDO1.jpg")  no-repeat scroll center center;
+	background-size: 100% 100%;
 }
 #img-carousel > .carousel-inner > .item:last-child{
-	background: url("../img/odontologia/fondo3.jpg")  no-repeat scroll center center;
+	background: url("../img/nutricion/FONDO3.jpg")  no-repeat scroll center center;
 	background-size: 100% auto;
 }
 
@@ -237,6 +237,10 @@ hr.form-divisor-line{
 	width: 250px;
 	font-size: 18px;
 }
+#orden_body .center-block p{
+	text-align: justify;
+	height: auto;
+}
 
 #orden_header,
 #orden_body,
@@ -259,3 +263,8 @@ hr.form-divisor-line{
 	text-align: right;
 	font-size: 10px;
 }
+
+hr.separador{
+	border-color: #FF851B !important;
+}
+

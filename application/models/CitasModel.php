@@ -15,7 +15,7 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
      */
 
     /**
-     * Registra una historia clínica en la base de datos
+     * Registra una nueva cita en la base de datos
      * 
      * Los datos serán registrados en tablas diferentes, dependiendo el tipo de 
      * usuario que esté realizando la operación.
@@ -28,6 +28,9 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
     public function AgregarCita()
     {
         unset($_POST['examenes']);
+        if(isset($_POST['primera_vez'])){
+            $_POST['primera_vez']= true;
+        }
         $_POST['id_paciente'] = (!empty($_POST['id_paciente']))? $_POST['id_paciente'] : null;
         if($this->db->insert("citas", $_POST)){
            
@@ -64,13 +67,13 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
             return $this->db->query($condicion['query']);
         }
 
-        //Si se declaró una sentencia 'distinct'...
+        //Si se declaró una sentencia 'distinct' ... no trae registro repetidos 
         if (isset($condicion['distinct']) && $condicion['distinct'] != false) {
             
             $this->db->distinct();
         }
 
-        //Si se declaró una sentencia 'select'...
+        //Si se declaró una sentencia 'select'... especifica que columnas a consultar
         if (isset($condicion['select']) && !empty($condicion['select'])) {
             
             $this->db->select($condicion['select']);
@@ -78,7 +81,7 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
             $this->db->select("*");
         }
         
-        //Si está definida una cláusula 'from'
+        //Si está definida una cláusula 'from' especifica la tabla consultar
         if (isset($condicion['from']) && !empty($condicion['from'])) {
             
             $this->db->from($condicion['from']);
@@ -132,6 +135,15 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
         return $this->db->get();
     }
 
+    public function ExtraerCitasPendientes() {
+        $this->db->select("id, nombre1, apellido1, cedula, motivo, fecha_cita as start, estatus");
+        $query = $this->db->get('citas');
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        }
+        return null;
+    }
+
     public function Validarcita($condicion = array())
     {
         $query = $this->Extraercita($condicion);
@@ -143,4 +155,29 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
         }
     }
 
+    public function CancelarCita($idcita){
+        $this->db->set('estatus','3');
+        $this->db->where("MD5(concat('sismed',id))",$idcita);
+
+        if($this->db->update('citas')){
+            return true;
+        }
+        return false;
+
+    }
+
+    public function ActualizarstatusCita(){
+        
+        $this->db->set('estatus','1');
+        $this->db->where("estatus",'0');
+        $this->db->where("fecha_cita",date("Y-m-d"));
+        $this->db->update("citas");
+
+        $this->db->set('estatus','4');
+        $this->db->where("estatus",'1');
+        $this->db->where("fecha_cita < ",date("Y-m-d"));
+        $this->db->or_where("estatus","0");
+        $this->db->where("fecha_cita < ",date("Y-m-d"));
+        $this->db->update("citas");
+    }
 }

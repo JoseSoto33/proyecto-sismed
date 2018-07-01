@@ -1,11 +1,11 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Listado de Citas
+    Listado de menú
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li class="active">Citas</li>
+    <li class="active">Menu Comedor</li>
   </ol>
 </section>
 
@@ -16,9 +16,9 @@
 			<div class="box-header">
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
-						<a class="btn btn-success" href="<?php echo base_url(); ?>Citas/AgregarCitaNutricion"><span class="glyphicon glyphicon-plus"></span>Nueva cita</a>
+						<a class="btn btn-success" href="<?php echo base_url(); ?>MenuComedor/AgregarMenuComedor"><span class="glyphicon glyphicon-plus"></span>Nuevo menú</a>
 					</div>
-					<div class="col-xs-12 col-sm-6">
+					<div class="col-xs-12 col-sm-9">
 						<?php if(get_cookie("message") != null) { ?>
 							<div id="alert-message" class="alert alert-success" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -36,59 +36,40 @@
 				<table id="lista-citas" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
 					<thead>
 						<th>Nº</th>
-						<th>Fecha pautada</th>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Fecha de creación</th>
+						<th>Fecha inicio</th>
+						<th>Fecha fin</th>
 						<th>Status</th>
 						<th> </th>
 					</thead>
 					<tfoot>
 						<th>Nº</th>
-						<th>Fecha pautada</th>
-						<th>Cédula</th>
-						<th>Nombre</th>
-						<th>Apellido</th>
-						<th>Fecha de creación</th>
+						<th>Fecha inicio</th>
+						<th>Fecha fin</th>
 						<th>Status</th>
 						<th> </th>						
 					</tfoot>
 					<tbody>
 						<?php 
 							$cont = 1;
-							if ($citas->num_rows() > 0) {
+							if (!empty($comedor)) {
 								setlocale(LC_TIME,"esp"); 
 
-								foreach ($citas->result_array() as $key => $cita) {
+								foreach ($comedor as $key => $semana) {
+							
 									
-									echo "<tr id=\"fila_".md5('sismed'.$cita["id"])."\">";
+									echo "<tr id=\"fila_".md5('sismed'.$semana["id"])."\">";
 									echo "<td>".$cont++."</td>";
-									echo "<td class=\"listafecha\">".strftime('%d de %B de %Y', strtotime($cita["fecha_cita"]))."</td>";
-									echo "<td>".$cita["cedula"]."</td>";
-									echo "<td class=\"listanombre\">".$cita["nombre1"]."</td>";
-									echo "<td class=\"listaapellido\">".$cita["apellido1"]."</td>";
-									echo "<td>".strftime('%d de %B de %Y', strtotime($cita["fecha_creacion"]))."</td>";
+									echo "<td class=\"listafecha\">".strftime('%d de %B de %Y', strtotime($semana["fecha_inicio"]))."</td>";
+									echo "<td class=\"listafecha1\">".strftime('%d de %B de %Y', strtotime($semana["fecha_fin"]))."</td>";
+									
 									echo "<td>";
-									switch ((int) $cita["estatus"]) {
+									switch ((int) $semana["estatus"]) {
 										case 0:
-											$str = "<span class=\"label label-warning\">Pendiente</span>";
+											$str = "<span class=\"label label-warning\">En curso</span>";
 											break;
 										
 										case 1:
-											$str = "<span class=\"label label-info\">Agendada-Hoy</span>";
-											break;
-
-										case 2:
-											$str = "<span class=\"label label-success\">Atendida</span>";
-											break;
-
-										case 3:
-											$str = "<span class=\"label label-danger\">Cancelado</span>";
-											break;
-
-										case 4:
-											$str = "<span class=\"label label-danger\">Anulado</span>";
+											$str = "<span class=\"label label-primary\">Finalizado</span>";
 											break;
 									}
 									echo $str;								
@@ -96,23 +77,10 @@
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
 									//---Boton ver detalles---
-									echo "<a href=\"#\" class=\"btn btn-xs btn-info detalle-cita\" role=\"button\"data-toggle=\"popover\" data-trigger=\"hover\" data-container=\"body\" data-placement=\"left\" title=\"Motivo cita\" data-content=\"".$cita["motivo"]."\" >";
+									echo "<a href=\"".base_url("MenuComedor/ListarComedor/".md5('sismed'.$semana["id"]))."\" class=\"btn btn-xs btn-info detalle-menu\" title=\"Descripcion menu\">";
 									echo "<span class=\"glyphicon glyphicon-eye-open\"></span>";
-									echo "</a>";
+									echo "</a>";					
 
-									//---Boton editar---
-									if ((int) $cita["estatus"]!=2 ){
-										echo "<a class=\"btn btn-xs btn-success editar-cita\" href=\"".base_url("Citas/ModificarCitaNutricion/".md5('sismed'.$cita["id"]))."\" title=\"Editar cita\">";
-										echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
-										echo "</a>";
-									}
-
-									//---Boton eliminar---
-									if ((int) $cita["estatus"]!=3 && (int) $cita["estatus"]!=4 && (int) $cita["estatus"]!=2){
-										echo "<a class=\"btn btn-xs btn-danger eliminar-cita\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarCita\" title=\"Eliminar cita\" data-idcita=\"".md5('sismed'.$cita["id"])."\" data-nombre1=\"".$cita["nombre1"]."\">";
-										echo "<span class=\"glyphicon glyphicon-trash\"></span>";
-										echo "</a>";
-									}
 									echo "</div>";
 									echo "</td>";
 									echo "</tr>";
@@ -139,14 +107,14 @@
       <div class="modal-body">
         <div class="row">
         	<div class="col-xs-12">
-        		<h3 id="delete-title">¿Está seguro que desea Cancelar la cita de "<span id="nom_paciente"></span>" para la fecha <span id="fecha_cita" ></span>?</h3>
+        		<h3 id="delete-title">¿Está seguro que desea eliminar la cita de "<span id="nom_paciente"></span>" para la fecha <span id="fecha_cita" ></span>?</h3>
         		<div id="delete-message" class="alert"></div>
         	</div>
         </div>
       </div>
       <div class="modal-footer">
-      	<button type="button" id="accion-eliminar-cita" class="btn btn-primary" data-idevento="">Cancelar</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      	<button type="button" id="accion-eliminar-cita" class="btn btn-primary" data-idevento="">Eliminar</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
       </div>
     </div>
   </div>
@@ -155,4 +123,10 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-citas.js"></script>
-
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".table-responsive").on("click", "#lista-citas tbody tr td .detalle-cita",function(e){
+	        e.preventDefault();
+	    });
+	});
+</script>

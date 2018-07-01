@@ -56,7 +56,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
 			if($this->CitasModel->AgregarCita()) {
 				/*cookie: es un arreglo. que funciona como variables universales del servidor*/
-				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')."' '".$this->input->post('apellido1')."'</strong> fue registrada exitosamente!...", time()+15);
+				set_cookie("message","¡La cita del paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue registrada exitosamente!", time()+15);
 					/*header: redirecciona envia a la direccion que se le asigna. */
 				header("Location: ".base_url()."Citas/ListarCitas");
 			}else{
@@ -116,7 +116,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 	 */
 	public function ModificarCitaNutricion($id_cita)
 	{
-		$this->load->model('CitasModel');//carga del controlador al modela de citas
+		$this->load->model('CitasModel');//carga del controlador al modelo de citas
 
 		$data = array("titulo" => "Modificar cita");										
 		$data['tipo_paciente'] = array("" => "", "Estudiante"  => "Estudiante", "Docente" => "Docente", "Administrativo" => "Administrativo", "Obrero"  => "Obrero", "Cortesía" => "Cortesía");
@@ -143,14 +143,23 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 	            //if ($this->ValidarEvento($data) === false) {	        		
 
         			//Si los datos del evento son correctos...
-        			//if (!$this->CitasModel->ValidarEvento($condicion)) {        
+        			//if (!$this->CitasModel->ValidarEvento($condicion)) {    
+        			$hoy= strtotime(date("Y-m-d"));
+        			$fecha_cita= strtotime($this->input->post('fecha_cita'));
+        			if($fecha_cita > $hoy){
+        				$estatus=0;
+        			}elseif($fecha_cita < $hoy){
+        				$estatus=4;
+        			}elseif($fecha_cita == $hoy){
+        				$estatus=1;
+        			}
 
         				$condicion = array(	
         					"data" => array(
 				                "motivo" => $this->input->post('motivo'),
 				                "fecha_cita" => $this->input->post('fecha_cita'),
 				                "examen_lb" => $this->input->post('examen_lb'),
-				                "estatus" => $this->input->post('estatus'),
+				                "estatus" => $estatus,
 				            ),
 				     		"where" => array("MD5(concat('sismed',id))" => $id_cita)
 						);
@@ -159,7 +168,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
         				//Si la modificación es exitosa...
 	        			if ($this->CitasModel->ModificarCita($condicion)) {
 
-	        				set_cookie("message","La cita del paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue modificada exitosamente!...", time()+15);
+	        				set_cookie("message","¡La cita del paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue modificada exitosamente!", time()+15);
 							header("Location: ".base_url()."Citas/ListarCitas");
 
 						//Si ocurre un error en la modificación...
@@ -193,25 +202,22 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 	 *
 	 * @return 	void 
 	 */
-	public function EliminarEvento()
+	public function CancelarCita()
 	{
-		$this->load->model('EventoModel');
+		$this->load->model('CitasModel');
 
 		$id = $this->input->post('id');
-		$condicion = array(
-			'where' => array("MD5(concat('sismed',id))" => $id)
-			);
 
-		//Si se elimina el evento exitosamente...
-		if ($this->EventoModel->EliminarEvento($condicion)) {
+		//Si se cancela la cita exitosamente...
+		if ($this->CitasModel->CancelarCita($id)) {
 			
 			$data['result']  = true;
-			$data['message'] = "Evento eliminado exitosamente!...";
+			$data['message'] = "¡Cita cancelada exitosamente!";
 
 		//Si ocurre un error durante la eliminación...
 		}else{
 			$data['result']  = false;
-			$data['message'] = 'Error: Ha ocurrido un problema durante la eliminación.\n'.$this->db->error();
+			$data['message'] = 'Error: Ha ocurrido un problema durante la cancelación.\n'.$this->db->error();
 		}
 		
 		echo json_encode($data);
