@@ -77,19 +77,21 @@
 			timeFormat: 'hh:mm t',
 			displayEventTime: true,
 			eventClick: function(event, jsEvent, view){					
-  					       
-	  			if (event.img != null && event.img != "") {
-	          		$("#portada-evento").attr('src',"<?php echo base_url(); ?>assets/img/eventos/"+event.img);
-	          	}else{
-	          		$("#portada-evento").attr('src',"<?php echo base_url(); ?>assets/img/Eventos.jpg");
-	          	}
-  				$("#titulo-evento").html(event.title);
-	          	$("#descripcion-evento").html(event.descripcion);
-	          	$("#fecha_inicio").html(event.fecha_inicio);
-	          	$("#hora_inicio").html(event.hora_inicio);
-	          	$("#fecha_fin").html(event.fecha_fin);
-	          	$("#hora_fin").html(event.hora_fin);
-          		$("#VerEvento").modal();			        
+  				if(event.tipo!=null && event.tipo == "evento"){
+		  			if (event.img != null && event.img != "") {
+	                  $("#portada-evento").attr('src',"<?php echo base_url(); ?>assets/img/eventos/"+event.img);
+	                }else{
+	                  $("#portada-evento").attr('src',"<?php echo base_url(); ?>assets/img/Eventos.jpg");
+	                }
+	         		$("#titulo-evento").html(event.title);
+	                $("#descripcion-evento").html(event.descripcion);
+	                $("#fecha_inicio").html(event.fecha_inicio);
+	                $("#hora_inicio").html(event.hora_inicio);
+	                $("#fecha_fin").html(event.fecha_fin);
+	                $("#hora_fin").html(event.hora_fin);
+
+	                $("#VerEvento").modal();              
+              	}	        
 			}
         });
       });
