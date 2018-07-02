@@ -771,22 +771,22 @@ $(document).ready(function() {
 	$(".raciones-contentt").on("change", ".row .col-xs-11 .racion", function(event){
 		event.preventDefault();
 		var select = $ (this),
-		sustituto= armarArregloMenu(select);
-		menu_data= pushSustituto(sustituto, menu_data);
+		menu_data= armarArregloMenu(select);
+		//menu_data= pushSustituto(sustituto, menu_data);
 		mostrarMenu(menu_data);
 		console.log(menu_data);
 		//select_raciones[id_sustituto] = [],
 		//select_raciones[id_sustituto].push(valor);
 	
-		//console.log(sustituto);
+		//console.log(sustituto); 
 		//seleccionados(select_raciones[id_sustituto], fila);
 	});
 
 	$(".raciones-contentt").on("change", ".row .col-xs-11 .medida", function(event){
 		event.preventDefault();
 		var select = $ (this),
-			sustituto= armarArregloMenu(select);
-			menu_data= pushSustituto(sustituto, menu_data);
+			menu_data= armarArregloMenu(select);
+			//menu_data= pushSustituto(sustituto, menu_data);
 			mostrarMenu(menu_data);
 			console.log(menu_data);
 	});
@@ -794,26 +794,33 @@ $(document).ready(function() {
 	$(".raciones-contentt").on("change", ".row .col-xs-11 .table-responsive .equivalente", function(event){
 		event.preventDefault();
 		var select = $ (this),
-			sustituto= armarArregloMenu(select);
-			menu_data= pushSustituto(sustituto, menu_data);
+			menu_data= armarArregloMenu(select);
+			//menu_data= pushSustituto(sustituto, menu_data);
 			mostrarMenu(menu_data);
 			console.log(menu_data);
 	});
 
 	function armarArregloMenu(select){
-		var fila = select.closest('.raciones-contentt'),
-			valor = select.val(),
-			titulo_sustituto= fila.closest(".panel-default").find('.panel-title').text().trim(),
-			id_sustituto = fila.find('.id_sustituto').val(),
-			sustituto= {
-			idsustituto: id_sustituto,
-			titulo: titulo_sustituto,
-			raciones: obtenerRaciones(id_sustituto),
-			medidas: obtenerMedidas(id_sustituto),
-			equivalentes: obtenerEquivalentes(id_sustituto)
-		}
-		console.log(sustituto);
-		return sustituto;
+		var fila = select.closest('.panel-group'),
+			id_panel_group= fila.attr("id"),
+			arr_sustitutos= [];
+
+			$("#"+id_panel_group+" .panel-default").each(function(index,value){
+
+				var titulo_sustituto= $(this).find('.panel-title').text().trim(),
+					id_sustituto = $(this).find('.id_sustituto').val(),
+
+					sustituto= {
+						idsustituto: id_sustituto,
+						titulo: titulo_sustituto,
+						raciones: obtenerRaciones(id_sustituto),
+						medidas: obtenerMedidas(id_sustituto),
+						equivalentes: obtenerEquivalentes(id_sustituto)
+					}
+				arr_sustitutos.push(sustituto);
+			});
+		console.log(arr_sustitutos);
+		return arr_sustitutos;
 	}
 	function obtenerRaciones(id_sustituto){
 		var raciones=[];
@@ -938,7 +945,9 @@ $(document).ready(function() {
 					var elemento="<div id=\"desayuno_"+v.idsustituto+"\"><div class=\"iten-lista\">"+desayuno+"</div></div>";
 					$("#D").append(elemento);
 				}
-			}
+			}else{
+				$("#desayuno_"+v.idsustituto).find('.iten-lista').html(desayuno);
+			} 
 
 				
 			if (merienda_d!= "") {
@@ -948,7 +957,10 @@ $(document).ready(function() {
 					var elemento="<div id=\"merienda_d_"+v.idsustituto+"\"><div class=\"iten-lista\">"+merienda_d+"</div></div>";
 					$("#DM").append(elemento);
 				}
+			} else{ 
+				$("#merienda_d_"+v.idsustituto).find('.iten-lista').html(merienda_d);
 			}
+
 			if (almuerzo!= "") {
 				if ($("#almuerzo_"+v.idsustituto).length>0) {
 					$("#almuerzo_"+v.idsustituto).find('.iten-lista').html(almuerzo);
@@ -956,6 +968,8 @@ $(document).ready(function() {
 					var elemento="<div id=\"almuerzo_"+v.idsustituto+"\"><div class=\"iten-lista\">"+almuerzo+"</div></div>";
 					$("#A").append(elemento);
 				}
+			}else{
+				$("#almuerzo_"+v.idsustituto).find('.iten-lista').html(almuerzo);
 			}
 
 			if (merienda_a!= "") {
@@ -965,6 +979,8 @@ $(document).ready(function() {
 					var elemento="<div id=\"merienda_a_"+v.idsustituto+"\"><div class=\"iten-lista\">"+merienda_a+"</div></div>";
 					$("#AM").append(elemento);
 				}
+			}else{
+				$("#merienda_a_"+v.idsustituto).find('.iten-lista').html(merienda_a);
 			}
 			if (cena!= "") {
 				if ($("#cena_"+v.idsustituto).length>0) {
@@ -973,6 +989,8 @@ $(document).ready(function() {
 					var elemento="<div id=\"cena_"+v.idsustituto+"\"><div class=\"iten-lista\">"+cena+"</div></div>";
 					$("#C").append(elemento);
 				}
+			}else{
+				$("#cena_"+v.idsustituto).find('.iten-lista').html(cena);
 			}
 
 			if (merienda_c!= "") {
@@ -982,6 +1000,8 @@ $(document).ready(function() {
 					var elemento="<div id=\"merienda_c_"+v.idsustituto+"\"><div class=\"iten-lista\">"+merienda_c+"</div></div>";
 					$("#CM").append(elemento);					
 				}
+			}else{
+				$("#merienda_c_"+v.idsustituto).find('.iten-lista').html(merienda_c);
 			}			
 		});
 	}

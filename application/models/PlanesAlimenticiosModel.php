@@ -231,6 +231,50 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
         return $this->db->get();
     }
 
+    public function ExtraerRecomendacionesPlan($id_recomendacion){
+        $this->db->where("id",$id_recomendacion);
+        $query= $this->db->get("recomendaciones");
+        if ($query->num_rows() > 0 ){
+            return $query->row_array();
+        }
+        return null;
+    }
+
+    public function ExtraerListasPlanAlimenticio($id_plan_alimenticio){
+        $this->db->select("ls.*");
+        $this->db->join("lista_racion as lr", "ls.id=lr.id_lista");
+        $this->db->join("lista_racion_sustituto as lrs", "lrs.id_racion=lr.id");
+        $this->db->where("lrs.id_plan_alimenticio",$id_plan_alimenticio);
+        $this->db->group_by("ls.id");
+        $query= $this->db->get("lista_sustitutos as ls");
+        if ($query->num_rows() > 0 ){
+            return $query->row_array();
+        }
+        return null;       
+    }
+
+    public function ExtraerDetallesPlan($id_plan_alimenticio,$id_lista){
+        $this->db->select("lrs.*, lr.descripcion as racion, lm.medida");
+        $this->db->join("lista_racion as lr", "lrs.id_racion=lr.id");
+        $this->db->join("lista_medida as lm", "lrs.id_medida=lm.id");
+        $this->db->where("lrs.id_plan_alimenticio",$id_plan_alimenticio);
+        $this->db->where("lr.id_lista",$id_lista);
+         $query= $this->db->get("lista_racion_sustituto as lrs");
+        if ($query->num_rows() > 0 ){
+            return $query->row_array();
+        }
+        return null;
+    }
+
+    public function ExtraerTurnosEquivalentes($id_lista_racion_sustituto){
+        $this->db->where("id_sustituto",$id_recomendacion);
+        $query= $this->db->get("turno_equivalente");
+        if ($query->num_rows() > 0 ){
+            return $query->result_array();
+        }
+        return null;
+    }
+
     public function EliminarPlan($id){
     
         $this->db->where("MD5(concat('sismed',id))",$id);

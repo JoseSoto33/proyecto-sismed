@@ -50,7 +50,7 @@
   					<tbody>
   						<tr>
   							<td>
-								<select class="form-control equivalente-d" name="equivalente[<?php echo $id_sustituto; ?>][1][]">
+								<select class="form-control equivalente equivalente-d" name="equivalente[<?php echo $id_sustituto; ?>][1][]">
 									<option value=""></option>
 									<?php 
 									foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -61,7 +61,7 @@
 								</select>
   							</td>
   							<td>
-								<select class="form-control equivalente-dm" name="equivalente[<?php echo $id_sustituto; ?>][2][]">
+								<select class="form-control equivalente equivalente-dm" name="equivalente[<?php echo $id_sustituto; ?>][2][]">
 									<option value=""></option>
 									<?php 
 									foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -72,7 +72,7 @@
 								</select>
   							</td>
   							<td>
-								<select class="form-control equivalente-a" name="equivalente[<?php echo $id_sustituto; ?>][3][]">
+								<select class="form-control equivalente equivalente-a" name="equivalente[<?php echo $id_sustituto; ?>][3][]">
 									<option value=""></option>
 									<?php 
 									foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -83,7 +83,7 @@
 								</select>
   							</td>
   							<td>
-								<select class="form-control equivalente-am" name="equivalente[<?php echo $id_sustituto; ?>][4][]">
+								<select class="form-control equivalente equivalente-am" name="equivalente[<?php echo $id_sustituto; ?>][4][]">
 									<option value=""></option>
 									<?php 
 									foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -94,7 +94,7 @@
 								</select>
   							</td>
   							<td>
-								<select class="form-control equivalente-c" name="equivalente[<?php echo $id_sustituto; ?>][5][]">
+								<select class="form-control equivalente equivalente-c" name="equivalente[<?php echo $id_sustituto; ?>][5][]">
 									<option value=""></option>
 									<?php 
 									foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -105,7 +105,7 @@
 								</select>
   							</td>
   							<td>
-								<select class="form-control equivalente-cm" name="equivalente[<?php echo $id_sustituto; ?>][6][]">
+								<select class="form-control equivalente equivalente-cm" name="equivalente[<?php echo $id_sustituto; ?>][6][]">
 									<option value=""></option>
 									<?php 
 									foreach ($lista_equivalente as $key => $equivalente) {?>
@@ -122,7 +122,7 @@
 		</div>
 	</div>
 	<div class="col-xs-1">
-		<button type="button" class="btn btn-danger quitar-fila">
+		<button type="button" class="btn btn-sm btn-danger quitar-fila">
 			<span class="glyphicon glyphicon-minus">
 				
 			</span>
