@@ -34,7 +34,7 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
         $_POST['id_paciente'] = (!empty($_POST['id_paciente']))? $_POST['id_paciente'] : null;
         if($this->db->insert("citas", $_POST)){
            
-            return true;
+            return $this->db->insert_id();
         }else{
             return false;
         }
@@ -140,6 +140,15 @@ class CitasModel extends CI_Model {/*CI: CodeIgniter*/
         $query = $this->db->get('citas');
         if ($query->num_rows() > 0) {
             return $query->result();
+        }
+        return null;
+    }
+
+    public function ExtraerCita($id_cita){
+        $this->db->where("id",$id_cita);
+        $query= $this->db->get("citas");
+        if($query->num_rows()> 0){
+            return $query->row();
         }
         return null;
     }

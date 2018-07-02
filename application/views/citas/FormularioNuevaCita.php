@@ -57,7 +57,7 @@
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Primer nombre
+									      		Nombre
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -80,7 +80,7 @@
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading4">
 									      	<h4 class="panel-title">
-									      		Primer apellido
+									      		Apellido
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -193,8 +193,7 @@
 									    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<b>¿Primeravez?</b> 
-									      			<li><b>Tipo de dato:</b> Selecion opcional.</li>
+									      			<li><b>Tipo de dato:</b> Selección opcional.</li>
 									      		</ul>
 									      	</div>
 									    </div>
@@ -330,7 +329,7 @@
 													<span class="glyphicon glyphicon-search"></span>
 												</button>	
 											</div>											
-					      					<input type="text" name="cedula" class="form-control" id="cedula" placeholder="Ingrese cédula" value="<?php echo (isset($cita['cedula']))? $cita['cedula'] : set_value('cedula'); ?>" <?php echo (isset($cita['cedula']))? "readonly":''; ?>>
+					      					<input type="text" name="cedula" class="form-control" id="cedula" placeholder="Ingrese cédula" pattern="[0-9]{6,8}" value="<?php echo (isset($cita['cedula']))? $cita['cedula'] : set_value('cedula'); ?>" <?php echo (isset($cita['cedula']))? "readonly":''; ?>>
 									      	<div class="input-group-btn">								
 												<button id="reset" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Limpiar formulario...">
 													<span class="glyphicon glyphicon-refresh"></span>
@@ -486,7 +485,7 @@
 							       								</div>
 							       								<div id="orden_body">
 							       									<div class="center-block">
-							       										<p></p>
+							       										
 							       									</div>
 							       								</div>
 							       								<div id="orden_footer">
@@ -512,16 +511,12 @@
 							       					<div class="row">
 							       						<div class="col-xs-12">
 							       							<div class="form-group">
-							       								<textarea class="form-control" name="examenes" id="examenes" placeholder=""></textarea>
+							       								<textarea class="form-control" name="orden_examen" id="examenes" placeholder=""></textarea>
 							       							</div>
 							       						</div>
 							       					</div>
 						       					</div>
 						       					<div class="box-footer">
-						       						<button type="button" id="generar_orden_pdf" class="btn btn-primary">
-						       							<i class="fa fa-file-pdf-o"></i>
-						       							Generar PDF
-						       						</button>
 						       					</div>
 						       				</div>
 						       			</div>
@@ -564,8 +559,13 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
+	$("#registro-citas").validator();
 	$("#examenes").on('keyup', function( event ) {
-		$("#orden_body .center-block p").html($(this).val());
+		console.log($(this).val().indexOf("\n"));
+		var cadena="<p>";
+			cadena+=$(this).val().replace("\n","</p><p>");
+			cadena+="</p>";
+		$("#orden_body .center-block ").html(cadena);
 	});
 
 	$("input[name=examen_lb]").on('change', function( event ) {
@@ -633,68 +633,70 @@ $(document).ready(function() {
 	/*Al momento de darle click a buscar, captura el evento y ejecuta la función que se establece*/
 	$("#search").on("click", function(event){
 		event.preventDefault();/*el elemento del boton lo anula*/
+		if ($("#cedula").val().match(/[0-9]{6,8}/)){
 
-		var cedula= $("#cedula").val();/*obtiene el valor del campo que lleva por id cedula*/
-		if (cedula.length >=6) {
-			var request;/*variable que almacena la peticion del servidor*/
-			if (request) {
-				request.abort();
-			}
-
-			request= $.ajax({
-				/* funcion que trae por defecto el url del sistema*/
-				url: "<?php echo base_url(); ?>Citas/ValidarPaciente",
-				type: "POST",
-				dataType: "json",/*Se utiliza para manejar objetos y arreglos */
-				data: "cedula="+cedula
-			});
-			/*La peticion se ejecuta con exito*/
-			request.done(function(response,textStatus,jqXRH){
-				console.log(response);
-				if (response != null){
-					$.each(response,function(index,value){/*Recorre cada posicion del arreglo response*/
-						if(value == "" || value == null || value == " " || value == undefined){
-							if(index == 'sexo'){
-								$("input[name=sexo]").prop("checked",false);
-							}else{
-								$("#"+index).prop("readonly",false);
-							}
-						}else{
-							if (index == 'sexo') {
-								/*Tiple igual: es exactamente igual*/
-								if (value === 'm') {
-									$("#sexoM").prop("checked",true);
-								}else{
-									$("#sexoF").prop("checked",true);
-								}
-								$("input[name=sexo]").prop("readonly",true);
-							}else if(index == 'tipo_paciente'){/*compara el valor de tipo de paciente traido desde el servidor con cada opcion del select de tipo paciente*/
-								$("#"+index+" option").prop("readonly",true);
-								$("#"+index+" option").each(function(i,val){
-									if ($(this).val() == value.substr(0,1).toUpperCase()+$(this).val().substr(1)) {
-
-										$(this).prop("selected",true);
-									}
-								});
-								setTimeout(function(){/*sepera determinado tiempo para ejecutar la sentencias establecidas en el*/
-									$("#"+index).attr("readonly","readonly");
-								},60);
-							}else{
-								$("#"+index).val(value).prop("readonly",true);
-							}
-						}
-					});
-
-				$("#examen_nompaciente").text(response["nombre1"] + " " + response["apellido1"]);
-				$("#examen_cipaciente").text(response["cedula"]);	
-				}else{
-					$(".form-control").prop("readonly",false);
-					$("select.form-control").removeAttr("readonly");
+			var cedula= $("#cedula").val();/*obtiene el valor del campo que lleva por id cedula*/
+			if (cedula.length >=6) {
+				var request;/*variable que almacena la peticion del servidor*/
+				if (request) {
+					request.abort();
 				}
-			}); 
-			request.fail(function(jqXRH,textStatus,thrown){s
-				alert("error: "+textStatus);
-			});
+
+				request= $.ajax({
+					/* funcion que trae por defecto el url del sistema*/
+					url: "<?php echo base_url(); ?>Citas/ValidarPaciente",
+					type: "POST",
+					dataType: "json",/*Se utiliza para manejar objetos y arreglos */
+					data: "cedula="+cedula
+				});
+				/*La peticion se ejecuta con exito*/
+				request.done(function(response,textStatus,jqXRH){
+					console.log(response);
+					if (response != null){
+						$.each(response,function(index,value){/*Recorre cada posicion del arreglo response*/
+							if(value == "" || value == null || value == " " || value == undefined){
+								if(index == 'sexo'){
+									$("input[name=sexo]").prop("checked",false);
+								}else{
+									$("#"+index).prop("readonly",false);
+								}
+							}else{
+								if (index == 'sexo') {
+									/*Tiple igual: es exactamente igual*/
+									if (value === 'm') {
+										$("#sexoM").prop("checked",true);
+									}else{
+										$("#sexoF").prop("checked",true);
+									}
+									$("input[name=sexo]").prop("readonly",true);
+								}else if(index == 'tipo_paciente'){/*compara el valor de tipo de paciente traido desde el servidor con cada opcion del select de tipo paciente*/
+									$("#"+index+" option").prop("readonly",true);
+									$("#"+index+" option").each(function(i,val){
+										if ($(this).val() == value.substr(0,1).toUpperCase()+$(this).val().substr(1)) {
+
+											$(this).prop("selected",true);
+										}
+									});
+									setTimeout(function(){/*sepera determinado tiempo para ejecutar la sentencias establecidas en el*/
+										$("#"+index).attr("readonly","readonly");
+									},60);
+								}else{
+									$("#"+index).val(value).prop("readonly",true);
+								}
+							}
+						});
+
+					$("#examen_nompaciente").text(response["nombre1"] + " " + response["apellido1"]);
+					$("#examen_cipaciente").text(response["cedula"]);	
+					}else{
+						$(".form-control").prop("readonly",false);
+						$("select.form-control").removeAttr("readonly");
+					}
+				}); 
+				request.fail(function(jqXRH,textStatus,thrown){s
+					alert("error: "+textStatus);
+				});
+			}
 		}
 	});
 

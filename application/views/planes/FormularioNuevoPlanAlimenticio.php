@@ -32,7 +32,7 @@
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading1">
 									      	<h4 class="panel-title">
-									      		Prescrpción dietética
+									      		Prescripción dietética
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -99,7 +99,7 @@
 									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
 									      	<div class="panel-body">
 									      		<ul>
-									      			<li><b>Tipo de dato:</b> Turnos de la comidas con listas desplegables de selección.</li>
+									      			<li><b>Tipo de dato:</b> Turnos de las comidas con listas desplegables de selección.</li>
 									      			<li><b>Campos obligatorios.</b></li>
 									      		</ul>
 									      	</div>

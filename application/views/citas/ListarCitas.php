@@ -106,6 +106,12 @@
 										echo "<span class=\"glyphicon glyphicon-pencil\"></span>";
 										echo "</a>";
 									}
+									//---Boton PDF-----
+									if ((bool) $cita["examen_lb"] ){
+										echo "<a class=\"btn btn-xs btn-default pdf-cita\" href=\"".base_url("Pdf/GenerarOrdenExamen/".$cita["id"])."\" target=\"_blank\" title=\"Ver pdf cita\">";
+										echo "<span class=\"glyphicon glyphicon-print\"></span>";
+										echo "</a>";
+									}
 
 									//---Boton eliminar---
 									if ((int) $cita["estatus"]!=3 && (int) $cita["estatus"]!=4 && (int) $cita["estatus"]!=2){
@@ -127,7 +133,28 @@
 </section>
 
 
+<!-- Modal PDF-->
+<?php if(get_cookie("message") != null){ ?>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">PDF: Orden de exámen</h4>
+      </div>
+      <div class="modal-body">
+      	<iframe class="vistaPdf" src="<?php echo base_url("Pdf/GenerarOrdenExamen/".$this->input->cookie('id_cita')); ?>">
+      		
+      	</iframe>
 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<?php } ?>
 <!-- Eliminar Evento -->
 <div class="modal fade" id="EliminarCita" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -156,3 +183,10 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-citas.js"></script>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		if ($("#myModal").length >0) {
+			$("#myModal").modal("show");
+		}
+	});
+</script>

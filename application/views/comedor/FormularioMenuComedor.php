@@ -25,7 +25,7 @@
 							<!-- Descripción -->
 							<div class="descripcion">
 								<p>
-									Para registrar un nuevo evento deberá llenar los campos de acuerdo a las siguientes indicaciones:
+									Para registrar el menu semanal del comedor deberá llenar los campos de acuerdo a las siguientes indicaciones:
 								</p>
 								<!-- Panel de descripción de campos -->
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">

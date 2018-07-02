@@ -238,7 +238,7 @@ hr.form-divisor-line{
 	font-size: 18px;
 }
 #orden_body .center-block p{
-	text-align: justify;
+	text-align: left;
 	height: auto;
 }
 
@@ -262,6 +262,12 @@ hr.form-divisor-line{
 #orden_footer label{
 	text-align: right;
 	font-size: 10px;
+}
+
+iframe.vistaPdf{
+	width: 100%;
+	min-height: 500px;
+	
 }
 
 hr.separador{

@@ -54,9 +54,10 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 		$data['tipo_paciente'] = array("" => "", "Estudiante"  => "Estudiante", "Docente" => "Docente", "Administrativo" => "Administrativo", "Obrero"  => "Obrero", "Cortesía" => "Cortesía");
 		//Si se envió una petición POST...
 		if ($_SERVER["REQUEST_METHOD"] == "POST") {
-			if($this->CitasModel->AgregarCita()) {
+			if($id_cita=$this->CitasModel->AgregarCita()) {
 				/*cookie: es un arreglo. que funciona como variables universales del servidor*/
 				set_cookie("message","¡La cita del paciente <strong>'".$this->input->post('nombre1')." ".$this->input->post('apellido1')."'</strong> fue registrada exitosamente!", time()+15);
+				set_cookie("id_cita",$id_cita, time()+15);
 					/*header: redirecciona envia a la direccion que se le asigna. */
 				header("Location: ".base_url()."Citas/ListarCitas");
 			}else{
@@ -277,7 +278,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
 		$this->load->model('CitasModel');
 		
 		$condicion = array(
-			"select" => "id, id_paciente, fecha_creacion, fecha_cita, estatus, cedula, nombre1, apellido1, motivo",
+			"select" => "id, id_paciente, fecha_creacion, fecha_cita, estatus, cedula, nombre1, apellido1,examen_lb, motivo",
 			"order_by" => array('campo'=>"id","opcion"=> "ASC") /*Traer todos los registros ordenados por el campo ID de manera ascendente, de menor a mayor*/
 			);
 

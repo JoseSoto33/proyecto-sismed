@@ -81,6 +81,12 @@
 									echo "<span class=\"glyphicon glyphicon-eye-open\"></span>";
 									echo "</a>";					
 
+									//---Boton de Pdf---
+									
+										echo "<a class=\"btn btn-xs btn-default pdf-comedor\" href=\"".base_url("Pdf/GenerarMenuComedor/".$semana["id"])."\" target=\"_blank\" title=\"Ver pdf comedor\">";
+										echo "<span class=\"glyphicon glyphicon-print\"></span>";
+										echo "</a>";
+									
 									echo "</div>";
 									echo "</td>";
 									echo "</tr>";
