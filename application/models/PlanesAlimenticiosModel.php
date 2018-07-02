@@ -248,7 +248,7 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
         $this->db->group_by("ls.id");
         $query= $this->db->get("lista_sustitutos as ls");
         if ($query->num_rows() > 0 ){
-            return $query->row_array();
+            return $query->result_array();
         }
         return null;       
     }
@@ -261,13 +261,13 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
         $this->db->where("lr.id_lista",$id_lista);
          $query= $this->db->get("lista_racion_sustituto as lrs");
         if ($query->num_rows() > 0 ){
-            return $query->row_array();
+            return $query->result_array();
         }
         return null;
     }
 
     public function ExtraerTurnosEquivalentes($id_lista_racion_sustituto){
-        $this->db->where("id_sustituto",$id_recomendacion);
+        $this->db->where("id_sustituto",$id_lista_racion_sustituto);
         $query= $this->db->get("turno_equivalente");
         if ($query->num_rows() > 0 ){
             return $query->result_array();

@@ -303,23 +303,24 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 			$plan = $result->row_array();
 			$lista_sustitutos= $this->PlanesAlimenticiosModel->ExtraerListasPlanAlimenticio($plan["id"]);
 			foreach ($lista_sustitutos as $key => $sustituto) {
+				
 				$detalles = $this->PlanesAlimenticiosModel->ExtraerDetallesPlan($plan["id"],$sustituto["id"]);
 				$detalles_plan[$sustituto["id"]]["detalle"] = $detalles;
-				foreach ($detalles as $key => $detalle) {
+				foreach ($detalles as $k => $detalle) {
 					$detalles_plan[$sustituto["id"]]["equivalentes"] = $this->PlanesAlimenticiosModel->ExtraerTurnosEquivalentes($detalle["id"]);
 				}
 			}
 			
 
 
-			$recomendacion = $this->PlanesAlimenticiosModel->ExtraerRecomendacionesPlan($plan["id_recomendacion"]);
+			$recomendacion = $this->PlanesAlimenticiosModel->ExtraerRecomendacionesPlan($plan["id_recomendaciones"]);
 			$detalles_recomendacion = $this->PlanesAlimenticiosModel->ExtraerListaRecomendaciones($recomendacion["id"]);
 			$cuadro_recomendacion = $this->PlanesAlimenticiosModel->ExtraerCuadroRecomendaciones($recomendacion["id"]);
 			$data = array(
 				"plan"=>$plan,
 				"lista_sustitutos"=>$lista_sustitutos,
-				"detalles_plan"=>$detallesplan,
-				"recomendaciones"=>$recomendacion,
+				"detalles_plan"=>$detalles_plan,
+				"recomendacion"=>$recomendacion,
 				"detalles_recomendacion"=>$detalles_recomendacion,
 				"cuadro_recomendacion"=>$cuadro_recomendacion,
 			);

@@ -21,11 +21,11 @@
 				</div>				
 			</div>
 			<div class="box-body ">
-				<?php var_dump($recomendaciones);
-			  	foreach ($recomendaciones as $key => $recomendacion) {  ?>
+				<?php 
+			  	if ($recomendacion) {  ?>
 			 	<div role="tabpanel" class="tab-pane" id="<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>">
 			 		<ol>
-					<?php foreach ($detalles_recomendacion[$recomendacion['id']] as $key => $lista) { ?> 
+					<?php foreach ($detalles_recomendacion as $key => $lista) { ?> 
 						<li>
 							<?php echo $lista['descripcion']; ?>
 						</li>	
@@ -41,7 +41,7 @@
 		  						</tr>
 		  					</thead>
 		  					<tbody>
-		  						<?php foreach ($cuadro_recomendaciones[$recomendacion['id']] as $key => $cuadro) {?>
+		  						<?php foreach ($cuadro_recomendacion as $key => $cuadro) {?>
 			  					<tr>
 			  						<td class="active"><?php echo $cuadro['alimento']; ?></td>
 			  						<td><?php echo $cuadro['permitidos']; ?></td>
