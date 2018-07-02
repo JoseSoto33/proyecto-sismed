@@ -279,42 +279,57 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 	 *
 	 * @return void
 	 */
-	public function VerEvento()
+	public function VerPlanAlimenticio($id_plan)
 	{
-		$this->load->model('EventoModel');
+		$this->load->model('PlanesAlimenticiosModel');
 
-		$id = $this->input->post('id');
+		/*
+		1 plan_alimenticio
+		2 extraer recomendaciones
+		3 extrar detalls e plan alimenticion
+		4 litas_sustitutos.
+		5 lista racin,meida,equvalente
+		6 menu ejemplo
+
+		*/
 		$condicion = array(
-			"where" => array("MD5(concat('sismed',id))" => $id)
+			"where" => array("MD5(concat('sismed',id))" => $id_plan)
 			);
 
-		$result = $this->EventoModel->ExtraerEvento($condicion);
+		$result = $this->PlanesAlimenticiosModel->ExtraerPlanesAlimenticios($condicion);
 
 		//Si la cantidad de registros encontrados es mayor a 0
 		if ($result->num_rows() > 0) {
+			$plan = $result->row_array();
+			$lista_sustitutos= $this->PlanesAlimenticiosModel->ExtraerListasPlanAlimenticio($plan["id"]);
+			foreach ($lista_sustitutos as $key => $sustituto) {
+				$detalles = $this->PlanesAlimenticiosModel->ExtraerDetallesPlan($plan["id"],$sustituto["id"]);
+				$detalles_plan[$sustituto["id"]]["detalle"] = $detalles;
+				foreach ($detalles as $key => $detalle) {
+					$detalles_plan[$sustituto["id"]]["equivalentes"] = $this->PlanesAlimenticiosModel->ExtraerTurnosEquivalentes($detalle["id"]);
+				}
+			}
 			
-			$data = $result->row_array();
 
-			setlocale(LC_TIME,"esp");
 
-			$fecha_inicio = strftime('%d de %B de %Y', strtotime($data["fecha_hora_inicio"]));		
-			$fecha_fin 	  = strftime('%d de %B de %Y', strtotime($data["fecha_hora_fin"]));		
-			$hora_inicio  = date('h:i:s a', strtotime($data["fecha_hora_inicio"]));		
-			$hora_fin 	  = date('h:i:s a', strtotime($data["fecha_hora_fin"]));
-
-			$data["fecha_inicio"] = $fecha_inicio;
-			$data["fecha_fin"] = $fecha_fin;
-			$data["hora_inicio"] = $hora_inicio;
-			$data["hora_fin"] = $hora_fin;
-			$data["result"] = true;
+			$recomendacion = $this->PlanesAlimenticiosModel->ExtraerRecomendacionesPlan($plan["id_recomendacion"]);
+			$detalles_recomendacion = $this->PlanesAlimenticiosModel->ExtraerListaRecomendaciones($recomendacion["id"]);
+			$cuadro_recomendacion = $this->PlanesAlimenticiosModel->ExtraerCuadroRecomendaciones($recomendacion["id"]);
+			$data = array(
+				"plan"=>$plan,
+				"lista_sustitutos"=>$lista_sustitutos,
+				"detalles_plan"=>$detallesplan,
+				"recomendaciones"=>$recomendacion,
+				"detalles_recomendacion"=>$detalles_recomendacion,
+				"cuadro_recomendacion"=>$cuadro_recomendacion,
+			);
 
 		//Si no se encontraron registros...
-		}else{
-			$data["result"] = false;
-			$data["message"] = 'Error: '.$this->db->error();
 		}
 
-		echo json_encode($data);
+		$this->CargarHeader();
+        $this->load->view('planes/VerPlanAlimenticio', $data);
+        $this->load->view('footer');
 	}
 
 	/**

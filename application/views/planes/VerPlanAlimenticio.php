@@ -11,69 +11,48 @@
 
 <!-- Main content -->
 <section class="content container-fluid">
-	<div class="col-xs-12">
+	<div class="col-xs-12 col-sm-6">
 		<div class="box box-primary">
 			<div class="box-header">
 				<div class="row">
 					<div class="col-xs-12 col-sm-3">
 						<a class="btn btn-success" href="<?php echo base_url(); ?>PlanesAlimenticios/AgregarPlanAlimenticio"><span class="glyphicon glyphicon-plus"></span>Nuevo Plan</a>
-					</div>
-					<div class="col-xs-12 col-sm-6">
-						<?php if(get_cookie("message") != null) { ?>
-							<div id="alert-message" class="alert alert-success" role="alert">
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<?php 
-									echo $this->input->cookie('message'); 
-									delete_cookie('message');
-								?>
-							</div>					
-						<?php } ?>
 					</div>	
 				</div>				
 			</div>
-			<input type="hidden" name="base_url" id="base_url" value="<?php echo base_url(); ?>">
-			<div class="box-body table-responsive">
-				<table id="lista-planes" class="table table-hover table-striped table-bordered" width="100%" cellspacing="0">
-					<thead>
-						<th>Nº</th>
-						<th>Fecha de creación</th>
-						<th> </th>
-					</thead>
-					<tfoot>
-						<th>Nº</th>
-						<th>Fecha de creación</th>
-						<th> </th>						
-					</tfoot>
-					<tbody>
-						<?php 
-							$cont = 1;
-							if ($plan_alimenticio->num_rows() > 0) {
-								setlocale(LC_TIME,"esp"); 
-
-								foreach ($plan_alimenticio->result_array() as $key => $plan) {
-									
-									echo "<tr id=\"fila_".md5('sismed'.$plan["id"])."\">";
-									echo "<td>".$cont++."</td>";
-									echo "<td>".strftime('%d de %B de %Y', strtotime($plan["fecha_creacion"]))."</td>";
-								
-									echo  " <td> <div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";
-									//---Boton ver detalles---
-									echo "<a href=\"".base_url("PlanesAlimenticios/VerPlanAlimenticio/".md5('sismed'.$plan["id"]))."\" class=\"btn btn-xs btn-info prescripcion-plan\" role=\"button\" title=\"Prescripcion plan\" data-content=\"".$plan["prescripcion_dietetica"]."\" >";
-									echo "<span class=\"glyphicon glyphicon-eye-open\"></span>";
-									echo "</a>";
-									//---Boton eliminar---
-									echo "<a class=\"btn btn-xs btn-danger eliminar-plan\" href=\"#\" data-toggle=\"modal\" data-target=\"#EliminarPlan\" title=\"Eliminar plan\" data-idplan=\"".md5('sismed'.$plan["id"])."\">";
-									echo "<span class=\"glyphicon glyphicon-trash\"></span>";
-									echo "</a>";
-
-									echo "</div>";
-									echo "</td>";
-									echo "</tr>";
-								}
-							}
-						?>
-					</tbody>
-				</table>
+			<div class="box-body ">
+				<?php var_dump($recomendaciones);
+			  	foreach ($recomendaciones as $key => $recomendacion) {  ?>
+			 	<div role="tabpanel" class="tab-pane" id="<?php echo strtolower(str_replace(" ", "_",$recomendacion['descripcion']))?>">
+			 		<ol>
+					<?php foreach ($detalles_recomendacion[$recomendacion['id']] as $key => $lista) { ?> 
+						<li>
+							<?php echo $lista['descripcion']; ?>
+						</li>	
+					<?php } ?>
+				 	</ol>
+				 	<div class="table-responsive">
+					 	<table class="table table-hover table-bordered">
+		  					<thead>
+		  						<tr class="active">
+		  							<th class="text-center">Alimentos</th>
+		  							<th class="text-center">Permitidos</th>
+		  							<th class="text-center">Evitar</th>
+		  						</tr>
+		  					</thead>
+		  					<tbody>
+		  						<?php foreach ($cuadro_recomendaciones[$recomendacion['id']] as $key => $cuadro) {?>
+			  					<tr>
+			  						<td class="active"><?php echo $cuadro['alimento']; ?></td>
+			  						<td><?php echo $cuadro['permitidos']; ?></td>
+			  						<td><?php echo $cuadro['evitar']; ?></td>
+			  					</tr>
+			  					<?php }?>
+		  					</tbody>
+						</table>
+					</div>
+			 	</div>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
@@ -111,10 +90,10 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$(".table-responsive").on("click", "#lista-planes tbody tr td .prescripcion-plan",function(e){
-	        /*e.preventDefault();*/
+	        e.preventDefault();
 	    });
 	    
-	    /*$("#lista-planes tbody tr td .prescripcion-plan").each(function(i,v){
+	    $("#lista-planes tbody tr td .prescripcion-plan").each(function(i,v){
 	    	var titulo=$(this).attr("title"),
 	            contenido=$(this).data("content"),
 	            popover= {
@@ -124,6 +103,6 @@
 	                plasement: "left",
 	            }
 	        $(this).popover(popover);
-	    })*/
+	    })
 	});
 </script>
