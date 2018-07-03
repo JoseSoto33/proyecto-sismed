@@ -48,10 +48,6 @@ class Pdf extends CI_Controller {/*CI: CodeIgniter*/
 
     	//Crear carpeta donde se almacena el archivo
     	$this->crearCarpeta($data['carpeta']);
-    	$hoy = date('Y-m-d');
-    	$num_dia = date('N');
-    	$sum_dias = 5 - $num_dia;
-    	$max_fecha = date('Y-m-d', strtotime("+$sum_dias day" , strtotime ( $hoy )));
 
     	//Asignar carpeta para guardar PDF
 		$this->html2pdf->folder('./assets/pdf/'.$data['carpeta']."/");
@@ -86,22 +82,25 @@ class Pdf extends CI_Controller {/*CI: CodeIgniter*/
         }
     }
 
-    public function GenerarMenuComedor($id_semana,$id_menuComedor){
+    public function GenerarMenuComedorAlmuerzo($id_semana){
 
      if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Nutricionista") redirect(base_url('Home'));
         $this->load->model("ComedorModel");
         $semana=$this->ComedorModel->ExtraerSemana($id_semana);
-        $menu=$this->ComedorModel->ExtraerMenuSemana($id_menuComedor);
+        $menu=$this->ComedorModel->ExtraerMenuSemana(md5("sismed".$id_semana),"Almuerzo");
+
+        foreach ($menu as $key => $value) {
+            $num_dia = date('N',strtotime($value["dia"]));
+            $arr_menu[$num_dia] = $value;            
+        }
         $data['semana'] = $semana;
-        $data['menu'] = $menu;
+        $data['menu'] = $arr_menu;
+        $data['turno'] = "Almuerzo";
         $data['carpeta']  = "ordenes";
+       
 
         //Crear carpeta donde se almacena el archivo
         $this->crearCarpeta($data['carpeta']);
-        $hoy = date('Y-m-d');
-        $num_dia = date('N');
-        $sum_dias = 5 - $num_dia;
-        $max_fecha = date('Y-m-d', strtotime("+$sum_dias day" , strtotime ( $hoy )));
 
         //Asignar carpeta para guardar PDF
         $this->html2pdf->folder('./assets/pdf/'.$data['carpeta']."/");
@@ -121,6 +120,51 @@ class Pdf extends CI_Controller {/*CI: CodeIgniter*/
             //echo $path;
             $path= str_replace("./", "", $path);
             header("Location: ".base_url().$path);
+            //var_dump($semana);
+            //var_dump($menu);
+
+        }else{
+            //echo json_encode(array('success' => fale, 'path' => ''));
+            echo $path;
+        }   
+    }
+
+    public function GenerarMenuComedorCena($id_semana){
+
+     if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Nutricionista") redirect(base_url('Home'));
+        $this->load->model("ComedorModel");
+        $semana=$this->ComedorModel->ExtraerSemana($id_semana);
+        $menu=$this->ComedorModel->ExtraerMenuSemana(md5("sismed".$id_semana),"Cena");
+        $data['semana'] = $semana;
+        $data['menu'] = $menu;
+        $data['turno'] = "Cena";
+        $data['carpeta']  = "ordenes";
+
+        //Crear carpeta donde se almacena el archivo
+        $this->crearCarpeta($data['carpeta']);
+        $num_dia = date('N');
+
+        //Asignar carpeta para guardar PDF
+        $this->html2pdf->folder('./assets/pdf/'.$data['carpeta']."/");
+
+        //Asignar el nombre del archivo para abrir/descargar 
+        $this->html2pdf->filename('menuComedor.pdf');
+
+        //Asignar valores por defecto de la hoja
+        $this->html2pdf->paper('letter', 'landscape');
+
+        //Cargar vista HTML
+        $this->html2pdf->html($this->load->view('pdf/menuComedor', $data, true));
+
+        //Crear el PDF
+        if($path = $this->html2pdf->create('save')) {
+            //El PDF creado o descargado exitosamente
+            //echo $path;
+            //$path= str_replace("./", "", $path);
+            //header("Location: ".base_url().$path);
+            var_dump($semana);
+            var_dump($menu);
+
         }else{
             //echo json_encode(array('success' => fale, 'path' => ''));
             echo $path;

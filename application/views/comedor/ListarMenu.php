@@ -82,10 +82,15 @@
 									echo "</a>";					
 
 									//---Boton de Pdf---
-									
-										echo "<a class=\"btn btn-xs btn-default pdf-comedor\" href=\"".base_url("Pdf/GenerarMenuComedor/".$semana["id"])."\" target=\"_blank\" title=\"Ver pdf comedor\">";
-										echo "<span class=\"glyphicon glyphicon-print\"></span>";
-										echo "</a>";
+									echo "<div class=\"btn-group\">";
+									  echo "<button type=\"button\" class=\"btn btn-xs btn-default pdf-comedor dropdown-toggle\" data-toggle=\"dropdown\" aria-haspopup=\"true\" aria-expanded=\"false\">";
+									echo "<span class=\"glyphicon glyphicon-print\"></span>";									  
+									  echo "</button>";
+									  echo "<ul class=\"dropdown-menu dropdown-menu-right\">";
+									    echo "<li><a href=\"".base_url("Pdf/GenerarMenuComedorAlmuerzo/".$semana["id"])."\" target=\"_blank\">Almuerzo</a></li>";
+									    echo "<li><a href=\"".base_url("Pdf/GenerarMenuComedorCena/".$semana["id"])."\" target=\"_blank\">Cena</a></li>";
+									  echo "</ul>";
+									echo "</div>";
 									
 									echo "</div>";
 									echo "</td>";

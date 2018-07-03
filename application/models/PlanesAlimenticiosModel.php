@@ -25,11 +25,12 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
      *
      * @return boolean
      */
-    public function AgregarPlanAlimenticio($id_usuario,$prescripcion,$recomendacion)
+    public function AgregarPlanAlimenticio($id_usuario,$prescripcion,$recomendacion,$vasos_agua)
     {
         $this->db->set("id_usuario",$id_usuario);
         $this->db->set("prescripcion_dietetica",trim($prescripcion));
         $this->db->set("id_recomendaciones",$recomendacion);
+        $this->db->set("vasos_agua",$vasos_agua);
         if($this->db->insert("plan_alimenticio")){
            
             return $this->db->insert_id();
