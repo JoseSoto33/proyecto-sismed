@@ -1,7 +1,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Listado de plan alimenticio
+    Detalles del plan alimenticio
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -14,11 +14,19 @@
 	<div class="col-xs-12 col-sm-6">
 		<div class="box box-primary">
 			<div class="box-header">
-				<div class="row">
-					<div class="col-xs-12 col-sm-3">
-						<a class="btn btn-success" href="<?php echo base_url(); ?>PlanesAlimenticios/AgregarPlanAlimenticio"><span class="glyphicon glyphicon-plus"></span>Nuevo Plan</a>
-					</div>	
-				</div>				
+				<h3 class="box-title">Menú plan alimenticio</h3>			
+			</div>
+			<div class="box-body ">
+				<?php 
+			  	?>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-xs-12 col-sm-6">
+		<div class="box box-primary">
+			<div class="box-header">
+				<h3 class="box-title">Recomendaciones: <?php echo (!empty($recomendacion))? $recomendacion['descripcion'] : "sin recomendaciones" ?></h3>			
 			</div>
 			<div class="box-body ">
 				<?php 
@@ -27,7 +35,7 @@
 			 		<ol>
 					<?php foreach ($detalles_recomendacion as $key => $lista) { ?> 
 						<li>
-							<?php echo $lista['descripcion']; ?>
+							<?php echo str_replace("*", $plan['vasos_agua'], $lista['descripcion']);; ?>
 						</li>	
 					<?php } ?>
 				 	</ol>
@@ -56,6 +64,7 @@
 			</div>
 		</div>
 	</div>
+	
 </section>
 
 

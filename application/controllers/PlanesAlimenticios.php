@@ -74,6 +74,7 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 			$id_usuario 				= $this->session->userdata("idUsuario");
 			$prescripcion 				= $this->input->post("prescripcion");
 			$recomendacion 				= $this->input->post("recomendacion");
+			$vasos_agua					= $this->input->post("vasos_agua_".$recomendacion);
 			$hora_desayuno 				= $this->input->post("hora_desayuno");
 			$hora_MD 					= $this->input->post("hora_merienda_desayuno");
 			$hora_almuerzo 				= $this->input->post("hora_almuerzo");
@@ -89,7 +90,7 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 			$lista_raciones 			= $this->input->post("racion");
 			$lista_medidas				= $this->input->post("medida");
 			$lista_equivalentes			= $this->input->post("equivalente");
-			$id_plan_alimenticio 		= $this->PlanesAlimenticiosModel->AgregarPlanAlimenticio($id_usuario,$prescripcion,$recomendacion);
+			$id_plan_alimenticio 		= $this->PlanesAlimenticiosModel->AgregarPlanAlimenticio($id_usuario,$prescripcion,$recomendacion,$vasos_agua);
 			$turnos=array("1"=>"D", "2"=>"DM","3"=>"A","4"=>"AM","5"=>"C","6"=>"CM");
 			$completado=true;
 			

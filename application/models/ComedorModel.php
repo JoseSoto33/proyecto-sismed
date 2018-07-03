@@ -89,8 +89,11 @@ class ComedorModel extends CI_Model {/*CI: CodeIgniter*/
         return false;
     }
 
-    public function ExtraerMenuSemana($id_semana){
+    public function ExtraerMenuSemana($id_semana,$turno=null){
         $this->db->where("MD5(concat('sismed',id_semana))",$id_semana);
+        if (!empty($turno)) {
+            $this->db->where("turno",ucwords($turno));
+        }
         $result=$this->db->get('menu_comedor');
         if($result->num_rows()>0)
             return $result->result_array();

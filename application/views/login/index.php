@@ -5,7 +5,8 @@
 		<!-- Contenedor -->		
 		<div class="container">
 			<!-- Área de mensajes del sistema -->
-			<div class="col-xs-12">	
+			<div class="col-xs-12">
+				<br>
 				<?php echo validation_errors("<div class=\"alert alert-danger\" role=\"alert\">", "</div>"); ?>	
 				<?php if(isset($mensaje) && !empty($mensaje)) { ?>
 					<div class="alert alert-danger" role="alert">
@@ -17,14 +18,20 @@
 				<?php if(isset($_COOKIE["message"]) && !empty($_COOKIE["message"])) { ?>
 					<div class="alert alert-danger" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<?php echo $_COOKIE("message"); ?>
+						<?php 
+							echo $_COOKIE("message"); 
+							delete_cookie('message');
+						?>
 					</div>					
 				<?php } ?>
 
 				<?php if(isset($_COOKIE["message2"]) && !empty($_COOKIE["message2"])) { ?>
 					<div class="alert alert-success" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<?php echo $_COOKIE("message2"); ?>
+						<?php 
+							echo $_COOKIE["message2"]; 
+							delete_cookie('message"');
+						?>
 					</div>					
 				<?php } ?>
 			</div><!--/ Área de mensajes del sistema -->
