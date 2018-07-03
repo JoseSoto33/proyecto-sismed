@@ -18,7 +18,7 @@
 				<?php if(get_cookie("message") != null) { ?>
 					<div class="alert alert-danger" role="alert">
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<?php echo $_COOKIE("message"); delete_cookie('message'); ?>
+						<?php echo $_COOKIE["message"]; delete_cookie('message'); ?>
 					</div>					
 				<?php } ?>
 
