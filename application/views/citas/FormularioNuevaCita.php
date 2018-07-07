@@ -524,7 +524,7 @@
 								</div>
 
 								<?php if( isset($cita['estatus'])){?>
-								<input type="hidden" name="estatus_actual" value="<?php echo$cita['estatus']?>">
+								<input type="hidden" name="estatus_actual" value="<?php echo $cita['estatus']?>">
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="estatus">Status</label>
