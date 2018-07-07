@@ -107,7 +107,7 @@
 										echo "</a>";
 									}
 									//---Boton PDF-----
-									if ((bool) $cita["examen_lb"] ){
+									if ($cita["examen_lb"]=="t" ){ //var_dump($cita["examen_lb"]);
 										echo "<a class=\"btn btn-xs btn-default pdf-cita\" href=\"".base_url("Pdf/GenerarOrdenExamen/".$cita["id"])."\" target=\"_blank\" title=\"Ver pdf cita\">";
 										echo "<span class=\"glyphicon glyphicon-print\"></span>";
 										echo "</a>";

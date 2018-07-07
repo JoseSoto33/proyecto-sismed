@@ -18,7 +18,37 @@
 			</div>
 			<div class="box-body ">
 				<?php 
-			  	?>
+				
+				?>
+				<ul class="list-group">
+				<?php foreach ($turnos_nombre as $key => $turno) { ?>
+					<li class="list-group-item">
+						<h4>
+							<span class="col-sm-6"><?php echo $turno; ?></span>
+							<span class="col-sm-6"><?php echo $horas[$turnos_plan[$key]]; ?></span>			
+						</h4>
+						<?php
+						foreach ($lista_sustitutos as $X => $sustituto) {
+							foreach ($detalles_plan[$sustituto['id']]['equivalentes'] as $Y => $equivalentes) {
+								foreach ($equivalentes as $Z => $equivalente) {
+									if ($equivalente['turno_comida'] == $key) {
+										foreach ($detalles_plan as $A => $detalles) {
+											foreach ($detalles as $B => $detalle) {
+												foreach ($detalle as $C => $d) {
+													if (!empty($d['id']) && $d['id'] == $equivalente['id_sustituto']) {
+														echo "<p>".$equivalente['equivalente']." ".$d['medida']." de ".$d['racion'].". Lista ".$X."</p>";
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+						?>
+					</li>
+				<?php }	?>
+				</ul>
 			</div>
 		</div>
 	</div>
