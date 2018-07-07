@@ -66,13 +66,13 @@
 									
 									echo "<tr id=\"fila_".md5('sismed'.$dia["id"])."\">";
 									echo "<td>".$cont++."</td>";
-									echo "<td class=\"listadia\">".strftime('%A, %d-%b-%Y', strtotime($dia["dia"]))."</td>";
-									echo "<td class=\"listaturno\">".$dia["turno"]."</td>";
-									echo "<td class=\"listaturno\">".$dia["entrada"]."</td>";
-									echo "<td class=\"listaturno\">".$dia["proteico"]."</td>";
-									echo "<td class=\"listaturno\">".$dia["contorno"]."</td>";
-									echo "<td class=\"listaturno\">".$dia["extras"]."</td>";
-									echo "<td class=\"listaturno\">".$dia["bebida"]."</td>";
+									echo "<td class=\"listadia\">".utf8_decode(strftime('%A, %d-%b-%Y', strtotime($dia["dia"])))."</td>";
+									echo "<td class=\"listaturno\">".utf8_decode($dia["turno"])."</td>";
+									echo "<td class=\"listaturno\">".utf8_decode($dia["entrada"])."</td>";
+									echo "<td class=\"listaturno\">".utf8_decode($dia["proteico"])."</td>";
+									echo "<td class=\"listaturno\">".utf8_decode($dia["contorno"])."</td>";
+									echo "<td class=\"listaturno\">".utf8_decode($dia["extras"])."</td>";
+									echo "<td class=\"listaturno\">".utf8_decode($dia["bebida"])."</td>";
 																		
 									echo "<td>";
 									echo "<div class=\"btn-group pull-right\" role=\"group\" aria-label=\"...\">";

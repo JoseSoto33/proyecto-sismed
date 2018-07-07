@@ -56,7 +56,7 @@ class Pdf extends CI_Controller {/*CI: CodeIgniter*/
 		$this->html2pdf->filename('ordenExamen.pdf');
 
 		//Asignar valores por defecto de la hoja
-		$this->html2pdf->paper('letter', 'landscape');
+		$this->html2pdf->paper('A7', 'portrait');
 
 		//Cargar vista HTML
 		$this->html2pdf->html($this->load->view('pdf/ordenExamen', $data, true));
