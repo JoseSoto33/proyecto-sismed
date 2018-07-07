@@ -46,7 +46,7 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
         $this->db->set("id_medida",$medida);
         
         if($this->db->insert("lista_racion_sustituto")){
-         return $this->db->insert_id();
+            return $this->db->insert_id();
         }else{
             return false;
         }
@@ -59,7 +59,7 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
         $this->db->set("id_sustituto",$id_lista_racion_sustituto);
 
         if($this->db->insert("turno_equivalente")){
-         return true;
+            return true;
         }else{
             return false;
         }
@@ -268,10 +268,21 @@ class PlanesAlimenticiosModel extends CI_Model {/*CI: CodeIgniter*/
     }
 
     public function ExtraerTurnosEquivalentes($id_lista_racion_sustituto){
+        $this->db->select("te.*, le.equivalente");
+        $this->db->join("lista_equivalente as le", "te.id_equivalente=le.id");
         $this->db->where("id_sustituto",$id_lista_racion_sustituto);
-        $query= $this->db->get("turno_equivalente");
+        $query= $this->db->get("turno_equivalente AS te");
         if ($query->num_rows() > 0 ){
             return $query->result_array();
+        }
+        return null;
+    }
+
+    public function ExtraerHorarioPlan($id_plan_alimenticio){
+        $this->db->where('id_plan_alimenticio', $id_plan_alimenticio);
+        $query = $this->db->get('menu_plan');
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
         }
         return null;
     }

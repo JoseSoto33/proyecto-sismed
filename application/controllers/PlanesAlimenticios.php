@@ -91,7 +91,7 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 			$lista_medidas				= $this->input->post("medida");
 			$lista_equivalentes			= $this->input->post("equivalente");
 			$id_plan_alimenticio 		= $this->PlanesAlimenticiosModel->AgregarPlanAlimenticio($id_usuario,$prescripcion,$recomendacion,$vasos_agua);
-			$turnos=array("1"=>"D", "2"=>"DM","3"=>"A","4"=>"AM","5"=>"C","6"=>"CM");
+			$turnos = array("1"=>"D", "2"=>"DM","3"=>"A","4"=>"AM","5"=>"C","6"=>"CM");
 			$completado=true;
 			
 			if(!empty($id_plan_alimenticio)){
@@ -120,36 +120,38 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 				}
 
 				$this->PlanesAlimenticiosModel->GuardarMenuPlan($id_plan_alimenticio,(!empty($full_horaD))? $full_horaD : null,(!empty($full_horaA))? $full_horaA : null, (!empty($full_horaC))? $full_horaC : null,(!empty($full_horaMD))? $full_horaMD : null,(!empty($full_horaMA))? $full_horaMA : null,(!empty($full_horaMC))? $full_horaMC : null);
+
+				// Para cada Ración de cada lista
+				// $X -> Índice de a lista
 				foreach ($lista_raciones as $X => $raciones) {
+
+					// Para cada item de racion dentro de un elemento de la lista
+					// $Y -> Índice de cada item dentro de un elemento de la lista
 					foreach ($raciones as $Y => $racion) {
-						$medida=$lista_medidas[$X][$Y];
+						$medida = $lista_medidas[$X][$Y];
 						if(!empty($racion)){
-							$id_lista_racion_sustituto= $this->PlanesAlimenticiosModel->AgregarRacionSustituto($id_plan_alimenticio,$racion,$medida);
+							$id_lista_racion_sustituto[$X][$Y] = $this->PlanesAlimenticiosModel->AgregarRacionSustituto($id_plan_alimenticio,$racion,$medida);
 							if(!$id_lista_racion_sustituto){
 								$completado=false;
-								break;
 							}
-							foreach ($lista_equivalentes[$X] as $Z => $equivalentes){
-								$turno=$turnos[$Z];
-								
-								foreach ($equivalentes as $key => $turno_equivalente) {
-									if(!empty($turno_equivalente)){
-										$success=$this->PlanesAlimenticiosModel->AgregarTurnoEquivalente($turno,$turno_equivalente,$id_lista_racion_sustituto);	
-										if(!$success){
-											$completado=false;
-											break;
-										}
-									}
-								
-								}
-								if(!$completado) break;		
-							}
-							if(!$completado) break;
 						}	
-					}
-					if(!$completado) break;
-							
+					}							
 				}
+
+				foreach ($lista_equivalentes as $X => $turno_equivalentes){
+					foreach ($turno_equivalentes as $Z => $equivalentes) {
+						$turno = $turnos[$Z];
+						foreach ($equivalentes as $Y => $equivalente) {
+							if(!empty($equivalente)){
+								$success = $this->PlanesAlimenticiosModel->AgregarTurnoEquivalente($turno,$equivalente,$id_lista_racion_sustituto[$X][$Y]);	
+								if(!$success){
+									$completado=false;
+								}
+							}
+						}
+					}		
+				}
+
 				if($completado) {
 					//cookie: es un arreglo. que funciona como variables universales del servidor
 					set_cookie("message","¡El plan ha sido agregado exitosamente!...", time()+15);
@@ -293,6 +295,7 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 		6 menu ejemplo
 
 		*/
+		$data = array();
 		$condicion = array(
 			"where" => array("MD5(concat('sismed',id))" => $id_plan)
 			);
@@ -302,28 +305,31 @@ class PlanesAlimenticios extends CI_Controller {/*CI: CodeIgniter*/
 		//Si la cantidad de registros encontrados es mayor a 0
 		if ($result->num_rows() > 0) {
 			$plan = $result->row_array();
+			$horas = $this->PlanesAlimenticiosModel->ExtraerHorarioPlan($plan['id']);
 			$lista_sustitutos= $this->PlanesAlimenticiosModel->ExtraerListasPlanAlimenticio($plan["id"]);
 			foreach ($lista_sustitutos as $key => $sustituto) {
 				
 				$detalles = $this->PlanesAlimenticiosModel->ExtraerDetallesPlan($plan["id"],$sustituto["id"]);
 				$detalles_plan[$sustituto["id"]]["detalle"] = $detalles;
 				foreach ($detalles as $k => $detalle) {
-					$detalles_plan[$sustituto["id"]]["equivalentes"] = $this->PlanesAlimenticiosModel->ExtraerTurnosEquivalentes($detalle["id"]);
+					$detalles_plan[$sustituto["id"]]["equivalentes"][] = $this->PlanesAlimenticiosModel->ExtraerTurnosEquivalentes($detalle["id"]);
 				}
 			}
-			
-
 
 			$recomendacion = $this->PlanesAlimenticiosModel->ExtraerRecomendacionesPlan($plan["id_recomendaciones"]);
 			$detalles_recomendacion = $this->PlanesAlimenticiosModel->ExtraerListaRecomendaciones($recomendacion["id"]);
 			$cuadro_recomendacion = $this->PlanesAlimenticiosModel->ExtraerCuadroRecomendaciones($recomendacion["id"]);
 			$data = array(
-				"plan"=>$plan,
-				"lista_sustitutos"=>$lista_sustitutos,
-				"detalles_plan"=>$detalles_plan,
-				"recomendacion"=>$recomendacion,
-				"detalles_recomendacion"=>$detalles_recomendacion,
-				"cuadro_recomendacion"=>$cuadro_recomendacion,
+				"turnos" => array("1"=>"D", "2"=>"DM","3"=>"A","4"=>"AM","5"=>"C","6"=>"CM"),
+				"turnos_nombre" => array("D"=>"Desayuno", "DM"=>"Merienda Desayuno", "A"=>"Almuerzo", "AM"=>"Merienda Almuerzo", "C"=>"Cena", "CM"=>"Merienda Cena"),
+				"turnos_plan" => array("D"=>"hora_desayuno", "DM"=>"hora_merienda_desayuno", "A"=>"hora_almuerzo", "AM"=>"hora_merienda_almuerzo", "C"=>"hora_cena", "CM"=>"hora_merienda_cena"),
+				"horas" => $horas,
+				"plan" => $plan,
+				"lista_sustitutos" => $lista_sustitutos,
+				"detalles_plan" => $detalles_plan,
+				"recomendacion" => $recomendacion,
+				"detalles_recomendacion" => $detalles_recomendacion,
+				"cuadro_recomendacion" => $cuadro_recomendacion,
 			);
 
 		//Si no se encontraron registros...
