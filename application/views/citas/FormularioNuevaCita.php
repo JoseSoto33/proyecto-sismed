@@ -305,7 +305,7 @@
 							<?php if(isset($mensaje) && !empty($mensaje)) { ?>
 								<div class="alert alert-danger" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<?php echo $mensaje; ?>
+									<?php echo (is_array($mensaje))? $mensaje['message'] : $mensaje; ?>
 								</div>					
 							<?php } ?>
 						</div><!--/ Mensajes de error -->
@@ -321,7 +321,10 @@
 				      				'id="registro-citas"'
 				      				); ?>
 				      				<!--offset-8 permite que me de un espacio de 8 hacia la izquierda -->
-				      			<div class="col-sm-6 col-sm-offset-6">
+				      			<div class="col-xs-12 col-sm-6">
+				      				<p id="msj" class="text-danger"></p>
+				      			</div>
+				      			<div class="col-sm-6">
 				      				<div class="form-group">
 										<div class="input-group">
 								    		<div class="input-group-btn">
@@ -349,13 +352,13 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red"> *</span>Nombre:</label>
-		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ\s\p{P}]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['nombre1']))? $cita['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
+		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['nombre1']))? $cita['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red">*</span>Apellido:</label>
-		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ\s\p{P}]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['apellido1']))? $cita['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
+		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['apellido1']))? $cita['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        							</div>
@@ -548,12 +551,17 @@ $(document).ready(function() {
 
 	$("#registro-citas").validator();
 	$("#examenes").on('keyup', function( event ) {
-		console.log($(this).val().indexOf("\n"));
 		var cadena="<p>";
 			cadena+=$(this).val().replace("\n","</p><p>");
 			cadena+="</p>";
 		$("#orden_body .center-block ").html(cadena);
-	});
+	}).trigger('keyup');
+
+	if ($("input[name=examen_lb]:checked").val() == 0) {
+		$("#generar_orden").removeClass('hidden');
+	}else{
+		$("#generar_orden").addClass('hidden');
+	}
 
 	$("input[name=examen_lb]").on('change', function( event ) {
 		if ($(this).val() == 0) {
@@ -561,6 +569,7 @@ $(document).ready(function() {
 		}else{
 			$("#generar_orden").addClass('hidden');
 		}
+		console.log($(this).val());
 	});
 
 	if ($("input[name=estatus_actual]").length>0) {
@@ -581,6 +590,7 @@ $(document).ready(function() {
 			}
 		});
 	}
+
 	$("#nombre1").on("keyup", function(event){
 		var apellido= $("#apellido1").val(),
 			nombre= $(this).val(),
@@ -588,7 +598,8 @@ $(document).ready(function() {
 
 			$("#examen_nompaciente").text(nombre+" "+apellido);
 			$("#examen_cipaciente").text(cedula);
-	});
+	}).trigger('keyup');
+
 	$("#apellido1").on("keyup", function(event){
 		var nombre= $("#nombre1").val(),
 			apellido= $(this).val(),
@@ -596,7 +607,8 @@ $(document).ready(function() {
 
 			$("#examen_nompaciente").text(nombre+" "+apellido);
 			$("#examen_cipaciente").text(cedula);
-	});
+	}).trigger('keyup');
+
 	$("#cedula").on("keyup", function(event){
 		var apellido= $("#apellido1").val(),
 			cedula= $(this).val(),
@@ -604,7 +616,7 @@ $(document).ready(function() {
 
 			$("#examen_nompaciente").text(nombre+" "+apellido);
 			$("#examen_cipaciente").text(cedula);
-	});
+	}).trigger('keyup');
 
 	$("#reset").on("click", function(event){
 		event.preventDefault();/*el elemento del boton lo anula*/
@@ -673,11 +685,13 @@ $(document).ready(function() {
 							}
 						});
 
-					$("#examen_nompaciente").text(response["nombre1"] + " " + response["apellido1"]);
-					$("#examen_cipaciente").text(response["cedula"]);	
+						$("#examen_nompaciente").text(response["nombre1"] + " " + response["apellido1"]);
+						$("#examen_cipaciente").text(response["cedula"]);
+						$("#msj").text("");
 					}else{
 						$(".form-control").prop("readonly",false);
 						$("select.form-control").removeAttr("readonly");
+						$("#msj").text("Paciente no registrado.");
 					}
 				}); 
 				request.fail(function(jqXRH,textStatus,thrown){s
