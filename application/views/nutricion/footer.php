@@ -9,7 +9,7 @@
       				IUT "Dr. Federico Rivero Palacio"
     			</div>
     			<!-- Default to the left -->
-    			<strong>Copyright &copy; 2017 <a href="#">Informática Trayecto 4</a>.</strong> Dpto. Bienestar Estudiantil.
+    			<strong>Copyright &copy; 2018 <a href="#">Informática Trayecto 2</a>.</strong> Dpto. Bienestar Estudiantil.
   			</footer>
 		</div>
 		<!-- ./wrapper -->
