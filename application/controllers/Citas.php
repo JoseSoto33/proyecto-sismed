@@ -26,7 +26,7 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
         if (!$this->session->has_userdata('login') && ($this->uri->segment(1, 0) != '0' || $this->uri->segment(2, 0) != '0')) {
         	redirect(base_url());
         }
-        if ($this->session->has_userdata('tipo_usuario') && $this->session->userdata('tipo_usuario') != "Nutricionista") {
+        if ($this->session->has_userdata('tipo_usuario') && ($this->session->userdata('tipo_usuario') != "Nutricionista" && $this->session->userdata('tipo_usuario') != "Odontólogo")) {
         	redirect(base_url('Home')); 
         }
     }

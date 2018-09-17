@@ -798,6 +798,7 @@
 									</div>
 								</div><!--/ Fila -->
 
+								<?php if ($this->session->userdata('especialidad') == "Medicina" || $this->session->userdata('especialidad') == "Nutrición") { ?>
 								<!-- Línea divisoria -->
 								<hr class="form-divisor-line">
 								<!--/ Línea divisoria -->
@@ -829,7 +830,7 @@
 										</div><!--/ Columna -->
 									</div>
 								</div><!--/ Fila -->	
-								
+								<?php } ?>
 							<?php echo form_close(); ?>		
 						</div><!--/ Formulario -->
 	        		</div>	        		

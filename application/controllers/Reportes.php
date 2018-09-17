@@ -31,8 +31,6 @@ class Reportes extends CI_Controller {
 
         $this->load->model('ReporteModel');
 
-        $data["fecha"] = date("Y-m-d");
-
         $registros = $this->ReporteModel->estadisticasPacientesAtendidos($data);
 
         //Se calcula el porcentaje de estudiantes
@@ -76,11 +74,11 @@ class Reportes extends CI_Controller {
         }*/
 
         $registros['descripcion_periodo'] = "Resultados obtenidos para la fecha:";
-        $registros['fecha'] = $data["fecha"];
+        $registros['fecha'] = date("Y-m-d");
 
         //var_dump($registros);
         $this->CargarHeader();
-        $this->load->view('reportes/ReportePacientesAtendidos', $data);
+        $this->load->view('reportes/ReportePacientesAtendidos', $registros);
         $this->load->view('footer');
     }
 

@@ -145,19 +145,19 @@ class Sesion extends CI_Controller {
 		}else{
 
 			$data = array(
-					'idUsuario' => $usuario->id,
-					'idSesion' => $id_sesion,
-					'username' => $usuario->username,
-					'nombre' => $usuario->nombre1,
-					'apellido' => $usuario->apellido1,
-					'login' => true,
-					'tipo_usuario' => $usuario->tipo_usuario,
-					'especialidad' => $usuario->especialidad,
-					'sexo' => $usuario->sexo,
-					'first_session' => $usuario->first_session,
-					'fecha_creado' => $usuario->fecha_creado,
-					'img' => $usuario->img
-				);
+				'idUsuario' => $usuario->id,
+				'idSesion' => $id_sesion,
+				'username' => $usuario->username,
+				'nombre' => $usuario->nombre1,
+				'apellido' => $usuario->apellido1,
+				'login' => true,
+				'tipo_usuario' => $usuario->tipo_usuario,
+				'especialidad' => $usuario->especialidad,
+				'sexo' => $usuario->sexo,
+				'first_session' => $usuario->first_session,
+				'fecha_creado' => $usuario->fecha_creado,
+				'img' => $usuario->img
+			);
 
 			$this->session->set_userdata($data);
 			redirect(base_url()."Home");
@@ -204,25 +204,25 @@ class Sesion extends CI_Controller {
 	public function ValidarSesion($data)
 	{
 		$this->form_validation->set_rules(
-		        'log_cedula', 'Cédula',
-		        array('required','numeric','min_length[6]','max_length[8]'),		        	
-		        array(		                
-		                'min_length'    => 'La %s debe tener al menos 6 caracteres.',
-		                'max_length'    => 'La %s debe tener máximo 8 caracteres.',
-		                'numeric'     	=> 'La %s sólo debe contener números.',
-		                'required'      => 'Debe insertar su %s.'
-		        )
+	        'log_cedula', 'Cédula',
+	        array('required','numeric','min_length[6]','max_length[8]'),		        	
+	        array(		                
+                'min_length'    => 'La %s debe tener al menos 6 caracteres.',
+                'max_length'    => 'La %s debe tener máximo 8 caracteres.',
+                'numeric'     	=> 'La %s sólo debe contener números.',
+                'required'      => 'Debe insertar su %s.'
+	        )
 		);
 
         $this->form_validation->set_rules(
-            	'log_password', 'Password', 
-        		array('required','min_length[8]','max_length[16]','alpha_numeric'),	        			
-                array(
-                	'required'		=> 'Debe ingresar su %s.',
-                	'min_length'    => 'El %s debe tener al menos 8 caracteres.',
-	                'max_length'    => 'El %s debe tener máximo 16 caracteres.',
-	                'numeric'     	=> 'El %s debe ser alfanumérico.'
-	                )	                
+        	'log_password', 'Password', 
+    		array('required','min_length[8]','max_length[16]','alpha_numeric'),	        			
+            array(
+	        	'required'		=> 'Debe ingresar su %s.',
+	        	'min_length'    => 'El %s debe tener al menos 8 caracteres.',
+	            'max_length'    => 'El %s debe tener máximo 16 caracteres.',
+	            'numeric'     	=> 'El %s debe ser alfanumérico.'
+            )	                
         );
 
         //Si los datos son correctos...
@@ -253,7 +253,7 @@ class Sesion extends CI_Controller {
 				'tipo' => 'left'
 				),
 			'where' => array("sesion.fecha_fin !=" => null)
-			);
+		);
 
 		$result = $this->SesionModel->ExtraerSesiones($condicion);
 	

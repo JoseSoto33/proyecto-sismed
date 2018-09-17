@@ -117,7 +117,7 @@
 	</div>
 
 	<div id="resultados">
-		<?php $this->load->view('medicina/ReportePacientesAtendidosResultados'); ?>
+		<?php $this->load->view('reportes/ReportePacientesAtendidosResultados'); ?>
 	</div>
 </section>
 

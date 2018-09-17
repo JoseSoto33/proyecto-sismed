@@ -44,7 +44,7 @@ class Home extends CI_Controller {
      */
 	public function index()
 	{
-
+		$this->CargarHeader();
 		//Si existe una sesión iniciada...
 		if ($this->session->userdata('login')) {
 
@@ -55,31 +55,31 @@ class Home extends CI_Controller {
 			switch ($this->session->userdata('tipo_usuario')) {
 				//Si el tipo de usuario es "Administrador"...
 				case "Administrador":
-					$this->load->view('admin/header');
+					//$this->load->view('admin/header');
 					$this->load->view('admin/index',$data);
-					$this->load->view('admin/footer');
+					//$this->load->view('admin/footer');
 					break;
 				
 				//Si el tipo de usuario es "Doctor"...
 				case "Doctor":
 					//$this->load->view('admin/header');					
-					$this->load->view('medicina/doctor/header');
+					//$this->load->view('medicina/doctor/header');
 					$this->load->view('medicina/index',$data);
-					$this->load->view('medicina/doctor/footer');						
+					//$this->load->view('medicina/doctor/footer');						
 					break;
 
 				//Si el tipo de usuario es "Enfermero"...
 				case "Enfermero":
-					$this->load->view('medicina/enfermero/header');				
+					//$this->load->view('medicina/enfermero/header');				
 					$this->load->view('medicina/index',$data);
-					$this->load->view('medicina/enfermero/footer');					
+					//$this->load->view('medicina/enfermero/footer');					
 					break;
 
 				//Si el tipo de usuario es "Odontólogo"...
 				case "Odontólogo":
-					$this->load->view('odontologia/header');
+					//$this->load->view('odontologia/header');
 					$this->load->view('odontologia/index',$data);
-					$this->load->view('odontologia/footer');
+					//$this->load->view('odontologia/footer');
 					break;
 
 				//Si el tipo de usuario es "Bioanalista"...
@@ -89,9 +89,9 @@ class Home extends CI_Controller {
 
 				//Si el tipo de usuario es "Nutricionista"...
 				case "Nutricionista":
-					$this->load->view('nutricion/header');
+					//$this->load->view('nutricion/header');
 					$this->load->view('nutricion/index',$data);
-					$this->load->view('nutricion/footer');
+					//$this->load->view('nutricion/footer');
 					break;
 
 				//Si el tipo de usuario es "Asistente"...
@@ -99,6 +99,8 @@ class Home extends CI_Controller {
 					$this->load->view('nutricion/index',$data);
 					break;
 			}
+
+			$this->load->view('footer');
 			
 		//Si no existe una sesión iniciada...
 		}else{
