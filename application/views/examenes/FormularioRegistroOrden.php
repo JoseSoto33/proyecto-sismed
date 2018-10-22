@@ -5,11 +5,11 @@
   </h1>
   <ol class="breadcrumb">
     <li><a href="<?php echo base_url(); ?>Home"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li>Citas</li>
-    <li class="active"><?php echo $titulo; ?></li>
+    <li>Órdenes de exámenes</li>
+    <li class="active">Agregar orden de examen de laboratorio</li>
   </ol>
 </section>
-		
+
 <!-- Main content -->
 <section class="content container-fluid">
 	<div class="row">
@@ -26,15 +26,15 @@
 							<!-- Descripción -->
 							<div class="descripcion">
 								<p>
-									Para registrar una nueva cita deberá llenar los campos de acuerdo a las siguientes indicaciones:
+									Para registrar un nuevo evento deberá llenar los campos de acuerdo a las siguientes indicaciones:
 								</p>
 								<!-- Panel de descripción de campos -->
 								<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-					    			<!-- Descripción campo Cédula -->
+					    			<!-- Descripción campo Título -->
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading1">
 									      	<h4 class="panel-title">
-									      		Cédula
+									      		Título
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" aria-controls="collapse1">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -45,19 +45,19 @@
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
 									      			<li><b>Tamaño mínimo:</b> 6 caracteres.</li>
-									      			<li><b>Tamaño máximo:</b> 8 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Sólo caracteres numéricos.</li>
+									      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales).</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Cédula -->
+								  	</div><!--/ Descripción campo Título -->
 
-								  	<!-- Descripción campo Primer nombre -->
+								  	<!-- Descripción campo Fecha inicio -->
 								  	<div class="panel panel-default">
 									    <div class="panel-heading" role="tab" id="heading2">
 									      	<h4 class="panel-title">
-									      		Nombre
+									      		Fecha inicio
 									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="false" aria-controls="collapse2">
 									          		<span class="glyphicon glyphicon-plus"></span>
 									        	</a>
@@ -67,222 +67,127 @@
 									      	<div class="panel-body">
 									      		<ul>
 									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Tamaño mínimo:</b> 3 caracteres.</li>
-									      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfabéticos (incluyendo acentuados).</li>
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Primer nombre -->
-								  
-								  	<!-- Descripción campo Primer apellido -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading4">
-									      	<h4 class="panel-title">
-									      		Apellido
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Tamaño mínimo:</b> 3 caracteres.</li>
-									      			<li><b>Tamaño máximo:</b> 30 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfabéticos (incluyendo acentuados).</li>
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Primer apellido -->
-
-								  	<!-- Descripción campo Fecha de nacimiento -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading6">
-									      	<h4 class="panel-title">
-									      		Fecha de nacimiento
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
-									      			<li><b>Condición:</b> La fecha ingresada debe ser anterior a la fecha actual.</li>
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Fecha de nacimiento -->
-
-								  	<!-- Descripción campo Sexo -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading10">
-									      	<h4 class="panel-title">
-									      		Sexo
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
-									      	<div class="panel-body">
-									      		<ul>							      			
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Sexo -->
-
-								  	<!-- Descripción campo Correo electrónico -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading7">
-									      	<h4 class="panel-title">
-									      		Correo electrónico
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Formato:</b> Dirección de correo electrónico (ejemp.: andres_lopez2005@gmail.com).</li>
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Correo electrónico -->
-
-								  	<!-- Descripción campo Tipo de paciente -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading8">
-									      	<h4 class="panel-title">
-									      		Tipo de paciente
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading8">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Lista desplegable de selección.</li>				      		<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Tipo de paciente-->
-
-								  	<!-- Descripción campo Motivo de la cita -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading6">
-									      	<h4 class="panel-title">
-									      		¿Primera vez?
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse8" aria-expanded="false" aria-controls="collapse8">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse8" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Selección opcional.</li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div>
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading6">
-									      	<h4 class="panel-title">
-									      		Descripcion del motivo
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse9" aria-expanded="false" aria-controls="collapse9">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse9" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
-									      	<div class="panel-body">
-									      		<ul>
-							 						<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Motivo de la cita -->
-
-								  	<!-- Descripción campo Examen de laboratorio -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading10">
-									      	<h4 class="panel-title">
-									      		Examen de laboratorio
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse10" aria-expanded="false" aria-controls="collapse10">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse10" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading10">
-									      	<div class="panel-body">
-									      		<ul>							      			
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Examen de laboratorio -->
-
-								  		<!-- Descripción campo Examen a realizar -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading3">
-									      	<h4 class="panel-title">
-									      		Examen a realizar
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse11" aria-expanded="false" aria-controls="collapse11">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse11" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
-									      			<li><b>Tamaño mínimo:</b> 3 caracteres.</li>
-									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
-									      			<li><b>Campo obligatorio.</b></li>
-									      		</ul>
-									      	</div>
-									    </div>
-								  	</div><!--/ Descripción campo Examen a realizar -->
-
-								  	<!-- Descripción campo Fecha cita -->
-								  	<div class="panel panel-default">
-									    <div class="panel-heading" role="tab" id="heading2">
-									      	<h4 class="panel-title">
-									      		Fecha cita
-									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse12" aria-expanded="false" aria-controls="collapse12">
-									          		<span class="glyphicon glyphicon-plus"></span>
-									        	</a>
-									      	</h4>
-									    </div>
-									    <div id="collapse12" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
-									      	<div class="panel-body">
-									      		<ul>
-									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
 									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
 									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual.</li>
 									      			<li><b>Campo obligatorio.</b></li>
 									      		</ul>
 									      	</div>
 									    </div>
-								  	</div><!--/ Descripción campo Fecha cita -->
+								  	</div><!--/ Descripción campo Fecha inicio -->
 
-							 	</div><!--/ Panel de descripción de campos -->
+								  	<!-- Descripción campo Hora inicio -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading3">
+									      	<h4 class="panel-title">
+									      		Hora inicio
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="false" aria-controls="collapse3">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
+									      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
+									      			<li><b>Condición:</b> La combinación entre la hora y la fecha de inicio debe ser posterior a la hora y fecha actuales.</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Hora inicio -->
+
+								  	<!-- Descripción campo Fecha finalización -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading4">
+									      	<h4 class="panel-title">
+									      		Fecha finalización
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse4" aria-expanded="false" aria-controls="collapse4">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse4" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading4">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Formato:</b> Fecha aaaa-mm-dd (ejemp.: 2017-08-24).</li>
+									      			<li><b>Condición:</b> La fecha ingresada no puede ser anterior a la fecha actual ni a la fecha de inicio.</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Fecha finalización -->
+
+								  	<!-- Descripción campo Hora finalización -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading5">
+									      	<h4 class="panel-title">
+									      		Hora finalización
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse5" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Formato:</b> Hora hh:mm (ejemp.: 02:30).</li>
+									      			<li><b>Meridiano:</b> AM o PM. Obligatorio.</li>
+									      			<li><b>Condición:</b> La combinación entre la hora y la fecha de finalización debe ser posterior a la hora y fecha actuales y a la hora y fecha de inicio del evento.</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Hora finalización -->
+
+								  	<!-- Descripción campo Descripción -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading6">
+									      	<h4 class="panel-title">
+									      		Descripción
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse6" aria-expanded="false" aria-controls="collapse6">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse6" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading6">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Cadena de caracteres.</li>
+									      			<li><b>Tamaño mínimo:</b> 12 caracteres.</li>
+									      			<li><b>Caracteres permitidos:</b> Alfanuméricos (incluyendo acentuados, espacios y caracteres especiales.</li>
+									      			<li><b>Campo obligatorio.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Descripción -->
+
+								  	<!-- Descripción campo Imagen -->
+								  	<div class="panel panel-default">
+									    <div class="panel-heading" role="tab" id="heading7">
+									      	<h4 class="panel-title">
+									      		Imagen
+									        	<a class="collapsed pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse7" aria-expanded="false" aria-controls="collapse7">
+									          		<span class="glyphicon glyphicon-plus"></span>
+									        	</a>
+									      	</h4>
+									    </div>
+									    <div id="collapse7" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading7">
+									      	<div class="panel-body">
+									      		<ul>
+									      			<li><b>Tipo de dato:</b> Archivo de tipo imagen.</li>
+									      			<li><b>Fromatos permitidos:</b> JPG, PNG y GIF.</li>
+									      			<li><b>Campo opcional.</b></li>
+									      		</ul>
+									      	</div>
+									    </div>
+								  	</div><!--/ Descripción campo Imagen -->
+
+								</div><!--/ Panel de descripción de campos -->
+
 								<p>
 									<b>Nota:</b><br>
 									El botón "Guardar" permanecerá desactivado hasta llenar los campos obligatorios del formulario.
@@ -295,7 +200,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-8 ">
+		<div class="col-xs-12 col-sm-8">
 			<div class="box box-primary">
 		        <div class="box-body">
 		        	<div class="row">
@@ -305,20 +210,20 @@
 							<?php if(isset($mensaje) && !empty($mensaje)) { ?>
 								<div class="alert alert-danger" role="alert">
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-									<?php echo (is_array($mensaje))? $mensaje['message'] : $mensaje; ?>
+									<?php echo $mensaje; ?>
 								</div>					
 							<?php } ?>
 						</div><!--/ Mensajes de error -->
 						<div class="col-xs-12">
 							<?php
-								$url =  base_url()."Citas/".$this->uri->segment(2, 0);
+								$url =  base_url()."Examenes/".$this->uri->segment(2, 0);
 								if ($this->uri->segment(3, 0) != "0") {
 									$url .= "/".$this->uri->segment(3, 0);
 								}
 
 								echo form_open_multipart(
 				      				$url,
-				      				'id="registro-citas"'
+				      				'id="registro-orden-examen"'
 				      				); ?>
 				      				<!--offset-8 permite que me de un espacio de 8 hacia la izquierda -->
 				      			<div class="col-xs-12 col-sm-6">
@@ -327,17 +232,25 @@
 				      			<div class="col-sm-6">
 				      				<div class="form-group">
 										<div class="input-group">
+											<?php if (!isset($orden['cedula'])) { ?>
 								    		<div class="input-group-btn">
 												<button id="search" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Buscar...">
 													<span class="glyphicon glyphicon-search"></span>
-												</button>	
-											</div>											
-					      					<input type="text" name="cedula" class="form-control" id="cedula" placeholder="Ingrese cédula" pattern="[0-9]{6,8}" value="<?php echo (isset($cita['cedula']))? $cita['cedula'] : set_value('cedula'); ?>" <?php echo (isset($cita['cedula']))? "readonly":''; ?>>
+												</button>
+											</div>
+											<?php } else { ?>
+											<div class="input-group-addon">
+												Cédula:
+											</div>
+											<?php } ?>
+					      					<input type="text" name="cedula" class="form-control" id="cedula" placeholder="Ingrese cédula" pattern="[0-9]{6,8}" value="<?php echo (isset($orden['cedula']))? $orden['cedula'] : set_value('cedula'); ?>" <?php echo (isset($orden['cedula']))? "readonly":''; ?>>
+					      					<?php if (!isset($orden['cedula'])) { ?>
 									      	<div class="input-group-btn">								
 												<button id="reset" class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Limpiar formulario...">
 													<span class="glyphicon glyphicon-refresh"></span>
 												</button>
 											</div>
+											<?php } ?>
 									    </div>
 				      				</div>	
 				      			</div>
@@ -352,13 +265,13 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red"> *</span>Nombre:</label>
-		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['nombre1']))? $cita['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
+		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($orden['nombre1']))? $orden['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red">*</span>Apellido:</label>
-		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($cita['apellido1']))? $cita['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
+		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($orden['apellido1']))? $orden['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        							</div>
@@ -366,7 +279,7 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red">*</span>Fecha de nacimiento:</label>
-		        										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($cita['fecha_nacimiento']))? $cita['fecha_nacimiento'] : set_value('fecha_nacimiento'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="">
+		        										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($orden['fecha_nacimiento']))? $orden['fecha_nacimiento'] : set_value('fecha_nacimiento'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
@@ -374,10 +287,10 @@
 		        										<label><span class="red">*</span>Sexo:</label>
 		        										<div class="col-sm-12">
 															<label class="radio-inline">
-															  	<input type="radio" name="sexo" id="sexoM" value="m" required="required" readonly="" <?php echo (isset($cita['sexo']) && $cita['sexo'] == 'm')? "checked" : ""; ?> > Masculino
+															  	<input type="radio" name="sexo" id="sexoM" value="m" required="required" readonly="" <?php echo ((isset($orden['sexo']) && $orden['sexo'] == 'm') || (isset($_POST['sexo']) && $_POST['sexo'] == 'm'))? "checked" : ""; ?> > Masculino
 															</label>
 															<label class="radio-inline">
-															  	<input type="radio" name="sexo" id="sexoF" value="f" required="required" readonly="" <?php echo (isset($cita['sexo']) && $cita['sexo'] == 'f')? "checked" : ""; ?> > 
+															  	<input type="radio" name="sexo" id="sexoF" value="f" required="required" readonly="" <?php echo ((isset($orden['sexo']) && $orden['sexo'] == 'f') || (isset($_POST['sexo']) && $_POST['sexo'] == 'f'))? "checked" : ""; ?> > 
 															  	Femenino
 															</label>
 														</div>
@@ -390,7 +303,7 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red">*</span>Correo:</label>
-		        										<input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="<?php echo (isset($cita['email']))? $cita['email'] : set_value('email'); ?>" required="required" readonly="">
+		        										<input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="<?php echo (isset($orden['email']))? $orden['email'] : set_value('email'); ?>" required="required" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
@@ -398,7 +311,7 @@
 														<label for="tipo_paciente" class="control-label"><span class="red">*</span> Tipo de paciente:</label>
 														<?php
 															$attr = "class=\"form-control\" id=\"tipo_paciente\" data-placeholder=\"Seleccione una opción...\" required=\"required\" readonly=\"\"";
-															echo form_dropdown("tipo_paciente", $tipo_paciente, set_value("tipo_paciente", (isset($cita['tipo_paciente']))? $cita['tipo_paciente'] : ""), $attr);
+															echo form_dropdown("tipo_paciente", $tipo_paciente, set_value("tipo_paciente", (isset($orden['tipo_paciente']))? $orden['tipo_paciente'] : ""), $attr);
 														?>
 														<div class="help-block with-errors">
 												      	</div>
@@ -408,40 +321,46 @@
 		        						</div>
 		        					</div>
 				      			</div>
-				      			<div class="col-xs-12">
-				      				<div class="box box-solid box-primary">
-						      			<div class="box-header with-border">
-				         					<h3 class="box-title">Motivo de la cita</h3>
-				       					</div>
-				       					<div class="box-body">	
-				       						<div class="checkbox">
-										    	<label class="control-label">
-										      		<input type="checkbox" value="1" name="primera_vez" id="primera_vez"><b>¿Primera vez?</b>
-										    	</label>
-										  	</div>			       						
-					       					<div class="row">
-					       						<div class="col-xs-12">
-					       							<div class="form-group">
-					       								<textarea placeholder="Descripción del motivo" class="form-control" name="motivo"><?php echo (isset($cita['motivo']))? trim($cita['motivo']) : set_value('motivo'); ?></textarea>
-					       							</div>
-					       						</div>
-					       					</div>
-				       					</div>
-				       				</div>
-				       			</div>
 
 				       			<div class="col-sm-6">
 									<!-- Campo 'examen' -->
 									<div class="form-group">
-										<label for="examen"><span class="red">*</span> ¿Posee examen de laboratorio?</label>
-										<div class="col-sm-12">
-											<label class="radio-inline">
-											  	<input type="radio" name="examen_lb" id="si" value="1" required="required" readonly="" <?php echo (isset($cita['examen_lb']) && $cita['examen_lb'] == 't')? "checked" : ""; ?> > Si
-											</label>
-											<label class="radio-inline">
-											  	<input type="radio" name="examen_lb" id="no" value="0" required="required" readonly="" <?php echo (isset($cita['examen_lb']) && $cita['examen_lb'] == 'f')? "checked" : ""; ?> > No
-											</label>
-										</div>
+										<label for="examen"><span class="red">*</span> Seleccionar exámenes a realizar:</label>
+										<ul>
+											<?php foreach ($tipo_examenes as $x => $tipo) {
+												if (is_array($tipo)) { ?>
+											<li class="check-parent">
+												<div class="checkbox">
+												  	<label>
+												    	<input type="checkbox" id="<?php echo $x; ?>" <?php echo ((isset($orden[$x]) && $orden[$x] === 't') || isset($_POST[$x]))? "checked" : ""; ?>>
+														<?php echo $tipo['titulo']; ?>
+												    </label>
+												</div>
+												<ul class="check-children">
+											<?php	foreach ($tipo['lista'] as $y => $sub_tipo) { ?>
+													<li class="check-child">
+														<div class="checkbox">
+														  	<label>
+														    	<input type="checkbox" value="<?php echo $y; ?>" name="<?php echo $x; ?>[]" <?php echo ( (isset($orden[$x]) && in_array($y, explode(',', $orden[$x]))) || (isset($_POST[$x]) && in_array($y, $_POST[$x])) )? "checked" : ""; ?>>
+														    	<?php echo $sub_tipo; ?>
+														  	</label>
+														</div>
+													</li>		
+											<?php	}	?>
+												</ul>
+											</li>
+											<?php } else { ?>
+											<li>
+												<div class="checkbox">
+												  	<label>
+												    	<input type="checkbox" value="1" name="<?php echo $x; ?>" <?php echo ((isset($orden[$x]) && $orden[$x] === 't') || isset($_POST[$x]))? "checked" : ""; ?>>
+												    	<?php echo $tipo; ?>
+												  	</label>
+												</div>
+											</li>
+											<?php }
+											} ?>
+										</ul>
 										<div class="help-block with-errors">
 								      	</div>
 									</div>
@@ -449,8 +368,8 @@
 
 								<div class="col-sm-6">
 									<div class="form-group">
-										<label for="examen"><span class="red">*</span> Fecha de la cita</label>
-										<input type="date" class="form-control" id="fecha_cita" name="fecha_cita" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($cita['fecha_cita']))? date('Y-m-d',strtotime($cita['fecha_cita'])) : date('Y-m-d'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
+										<label for="examen"><span class="red">*</span> Fecha de la entrega</label>
+										<input type="date" class="form-control" id="fecha_entrega_pautada" name="fecha_entrega_pautada" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($orden['fecha_entrega_pautada']))? date('Y-m-d',strtotime($orden['fecha_entrega_pautada'])) : date('Y-m-d'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
 									</div>
 								</div>
 
@@ -536,88 +455,19 @@
 		        	</div>		        	
 		        </div>
 		        <div class="box-footer">
-					<a href="<?php echo base_url(); ?>Citas/ListarCitas" class="btn btn-default">Cancelar</a>
-		        	<button id="guardar" type="submit" form="registro-citas" class="btn btn-success pull-right">Guardar</button>
+					<a href="<?php echo base_url(); ?>Examenes/ListarOrdenes" class="btn btn-default">Cancelar</a>
+		        	<button id="guardar" type="submit" form="registro-orden-examen" class="btn btn-success pull-right">Guardar</button>
 		        </div>
 		    </div>
 		</div>
 	</div>
 	
 </section>
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/chosen.jquery.min.js"></script>
+
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/validator.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-
-	$("#registro-citas").validator();
-	$("#examenes").on('keyup', function( event ) {
-		var cadena="<p>";
-			cadena+=$(this).val().replace("\n","</p><p>");
-			cadena+="</p>";
-		$("#orden_body .center-block ").html(cadena);
-	}).trigger('keyup');
-
-	if ($("input[name=examen_lb]:checked").val() == 0) {
-		$("#generar_orden").removeClass('hidden');
-	}else{
-		$("#generar_orden").addClass('hidden');
-	}
-
-	$("input[name=examen_lb]").on('change', function( event ) {
-		if ($(this).val() == 0) {
-			$("#generar_orden").removeClass('hidden');
-		}else{
-			$("#generar_orden").addClass('hidden');
-		}
-		console.log($(this).val());
-	});
-
-	if ($("input[name=estatus_actual]").length>0) {
-		var estatus= $("input[name=estatus_actual]").val();
-		switch(estatus){
-			case "0": 
-				var permitidos=["0","3"];
-				break;
-			case "1":
-				var permitidos =["1","2","3"];
-				break; 
-		}
-
-		$("#estatus option").each(function(index,value){
-			var select_estatus = $(this).val();
-			if( $.inArray(select_estatus, permitidos)== -1){
-			 	$(this).remove();
-			}
-		});
-	}
-
-	$("#nombre1").on("keyup", function(event){
-		var apellido= $("#apellido1").val(),
-			nombre= $(this).val(),
-			cedula= $("#cedula").val();
-
-			$("#examen_nompaciente").text(nombre+" "+apellido);
-			$("#examen_cipaciente").text(cedula);
-	}).trigger('keyup');
-
-	$("#apellido1").on("keyup", function(event){
-		var nombre= $("#nombre1").val(),
-			apellido= $(this).val(),
-			cedula= $("#cedula").val();
-
-			$("#examen_nompaciente").text(nombre+" "+apellido);
-			$("#examen_cipaciente").text(cedula);
-	}).trigger('keyup');
-
-	$("#cedula").on("keyup", function(event){
-		var apellido= $("#apellido1").val(),
-			cedula= $(this).val(),
-			nombre= $("#nombre1").val();
-
-			$("#examen_nompaciente").text(nombre+" "+apellido);
-			$("#examen_cipaciente").text(cedula);
-	}).trigger('keyup');
-
 	$("#reset").on("click", function(event){
 		event.preventDefault();/*el elemento del boton lo anula*/
 		$("#cedula").val('').prop("readonly",false);
@@ -701,37 +551,44 @@ $(document).ready(function() {
 		}
 	});
 
-	$("#generar_orden_pdf").on("click", function(event){
-		event.preventDefault();
-		var	cedula 	 = $("#cedula").val(),
-			nombre 	 = $("#nombre1").val(),
-			apellido = $("#apellido1").val(),
-			examen 	 = $("#examenes").val();
-
-		if ( cedula != '' && nombre != '' && apellido != '' && examen != '') {
-			var request;/*variable que almacena la peticion del servidor*/
-			if (request) {
-				request.abort();
+	$(".check-parent input[type=checkbox]").on('click', function(e){
+		var parent_checkbox = $(this);
+			parent = $(this).parent('label')
+							.parent('.checkbox')
+							.parent('.check-parent'),
+			children = parent.find('.check-child');
+		children.each(function(index, value){
+			var checkbox = $(this).find('input[type=checkbox]');
+			if (parent_checkbox.is(':checked')) {
+				checkbox.prop('checked', true);
+			} else {
+				checkbox.prop('checked', false);
 			}
+		});
+	});
 
-			request= $.ajax({
-				/* funcion que trae por defecto el url del sistema*/
-				url: "<?php echo base_url(); ?>Pdf/GenerarOrdenExamen",
-				type: "POST",
-				dataType: "json",/*Se utiliza para manejar objetos y arreglos */
-				data: "cedula="+cedula+"&nombre="+nombre+"&apellido="+apellido+"&examen="+examen
+	$(".check-child input[type=checkbox]").on('click', function(e){
+		var child_checkbox = $(this);
+			children = $(this).parent('label')
+							.parent('.checkbox')
+							.parent('.check-child')
+							.parent('.check-children'),
+			parent_checkbox = children.parent('.check-parent')
+										.children('.checkbox')
+										.find('input[type=checkbox]');
+
+		if (child_checkbox.is(':checked')) {
+			var check = true;
+			children.find('.check-child').each(function(index, value){
+				var checkbox = $(this).find('input[type=checkbox]');
+				if (!checkbox.is(':checked')) {
+					check = false;
+				}
 			});
 
-			/*La peticion se ejecuta con exito*/
-			request.done(function(response,textStatus,jqXRH){
-				console.log(response);
-				window.open("<?php echo base_url(); ?>"+response['path'], "_blank");
-			}); 
-
-			/*Ocurre un error*/
-			request.fail(function(jqXRH,textStatus,thrown){
-				alert("error: "+textStatus);
-			});
+			parent_checkbox.prop('checked', check);
+		} else {
+			parent_checkbox.prop('checked', false);
 		}
 	});
 });

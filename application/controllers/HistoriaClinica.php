@@ -201,4 +201,12 @@ class HistoriaClinica extends CI_Controller {
             echo json_encode(array('status' => false, 'message' => $this->db->error())); 
         }
     }
+    
+    /*Extrae a un paciente de la base de datos con la cedula proporcionada, lo guarda en un objeto y retorna en formato json*/
+    public function ValidarPaciente(){
+        $cedula = $this->input->post("cedula");
+        $this->load->model("PacienteModel");
+        $paciente = $this->PacienteModel->Extraerpaciente(array("where"=>"cedula = '$cedula'"))->row();
+        echo json_encode($paciente);
+    }
 }

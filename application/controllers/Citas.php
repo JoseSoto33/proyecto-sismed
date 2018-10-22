@@ -99,13 +99,6 @@ class Citas extends CI_Controller {/*CI: CodeIgniter*/
         $this->load->view('citas/FormularioNuevaCita', $data);
         $this->load->view('footer');
 	}
-	/*Extrae a un paciente de la base de datos con la cedula proporcionada, lo guarda en un objeto y retorna en formato json*/
-	public function ValidarPaciente(){
-		$cedula = $this->input->post("cedula");
-		$this->load->model("PacienteModel");
-		$paciente = $this->PacienteModel->Extraerpaciente(array("where"=>"cedula = '$cedula'"))->row();
-		echo json_encode($paciente);
-	}
 
 	/**
 	 * Muestra la interfaz del formulario para modificar un evento, o  

@@ -221,7 +221,14 @@
 				                	<i class="fa fa-angle-left pull-right"></i>
 				              	</span>
 				          	</a>
-					        <ul class="treeview-menu">									            
+					        <ul class="treeview-menu">
+					        	<li>
+					            	<a href="<?php echo base_url(); ?>Examenes/AgregarOrdenExamen">
+					            		<i class="fa fa-circle-o"></i>
+										<span>Nueva Orden</span>
+					            	</a>
+					            </li>
+					            <!--
 					            <li>
 					            	<a href="<?php echo base_url(); ?>Examenes/AgregarExaHematologia">
 					            		<i class="fa fa-circle-o"></i>
@@ -246,10 +253,11 @@
 										<span>Nuevo Exam. Misceláneos</span>
 					            	</a>
 					            </li>
+					        	-->
 					            <li>
-					            	<a href="<?php echo base_url(); ?>Examenes/ListarExamenes">
+					            	<a href="<?php echo base_url(); ?>Examenes/ListarOrdenes">
 					            		<i class="fa fa-circle-o"></i>					            		
-										<span>Listado de exámenes</span>
+										<span>Listado de órdenes</span>
 					            	</a>
 					            </li>				            
 					        </ul>

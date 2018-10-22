@@ -18,7 +18,7 @@ class ImagenModel extends CI_Model {
 
         $this->upload->initialize($config);
         
-        if (!$this->upload->do_upload("imagen")) {            
+        if (!empty($_POST['imagen']) && !$this->upload->do_upload("imagen")) {            
         	return false;
         }else{
         	return $this->upload->data();
