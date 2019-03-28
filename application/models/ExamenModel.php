@@ -14,8 +14,8 @@ class ExamenModel extends CI_Model {
      * @method boolean ModificarExamen(mixed[] $condicion)
      * @method boolean EliminarOrden(mixed[] $condicion)
      * @method boolean EliminarExamen(mixed[] $condicion)
-     * @method object ExtraerOrden(mixed[] $condicion)
-     * @method object ExtraerExamen(mixed[] $condicion)
+     * @method mixed[] ExtraerOrden(mixed[] $condicion)
+     * @method mixed[] ExtraerExamen(mixed[] $condicion)
      * @method boolean ValidarOrden(mixed[] $condicion)
      * @method boolean ValidarExamen(mixed[] $condicion)
      */
@@ -23,9 +23,7 @@ class ExamenModel extends CI_Model {
     /**
      * @todo Comentar el resto de los archivos
      */
-    public function AgregarOrden()   
-    {
-
+    public function AgregarOrden() {
      	$data = array(
      			"id_usuario" => $this->session->userdata('idUsuario'),
                 "cedula" => $this->input->post('cedula'),
@@ -47,6 +45,19 @@ class ExamenModel extends CI_Model {
      	}else{
      		return false;
      	}
+    }
+
+    public function AgregarExamen($tipo_examen, $data) {
+        $data["id_usuario"] = $this->session->userdata('idUsuario');
+        if (!empty($data[0])) unset($data[0]);
+        if (!empty($data["nombre"])) unset($data["nombre"]);
+        if (!empty($data["fecha"])) unset($data["fecha"]);
+        if (isset($data["sin_parasitos"])) $data["sin_parasitos"] = true;
+
+        if($this->db->insert($tipo_examen, $data)){
+            return true;
+        }
+        return false;
     }
 
     public function ModificarOrden($data, $id_orden) {
@@ -96,8 +107,7 @@ class ExamenModel extends CI_Model {
         return null;        
     }
 
-    public function ExtraerOrden($idOrden)
-    {
+    public function ExtraerOrden($idOrden) {
     	$this->db->where("MD5(concat('sismed',id))", $idOrden);
     	$query = $this->db->get("orden_examen");    	
         if ($query->num_rows() > 0) {
@@ -135,8 +145,7 @@ class ExamenModel extends CI_Model {
         return null;        
     }
 
-    public function ExtraerExamenOrden($tipo_examen, $idOrden)
-    {
+    public function ExtraerExamenOrden($tipo_examen, $idOrden)  {
         $this->db->where("MD5(concat('sismed',id_orden))", $idOrden);
         $query = $this->db->get($tipo_examen);        
         if ($query->num_rows() > 0) {
@@ -181,7 +190,10 @@ class ExamenModel extends CI_Model {
             }
         } else {
             return false;
-        }
-         
+        }         
+    }
+
+    public function ValidarExamen($post) {
+        return false;
     }
 }

@@ -230,7 +230,7 @@
 								<div class="col-sm-12">
 									<div class="form-group">
 										<label for="titulo" class="control-label"><span class="red">*</span> Títitulo</label>
-									    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{6,30}" value="<?php echo (isset($evento['titulo']))? $evento['titulo'] : set_value('titulo'); ?>" minlength="6" maxlength="30" placeholder="" required="required">
+									    <input type="text" class="form-control" id="titulo" name="titulo" pattern="[A-Za-z0-9ñÑáéíóúüÁÉÍÓÚÜ\-_çÇ& ]{6,30}" value="<?php echo (isset($evento['titulo']))? $evento['titulo'] : set_value('titulo'); ?>" minlength="6" maxlength="30" placeholder="" required="required" data-error="Debe llenar este campo.">
 									    <div class="help-block with-errors">
 										</div>	
 									</div>						
@@ -243,9 +243,9 @@
 										<div class="col-xs-12 col-sm-6 col-md-5">
 											<div class="form-group">
 												<label for="fecha_inicio" class="control-label"><span class="red">*</span> Fecha de inicio</label>
-											    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" min="<?php echo date('Y-m-d');?>" value="<?php echo (isset($evento['fecha_inicio']))? $evento['fecha_inicio'] : set_value('fecha_inicio'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
-					                				<div class="help-block with-errors">
-												  </div>
+											    <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" min="<?php echo date('Y-m-d');?>" value="<?php echo (isset($evento['fecha_inicio']))? $evento['fecha_inicio'] : set_value('fecha_inicio'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required" data-error="Debe llenar este campo.">
+					                			<div class="help-block with-errors">
+												</div>
 											</div>
 										</div><!--/ Fecha de inicio -->	
 
@@ -257,12 +257,12 @@
 														<label for="hora_inicio" class="control-label"><span class="red">*</span> Hora de inicio</label>
 													</div>
 													<div class="col-xs-12 col-sm-6 col-md-6">
-												    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" placeholder="Hora (02:15)" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+												    	<input type="text" class="form-control" id="hora_inicio" name="hora_inicio" required="required" data-error="Debe llenar este campo." placeholder="Hora (02:15)" value="<?php echo (isset($evento['hora_inicio']))? $evento['hora_inicio'] : set_value('hora_inicio'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
 												    	<div class="help-block with-errors">
 														</div>
 												    </div>
 													<div class="col-xs-12 col-sm-6 col-md-6">
-														<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required">
+														<select class="form-control" id="h_i_meridiano" name="h_i_meridiano" required="required" data-error="Debe llenar este campo.">
 															<option>Meridiano</option>
 															<option value="am" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_i_meridiano', 'am'); ?>>am</option>
 															<option value="pm" <?php echo (isset($evento['h_i_meridiano']) && $evento['h_i_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_i_meridiano', 'pm'); ?>>pm</option>
@@ -283,7 +283,7 @@
 										<div class="col-xs-12 col-sm-6 col-md-5">
 											<div class="form-group">
 												<label for="fecha_fin" class="control-label"><span class="red">*</span> Fecha de finalización</label>
-											    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" min="<?php echo date('Y-m-d');?>" value="<?php echo (isset($evento['fecha_fin']))? $evento['fecha_fin'] : set_value('fecha_fin'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required">
+											    <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" min="<?php echo date('Y-m-d');?>" value="<?php echo (isset($evento['fecha_fin']))? $evento['fecha_fin'] : set_value('fecha_fin'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" required="required" data-error="Debe llenar este campo.">
 											    <div class="help-block with-errors">
 												</div>
 											</div>
@@ -297,12 +297,12 @@
 														<label for="hora_fin" class="control-label"><span class="red">*</span> Hora de finalización</label>
 													</div>								
 													<div class="col-xs-12 col-sm-6 col-md-6">
-												    	<input type="text" class="form-control" id="hora_fin" name="hora_fin" required="required" placeholder="Hora (02:15)" value="<?php echo (isset($evento['hora_fin']))? $evento['hora_fin'] : set_value('hora_fin'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
+												    	<input type="text" class="form-control" id="hora_fin" name="hora_fin" required="required" data-error="Debe llenar este campo." placeholder="Hora (02:15)" value="<?php echo (isset($evento['hora_fin']))? $evento['hora_fin'] : set_value('hora_fin'); ?>" pattern="(?:0(?![0])|1(?![3-9])){1}\d{1}:[0-5]{1}\d{1}">
 												    	<div class="help-block with-errors">
 														  </div>
 												  </div>
 													<div class="col-xs-12 col-sm-4 col-md-6">
-														<select class="form-control" id="h_f_meridiano" name="h_f_meridiano" required="required">
+														<select class="form-control" id="h_f_meridiano" name="h_f_meridiano" required="required" data-error="Debe llenar este campo.">
 															<option>Meridiano</option>
 															<option value="am" <?php echo (isset($evento['h_f_meridiano']) && $evento['h_f_meridiano'] == 'am')? "selected=\"selected\"" : set_select('h_f_meridiano', 'am'); ?>>am</option>
 															<option value="pm" <?php echo (isset($evento['h_f_meridiano']) && $evento['h_f_meridiano'] == 'pm')? "selected=\"selected\"" : set_select('h_f_meridiano', 'pm'); ?>>pm</option>
@@ -321,7 +321,7 @@
 								<div class="col-sm-12">			
 									<div class="form-group">
 										<label for="descripcion" class="control-label"><span class="red">*</span> Descripción</label>
-									    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" required="required" ><?php echo (isset($evento['descripcion']))? trim($evento['descripcion']) : trim(set_value('descripcion')); ?></textarea>	
+									    <textarea class="form-control" name="descripcion" id="descripcion" minlength="12" required="required" data-error="Debe llenar este campo." ><?php echo (isset($evento['descripcion']))? trim($evento['descripcion']) : trim(set_value('descripcion')); ?></textarea>	
 									    <div class="help-block with-errors">
 										</div>
 									</div>

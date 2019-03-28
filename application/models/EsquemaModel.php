@@ -305,6 +305,15 @@ class EsquemaModel extends CI_Model {
         return $output;
     }
 
+    /**
+     * Extrae de la base de datos información de esquemas de vacunación que un paciente 
+     * se puede aplicar.
+     *
+     * @param   integer $idesquema  El id del esquema de vacunación a consultar
+     * @param   string  $cod_historia  El código de la historia clínica del paciente
+     *
+     * @return mixed[]
+     */
     public function extraerEsquemaAplicable($idesquema,$cod_historia) {
        
         $this->db->select('esquema.*, vacuna.nombre_vacuna');

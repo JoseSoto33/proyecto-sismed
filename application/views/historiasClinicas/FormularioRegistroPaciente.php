@@ -528,7 +528,7 @@
 															<span class="glyphicon glyphicon-search"></span>
 														</button>	
 													</div>											
-											      	<input type="text" class="form-control" id="cedula" name="cedula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" value="<?php echo (isset($paciente['cedula']))? $paciente['cedula'] : set_value('cedula'); ?>" required="required" title="Sólo números de 6 a 8 dígitos" placeholder="Sólo números de 6 a 8 dígitos" data-pattern-error="La cédula sólo debe contener números de 6 a 8 dígitos">	
+											      	<input type="text" class="form-control" id="cedula" name="cedula" minlength="6" maxlength="8" pattern="[0-9]{6,8}" value="<?php echo (isset($paciente['cedula']))? $paciente['cedula'] : set_value('cedula'); ?>" required="required" title="Sólo números de 6 a 8 dígitos" placeholder="Sólo números de 6 a 8 dígitos" data-pattern-error="La cédula sólo debe contener números de 6 a 8 dígitos." data-error="Debe llenar este campo.">	
 											      	<div class="input-group-btn">								
 														<button id="reset" class="btn btn-second-2" data-toggle="tooltip" data-placement="bottom" title="Limpiar formulario...">
 															<span class="glyphicon glyphicon-refresh"></span>
@@ -561,7 +561,7 @@
 											<!-- Campo 'Primer nombre' -->
 											<div class="form-group">
 												<label for="nombre1" class="control-label"><span class="red">*</span> Primer nombre:</label>
-										      	<input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($paciente['nombre1']))? $paciente['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="readonly"> 
+										      	<input type="text" class="form-control" id="nombre1" name="nombre1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($paciente['nombre1']))? $paciente['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" data-error="Debe llenar este campo." readonly="readonly"> 
 										      	<div class="help-block with-errors">
 										      	</div>
 											</div><!--/ Campo 'Primer nombre' -->						
@@ -589,7 +589,7 @@
 											<!-- Campo 'Primer apellido' -->
 											<div class="form-group">
 												<label for="apellido1" class="control-label"><span class="red">*</span> Primer apellido:</label>
-											    <input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($paciente['apellido1']))? $paciente['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="readonly">
+											    <input type="text" class="form-control" id="apellido1" name="apellido1" pattern="[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}" title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($paciente['apellido1']))? $paciente['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" data-error="Debe llenar este campo." readonly="readonly">
 											    <div class="help-block with-errors"></div>
 											</div><!--/ Campo 'Primer apellido' -->
 										</div><!--/ Columna -->
@@ -616,7 +616,7 @@
 											<!-- Campo 'Fecha de nacimiento' -->
 											<div class="form-group">
 												<label for="fecha_nacimiento" class="control-label"><span class="red">*</span> Fecha de nacimiento:</label>
-											    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d');?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($paciente['fecha_nacimiento']))? $paciente['fecha_nacimiento'] : set_value('fecha_nacimiento'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="readonly">
+											    <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d');?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($paciente['fecha_nacimiento']))? $paciente['fecha_nacimiento'] : set_value('fecha_nacimiento'); ?>" required="required" data-error="Debe llenar este campo." data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="readonly">
 											    <div class="help-block with-errors">
 											    </div>
 											</div><!--/ Campo 'Fecha de nacimiento' -->
@@ -627,7 +627,7 @@
 										<!-- Campo 'Correo electrónico' -->
 											<div class="form-group">
 												<label for="email" class="control-label"><span class="red">*</span> Correo electrónico:</label>
-											    <input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="<?php echo (isset($paciente['email']))? $paciente['email'] : set_value('email'); ?>" required="required" readonly="readonly">
+											    <input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="<?php echo (isset($paciente['email']))? $paciente['email'] : set_value('email'); ?>" required="required" data-error="Debe llenar este campo." readonly="readonly">
 										   	  	<div class="help-block with-errors">
 										      	</div>
 											</div><!--/ Campo 'Correo electrónico' -->
@@ -644,7 +644,7 @@
 											<!-- Campo 'Teléfono personal' -->
 											<div class="form-group">
 												<label for="telf_personal" class="control-label"><span class="red">*</span> Teléfono personal:</label>
-											    <input type="text" class="form-control" name="telf_personal" id="telf_personal" placeholder="(0212) 555-44-88" value="<?php echo (isset($paciente['telf_personal']))? $paciente['telf_personal'] : set_value('telf_personal'); ?>" required="required" readonly="readonly">
+											    <input type="text" class="form-control" name="telf_personal" id="telf_personal" placeholder="(0212) 555-44-88" value="<?php echo (isset($paciente['telf_personal']))? $paciente['telf_personal'] : set_value('telf_personal'); ?>" required="required" data-error="Debe llenar este campo." readonly="readonly">
 											    <div class="help-block with-errors">
 											    </div>
 											</div><!--/ Campo 'Teléfono personal' -->
@@ -655,7 +655,7 @@
 										<!-- Campo 'Teléfono emergencia' -->
 											<div class="form-group">
 												<label for="telf_emergencia" class="control-label"><span class="red">*</span> Teléfono emergencia:</label>
-											    <input type="text" class="form-control" name="telf_emergencia" id="telf_emergencia" placeholder="(0212) 555-44-88" value="<?php echo (isset($paciente['telf_emergencia']))? $paciente['telf_emergencia'] : set_value('telf_emergencia'); ?>" readonly="readonly" >
+											    <input type="text" class="form-control" name="telf_emergencia" id="telf_emergencia" placeholder="(0212) 555-44-88" value="<?php echo (isset($paciente['telf_emergencia']))? $paciente['telf_emergencia'] : set_value('telf_emergencia'); ?>" readonly="readonly" required data-error="Debe llenar este campo." >
 											    <div class="help-block with-errors">
 											    </div>
 											</div><!--/ Campo 'Teléfono emergencia' -->
@@ -673,10 +673,10 @@
 											<div class="form-group">
 												<label for="sexo" class="control-label"><span class="red">*</span> Sexo:</label>
 												<label class="radio-inline">
-												  	<input type="radio" name="sexo" id="sexo1" value="f" <?php echo  (isset($paciente['sexo']) && $paciente['sexo'] == 'f')? "checked=\"checked\"" : set_radio('sexo', 'f'); ?> required="required" readonly="readonly"> Mujer
+												  	<input type="radio" name="sexo" id="sexo1" value="f" <?php echo  (isset($paciente['sexo']) && $paciente['sexo'] == 'f')? "checked=\"checked\"" : set_radio('sexo', 'f'); ?> required="required" data-error="Debe llenar este campo." readonly="readonly"> Mujer
 												</label>
 												<label class="radio-inline">
-												  	<input type="radio" name="sexo" id="sexo2" value="m" <?php echo (isset($paciente['sexo']) && $paciente['sexo'] == 'm')? "checked=\"checked\"" : set_radio('sexo', 'm'); ?> required="required" readonly="readonly"> Hombre
+												  	<input type="radio" name="sexo" id="sexo2" value="m" <?php echo (isset($paciente['sexo']) && $paciente['sexo'] == 'm')? "checked=\"checked\"" : set_radio('sexo', 'm'); ?> required="required" data-error="Debe llenar este campo." readonly="readonly"> Hombre
 												</label>
 												<div class="help-block with-errors">
 										      	</div>
@@ -688,7 +688,7 @@
 											<!-- Campo 'Dirección de habitación' -->
 											<div class="form-group">
 												<label for="direccion" class="control-label"><span class="red">*</span> Dirección de Habitación:</label>
-											    <textarea class="form-control" name="direccion" id="direccion" required="required" readonly="readonly"><?php echo  (isset($paciente['direccion']))? trim($paciente['direccion']) : trim(set_value('direccion')); ?></textarea>
+											    <textarea class="form-control" name="direccion" id="direccion" required="required" data-error="Debe llenar este campo." readonly="readonly"><?php echo  (isset($paciente['direccion']))? trim($paciente['direccion']) : trim(set_value('direccion')); ?></textarea>
 											    <div class="help-block with-errors">
 											    </div>								    
 											</div><!--/ Campo 'Dirección de habitación' -->
@@ -709,7 +709,7 @@
 										<!-- Campo 'Lugar de nacimiento' -->
 											<div class="form-group">
 												<label for="lugar_nacimiento" class="control-label"><span class="red">*</span> Lugar de nacimiento:</label>
-										      	<textarea class="form-control" name="lugar_nacimiento" id="lugar_nacimiento" required="required" readonly="readonly"><?php echo  (isset($paciente['lugar_nacimiento']))? trim($paciente['lugar_nacimiento']) : trim(set_value('lugar_nacimiento')); ?></textarea>
+										      	<textarea class="form-control" name="lugar_nacimiento" id="lugar_nacimiento" required="required" data-error="Debe llenar este campo." readonly="readonly"><?php echo  (isset($paciente['lugar_nacimiento']))? trim($paciente['lugar_nacimiento']) : trim(set_value('lugar_nacimiento')); ?></textarea>
 										      	<div class="help-block with-errors">
 										      	</div>								    
 											</div><!--/ Campo 'Lugar de nacimiento' -->
@@ -720,7 +720,7 @@
 											<!-- Campo 'Tipo de paciente' -->
 											<div class="form-group">
 												<label for="tipo_paciente" class="control-label"><span class="red">*</span> Tipo de paciente:</label>
-												<select class="form-control" id="tipo_paciente" name="tipo_paciente" data-placeholder="Seleccione una opción..." required="required" readonly="readonly" >
+												<select class="form-control" id="tipo_paciente" name="tipo_paciente" data-placeholder="Seleccione una opción..." required="required" data-error="Debe llenar este campo." readonly="readonly" >
 													<option></option>
 													<option value="Estudiante" <?php echo (isset($paciente['tipo_paciente']) && $paciente['tipo_paciente'] == 'Estudiante')? "selected=\"selected\"" : set_select('tipo_paciente', 'Estudiante'); ?> >Estudiante</option>
 													<option value="Docente" <?php echo (isset($paciente['tipo_paciente']) && $paciente['tipo_paciente'] == 'Docente')? "selected=\"selected\"" : set_select('tipo_paciente', 'Docente'); ?> >Docente</option>
@@ -743,7 +743,7 @@
 										<div class="col-sm-6">
 											<!-- Campo 'Departamento' -->
 											<div class="form-group">
-												<label for="grado" class="control-label"><span class="red">*</span> Departamento:</label>
+												<label for="grado" class="control-label">Departamento:</label>
 												<select class="form-control" id="departamento" name="departamento" data-placeholder="Seleccione un departamento..." readonly="readonly" >
 													<option></option>
 													<option value="Administracion" <?php echo (isset($paciente['departamento']) && $paciente['departamento'] == 'Administracion')? "selected=\"selected\"" : set_select('departamento', 'Administracion'); ?>>Administración</option>
@@ -790,7 +790,7 @@
 											<!-- Campo 'Tipo de sangre' -->
 											<div class="form-group">
 												<label for="tipo_sangre" class="control-label"><span class="red">*</span> Tipo de sangre:</label>
-												<input type="text" name="tipo_sangre" class="form-control" id="tipo_sangre" minlength="6" maxlength="6" title="Debe seguir el formato 'O RH +' o 'ABRH -'" value="<?php echo set_value('tipo_sangre'); ?>" required="required" readonly="readonly">
+												<input type="text" name="tipo_sangre" class="form-control" id="tipo_sangre" minlength="6" maxlength="6" title="Debe seguir el formato 'O RH +' o 'ABRH -'" value="<?php echo set_value('tipo_sangre'); ?>" required="required" data-error="Debe llenar este campo." readonly="readonly">
 												<div class="help-block with-errors">
 										      	</div> 
 											</div><!--/ Campo 'Tipo de sangre' -->
@@ -812,7 +812,7 @@
 											<!-- Campo 'Antescedemtes personales' -->
 											<div class="form-group">
 												<label for="antecedentes_personales" class="control-label"><span class="red">*</span> Antecedentes personales:</label>
-											    <textarea class="form-control" name="antecedentes_personales" id="antecedentes_personales" required="required" readonly="readonly"><?php echo  (isset($paciente['antecedentes_personales']))? trim($paciente['antecedentes_personales']) : trim(set_value('antecedentes_personales')); ?></textarea>
+											    <textarea class="form-control" name="antecedentes_personales" id="antecedentes_personales" required="required" data-error="Debe llenar este campo." readonly="readonly"><?php echo  (isset($paciente['antecedentes_personales']))? trim($paciente['antecedentes_personales']) : trim(set_value('antecedentes_personales')); ?></textarea>
 											    <div class="help-block with-errors">
 											    </div>
 											</div><!--/ Campo 'Antescedemtes personales' -->
@@ -823,7 +823,7 @@
 											<!-- Campo 'Antescedemtes familiares' -->
 											<div class="form-group">
 												<label for="antecedentes_familiares" class="control-label"><span class="red">*</span>Antecedentes familiares:</label>
-										      	<textarea class="form-control" name="antecedentes_familiares" id="antecedentes_familiares" required="required" readonly="readonly"><?php echo  (isset($paciente['antecedentes_familiares']))? trim($paciente['antecedentes_familiares']) : trim(set_value('antecedentes_familiares')); ?></textarea>
+										      	<textarea class="form-control" name="antecedentes_familiares" id="antecedentes_familiares" required="required" data-error="Debe llenar este campo." readonly="readonly"><?php echo  (isset($paciente['antecedentes_familiares']))? trim($paciente['antecedentes_familiares']) : trim(set_value('antecedentes_familiares')); ?></textarea>
 										      	<div class="help-block with-errors">
 										      	</div>
 											</div><!--/ Campo 'Antescedemtes familiares' -->

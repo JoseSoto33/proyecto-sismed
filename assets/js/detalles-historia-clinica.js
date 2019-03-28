@@ -208,7 +208,6 @@ $(document).ready(function(){
         '</table>';
     }
 	
-
     $('#lista-cons-cur tbody').on('click', 'td.details-control .btn', function () {
         var tr = $(this).parent('td.details-control').closest('tr');	        
         var row = tablaConsultasCurativas.row(tr);

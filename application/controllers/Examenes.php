@@ -309,26 +309,39 @@ class Examenes extends CI_Controller {
 
 			$orden["fecha_entrega_pautada"] = strftime('%d de %B de %Y', strtotime($orden["fecha_entrega_pautada"]));
 			$orden["result"] = true;
+			$orden["id_orden"] = $id;
+			$realizados = array();
 
 			foreach ($tipo_examenes as $x => $tipo) {
 				if (is_array($tipo)) {
+					$found = false;
 					foreach ($tipo['lista'] as $y => $sub_tipo) {
 						if (!in_array($y, explode(',', $orden[$x]))) {
 							unset($tipo_examenes[$x]['lista'][$y]);
+						} else {
+							$found = true;
 						}
 					}
+
+					if ($found) $realizados[$x] = $this->ExamenModel->ExtraerExamenOrden($x, $id);
+					
 				} elseif ($orden[$x] === 'f') {
 					unset($tipo_examenes[$x]);
+				} elseif ($orden[$x] === 't') {
+					$realizados[$x] = $this->ExamenModel->ExtraerExamenOrden($x, $id);
 				}
 			}
 
 			$orden['tipo_examenes'] = $tipo_examenes;
+			$orden['realizados'] = $realizados;
 
 		//Si no se encontraron registros...
 		}else{
 			$orden["result"] = false;
 			$orden["message"] = 'Error: '.$this->db->error();
 		}
+
+		$orden['view'] = $this->load->view('examenes/ModalDetalleOrden', $orden, true);
 
 		echo json_encode($orden);
 	}
@@ -347,6 +360,122 @@ class Examenes extends CI_Controller {
 
 		$this->CargarHeader();
         $this->load->view('examenes/ListarOrdenes', $data);
+        $this->load->view('footer');
+	}
+
+	/**
+     * Muestra la interfaz del formulario para agregar orden, o realiza 
+     * la inserción de la orden si se hace una petición POST
+     *
+     * @return 	void
+     */
+	public function AgregarExamen($tipoExamen, $idOrden)
+	{
+		$this->load->model('ExamenModel');
+
+		$data = array();
+		$data['orden'] = $this->ExamenModel->ExtraerOrden($idOrden);
+
+		switch ($tipoExamen) {
+			case 'examen_heces':
+				$examen = "examen de heces";
+				break;
+			case 'examen_hematologia':
+				$examen = "examen de hematología";
+				break;
+			case 'examen_orina':
+				$examen = "examen de orina";
+				$data['select_ntp'] = array(
+					"" => "",
+					"Negativo" => "Negativo",
+					"Trazas" => "Trazas",
+					"Positivo +1" => "Positivo +1",
+					"Positivo +2" => "Positivo +2",
+					"Positivo +3" => "Positivo +3",
+					"Positivo +4" => "Positivo +4",
+				);
+				break;
+			case 'examen_miscelaneo':
+				$examen = "exámenes misceláneos";
+				break;
+		}
+		
+		//Si se envió una petición POST...
+		if ($_SERVER["REQUEST_METHOD"] == "POST") {
+			$nombre = $this->input->post('nombre');
+
+			//Si los datos enviados por formulario son correctos...
+            //if ($this->ValidarOrden($data) === false) { 
+
+    			//Si no existe una orden registrada para el paciente específico
+				//con los mismos exámenes que desea realizar para la fecha pautada...
+    			if (!$this->ExamenModel->ValidarExamen($_POST)) {
+
+    				//Si la orden se agrega exitosamente a la base de datos...
+    				//var_dump($_POST);
+    				if ($this->ExamenModel->AgregarExamen($tipoExamen, $_POST)) {
+
+        				set_cookie("message","El $examen del paciente <strong>$nombre</strong> fue registrado exitosamente!...", time()+15);
+						header("Location: ".base_url()."Examenes/ListarOrdenes");
+
+					//Si hay error en la inserción
+					}else{
+
+						$data['mensaje'] = $this->db->error();
+					}
+				//Si ya existe una orden con los datos enviados
+    			}else{
+    				$data['mensaje'] = "El pasiente ya posee una orden para realizar:<br>";
+    				$data['mensaje'] .= "<ul>";
+    				$ordenes = $this->ExamenModel->ExtraerOrdenPaciente($_POST['cedula']);
+    				foreach ($ordenes as $key => $orden) {
+    					if ($orden['examen_heces'] == 't') {
+    						$data['mensaje'] .= "<li>" . $data['tipo_examenes']['examen_heces'] . "</li>";
+    					}
+
+    					if ($orden['examen_hematologia'] == 't') {
+    						$data['mensaje'] .= "<li>" . $data['tipo_examenes']['examen_hematologia'] . "</li>";
+    					}
+
+    					if ($orden['examen_orina'] == 't') {
+    						$data['mensaje'] .= "<li>" . $data['tipo_examenes']['examen_orina'] . "</li>";
+    					}
+
+    					if (!empty($orden['examen_miscelaneo'])) {
+    						$data['mensaje'] .= "<li>" . $data['tipo_examenes']['examen_miscelaneo']['titulo'];
+    						$data['mensaje'] .= "<ul>";
+    						$miscelaneos = explode(',', $orden['examen_miscelaneo']);
+    						foreach ($miscelaneos as $x => $misc) {
+    							$data['mensaje'] .= "<li>" . $data['tipo_examenes']['examen_miscelaneo']['lista'][$misc] . "</li>";
+    						}
+    						$data['mensaje'] .= "</ul>";
+    						$data['mensaje'] .= "</li>";
+    					}
+    				}
+    				setlocale(LC_TIME,"esp");
+    				$data['mensaje'] .= "<br>Para la fecha " . strftime('%d de %B de %Y', strtotime($_POST['fecha_entrega_pautada']));
+    			}
+			//}
+		}
+
+		$data['titulo'] = "Agregar $examen"; 
+
+		//Cargar vista del formulario de registro de órdenes
+		$this->CargarHeader();
+		switch ($tipoExamen) {
+			case 'examen_heces':
+				$this->load->view('examenes/FormularioRegistroExamenHeces', $data);
+				break;
+			case 'examen_hematologia':
+				$this->load->view('examenes/FormularioRegistroExamenHematologia', $data);
+				break;
+			case 'examen_orina':
+				$this->load->view('examenes/FormularioRegistroExamenOrina', $data);
+				break;
+			case 'examen_miscelaneo':
+				$this->load->view('examenes/FormularioRegistroExamenMiscelaneo', $data);
+				break;
+		}
         $this->load->view('footer');
 	}
 

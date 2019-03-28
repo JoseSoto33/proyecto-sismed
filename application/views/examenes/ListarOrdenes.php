@@ -106,54 +106,7 @@
         <h4 class="modal-title" id="myModalLabel">Detalles de la orden</h4>
       </div>
       <div class="modal-body">
-        <div class="row">
-        	<div class="col-xs-12">
-        		<div class="col-xs-12 col-sm-6">			    	
-			    	<h5><strong>Datos del paciente:</strong></h5>
-			    	<blockquote>
-			    		<small>
-			    			<span class="glyphicon glyphicon-credit-card"></span> 
-			    			<span id="cedula"></span>
-		    			</small>
-		    			<small>
-			    			<span class="glyphicon glyphicon-user"></span> 
-			    			<span id="nombre"></span>
-		    			</small>
-			    		<small>
-			    			<span class="glyphicon glyphicon-envelope"></span>
-			    			<span id="email"></span>
-			    		</small>
-			    		<small>
-			    			<span class="glyphicon glyphicon-adjust"></span>
-			    			<span id="sexo"></span>
-			    		</small>
-			    	</blockquote>
-			    </div>
-			    <div class="col-xs-12 col-sm-6">			    	
-			    	<h5><strong>Fecha de entrega pautada:</strong></h5>
-			    	<blockquote>
-			    		<small>
-			    			<span class="glyphicon glyphicon-calendar"></span>
-			    			<span id="fecha_entrega_pautada"></span>
-			    		</small>
-			    		<small>
-			    			<span class="glyphicon glyphicon-info-sign"></span>
-			    			<span id="status"></span>
-			    		</small>
-			    	</blockquote>
-			    </div>
-			    <div class="col-xs-12">			    	
-			    	<h5><strong>Examenes solicitados:</strong></h5>
-			    	<blockquote>
-			    		<small>
-			    			<span class="glyphicon glyphicon-calendar"></span>
-			    			<span id="examenes"></span>
-			    		</small>
-			    	</blockquote>
-			    </div>
-			    
-        	</div>
-        </div>
+      	
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -161,6 +114,7 @@
     </div>
   </div>
 </div>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 
 <!-- Eliminar orden -->
 <div class="modal fade" id="EliminarOrden" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -186,6 +140,5 @@
   </div>
 </div>
 
-<script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/funciones-listar-ordenes.js"></script>

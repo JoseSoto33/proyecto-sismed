@@ -265,13 +265,13 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red"> *</span>Nombre:</label>
-		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($orden['nombre1']))? $orden['nombre1'] : set_value('nombre1'); ?>" required="required" data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
+		        										<input type="text" class="form-control" id="nombre1" name="nombre1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El nombre sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($orden['nombre1']))? $orden['nombre1'] : set_value('nombre1'); ?>" required data-error="Debe llenar este campo." data-pattern-error="El nombre sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red">*</span>Apellido:</label>
-		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($orden['apellido1']))? $orden['apellido1'] : set_value('apellido1'); ?>" required="required" data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
+		        										<input type="text" class="form-control" id="apellido1" name="apellido1" pattern='[A-Za-zñÑáéíóúüÁÉÍÓÚÜ]{3,30}' title="El apellido sólo puede tener caracteres alfabéticos" minlength="3" maxlength="30" value="<?php echo (isset($orden['apellido1']))? $orden['apellido1'] : set_value('apellido1'); ?>" required data-error="Debe llenar este campo." data-pattern-error="Este campo sólo puede tener caracteres alfabéticos" readonly="">
 		        									</div>
 		        								</div>
 		        							</div>
@@ -279,7 +279,7 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red">*</span>Fecha de nacimiento:</label>
-		        										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($orden['fecha_nacimiento']))? $orden['fecha_nacimiento'] : set_value('fecha_nacimiento'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="">
+		        										<input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" placeholder="" max="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($orden['fecha_nacimiento']))? $orden['fecha_nacimiento'] : set_value('fecha_nacimiento'); ?>" required data-error="Debe llenar este campo." data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)" readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
@@ -287,10 +287,10 @@
 		        										<label><span class="red">*</span>Sexo:</label>
 		        										<div class="col-sm-12">
 															<label class="radio-inline">
-															  	<input type="radio" name="sexo" id="sexoM" value="m" required="required" readonly="" <?php echo ((isset($orden['sexo']) && $orden['sexo'] == 'm') || (isset($_POST['sexo']) && $_POST['sexo'] == 'm'))? "checked" : ""; ?> > Masculino
+															  	<input type="radio" name="sexo" id="sexoM" value="m" required data-error="Debe llenar este campo." readonly="" <?php echo ((isset($orden['sexo']) && $orden['sexo'] == 'm') || (isset($_POST['sexo']) && $_POST['sexo'] == 'm'))? "checked" : ""; ?> > Masculino
 															</label>
 															<label class="radio-inline">
-															  	<input type="radio" name="sexo" id="sexoF" value="f" required="required" readonly="" <?php echo ((isset($orden['sexo']) && $orden['sexo'] == 'f') || (isset($_POST['sexo']) && $_POST['sexo'] == 'f'))? "checked" : ""; ?> > 
+															  	<input type="radio" name="sexo" id="sexoF" value="f" required data-error="Debe llenar este campo." readonly="" <?php echo ((isset($orden['sexo']) && $orden['sexo'] == 'f') || (isset($_POST['sexo']) && $_POST['sexo'] == 'f'))? "checked" : ""; ?> > 
 															  	Femenino
 															</label>
 														</div>
@@ -303,14 +303,14 @@
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 		        										<label><span class="red">*</span>Correo:</label>
-		        										<input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="<?php echo (isset($orden['email']))? $orden['email'] : set_value('email'); ?>" required="required" readonly="">
+		        										<input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" data-pattern-error="La dirección de correo es inválida" placeholder="ejemplo@dominio.com" value="<?php echo (isset($orden['email']))? $orden['email'] : set_value('email'); ?>" required data-error="Debe llenar este campo." readonly="">
 		        									</div>
 		        								</div>
 		        								<div class="col-sm-6">
 		        									<div class="form-group">
 														<label for="tipo_paciente" class="control-label"><span class="red">*</span> Tipo de paciente:</label>
 														<?php
-															$attr = "class=\"form-control\" id=\"tipo_paciente\" data-placeholder=\"Seleccione una opción...\" required=\"required\" readonly=\"\"";
+															$attr = "class=\"form-control\" id=\"tipo_paciente\" data-placeholder=\"Seleccione una opción...\" required data-error=\"Debe llenar este campo.\" readonly=\"\"";
 															echo form_dropdown("tipo_paciente", $tipo_paciente, set_value("tipo_paciente", (isset($orden['tipo_paciente']))? $orden['tipo_paciente'] : ""), $attr);
 														?>
 														<div class="help-block with-errors">
@@ -369,7 +369,7 @@
 								<div class="col-sm-6">
 									<div class="form-group">
 										<label for="examen"><span class="red">*</span> Fecha de la entrega</label>
-										<input type="date" class="form-control" id="fecha_entrega_pautada" name="fecha_entrega_pautada" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($orden['fecha_entrega_pautada']))? date('Y-m-d',strtotime($orden['fecha_entrega_pautada'])) : date('Y-m-d'); ?>" required="required" data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
+										<input type="date" class="form-control" id="fecha_entrega_pautada" name="fecha_entrega_pautada" placeholder="" min="<?php echo date('Y-m-d'); ?>" pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" value="<?php echo (isset($orden['fecha_entrega_pautada']))? date('Y-m-d',strtotime($orden['fecha_entrega_pautada'])) : date('Y-m-d'); ?>" required data-error="Debe llenar este campo." data-pattern-error="La fecha debe tener el formato año-mes-día (1998-05-12 por ejemplo)">
 									</div>
 								</div>
 
@@ -468,6 +468,8 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.maskedinput.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	$('#registro-orden-examen').validator();
+
 	$("#reset").on("click", function(event){
 		event.preventDefault();/*el elemento del boton lo anula*/
 		$("#cedula").val('').prop("readonly",false);

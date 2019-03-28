@@ -45,13 +45,7 @@ $(document).ready(function(){
             request.abort();
         }
 
-        $("#portada-orden").attr('src',url+"assets/img/loading.gif");
-        $("#titulo-orden").html('');
-    	$("#descripcion-orden").html('');
-    	$("#fecha_inicio").html('');
-    	$("#hora_inicio").html('');
-    	$("#fecha_fin").html('');
-    	$("#hora_fin").html('');
+        $("#VerOrden .modal-body").html('');
 
         request = $.ajax({
             url: url+"Examenes/VerOrden",
@@ -63,13 +57,7 @@ $(document).ready(function(){
         request.done(function (response, textStatus, jqXHR){            
             console.log(response);
             if (response['result'] == true) {
-
-            	$("#cedula").html(response['cedula']);
-                $("#nombre").html(response['nombre1'] + ' ' + response['apellido1']);
-            	$("#email").html(response['email']);
-            	$("#sexo").html((response['sexo'] == 'f')? "Femenino" : "Masculino");
-            	$("#fecha_entrega_pautada").html(response['fecha_entrega_pautada']);
-                $("#status").html((response['entregado'] === 'f')? "Pendiente por entregar" : "Entregado");
+                $("#VerOrden .modal-body").html(response['view']);
             }else{
             	alert(response['message']);
             }
@@ -144,6 +132,17 @@ $(document).ready(function(){
         });
 
         e.preventDefault();
+    });
+
+    $("#VerOrden").on("click", ".modal-body .row .col-xs-12 #realizarExamen", function(e) {
+        if ($("input[name=tipo_examen]").is(":checked")) {
+            var base_url    = $("#base_url").val(),
+                tipo_examen = $("input[name=tipo_examen]:checked").val(),
+                id_orden    = $("#id_orden").val();
+            window.location = base_url + "Examenes/AgregarExamen/" + tipo_examen + "/" + id_orden;
+        }else{
+            alert("Seleccione un examen...");
+        }
     });
 
     function dump(obj) {

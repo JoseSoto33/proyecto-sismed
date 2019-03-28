@@ -28,8 +28,7 @@ class VacunaModel extends CI_Model {
     {
         if (is_array($data["id_patologia"])) {
             
-            foreach ($data["id_patologia"] as $key => $patologia) {
-                
+            foreach ($data["id_patologia"] as $key => $patologia) {                
 
                 if(!$this->db->insert("vacuna_patologia", array("id_vacuna" => $data["id_vacuna"],"id_patologia" => $patologia))){           
                     return false;
@@ -166,6 +165,15 @@ class VacunaModel extends CI_Model {
         return $this->db->get();
     }
 
+    /**
+     * Extrae de la base de datos información referente a las vacunas aplicadas a un 
+     * paciente específico.
+     *
+     * @param   integer $edad  La edad del paciente
+     * @param   string  $cod_historia  El código de la historia clínica del paciente
+     *
+     * @return mixed[]
+     */
     public function extraerVacunasAplicadas($edad,$cod_historia) {
         $where = array(
             'vacuna.status' => true,
